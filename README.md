@@ -40,8 +40,16 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
 
 ## Purpose
 ---
+The primary purpose of the website is for the website owner to sell their hand-crafted macrame wall hangings online. The secondary purpose is to keep customers informed of in-person craft markets where the wall hangings will be sold (where the customers can see the items before buying), and for the site owner to guage interest in these markets from their customer base.
+
 ### User’s goals:
+- Buy a macrame wall hanging online
+- See the upcoming markets where the wall hangings will be sold, so that they can plan to attend accordingly
+- Create a profile so that they can save upcoming markets that they are interested in going to, and also see their order history
+
 ### Site owner’s goals:
+- Sell their macrame wall hangings via the website
+- Maintain a list of upcoming in-person markets on the website so that 1) customers know about these in advance and can indicate that they want to attend by saving a market to their profile, 2) the site owner can see the level of interest from the customer base in the different markets
 
 ## User Experience (UX)
 ---
