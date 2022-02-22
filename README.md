@@ -60,7 +60,28 @@ The primary purpose of the website is for the website owner to sell their hand-c
 
 ### Wireframes
 #### Desktop/Tablet
+- [Home page](docs/wireframes/home-desktop.png)
+- [Shop](docs/wireframes/shop-desktop.png)
+- [Bag](docs/wireframes/bag-desktop.png)
+- [Markets](docs/wireframes/markets-desktop.png)
+- [My Profile](docs/wireframes/my-profile-desktop.png)
+- [Products Admin](docs/wireframes/product-admin-desktop.png)
+- [Markets Admin](docs/wireframes/market-admin-desktop.png)
+- [Sign Up](docs/wireframes/sign-up-desktop.png)
+- [Sign In](docs/wireframes/sign-in-desktop.png)
+
 #### Mobile
+- [Home page](docs/wireframes/home-mobile.png)
+- [Shop](docs/wireframes/shop-mobile.png)
+- [Bag](docs/wireframes/bag-mobile.png)
+- [Markets](docs/wireframes/markets-mobile.png)
+- [My Profile](docs/wireframes/my-profile-mobile.png)
+- [Products Admin](docs/wireframes/product-admin-mobile.png)
+- [Markets Admin](docs/wireframes/market-admin-mobile.png)
+- [Sign Up](docs/wireframes/sign-up-mobile.png)
+- [Sign In](docs/wireframes/sign-in-mobile.png)
+
+[View all wireframes in pdf here.](docs/wireframes/wireframes-all.pdf)
 
 ## Features
 ---
