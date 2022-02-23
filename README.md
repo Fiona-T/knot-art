@@ -182,7 +182,67 @@ The primary purpose of the website is for the website owner to sell their hand-c
 - Cart is now cleared and shows €0.00 underneath it in the header
 - Contains links to go to the Shopping page and Markets page
 
+#### Markets Page
+- This page displays the markets that the website owner will be selling at (in person), the user can save a market to their profile so as not to forget about it
+- Each market shows an image, the market name, location, date, times and website (external link, opens in new tab). The market image also links to the external market website
+- If the user is logged in, there is a button to save the market to their profile; or if they already saved it, then the button will be to remove the market from their profile
+- If the user is not logged in, then there is a note stating to sign in/create an account in order to save the details
+- For the admin user, there are additional links for Edit and Delete 
 
+#### Profile Page
+- This page is only available to a logged in user (accessed via My Account dropdown menu)
+- At the top of the page there is a breadcrumb menu for the My Account pages
+- consists of three sections: link to markets, order history, delivery details
+- Saved markets: this is a link for the user to access My Markets page
+- Order history: lists the previous online orders made through the website, or a note if there are none. Shows order number, date, items, total
+- Saved delivery details: 
+  - displays the same delivery details as those on the checkout page. 
+  - This is a form which will be blank if there are no saved details, or pre-populated with the previously saved details. 
+  - The user can type in the amended details here and there is a button to save the changes
+
+#### My Markets Page
+- This page is only available to a logged in user (accessed via My Account dropdown menu)
+- Here the markets that the user saved to their profile from the Markets page are shown
+- The user can sort them by date, and can filter by status (upcoming, or date has passed)
+- Each market shows the same details as before on the general Markets page, and links to the external market website, but with an additional field called Status (upcoming or passed)
+- Each market also has a button that the user can click to remove the market from their profile so that it no longer appears in this page
+
+#### Admin pages - Products
+- These pages are only available to a logged in admin user
+- Add a product - this is accessed via the My Account dropdown menu
+  - form to add a new product to the shop
+  - fields (all mandatory): product name, price, category, description, image, tick box to set as an active product (i.e. appears in the shop, defaults to true)
+  - button to Add the Product, or Cancel button to abandon the process (brings user back to Shop page)
+- Edit a product - accessed via the Edit link on the Shop page or the Product Detail page
+  - form pre-populated with the existing details, same fields as for adding a product
+  - button to Update Product or Cancel button to abandon the process (brings user back to Shop page)
+- Delete a product - this is a modal, accessed via the Delete link on the Shop page or the Product Detail page
+  - there is a note asking the user to confirm they definitely want to delete the product, and a reminder that they could edit the product to be in-active, if they don't want it to appear in the shop but don't want to delete it completely
+  - button to Delete Product or Cancel button to abandon the process (brings user back to Shop page)
+
+#### Admin pages - Markets
+- These pages are only available to a logged in admin user
+- Add a market - this is accessed via the My Account dropdown menu
+  - form to add a new market to the Markets page
+  - fields (all mandatory): market name, location, date, start time, end time, website
+  - button to Add the Market, or Cancel button to abandon the process (brings user back to Markets page)
+- Edit a market - accessed via the Edit link on the Markets page
+  - form pre-populated with the existing details, same fields as for adding a market
+  - button to Update Market or Cancel button to abandon the process (brings user back to Markets page)
+- Delete a market - this is a modal, accessed via the Delete link on the Markets page
+  - there is a note asking the user to confirm they definitely want to delete the market
+  - button to Delete Market or Cancel button to abandon the process (brings user back to Markets page)
+
+#### Confirmation messages for user actions
+- Actions that the user takes are confirmed/acknowledged via messages at the top of the screen
+- these are displayed for:
+  - adding a product to a bag
+  - editing the contents of the bag - updating quantity or removing an item
+  - signing in/out
+  - saving or removing a market to/from profile
+  - updating saved delivery details on profile
+  - admin user adding a new product or market
+  - admin user editing or deleting a product or market
 
 ### Future Features 
 
