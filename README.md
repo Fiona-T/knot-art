@@ -254,6 +254,51 @@ The primary purpose of the website is for the website owner to sell their hand-c
 
 ## Project structure
 ---
+The project is developed using the Django framework and is structured under the following apps within the Django project:
+
+### home
+- To display the Home page. 
+- This app does not have a model as it does not require any database information, this is a static page displaying information. 
+
+### products
+- To handle the viewing of products in the Shop page, as well as the creating, editing and deleting of products by the admin user
+- Will have a Product model (product details) and Category model (product category names)
+- pages:
+  - Shop (displays all products, filter/sort options)
+  - Product Detail (displays individual product)
+  - Add Product (add product form, admin user only)
+  - Edit Product (edit product form, admin user only)
+
+### cart
+- To handle adding items to the shopping cart, adjusting quantity in the shopping cart and removing items. 
+- There is no model in this app, however it will use the Product  model from the products app in its views
+- pages:
+  - Cart (displays items in the shopping cart)
+
+### checkout
+- To handle the checkout and payment process
+- Will have an Order model (order delivery and amount details) and OrderLineItem model (details of each individual item in the order)
+- This app will also use the Product and UserProfile models from the other apps in its views
+- pages:
+  - Checkout (delivery + payment form)
+  - Order confirmation (success page after checkout)
+
+### profiles
+- To handle the user information - their saved delivery details and their order history, and the markets the user has saved
+- Will have a UserProfile model which extends the Django User model using a OneToOne link, to store the extra information (delivery details)
+- Will also have a SavedMarkets model for the markets the user saves/removes from their profile, linked to the Markets model in the markets app
+- This app also uses the Order model from checkout app to display the order history
+- pages:
+  - Profile (displays/allows edits of saved delivery details and order history, registered user only)
+  - My Markets (displays/allows removal of user saved markets, registered user only)
+
+### markets
+- To handle the viewing of markets in the Market page, as well as the creating, editing and deleting of markets by the admin user
+- Will have a Markets model to hold the market details
+- pages:
+  - Markets (displays all markets, filter/sort options)
+  - Add Market (add market form, admin user only)
+  - Edit Market (edit market form, admin user only)
 
 ## E-commerce Buisness Model
 ---
