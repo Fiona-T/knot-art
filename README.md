@@ -251,6 +251,46 @@ The primary purpose of the website is for the website owner to sell their hand-c
 
 ## Database Schema
 ---
+The datasets for the project are:
+- product information: products displayed in Shop
+- order information: items being purchased 
+- user information: username, saved delivery info, saved markets
+- markets information: markets that will be shown on Markets page
+
+The data is organised using the following models:
+- **User:** Django built in User model. For authentication and authorisaton
+- **UserProfile:** to store extra information relating to the user, in this case their delivery details. 
+  - extends the Django User model using a OneToOne relationship
+  - an instance of this model will be created each time a User record is created
+  - the delivery info fields can all be blank as a user does not have to save these details to their profile
+  - delivery info can be saved/edited on the UserProfile record by the user either ticking the save delivery info checkbox on the Checkout form (which will create an instance of the UserProfile form and update the profile), or by updating the UserProfile form on the profile page
+  - this is a ForeignKey in the Order model so that user can be attached to the order, and the order history can be retrieved.
+- **Category:** Holds the categories for the products. 
+  - friendly name is the name shown on the front end
+  - admin user will create/edit/delete instances of this model via the Django admin site
+- **Product:** holds the details of the products that will be displayed on the Shop page.
+  - each product must have a category, Category is a ForeignKey (one to many) in the Product model 
+  - a BooleanField called 'is_active' will be used to set a product as active or not. Only active products will be shown in the shop. The site owner can set this to False for a product, instead of deleting it. Since there is not yet any stock management built into this website, this is also a method by which the site owner can remove products from the website temporarily when they are out of stock, and show them again when they have made more of that item
+  - another BooleanField called 'is_new' will be used to flag whether a product is new or not. The site owner will use this to highlight new products to customers, the flag can them be set to false after a time when they are no longer new
+  - admin user will create instances of this model via the form on the add product page on the frontend. They will edit and delete from the links on each product in the Shop page also. (Shop page displays all products, not just active, to the admin user) 
+- **Order:** the details of an Order, delivery details, user, totals
+  - instances of this model are created during the Checkout process
+  - this model will have some methods to create the order_number, calcuate the order_total, delivery_cost and grand_total and works in conjunction with the OrderLineItem model
+  - this model includes two fields which will be used during the webhook handling process with Stripe. During this process, a check is done to see if the order is already in the database, and if not then create it. Since the same customer can order the same item(s) on more than one occasion, there needs to be some unique fields to prevent the previous identical order being found as this new order. These fields are: 'original_bag', a TextField containing a json dump of the bag, and 'stripe_pid', the Stripe payment intent id from the order, which is unique.
+- **OrderLineItem:** the individual items in the Order instance
+  - Order is a ForeignKey (one to many) in this model (one order to many line items)
+  - Product is a ForeignKey (one to many) in this model to access the product details (i.e. price, to calculate the line item total)
+  - this model calculates the total for each line item, which is then used by the Order model to calculate order total etc.
+- **Market:** holds the details of the markets that will be displayed on the Markets page.
+  - admin user will create instances of this model via the form on the add market page on the frontend. They will edit and delete from the links on each market in the Markets page also. 
+- **SavedMarket:** holds the user and the market, to be used to display to the user the details of the markets they have saved.   
+  - ManyToMany relationship with Markets models, as one user can save many markets, and one market can be saved by many users
+  - instances are created by a registered user using the Save button on the market in the Markets page
+  - instances can be deleted by registered user using Remove button on the market in the Markets page or in the MyMarkets page
+
+The details of each model, and relationships between them, are shown in the database schema below.
+
+![database schema diagram](docs/database/database-schema-diagram.png)
 
 ## Project structure
 ---
