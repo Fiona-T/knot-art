@@ -105,69 +105,69 @@ Based on the above analysis, an initial overview of the tables that would be nee
 For ease of reading, the user stories around similar actions have been grouped into loose categories:
 
 #### General, site purpose, navigation:
-- As a visiting user, I can easily find out what the purpose of the website is and learn more about the site owner and the products being sold
-- As a site user, I can navigate the site so that I can find the page I want to go to
-- As a site user, I can find the Knot Art social media accounts, so that I can follow them on social media to keep up to date
-- As a site user, I can sign up to the newsletter, so that I can stay informed  and stay engaged with the shop
-- As a site user, I can see a 'Page not found' page with consistent branding to the rest of the site, when I try to access a page in error, so that I can find my way back to the website and know I have not left the website
-- As a site user, I can find the terms of use and privacy policy so that I can read these documents
+- [#1](https://github.com/Fiona-T/knot-art/issues/1) As a visiting user, I can easily find out what the purpose of the website is and learn more about the site owner and the products being sold, so that I  can decide to stay and browse or not
+- [#2](https://github.com/Fiona-T/knot-art/issues/2) As a site user, I can navigate the site so that I can find the page I want to go to
+- [#3](https://github.com/Fiona-T/knot-art/issues/3) As a site user, I can find the Knot Art social media accounts, so that I can follow them on social media to keep up to date
+- [#4](https://github.com/Fiona-T/knot-art/issues/4) As a site user, I can sign up to the newsletter, so that I can stay informed  and stay engaged with the shop
+- [#5](https://github.com/Fiona-T/knot-art/issues/5) As a site user, I can see a 'Page not found' page with consistent branding to the rest of the site, when I try to access a page in error, so that I can find my way back to the website and know I have not left the website
+- [#6](https://github.com/Fiona-T/knot-art/issues/6) As a site user, I can find the terms of use and privacy policy so that I can read these documents and have trust in the site
 
 #### Shop - viewing products
-- As a site user, I can easily view all the products in the shop so that I can see all the available products immediately without having to sort or filter or take any action
-- As a site user, I can view an individual item details so that I can see the full details including the description and decide whether to buy
-- As a site user, I can select a specific category of product so that I can view just the items in that category to make it easier to make a decision
-- As a site user, I can sort the products in the shop so that I can find what I'm looking for more easily
-- As a site user, I can search for a product in the shop so that I can find a particular item quickly
+- [#7](https://github.com/Fiona-T/knot-art/issues/7) As a site user, I can easily view all the products in the shop so that I can see all the available products immediately without having to sort or filter or take any action
+- [#8](https://github.com/Fiona-T/knot-art/issues/8) As a site user, I can view an individual item details so that I can see the full details including the description and decide whether to buy
+- [#9](https://github.com/Fiona-T/knot-art/issues/9) As a site user, I can select a specific category of product so that I can view just the items in that category to make it easier to make a decision
+- [#10](https://github.com/Fiona-T/knot-art/issues/10) As a site user, I can sort the products in the shop so that I can find what I'm looking for more easily
+- [#11](https://github.com/Fiona-T/knot-art/issues/11) As a site user, I can search for a product in the shop so that I can find a particular item quickly
 
 #### Shop - adding to/updating the cart
-- As a site user, I can add an item to my cart so that I can buy it
-- As a site user, I can select the quantity of an item before adding to my cart, so that I can add multiple items at once
-- As a site user I can see the total amount currently in my cart at all times, so that I can keep track of how much I'll be spending
-- As a site user I can see the items in my cart at any time, so that I can check what I have already added to the cart
-- As a site user I can adjust the quantity of a particular item in the cart so that I can buy more or less of the item directly from the cart
-- As a site user, I can remove an item from my cart so that I do not have to buy it if I've changed my mind
+- [#12](https://github.com/Fiona-T/knot-art/issues/12) As a site user, I can add an item to my cart so that I can buy it
+- [#13](https://github.com/Fiona-T/knot-art/issues/13) As a site user, I can select the quantity of an item before adding to my cart, so that I can add multiple of that item at once
+- [#14](https://github.com/Fiona-T/knot-art/issues/14) As a site user I can see the total amount currently in my cart at all times, so that I can keep track of how much I'll be spending
+- [#15](https://github.com/Fiona-T/knot-art/issues/15) As a site user I can see the items in my cart at any time, so that I can check what I have already added to the cart
+- [#16](https://github.com/Fiona-T/knot-art/issues/16) As a site user I can adjust the quantity of a particular item in the cart so that I can buy more or less of the item directly from the cart
+- [#17](https://github.com/Fiona-T/knot-art/issues/17) As a site user, I can remove an item from my cart so that I do not have to buy it if I've changed my mind
 
 #### Shop - payment and check out
-- As a site user, I can continue to the checkout process once I've decided on my purchase so that I can buy the items
-- As a site user, I can enter my delivery and payment details so that I can complete my purchase
-- As a site user, I can see the order summary while making payment so that I can still edit the details before payment if I made a mistake
-- As a registered user, I can save my delivery information when checking out so that it is saved to my profile for use with my next order
-- As a site user, I can see an order confirmation page so that I can know that the order went through okay
-- As a site user, I can recieve an email confirmation of my order so that I can have this confirmation for my records
+- [#18](https://github.com/Fiona-T/knot-art/issues/18) As a site user, I can continue to the checkout process once I've decided on my purchase so that I can buy the items
+- [#19](https://github.com/Fiona-T/knot-art/issues/19) As a site user, I can enter my delivery and payment details so that I can complete my purchase
+- [#20](https://github.com/Fiona-T/knot-art/issues/20) As a site user, I can see the order summary while making payment so that I can still edit the details before payment if I made a mistake
+- [#21](https://github.com/Fiona-T/knot-art/issues/21) As a registered user, I can save my delivery information when checking out so that it is saved to my profile for use with my next order
+- [#22](https://github.com/Fiona-T/knot-art/issues/22) As a site user, I can see an order confirmation page so that I know that the order went through okay
+- [#23](https://github.com/Fiona-T/knot-art/issues/23) As a site user, I can recieve an email confirmation of my order so that I have this confirmation for my records
 
 #### Markets - viewing markets
-- As a site user, I can easily view all the upcoming markets so that I can know when I plan if I want to attend one of the markets
-- As a site user, I can sort the markets list so that I can find what I'm looking for more easily
-- As a registered user, I can save a market that I want to go to, so that I don't forget about it
-- As a registered user, I can see if I have saved a market already when viewing the markets list, so that I know if it's already saved in my profile or not
-- As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
+- [#24](https://github.com/Fiona-T/knot-art/issues/24) As a site user, I can easily view all the upcoming markets so that I can plan if I want to attend one of the markets
+- [#25](https://github.com/Fiona-T/knot-art/issues/25) As a site user, I can sort the markets list so that I can find what I'm looking for more easily
+- [#26](https://github.com/Fiona-T/knot-art/issues/26) As a registered user, I can save a market that I want to go to, so that I don't forget about it as it will be in my profile
+- [#27](https://github.com/Fiona-T/knot-art/issues/27) As a registered user, I can see if I have saved a market already when viewing the markets list, so that I know if it's already saved in my profile or not
+- [#28](https://github.com/Fiona-T/knot-art/issues/28) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
 
 #### User account set up, sign in and out
-- As a site user, I can sign up for an account, so that I can enjoy the benefits of having an account e.g. saving delivery info
-- As a site user, I want to receive an email confirmation when I register, so that I know my account registration was successful and secure
-- As a registered user, I can sign into my account so that I can access my profile
-- As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
-- As a registered user, I can easily see if I am signed into my account or not, so that I know straight away if I need to sign in
+- [#29](https://github.com/Fiona-T/knot-art/issues/29) As a site user, I can sign up for an account, so that I can enjoy the benefits of having an account e.g. saving delivery info
+- [#30](https://github.com/Fiona-T/knot-art/issues/30) As a site user, I want to receive an email confirmation when I register, so that I know my account registration was successful and secure
+- [#31](https://github.com/Fiona-T/knot-art/issues/31) As a registered user, I can sign into my account so that I can access my profile
+- [#32](https://github.com/Fiona-T/knot-art/issues/32) As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
+- [#33](https://github.com/Fiona-T/knot-art/issues/33) As a registered user, I can easily see if I am signed into my account or not, so that I know straight away if I need to sign in
 
 #### User profile 
-- As a registered user, I can update my default delivery information in my profile, so that I can have the updated details recorded
-- As a registered user, I can see my previous orders in my profile, so that I can see all the orders I made and can find details of a previous order
-- As a registered user, I can see all the markets I saved and view their details so that I have access to this information
-- As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
+- [#34](https://github.com/Fiona-T/knot-art/issues/34) As a registered user, I can update my default delivery information in my profile, so that the updated details are recorded for future orders
+- [#35](https://github.com/Fiona-T/knot-art/issues/35) As a registered user, I can see my previous orders in my profile, so that I can see all the orders I made and can find details of a previous order
+- [#36](https://github.com/Fiona-T/knot-art/issues/36) As a registered user, I can see all the markets I saved and view their details so that I have access to this information
+- [#37](https://github.com/Fiona-T/knot-art/issues/37) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
 
 #### Admin for Shop page
-- As the website owner, I can view all the products in the shop, even if they are not active, so that I can see an overview of all products, and so that I can edit inactive products
-- As the website owner, I can add a new product to the shop, so that I can sell the product to customers
-- As the website owner, I can add a edit the details of a product in the shop, so that I can change the price, description etc. and customers will see the updated information
-- As the website owner, I can turn on or off the active flag on a product, so that I can add or remove it from appearing in the shop for customers when it is in/out of stock
-- As the website owner, I can delete a product, so that it will not appear in the shop if it was added in error
-- As the website owner, I can add a new category of product so that I can then add new products with this category to the shop
+- [#38](https://github.com/Fiona-T/knot-art/issues/38) As the website owner, I can view all the products in the shop, even if they are not active, so that I can see an overview of all products, and so that I can edit inactive products
+- [#39](https://github.com/Fiona-T/knot-art/issues/39) As the website owner, I can add a new product to the shop, so that I can sell the product to customers
+- [#40](https://github.com/Fiona-T/knot-art/issues/40) As the website owner, I can add a edit the details of a product in the shop, so that I can change the price, description etc. and customers will see the updated information
+- [#41](https://github.com/Fiona-T/knot-art/issues/41) As the website owner, I can turn on or off the active flag on a product, so that I can add or remove it from appearing in the shop for customers when it is in/out of stock
+- [#42](https://github.com/Fiona-T/knot-art/issues/42) As the website owner, I can delete a product, so that it will not appear in the shop if it was added in error
+- [#43](https://github.com/Fiona-T/knot-art/issues/43) As the website owner, I can add a new category of product so that I can then add new products with this category to the shop
 
 #### Admin for Markets page
-- As the website owner, I can see all markets on the markets page including past ones, so that I can see an overview of all markets and see older markets as well as upcoming ones
-- As the website owner, I can add a new market to the markets page, so that customers are informed of the market
-- As the website owner, I can add a edit the details of a market in the markets page, so that customers will see the updated information
-- As the website owner, I can delete a market, so that it will not appear in the markets page if it was added in error
+- [#44](https://github.com/Fiona-T/knot-art/issues/44) As the website owner, I can see all markets on the markets page including past ones, so that I can see an overview of all markets and see older markets as well as upcoming ones
+- [#45](https://github.com/Fiona-T/knot-art/issues/45) As the website owner, I can add a new market to the markets page, so that customers are informed of the market
+- [#46](https://github.com/Fiona-T/knot-art/issues/46) As the website owner, I can edit the details of a market in the markets page, so that customers will see the updated information
+- [#47](https://github.com/Fiona-T/knot-art/issues/47) As the website owner, I can delete a market, so that it will not appear in the markets page if it was added in error
 
 ### Design
 - #### Colour scheme
