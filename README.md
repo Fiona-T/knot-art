@@ -11,6 +11,10 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
 ## Table of Contents
 ---
 - [Purpose](#purpose)
+- [E-commerce Buisness Model](#e-commerce-buisness-model)
+  * [E-commerce application type](#e-commerce-application-type)
+  * [Features to be included](#features-to-be-included)
+  * [Database tables and data required](#database-tables-and-data-required)
 - [User Experience (UX)](#user-experience-ux)
   * [User stories](#user-stories)
   * [Design](#design)
@@ -21,7 +25,6 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
 - [Content Requirements](#content-requirements)
 - [Database Schema](#database-schema)
 - [Project Structure](#project-structure)
-- [E-commerce Buisness Model](#e-commerce-buisness-model)
 - [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
 - [Marketing](#marketing)
 - [Technology](#technology)
@@ -50,6 +53,49 @@ The primary purpose of the website is for the website owner to sell their hand-c
 ### Site owner’s goals:
 - Sell their macrame wall hangings via the website
 - Maintain a list of upcoming in-person markets on the website so that 1) customers know about these in advance and can indicate that they want to attend by saving a market to their profile, 2) the site owner can see the level of interest from the customer base in the different markets
+
+## E-commerce Buisness Model
+---
+The following section documents the planning process for the website, based on the type of e-commerce application it is, what products it is selling, and the customers it will have.
+
+### E-commerce application type
+This e-commerce application sells its products to customers who are individuals, therefore the  business model is a B2C (Business to Customer) one. The website will sell products (rather than services) and is based on a single payment model, i.e. the customer pays for the product and that completes the transaction, there are no ongoing fees or subscriptions. The model is a Direct to Consumer one, i.e. there are no third party intermediaries involved. 
+
+These factors mean that the following need to be taken account in the design/planning of the website:
+- customers, as individuals rather than businesses, might make impulse buys, 
+- the decision making process is shorter and they can make their own choice to buy the product (i.e. they don't need to justify the expenditure to a manager etc. as would be the case in a B2B model). 
+- therefore the steps the user needs to take to complete a purchase on the website should be as easy as possible and the design should take account of this. 
+- since products are being sold, the database will need to store the details of these products
+- the website will also need good quality images of the products, to show the customers what they are buying and to build trust in what they are buying
+- there should be an ability for the customer to sort and filter products in the shop
+- while customers may enjoy being able to buy these products online, since these are tactile products some customers may want to see and feel the product in 'real life' before buying
+- as the payment is a single payment, customers would expect to receive a confirmation once they have completed their purchase
+
+### Features to be included
+Based on the above analysis, an initial overview of features that would be needed are listed below. The full list of features implemented are outlined in the [Existing Features](#existing-features) section.
+
+- since this is direct to consumer, and the product is hand-crafted, the website should draw attention to this, e.g. by having a section about the maker, how the products are made, the materials used (this should follow into the product descriptions as well)
+- the shop should contain high quality images for the products as well as descriptions of the products so users can easily make the decision to buy. As noted above, the product descriptions should include details such as materials used, or other details that emphasise the hand-crafted personal nature of the item
+- the shop should allow users to sort and filter the products by relevant categories so customers can find what they are looking for
+- the path to making the purchase should be as easy/seamless as possible to allow the customer complete the transaction
+- there needs to be a shopping bag/cart functionality so that users can add items to the cart, view the cart and either go back to shopping or then complete the checkout process
+- there needs to be a login and authentication mechanism for users, so they can view their details, order history. Anonymous checkout should also be allowed if users do not wish to create an account
+- there needs to be a checkout process, and for registered users an option to use their saved delivery details for a quicker checkout
+- for users who prefer to see/feel the product before buying, the website owner facilitates this through also selling the items at craft markets. The website should show details of these markets so that customers know when these are coming up
+- for these users, the website should also allow them to save a market to their user profile, so when they are logged in they can see the one they've saved as a reminder
+- customer loyalty is an important factor in direct to consumer, so there should also be a newsletter sign up, so that the site owner can keep customers up to date as well as links to social media profiles including Facebook business page
+
+### Database tables and data required
+Based on the above analysis, an initial overview of the tables that would be needed in the database, and type of data in these tables follows below. A full description of the data models can be found in the [Database Schema](#database-schema) section.
+
+- a table for Users, to store information about users, such as name, email address, and password so that they can login
+- a further UserProfile table can extend the above, to include additional information such as the saved delivery details
+- a table for Products, storing information such as product name, description, price, image, article number/sku, the category it falls into
+- the product category names could be stored in their own table for ease of administration (rather than a choices list). This table could store both the category name and a user friendly name for the frontend (e.g. for categories that contain an '&' in the name, which could not be stored in the database category name)
+- a table will be required for Orders, to store the user, their delivery information, and order cost
+- a linked table to this would be OrderLineItems which would be the individual items in an order and store the product information and quantity of that product
+- for the markets a table will be needed to record the name, location, date, time, image, website
+- a further table for the user SavedMarkets will record the user and the market
 
 ## User Experience (UX)
 ---
@@ -339,9 +385,6 @@ The project is developed using the Django framework and is structured under the 
   - Markets (displays all markets, filter/sort options)
   - Add Market (add market form, admin user only)
   - Edit Market (edit market form, admin user only)
-
-## E-commerce Buisness Model
----
 
 ## Search Engine Optimisation (SEO)
 ---
