@@ -54,6 +54,8 @@ The primary purpose of the website is for the website owner to sell their hand-c
 - Sell their macrame wall hangings via the website
 - Maintain a list of upcoming in-person markets on the website so that 1) customers know about these in advance and can indicate that they want to attend by saving a market to their profile, 2) the site owner can see the level of interest from the customer base in the different markets
 
+The target audience are people with an interest in using natural materials in their home, as well as those who appreciate hand-crafted items, people with an interest in textiles and textile art, or who are just looking for something different to decorate the walls in their home. The site owner is based in Dublin, Ireland and the in-person markets which are advertised on the site are based in and around Dublin, so in this context the target audience would be those based in and around the Dublin area. But in the e-commerce context, location is not a restricting factor since the products can be bought from anywhere in the world.
+
 ## E-commerce Buisness Model
 ---
 The following section documents the planning process for the website, based on the type of e-commerce application it is, what products it is selling, and the customers it will have.
