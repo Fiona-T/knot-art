@@ -15,6 +15,8 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
   * [E-commerce application type](#e-commerce-application-type)
   * [Features to be included](#features-to-be-included)
   * [Database tables and data required](#database-tables-and-data-required)
+- [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
+- [Marketing](#marketing)
 - [User Experience (UX)](#user-experience-ux)
   * [User stories](#user-stories)
   * [Design](#design)
@@ -25,8 +27,6 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
 - [Content Requirements](#content-requirements)
 - [Database Schema](#database-schema)
 - [Project Structure](#project-structure)
-- [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
-- [Marketing](#marketing)
 - [Technology](#technology)
   * [Languages](#languages)
   * [Frameworks, Libraries, Programmes and Tools](#frameworks-libraries-programmes-and-tools)
@@ -98,6 +98,36 @@ Based on the above analysis, an initial overview of the tables that would be nee
 - a linked table to this would be OrderLineItems which would be the individual items in an order and store the product information and quantity of that product
 - for the markets a table will be needed to record the name, location, date, time, image, website
 - a further table for the user SavedMarkets will record the user and the market
+
+## Search Engine Optimisation (SEO)
+---
+
+## Marketing
+---
+The first part of the marketing strategy for this business is ensuring that the webpage is optimised as far as possible in terms of search engines. The measures taken to address this are outlined above in the [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo) section. The other marketing measures to be employed are explained below.
+
+This is a small, one person business and its goals are to sell its macrame wall hangings both online and at craft markets. The website users are mainly female, ranging in age roughly from 20s to 60s. This age group uses social media and since the business sells art products, the most appropriate platform would be those with a more visual basis such as Instagram and Facebook (though the business will also set up profiles on Twitter and LinkedIn. TikTok will not be used at this stage as the audience is mainly younger, but this can be revisted in the future). As the business is new and does not have a budget for advertising or to employ someone to run a marketing strategy, it will focus on organic growth through Social Media Marketing. 
+
+A Facebook Business page will be created which will promote the business, promote the products being sold, highlight the unique handcrafted nature of the products and highlight that people can buy easily online, but also at physical in person craft markets. This is a plus for customers since this is a tactile product and many customers may want to see and touch the item before buying it. The Facebook page will highlight this, and the website will have a section for users to save a market to their profile. The content on the Facebook page can be reused on the other social channels and can include:
+- photos of the creation process
+- posts alerting followers to new products, special offers, products now back in stock
+- posts about the markets
+- posts with photos from the markets on the day and other makers (build supportive community of other makers)
+- posts aksing for user engagement such as a poll to see which colour they prefer for a new piece for example
+- short videos showing snippets of the process of creating the wall hangings. These would not be tutorials (since the site users are not necessarily people who want to make the item themselves, the site wants to attract people to buy) but rather a glimpse into the 'behind the scenes' process which should help engage potential customers and emphasise the quality and uniqueness of the product.
+
+As the business is small and new, content marketing will be employed mainly on the social media platforms and not yet on the website. However this will be an important element to include on the website as the business grows. Possible elements of content marketing that could be used include having a Blog section on the website with tips on how to choose the right wall hanging, the different type of knots and materials used (but staying away from tutorials), write ups on the different craft markets and what to expect at them. Videos of the making process could also be included on the website.
+
+Email marketing is free (for the numbers this small business will initially have) and relatively easy to set up, so the business will use this too. The website will include a section in the footer to sign up to the newsletter. Building up a list of email subscribers through the newsletter sign up means the business will then have a pool of people who it knows are interested in its products (as they voluntarily signed up!) so are more likely to make a purchase. 
+
+
+The business owner can use the newsletter to 
+- highlight when new products have been added to the website,
+- let subscribers know about the markets they'll be at (linking to the website so they can then save market details that they're interested in)
+- let subscribers know when an item is back in stock on the website
+- send out discount codes to thank the email subscribers for their loyalty and to entice them to buy
+
+The business owner doesn't have to invest much time to manage the email marketing, and can try out different types of formats for the newsletter over time to see what works, so it is an easy strategy to get started with in the early days of the business. They need to ensure they are GDPR compliant by making it an opt in process (which it will be via the sign up form) and making it easy to unsubscribe - the link to unsubscribe should be in each email sent. The business will use [Mailchimp](https://mailchimp.com/) to manage the collection of email addresses and the sending out of newsletters. This service is free for up to 2,000 subscribers and also provides insights and analytics tools along with many guides and useful information to help users. 
 
 ## User Experience (UX)
 ---
@@ -459,12 +489,6 @@ The project is developed using the Django framework and is structured under the 
   - Markets (displays all markets, filter/sort options)
   - Add Market (add market form, admin user only)
   - Edit Market (edit market form, admin user only)
-
-## Search Engine Optimisation (SEO)
----
-
-## Marketing
----
 
 ## Technology
 ---
