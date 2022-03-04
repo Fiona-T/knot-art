@@ -1,0 +1,55 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Overpass', sans-serif;
+}
+
+/* ---------------------------------------- Header */
+.logo {
+    font-family: 'Lobster Two';
+    font-size: 1.7rem;
+    color: #656262;
+}
+
+/* main header links - font styles */
+.nav-link {
+    font-weight: 300;
+    color: #656262;
+    padding: 0.5rem;
+}
+
+/* size for the icons in main header links */
+.nav-icon {
+    font-size: 1.3rem;
+}
+
+/* size for text under main header icon links */
+.nav-text {
+    font-size: 0.8rem;
+}
+
+
+/*================================== MEDIA QUERIES ===========================================*/
+/*================================ bigger than mobile ====================================*/
+@media screen and (min-width: 500px) {
+    /* ---------------------------------------- Header */
+    /* adjust sizes of logo and main header links */
+    .logo {
+        font-size: 3rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-icon {
+        font-size: 1.5rem;
+    }
+    
+    .nav-text {
+        font-size: 01rem;
+    }
+}
+
