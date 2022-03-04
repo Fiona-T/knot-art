@@ -122,6 +122,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# tell Django where static files are
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# not setting STATIC_ROOT which would be needed for collectstatic, as
+# it will interfere with AWS
+
+# uploaded media files go here
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
