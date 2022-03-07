@@ -6,6 +6,21 @@ body {
     font-family: 'Overpass', sans-serif;
 }
 
+/* remove text decoration from links */
+a,
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+}
+
+/* brand colours on buttons */
+.btn-brand {
+    background-color: #ff8881;
+    border-radius: 0.01rem;
+    color: #1c1c1c;
+}
+
 /* ---------------------------------------- Header */
 .navbar, .dropdown-menu {
     background-color: #1c1c1c;
@@ -51,7 +66,7 @@ body {
 .logo:hover,
 .logo:active,
 .logo:focus {
-    color: white;
+    color: #fdfdfd;
 }
 
 /* links in dropdown menu - hover */
@@ -62,7 +77,54 @@ body {
     color: #1c1c1c;
 }
 
-/* ---------------------------------------- Header */
+/* ---------------------------------------- Home page */
+.hero-image {
+	background-image: url(../../media/background-img-macrame-hanging.jpg);
+	height: 100vh;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+    transition: all .5s ease-in-out;
+    margin: 0;
+    padding: 0;
+}
+
+/* overlay on hero-image behind the callout text, flex container for text */
+.overlay {
+    background-color: rgba(44, 43, 43, 0.6);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* subheading text */
+.callout {
+    font-weight: 500;
+    font-size: 120%;
+    color: #fdfdfd;
+}
+
+/* headline text */
+.callout h1 {
+    font-weight: 700;
+}
+
+/* buttons on top of hero image */
+.btn-callout {
+    padding: 0.5rem 0.8rem;
+    margin-top: 1rem;
+}
+
+.btn-callout:hover, 
+.btn-callout:active, 
+.btn-callout:focus {
+    color: #fdfdfd;
+}
+
+/* ---------------------------------------- Footer */
 /* 
 position sticky + 100vh, combined with 100% on body and html for sticky footer 
 from: https://css-tricks.com/a-clever-sticky-footer-technique/
@@ -104,7 +166,6 @@ footer i {
     font-size: 0.8rem;
     font-weight: 300;
 }
-
 
 /*================================== MEDIA QUERIES ===========================================*/
 /*================================ bigger than mobile ====================================*/
