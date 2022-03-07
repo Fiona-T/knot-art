@@ -1,4 +1,4 @@
-html {
+html, body {
     height: 100%;
 }
 
@@ -60,6 +60,49 @@ body {
 .dropdown-item:focus {
     background-color: #F98D85;
     color: #1c1c1c;
+}
+
+/* ---------------------------------------- Header */
+/* 
+position sticky + 100vh, combined with 100% on body and html for sticky footer 
+from: https://css-tricks.com/a-clever-sticky-footer-technique/
+*/
+footer {
+    position: sticky;
+    top: 100vh;
+    background-color: #010101;
+    color: #fdfdfd;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+/* heading in footer for social links */
+.sm-heading {
+    color: #F98D85;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.footer-link {
+    color:#FDFDFD;
+}
+
+.footer-link:hover, 
+.footer-link:active,
+.footer-link:focus {
+    color: #F98D85;
+    text-decoration: underline;
+}
+
+/* icon in footer for social links */
+footer i {
+    font-size: 1.2rem;
+}
+
+/* copyright footnote */
+.footnote {
+    font-size: 0.8rem;
+    font-weight: 300;
 }
 
 

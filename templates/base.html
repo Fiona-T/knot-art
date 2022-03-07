@@ -53,6 +53,7 @@
     <title>Knot Art{% block extra_title %}{% endblock %}</title>
 </head>
 <body>
+    <!-- main header for all pages -->
     <header>
         <!-- main nav bar for all pages - Logo + list of links: shop, market, account, bag -->
         <nav class="navbar fixed-top py-2 py-lg-3 px-md-2">
@@ -115,7 +116,51 @@
     {% block content %}
     <!-- specific page content -->
     {% endblock %}
-
+    <!-- page footer for all pages -->
+    <footer>
+        <!-- container for footer grid - two rows -->
+        <div class="container-lg text-center pt-5 pb-2">
+            <!-- row to hold social links -->
+            <div class="row pb-4">
+                <!-- social media links section-->
+                <div class="col-12 col-md-6">
+                    <h5 class="sm-heading">Connect with us</h5>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="https://facebook.com" target="_blank" rel="noopener"
+                                aria-label="Visit our Facebook page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-facebook" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://instagram.com" target="_blank" rel="noopener"
+                                aria-label="Visit our Instagram page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-instagram" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://twitter.com" target="_blank" rel="noopener"
+                                aria-label="Visit our Twitter page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-twitter" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://ie.linkedin.com/" target="_blank" rel="noopener"
+                                aria-label="Visit our LinkedIn page. Link opens in new tab" class="footer-link"><i
+                                    class="bi bi-linkedin" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- row for copyright info -->
+            <div class="row footnote">
+                <div class="col">
+                    <p>
+                        <span>&copy; <a href="https://github.com/Fiona-T" target="_blank" rel="noopener"
+                                class="footer-link">Fiona Tracey</a> 2021. Site created for educational purposes.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
     {% block postloadjs %}
     <!-- specific page scripts that need to load at end of body -->
     {% endblock %}
