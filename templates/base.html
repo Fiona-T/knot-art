@@ -91,8 +91,8 @@
                         </a>
                         <!-- dropdown menu items options depend on signed in status (to be added later) -->
                         <div class="dropdown-menu border-0" aria-labelledby="account-options">
-                            <a href="#" class="dropdown-item nav-text">Sign In</a>
-                            <a href="#" class="dropdown-item nav-text">Sign Up</a>
+                            <a href="{% url 'account_login' %}" class="dropdown-item nav-text">Sign In</a>
+                            <a href="{% url 'account_signup' %}" class="dropdown-item nav-text">Sign Up</a>
                         </div>
                     </li>
                     <!-- Link to bag page, and displays total amount in bag -->
