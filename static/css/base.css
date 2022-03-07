@@ -7,17 +7,26 @@ body {
 }
 
 /* ---------------------------------------- Header */
-.logo {
-    font-family: 'Lobster Two';
-    font-size: 1.7rem;
-    color: #656262;
+.navbar, .dropdown-menu {
+    background-color: #1c1c1c;
 }
 
-/* main header links - font styles */
+.logo {
+    font-family: 'Lobster Two';
+    font-size: 1.6rem;
+    color: #ff8881;
+}
+
+/* remove Bootstrap padding + border radius on dropdown */
+.dropdown-menu {
+    padding: 0;
+    border-radius: 0;
+}
+
+/* main header links - colour + reduce automatic Bootstrap padding */
 .nav-link {
-    font-weight: 300;
-    color: #656262;
     padding: 0.5rem;
+    color: #F98D85;
 }
 
 /* size for the icons in main header links */
@@ -25,9 +34,32 @@ body {
     font-size: 1.3rem;
 }
 
-/* size for text under main header icon links */
+/* main header links, dropdown items text - font styles */
 .nav-text {
     font-size: 0.8rem;
+    font-weight: 300;
+}
+
+.dropdown-item {
+    color: #F98D85;
+}
+
+/* hover, focus etc. for links in header */
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus,
+.logo:hover,
+.logo:active,
+.logo:focus {
+    color: white;
+}
+
+/* links in dropdown menu - hover */
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item:focus {
+    background-color: #F98D85;
+    color: #1c1c1c;
 }
 
 
@@ -49,7 +81,7 @@ body {
     }
     
     .nav-text {
-        font-size: 01rem;
+        font-size: 1rem;
     }
 }
 

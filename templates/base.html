@@ -54,42 +54,58 @@
 </head>
 <body>
     <header>
-        <nav class="navbar container-lg fixed-top py-2 py-lg-3 px-md-2">
-            <a class="navbar-brand logo" href="{% url 'home' %}">KnotArt</a>
-            <ul class="nav mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <div class="text-center">
-                            <div><i class="bi bi-cart-plus nav-icon"></i></div>
-                            <p class="my-0 nav-text">Shop</p>
+        <!-- main nav bar for all pages - Logo + list of links: shop, market, account, bag -->
+        <nav class="navbar fixed-top py-2 py-lg-3 px-md-2">
+            <div class="container-lg">
+                <!-- logo -->
+                <a class="navbar-brand logo" href="{% url 'home' %}">KnotArt</a>
+                <!-- List of links - each with icon and text below it -->
+                <ul class="nav mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <div class="text-center">
+                                <div><i class="bi bi-cart-plus nav-icon"></i></div>
+                                <p class="my-0 nav-text">Shop</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <div class="text-center">
+                                <div><i class="bi bi-shop nav-icon"></i></div>
+                                <p class="my-0 nav-text">Markets</p>
+                            </div>
+                        </a>
+                    </li>
+                    <!-- This link is a dropdown menu for Account options. Link name changes depending on signed in status of user -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="" id="account-options" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <div class="text-center">
+                                <div><i class="bi bi-person nav-icon"></i></div>
+                                <p class="my-0 nav-text">
+                                    {% if request.user.is_authenticated %}Account{% else %}Sign In{% endif %}
+                                </p>
+                            </div>
+                        </a>
+                        <!-- dropdown menu items options depend on signed in status (to be added later) -->
+                        <div class="dropdown-menu border-0" aria-labelledby="account-options">
+                            <a href="#" class="dropdown-item nav-text">Sign In</a>
+                            <a href="#" class="dropdown-item nav-text">Sign Up</a>
                         </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <div class="text-center">
-                            <div><i class="bi bi-shop nav-icon"></i></div>
-                            <p class="my-0 nav-text">Markets</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <div class="text-center">
-                            <div><i class="bi bi-person nav-icon"></i></div>
-                            <p class="my-0 nav-text">Sign In</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <div class="text-center">
-                            <div><i class="bi bi-bag nav-icon"></i></div>
-                            <p class="my-0 nav-text">€0.00</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                    </li>
+                    <!-- Link to bag page, and displays total amount in bag -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <div class="text-center">
+                                <div><i class="bi bi-bag nav-icon"></i></div>
+                                <!-- logic will be added later to display the amount in bag -->
+                                <p class="my-0 nav-text">€0.00</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
     {% block page_header %}
