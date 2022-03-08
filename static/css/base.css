@@ -7,7 +7,7 @@ body {
     color: #1c1c1c;
 }
 
-h2 {
+h1, h2 {
     font-weight: 700;
 }
 
@@ -19,11 +19,33 @@ a:focus {
     text-decoration: none;
 }
 
+/* adjust Bootstrap general btn styles */
+.btn {
+    border-radius: 0;
+    color: #1c1c1c;
+}
+
 /* brand colours on buttons */
 .btn-brand {
     background-color: #ff8881;
-    border-radius: 0.01rem;
-    color: #1c1c1c;
+    border: 0.1rem solid #ff8881;
+}
+
+/* button outlined */
+.btn-brand-outline {
+    background-color: #fdfdfd;
+    border: 0.1rem solid #ff8881;
+}
+
+.btn-brand:hover {
+    color: #fdfdfd;
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
+.btn-brand-outline:hover { 
+    background-color: #ff8881;
+    border-color: #1c1c1c;
 }
 
 /* ---------------------------------------- Header */
@@ -127,6 +149,27 @@ a:focus {
 .btn-callout:active, 
 .btn-callout:focus {
     color: #fdfdfd;
+}
+
+/* ---------------------------------------- Allauth form formatting */
+
+.allauth-form-inner-content input {
+    border-color: #1c1c1c;
+    border-radius: 0;
+}
+
+/* labels heavier weight */
+.allauth-form-inner-content label {
+    font-weight: 600;
+}
+
+/* give placeholders same color as text */
+.allauth-form-inner-content input::placeholder {
+    color: #1c1c1c;
+}
+
+.allauth-form-inner-content p {
+    margin-top: 1.8rem;
 }
 
 /* ---------------------------------------- Footer */
