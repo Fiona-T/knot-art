@@ -41,6 +41,11 @@ class TestCategoryModel(TestCase):
         category = Category.objects.get(id=1)
         self.assertEqual(str(category), 'category_and_category')
 
+    def test_verbose_name_plural_returns_categories(self):
+        """check verbose_name_plural is set, as defined in Meta class"""
+        category = Category.objects.get(id=1)
+        self.assertEqual(category._meta.verbose_name_plural, 'Categories')
+
 
 class TestProductModel(TestCase):
     """tests for Product model in products app"""
