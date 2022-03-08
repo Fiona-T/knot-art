@@ -4,6 +4,11 @@ html, body {
 
 body {
     font-family: 'Overpass', sans-serif;
+    color: #1c1c1c;
+}
+
+h2 {
+    font-weight: 700;
 }
 
 /* remove text decoration from links */

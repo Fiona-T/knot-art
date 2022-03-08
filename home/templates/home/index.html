@@ -10,11 +10,49 @@
                 <h1>Buy beautiful, hand-crafted pieces of art for your home.</h1>
                 <p>Made with love from natural materials</p>
                 <div class="col-8 col-md-6 ml-auto pr-0 d-flex flex-column flex-md-row justify-content-between">
-                    <a href="#" class="btn btn-brand btn-callout">Learn More</a>
+                    <a href="#learn-more" class="btn btn-brand btn-callout">Learn More</a>
                     <a href="#" class="btn btn-brand btn-callout">Shop Now</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<!-- End of hero image section -->
+<!-- About section -->
+<section id="learn-more" class="py-5">
+    <!-- container with two rows - heading + content -->
+    <div class="container py-5 px-md-4">
+        <!-- 1st row - heading -->
+        <div class="row py-3 justify-content-center">
+            <h2>About Knot Art</h2>
+        </div>
+        <!-- 2nd row - two columns - image and text -->
+        <div class="row">
+            <!-- 1st column - image -->
+            <div class="col-12 col-md-6">
+                <img src="media/home-page-meet-the-maker.jpg" alt="Portrait image of the website owner and maker" class="img-fluid">
+            </div>
+            <!-- 2nd column - text -->
+            <div class="col-12 col-md-6 mt-3">
+                <p>Hi, I'm Laura and I'm the macrame artist behind Knot Art. I make beautiful macrame wall hangings from
+                    natural materials, which will bring a sense of calm to your home!</p>
+                <p>You can <a href="#">browse and buy my pieces from my Shop</a>.</p>
+                <p>I also regularly have a stall at in-person craft markets, which are all <a href="#">listed on the
+                        Markets
+                        page.</a> At these markets you can get to see and feel the pieces before buying.</p>
+                <p>If you <a href="{% url 'account_signup' %}">sign up for an account with us</a>, you can save a market
+                    to your
+                    profile, that way you
+                    won't miss out or forget about the market you want to go to! You'll be able to view your saved
+                    markets, as
+                    well as any order history, once you have an account set up.
+                </p>
+                <p><a href="#">Sign up to my newsletter</a> to get notified about new products, upcoming markets and
+                    special
+                    sale events!</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of About section -->
 {% endblock %}
