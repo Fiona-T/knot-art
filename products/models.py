@@ -5,6 +5,10 @@ from django.db import models
 class Category(models.Model):
     """Category model for products"""
 
+    class Meta:
+        """Specify correct spelling for plural - for admin site"""
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(max_length=50, unique=True)
     friendly_name = models.CharField(max_length=50)
 
