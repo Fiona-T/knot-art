@@ -5,7 +5,7 @@ from django.db import models
 class Category(models.Model):
     """Category model for products"""
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     friendly_name = models.CharField(max_length=50)
 
     def __str__(self):
