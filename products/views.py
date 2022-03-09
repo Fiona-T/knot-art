@@ -4,8 +4,15 @@ from .models import Product
 
 
 def show_products(request):
-    """View to display the products in shop"""
-    products = Product.objects.filter(is_active=True)
+    """
+    View to display the products in shop
+    Only active products are shown, unless user is superuser.
+    """
+    if request.user.is_superuser:
+        products = Product.objects.all()
+    else:
+        products = Product.objects.filter(is_active=True)
+
     context = {
         'products': products,
     }

@@ -49,6 +49,10 @@
                         <!-- card footer - price, and will have edit/delete links for admin user later -->
                         <div class="card-footer border-0 bg-white py-1">
                             <p class="fw-600">€{{ product.price }}</p>
+                            <!-- show whether product is active or not, if user is admin user -->
+                            {% if request.user.is_superuser %}
+                            <p class="small">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
