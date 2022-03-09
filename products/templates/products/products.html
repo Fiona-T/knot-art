@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_title %} | Shop{% endblock %}
 {% block content %}
 <!-- page contents container -->
 <section class="py-5 container-fluid">
@@ -27,7 +28,7 @@
                             </span>
                             {% endif %}
                             <!-- product image will link to product detail page -->
-                            <a href="#">
+                            <a href="{% url 'product_details' product.id %}">
                                 <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
                                 <img class="card-img-top img-fluid"
                                     src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
