@@ -1,10 +1,34 @@
 """Tests for views in 'product' app (shop)"""
 from django.test import TestCase
+from django.contrib.auth.models import User
 from .models import Category, Product
 
 
 class TestShowProductsView(TestCase):
     """To test the show_products view - shop page displaying products"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of Category
+        Create 7 instances of Product, 3 active and 4 inactive
+        """
+        Category.objects.create(
+            name='category_name',
+            friendly_name='Category'
+        )
+        number_of_products = 7
+        for product in range(number_of_products):
+            is_active = True if product % 2 else False
+            Product.objects.create(
+                category=Category.objects.get(id=1),
+                name=f'product number {product}',
+                sku='12345',
+                description='product description',
+                price=123.45,
+                is_active=is_active,
+                is_new=True
+            )
+
     def test_correct_url_and_template_used(self):
         """
         get the url for shop page, check the response is 200 (i.e. successful)
@@ -16,37 +40,32 @@ class TestShowProductsView(TestCase):
 
     def test_only_active_products_displayed(self):
         """
-        Create category instance and two product instances, one active, one not
-        Check that the view only returns one product i.e. the active one
+        Check view returns 3 products i.e. the active ones created in setUp
         Check that for each product in the context, the is_active flag is True
         """
-        Category.objects.create(
-            name='category_name',
-            friendly_name='Category'
-        )
-        Product.objects.create(
-            category=Category.objects.get(id=1),
-            name='product name',
-            sku='12345',
-            description='product description',
-            price=123.45,
-            is_active=True,
-            is_new=True
-        )
-        Product.objects.create(
-            category=Category.objects.get(id=1),
-            name='different name',
-            sku='12345',
-            description='product description',
-            price=123.45,
-            is_active=False,
-            is_new=True
-        )
         response = self.client.get('/products/')
         self.assertTrue('products' in response.context)
-        self.assertEqual(len(response.context['products']), 1)
+        self.assertEqual(len(response.context['products']), 3)
         for product in response.context['products']:
             self.assertTrue(product.is_active)
+
+    def test_all_products_displayed_for_superuser(self):
+        """
+        Create a superuser, log them in
+        Check view returns 7 products i.e. all including active + not active
+        Check that for each product in the context, the is_active flag is True
+        """
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/')
+        self.assertTrue('products' in response.context)
+        self.assertEqual(len(response.context['products']), 7)
 
 
 class TestProductDetailsView(TestCase):
