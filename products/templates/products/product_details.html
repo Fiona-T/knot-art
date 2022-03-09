@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | {{ product.name }}{% endblock %}
+{% block content %}
+<!-- page contents container -->
+<section class="py-5 container-fluid">
+    <!-- 1 row - with 2 columns - image and product details -->
+    <div class="row py-5 justify-content-center">
+        <!-- 1st column - image -->
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 px-4">
+            <!-- image inside this div, 'new' badge positioned against this -->
+            <div class="position-relative">
+                {% if product.is_new %}
+                <!-- if product is new, show the 'New!' badge, and screen reader text -->
+                <span class="badge badge-brand">New!
+                    <span class="sr-only">New product</span>
+                </span>
+                {% endif %}
+                <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
+                <img class="card-img-top img-fluid"
+                    src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                    alt="{% if product.image %}Photo of {% else %}No image yet for {% endif %}{{ product.name }}{% if not product.image %}, image coming soon.{% endif %}">
+            </div>
+        </div>
+        <!-- 2nd column - product details + form with quantity and add to cart/back buttons -->
+        <div class="col-12 col-sm-10 col-md-6 col-lg-4 px-4 mt-4">
+            <div class="mb-5 mt-4">
+                <h1>{{ product.name }}</h1>
+                <p class="small my-1">
+                    <!-- this will link to category filter -->
+                    <a href="" class="text-muted">
+                        <i class="bi bi-tag shop-icon" aria-hidden="true"></i>{{ product.category.friendly_name }}
+                    </a>
+                </p>
+                <p>{{ product.description }}</p>
+                <p class="fw-600">€{{ product.price }}</p>
+                <!-- Quantity and Add to Bag form -->
+                <form>
+                    {% csrf_token %}
+                    <a href="{% url 'products' %}" class="btn btn-brand-outline">Back to Shop</a>
+                    <button class="btn btn-brand">Add to Bag</button>
+                </form>
+            </div>
+        </div>
+        <!-- end of product details column -->
+    </div>
+    <!-- end of row -->
+</section>
+{% endblock %}
