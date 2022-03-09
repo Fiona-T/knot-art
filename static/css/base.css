@@ -155,7 +155,7 @@ a:focus {
     color: #fdfdfd;
 }
 
-/* ---------------------------------------- Shop page */
+/* ---------------------------------------- Shop/Product details page */
 /* colour for the icons in shop page */
 .shop-icon {
     color: #F98D85;
@@ -169,6 +169,24 @@ a:focus {
     position: absolute;
     top: 0.5rem;
     right: -0.5rem;
+}
+
+/* quantity buttons */
+.btn-qty {
+    background-color: #1c1c1c;
+    border: 0.01rem solid #1c1c1c;
+    color: #fdfdfd;
+}
+
+.btn-qty:hover {
+    background-color: #fdfdfd;
+    color: #1c1c1c;
+}
+
+/* input between quantity buttons */
+.form-control {
+    color: #1c1c1c;
+    border: 0.01rem solid #1c1c1c;
 }
 
 /* ---------------------------------------- Allauth form formatting */

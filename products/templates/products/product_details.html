@@ -25,7 +25,7 @@
         </div>
         <!-- 2nd column - product details + form with quantity and add to cart/back buttons -->
         <div class="col-12 col-sm-10 col-md-6 col-lg-4 px-4 mt-4">
-            <div class="mb-5 mt-4">
+            <div class="my-4">
                 <h1>{{ product.name }}</h1>
                 <p class="small my-1">
                     <!-- this will link to category filter -->
@@ -38,6 +38,27 @@
                 <!-- Quantity and Add to Bag form -->
                 <form>
                     {% csrf_token %}
+                    <!-- form group for quantity label, buttons and input, 50% width -->
+                    <div class="form-group w-50">
+                        <label for="quantity" class="fw-600">Choose quantity:</label>
+                        <div class="input-group">
+                            <!-- button before the input - for decreasing quantity -->
+                            <div class="input-group-prepend">
+                                <button class="rounded-0 btn btn-qty" aria-label="Decrease quantity">
+                                    <span><i class="bi bi-dash-lg" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                            <!-- quantity input box -->
+                            <input type="number" name="quantity" value="1" class="form-control">
+                            <!-- button after the input - for increasing quantity -->
+                            <div class="input-group-append">
+                                <button class="rounded-0 btn btn-qty" aria-label="Increase quantity">
+                                    <span><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end of quantity form group -->
                     <a href="{% url 'products' %}" class="btn btn-brand-outline">Back to Shop</a>
                     <button class="btn btn-brand">Add to Bag</button>
                 </form>
