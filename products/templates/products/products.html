@@ -2,8 +2,62 @@
 {% load static %}
 
 {% block content %}
-<div class="py-5">
-    <h1>Products page!</h1>
-    <p>{{ products }}</p>
-</div>
+<!-- page contents container -->
+<section class="py-5 container-fluid">
+    <!-- 1st row - page heading -->
+    <div class="row py-5 justify-content-center">
+        <h1>Shop Wall Hangings</h1>
+    </div>
+    <!-- 2nd row - products -->
+    <div class="row">
+        <!-- outer container for products + will have row showing sorting options -->
+        <div class="col-10 offset-1">
+            <!-- products row -->
+            <div class="row">
+                {% for product in products %}
+                <!-- each product displayed in a card within columns -->
+                <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 card-group">
+                    <div class="card h-100 border-0">
+                        <!-- div holding image and badge if new - for badge to be positioned against -->
+                        <div class="position-relative">
+                            {% if product.is_new %}
+                            <!-- if product is new, show the 'New!' badge, and screen reader text -->
+                            <span class="badge badge-brand">New!
+                                <span class="sr-only">New product</span>
+                            </span>
+                            {% endif %}
+                            <!-- product image will link to product detail page -->
+                            <a href="#">
+                                <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
+                                <img class="card-img-top img-fluid"
+                                    src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                                    alt="{% if product.image %}Photo of {% else %}No image yet for {% endif %}{{ product.name }}{% if not product.image %}, image coming soon.{% endif %}">
+                            </a>
+                        </div>
+                        <!-- card body - product name and category -->
+                        <div class="card-body pt-3 pb-0">
+                            <p class="card-title mb-0 text-uppercase">{{ product.name }}</p>
+                            <p class="small my-1">
+                                <!-- will link to category filter -->
+                                <a href="" class="text-muted">
+                                    <i class="bi bi-tag shop-icon"
+                                        aria-hidden="true"></i>{{ product.category.friendly_name }}
+                                </a>
+                            </p>
+                        </div>
+                        <!-- card footer - price, and will have edit/delete links for admin user later -->
+                        <div class="card-footer border-0 bg-white py-1">
+                            <p class="fw-600">€{{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- end of products for loop -->
+            </div>
+            <!-- end of products row inside products container-->
+        </div>
+        <!-- end of outer container for products -->
+    </div>
+    <!-- end of products row -->
+</section>
 {% endblock %}

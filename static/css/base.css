@@ -48,6 +48,10 @@ a:focus {
     border-color: #1c1c1c;
 }
 
+.fw-600 {
+    font-weight: 600;
+}
+
 /* ---------------------------------------- Header */
 .navbar, .dropdown-menu {
     background-color: #1c1c1c;
@@ -149,6 +153,22 @@ a:focus {
 .btn-callout:active, 
 .btn-callout:focus {
     color: #fdfdfd;
+}
+
+/* ---------------------------------------- Shop page */
+/* colour for the icons in shop page */
+.shop-icon {
+    color: #F98D85;
+    padding-right: 0.3rem;
+}
+
+/* 'new' badge for items in shop */
+.badge-brand {
+    border-radius: 0;
+    border: 0.1rem solid #ff8881;
+    position: absolute;
+    top: 0.5rem;
+    right: -0.5rem;
 }
 
 /* ---------------------------------------- Allauth form formatting */
