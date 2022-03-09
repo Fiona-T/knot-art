@@ -114,3 +114,34 @@ class TestProductDetailsView(TestCase):
         response = self.client.get('/products/1')
         product = response.context['product']
         self.assertEqual(product.name, 'product name')
+
+    def test_superuser_can_view_inactive_product(self):
+        """
+        Create superuser and log them in.
+        Go to product detail url for 2nd product instance (not active)
+        Check response code is 200, successful
+        Check the is_active flag for that product is false
+        """
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/2')
+        self.assertEqual(response.status_code, 200)
+        product = response.context['product']
+        self.assertFalse(product.is_active)
+
+    def test_non_superuser_cannot_view_inactive_product(self):
+        """
+        Get product with id of 2, confirm it is not active
+        Go to product detail url for this product
+        Check response code is 404, as only superuser can access
+        """
+        product = Product.objects.get(id=2)
+        self.assertFalse(product.is_active)
+        response = self.client.get('/products/2')
+        self.assertEqual(response.status_code, 404)
