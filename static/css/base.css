@@ -156,6 +156,23 @@ a:focus {
 }
 
 /* ---------------------------------------- Shop/Product details page */
+/* sub navigtion on shop pages */
+a.nav-link-sub {
+    color: #1c1c1c;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* mobile menu icon size */
+.menu-icon {
+    font-size: 2.5rem;
+}
+
+/* button containing mobile menu icon - negative margin to align */
+.navbar-toggler {
+    margin-bottom: -0.5rem;
+}
+
 /* colour for the icons in shop page */
 .shop-icon {
     color: #F98D85;
@@ -183,7 +200,7 @@ a:focus {
     color: #1c1c1c;
 }
 
-/* input between quantity buttons */
+/* input between quantity buttons - and search box */
 .form-control {
     color: #1c1c1c;
     border: 0.01rem solid #1c1c1c;
@@ -275,3 +292,16 @@ footer i {
     }
 }
 
+/*================================ bigger than mobile ====================================*/
+@media screen and (min-width: 770px) {
+    /* ---------------------------------------- Header */
+    /* shop navigation - border underneath when expanded */
+    .navbar-nav {
+        border-bottom: solid 0.1rem #1c1c1c;
+    }
+
+    /* reverse the direction when expanded, so search bar stays on right */
+    .navbar-expand-md {
+        flex-direction: row-reverse;
+    }
+}
