@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block extra_title %} | {{ product.name }}{% endblock %}
+{% block page_header %}
+    {% include '../products/includes/products-header.html' %}
+{% endblock %}
 {% block content %}
 <!-- page contents container -->
 <section class="py-5 container-fluid">
