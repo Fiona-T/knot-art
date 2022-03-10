@@ -70,7 +70,7 @@ a:focus {
 }
 
 /* main header links - colour + reduce automatic Bootstrap padding */
-.nav-link {
+.nav-link-main {
     padding: 0.5rem;
     color: #F98D85;
 }
@@ -91,9 +91,9 @@ a:focus {
 }
 
 /* hover, focus etc. for links in header */
-.nav-link:hover,
-.nav-link:active,
-.nav-link:focus,
+.nav-link-main:hover,
+.nav-link-main:active,
+.nav-link-main:focus,
 .logo:hover,
 .logo:active,
 .logo:focus {
