@@ -56,7 +56,7 @@
     <!-- main header for all pages -->
     <header>
         <!-- main nav bar for all pages - Logo + list of links: shop, market, account, bag -->
-        <nav class="navbar fixed-top py-2 py-lg-3 px-md-2">
+        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2" aria-label="Primary">
             <div class="container-lg">
                 <!-- logo -->
                 <a class="navbar-brand logo" href="{% url 'home' %}">KnotArt</a>
@@ -113,10 +113,10 @@
             </div>
         </nav>
     </header>
+    <main class="pt-4 pt-md-5">
     {% block page_header %}
     <!-- specific page header under main header -->
     {% endblock %}
-    <main class="pt-4 pt-md-5">
     {% block content %}
     <!-- specific page content -->
     {% endblock %}

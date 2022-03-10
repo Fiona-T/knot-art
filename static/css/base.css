@@ -53,7 +53,7 @@ a:focus {
 }
 
 /* ---------------------------------------- Header */
-.navbar, .dropdown-menu {
+.nav-main, .dropdown-menu {
     background-color: #1c1c1c;
 }
 
