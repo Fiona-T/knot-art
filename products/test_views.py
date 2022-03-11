@@ -9,23 +9,43 @@ class TestShowProductsView(TestCase):
     @classmethod
     def setUp(cls):
         """
-        Create instance of Category
-        Create 7 instances of Product, 3 active and 4 inactive
+        Create two instances of Category
+        Create 7 instances of Product, 3 active, 4 inactive
+        Create 11 instances of Product, 5 category1, 6 category2, all active
+        For tests there are: 18 products, 14 active, 4 inactive
+        And 8 active in category1, 6 active in category2
         """
-        Category.objects.create(
+        category1 = Category.objects.create(
             name='category_name',
             friendly_name='Category'
         )
-        number_of_products = 7
-        for product in range(number_of_products):
+        category2 = Category.objects.create(
+            name='different_category',
+            friendly_name='Category'
+        )
+
+        for product in range(7):
             is_active = True if product % 2 else False
             Product.objects.create(
-                category=Category.objects.get(id=1),
+                category=category1,
                 name=f'product number {product}',
                 sku='12345',
                 description='product description',
                 price=123.45,
                 is_active=is_active,
+                is_new=True
+            )
+
+        for product in range(11):
+            is_active = True if product % 2 else False
+            category = category1 if product % 2 else category2
+            Product.objects.create(
+                category=category,
+                name=f'different product number {product}',
+                sku='12345',
+                description='product description',
+                price=123.45,
+                is_active=True,
                 is_new=True
             )
 
@@ -40,19 +60,19 @@ class TestShowProductsView(TestCase):
 
     def test_only_active_products_displayed(self):
         """
-        Check view returns 3 products i.e. the active ones created in setUp
+        Check view returns 14 products i.e. the active ones created in setUp
         Check that for each product in the context, the is_active flag is True
         """
         response = self.client.get('/products/')
         self.assertTrue('products' in response.context)
-        self.assertEqual(len(response.context['products']), 3)
+        self.assertEqual(len(response.context['products']), 14)
         for product in response.context['products']:
             self.assertTrue(product.is_active)
 
     def test_all_products_displayed_for_superuser(self):
         """
         Create a superuser, log them in
-        Check view returns 7 products i.e. all including active + not active
+        Check view returns 18 products i.e. all including active + not active
         Check that for each product in the context, the is_active flag is True
         """
         test_superuser = User.objects.create_user(
@@ -65,13 +85,13 @@ class TestShowProductsView(TestCase):
         self.client.login(username='admin', password='secret')
         response = self.client.get('/products/')
         self.assertTrue('products' in response.context)
-        self.assertEqual(len(response.context['products']), 7)
+        self.assertEqual(len(response.context['products']), 18)
 
     def test_search_returns_product_matching_search_term_in_name(self):
         """
         Test that searching returns products where search term in name.
         Create a new product in addition to those in setUp.
-        Check that products page initially contains 4 products.
+        Check that products page initially contains 15 active products.
         Search for a word contained in new product name, verifiy the response
         now contains just one product and the name matches that product.
         """
@@ -85,7 +105,7 @@ class TestShowProductsView(TestCase):
             is_new=True
         )
         response = self.client.get('/products/')
-        self.assertEqual(len(response.context['products']), 4)
+        self.assertEqual(len(response.context['products']), 15)
         response = self.client.get('/products/?q=large')
         self.assertEqual(len(response.context['products']), 1)
         self.assertEqual(
@@ -96,10 +116,10 @@ class TestShowProductsView(TestCase):
         """
         Test that searching returns products where search term in description.
         Create a new product in addition to those in setUp.
-        Check that products page initially contains 4 products.
+        Check that products page initially contains 15 active products.
         Search for word contained in new product description, verifiy response
         now contains one product and it is the new product.
-        Search for word contained in 4 products, verify 4 products returned.
+        Search for word contained in 15 products, verify 15 products returned.
         """
         Product.objects.create(
             category=Category.objects.get(id=1),
@@ -111,7 +131,7 @@ class TestShowProductsView(TestCase):
             is_new=True
         )
         response = self.client.get('/products/')
-        self.assertEqual(len(response.context['products']), 4)
+        self.assertEqual(len(response.context['products']), 15)
         response = self.client.get('/products/?q=specific')
         self.assertEqual(len(response.context['products']), 1)
         self.assertEqual(
@@ -119,7 +139,25 @@ class TestShowProductsView(TestCase):
             'specific product description'
             )
         response = self.client.get('/products/?q=description')
-        self.assertEqual(len(response.context['products']), 4)
+        self.assertEqual(len(response.context['products']), 15)
+
+    def test_category_filtering_returns_correct_products(self):
+        """
+        If category is selected, ensure products match that category
+        Check that products page initially contains 14 active products.
+        Filter using to category1 name, check 8 products returned
+        Filter using to category2 name, check 6 products returned
+        """
+        response = self.client.get('/products/')
+        self.assertEqual(len(response.context['products']), 14)
+        response = self.client.get('/products/?category=category_name')
+        self.assertEqual(len(response.context['products']), 8)
+        for product in response.context['products']:
+            self.assertEqual(product.category.name, 'category_name')
+        response = self.client.get('/products/?category=different_category')
+        self.assertEqual(len(response.context['products']), 6)
+        for product in response.context['products']:
+            self.assertEqual(product.category.name, 'different_category')
 
 
 class TestProductDetailsView(TestCase):
