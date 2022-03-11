@@ -22,6 +22,7 @@ def show_products(request):
     search_term = None
     category = None
     sort = None
+    sort_direction = None
 
     # GET requests for search, categories and sorting
     if request.GET:
@@ -35,7 +36,8 @@ def show_products(request):
                 products = products.annotate(lower_name=Lower('name'))
             # if direction is descending then reverse the sorting
             if 'direction' in request.GET:
-                if request.GET['direction'] == 'desc':
+                sort_direction = request.GET['direction']
+                if sort_direction == 'desc':
                     sortkey = f'-{sortkey}'
             products = products.order_by(sortkey)
 
@@ -54,11 +56,13 @@ def show_products(request):
                     description__icontains=search_term
                     )
             products = products.filter(matches_search)
-
+    # used in context for select box to show the selected option
+    current_sorting = f'{sort}_{sort_direction}'
     context = {
         'products': products,
         'search_term': search_term,
         'current_category': category,
+        'current_sorting': current_sorting,
     }
     return render(request, 'products/products.html', context)
 
