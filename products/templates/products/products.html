@@ -42,8 +42,8 @@
                         <div class="card-body pt-3 pb-0">
                             <p class="card-title mb-0 text-uppercase">{{ product.name }}</p>
                             <p class="small my-1">
-                                <!-- will link to category filter -->
-                                <a href="" class="text-muted">
+                                <!-- category name is also a link to category filter -->
+                                <a href="{% url 'products' %}?category={{product.category.name}}" class="text-muted">
                                     <i class="bi bi-tag shop-icon"
                                         aria-hidden="true"></i>{{ product.category.friendly_name }}
                                 </a>

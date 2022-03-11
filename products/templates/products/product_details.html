@@ -31,8 +31,8 @@
             <div class="my-4">
                 <h1>{{ product.name }}</h1>
                 <p class="small my-1">
-                    <!-- this will link to category filter -->
-                    <a href="" class="text-muted">
+                    <!-- category name is also a link to category filter -->
+                    <a href="{% url 'products' %}?category={{ product.category.name }}" class="text-muted">
                         <i class="bi bi-tag shop-icon" aria-hidden="true"></i>{{ product.category.friendly_name }}
                     </a>
                 </p>
