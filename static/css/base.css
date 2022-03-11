@@ -52,6 +52,11 @@ a:focus {
     font-weight: 600;
 }
 
+/* change defautl Bootstrap border on select box */
+.custom-select {
+    border: 0.1rem solid #1c1c1c;
+}
+
 /* ---------------------------------------- Header */
 .nav-main, .dropdown-menu {
     background-color: #1c1c1c;
