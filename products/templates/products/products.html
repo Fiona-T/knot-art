@@ -16,8 +16,21 @@
     <div class="row">
         <!-- outer container for products + will have row showing sorting options -->
         <div class="col-10 offset-1">
+            <!-- Products sorting row -->
+            <div class="row pb-3">
+                <!-- select box with product sorting options -->
+                <div class="col-12 col-md-6 col-lg-4 justify-content-center justify-content-md-end">
+                    <select class="custom-select custom-select-sm rounded-0">
+                        <option value="reset">Sort by...</option>
+                        <option value="price_asc">Price (low to high)</option>
+                        <option value="price_desc">Price (high to low)</option>
+                        <option value="prod_name_asc">Product name (A-Z)</option>
+                        <option value="prod_name_desc">Product name (Z-A)</option>
+                    </select>
+                </div>
+            </div>
             <!-- products row -->
-            <div class="row">
+            <div class="row mt-3">
                 {% for product in products %}
                 <!-- each product displayed in a card within columns -->
                 <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 card-group">
