@@ -67,6 +67,60 @@ class TestShowProductsView(TestCase):
         self.assertTrue('products' in response.context)
         self.assertEqual(len(response.context['products']), 7)
 
+    def test_search_returns_product_matching_search_term_in_name(self):
+        """
+        Test that searching returns products where search term in name.
+        Create a new product in addition to those in setUp.
+        Check that products page initially contains 4 products.
+        Search for a word contained in new product name, verifiy the response
+        now contains just one product and the name matches that product.
+        """
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='Large Wall Hanging',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+            is_new=True
+        )
+        response = self.client.get('/products/')
+        self.assertEqual(len(response.context['products']), 4)
+        response = self.client.get('/products/?q=large')
+        self.assertEqual(len(response.context['products']), 1)
+        self.assertEqual(
+            response.context['products'][0].name, 'Large Wall Hanging'
+            )
+
+    def test_search_returns_product_matching_search_term_in_description(self):
+        """
+        Test that searching returns products where search term in description.
+        Create a new product in addition to those in setUp.
+        Check that products page initially contains 4 products.
+        Search for word contained in new product description, verifiy response
+        now contains one product and it is the new product.
+        Search for word contained in 4 products, verify 4 products returned.
+        """
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='Large Wall Hanging',
+            sku='12345',
+            description='specific product description',
+            price=123.45,
+            is_active=True,
+            is_new=True
+        )
+        response = self.client.get('/products/')
+        self.assertEqual(len(response.context['products']), 4)
+        response = self.client.get('/products/?q=specific')
+        self.assertEqual(len(response.context['products']), 1)
+        self.assertEqual(
+            response.context['products'][0].description,
+            'specific product description'
+            )
+        response = self.client.get('/products/?q=description')
+        self.assertEqual(len(response.context['products']), 4)
+
 
 class TestProductDetailsView(TestCase):
     """Test product details view - page showing individual product in shop"""
