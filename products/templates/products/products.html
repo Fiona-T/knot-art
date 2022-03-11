@@ -18,9 +18,10 @@
         <div class="col-10 offset-1">
             <!-- Products sorting row -->
             <div class="row pb-3">
-                <!-- select box with product sorting options -->
+                <!-- select box with product sorting options - works using script linked below, event listener on id -->
                 <div class="col-12 col-md-6 col-lg-4 justify-content-center justify-content-md-end">
-                    <select class="custom-select custom-select-sm rounded-0" aria-label="Sorting options">
+                    <select id="sorting-selector" class="custom-select custom-select-sm rounded-0"
+                        aria-label="Sorting options">
                         <option value="reset">Sort by...</option>
                         <option value="price_asc">Price (low to high)</option>
                         <option value="price_desc">Price (high to low)</option>
@@ -81,4 +82,9 @@
     </div>
     <!-- end of products row -->
 </section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script to sort products using the select box options -->
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

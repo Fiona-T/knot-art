@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 from django.db.models import Q
+from django.db.models.functions import Lower
 from .models import Product, Category
 
 
@@ -10,7 +11,8 @@ def show_products(request):
     View to display the products in shop
     Only active products are shown, unless user is superuser.
     Products are then filtered if there is a get request with 'q'
-    Or filtered by category if get request with category 
+    Or filtered by category if get request with category
+    And sorted if there is a get request with sort in it
     """
     if request.user.is_superuser:
         products = Product.objects.all()
@@ -19,9 +21,24 @@ def show_products(request):
 
     search_term = None
     category = None
+    sort = None
 
     # GET requests for search, categories and sorting
     if request.GET:
+        # handles sorting
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            # if sorting by product name, add lowercase name to model to sort
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                products = products.annotate(lower_name=Lower('name'))
+            # if direction is descending then reverse the sorting
+            if 'direction' in request.GET:
+                if request.GET['direction'] == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = products.order_by(sortkey)
+
         # handles filtering by category
         if 'category' in request.GET:
             category = request.GET['category']
