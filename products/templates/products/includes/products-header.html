@@ -24,19 +24,26 @@
                 </div>
             </div>
         </form>
+        <!-- category filtering options, which collapse to menu button on mobile -->
         <div class="collapse navbar-collapse" id="shop-nav">
+            <!-- 'current' class is added to the <a> if it is the currently selected category, or added to All if no category -->
             <ul class="navbar-nav">
                 <li class="list-inline-item nav-item">
-                    <a href="{% url 'products' %}" class="nav-link nav-link-sub">All</a>
+                    <a href="{% url 'products' %}"
+                        class="nav-link nav-link-sub {% if not current_category %}current{% endif %}">All</a>
                 </li>
                 <li class="list-inline-item nav-item">
-                    <a href="{% url 'products' %}?category=living_room" class="nav-link nav-link-sub">Living Room</a>
+                    <a href="{% url 'products' %}?category=living_room"
+                        class="nav-link nav-link-sub {% if current_category.name == 'living_room' %}current{% endif %}">Living
+                        Room</a>
                 </li>
                 <li class="list-inline-item nav-item">
-                    <a href="{% url 'products' %}?category=bedroom" class="nav-link nav-link-sub">Bedroom</a>
+                    <a href="{% url 'products' %}?category=bedroom"
+                        class="nav-link nav-link-sub {% if current_category.name == 'bedroom' %}current{% endif %}">Bedroom</a>
                 </li>
                 <li class="list-inline-item nav-item">
-                    <a href="{% url 'products' %}?category=minis" class="nav-link nav-link-sub">Minis</a>
+                    <a href="{% url 'products' %}?category=minis"
+                        class="nav-link nav-link-sub {% if current_category.name == 'minis' %}current{% endif %}">Minis</a>
                 </li>
             </ul>
         </div>
