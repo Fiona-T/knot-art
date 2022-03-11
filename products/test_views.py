@@ -159,6 +159,79 @@ class TestShowProductsView(TestCase):
         for product in response.context['products']:
             self.assertEqual(product.category.name, 'different_category')
 
+    def test_sort_request_urls_and_context_are_correct(self):
+        """
+        For sort requests, check that each combination of url is successful
+        And that the 'current_sorting' returned in context is correct
+        """
+        response = self.client.get('/products/')
+        self.assertEqual(response.context['current_sorting'], 'None_None')
+        sort_options = ['price', 'name']
+        for opt in sort_options:
+            response = self.client.get(f'/products/?sort={opt}&direction=desc')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(
+                response.context['current_sorting'], f'{opt}_desc'
+                )
+        for opt in sort_options:
+            response = self.client.get(f'/products/?sort={opt}&direction=asc')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.context['current_sorting'], f'{opt}_asc')
+
+    def test_sort_request_order_is_correct(self):
+        """
+        Test that order of the products returned for a sort request is correct,
+        by checking first and last items
+        Products created with lowest + highest price and names to test this.
+        """
+        Product.objects.create(
+                category=Category.objects.get(id=1),
+                name='a name beginning with a',
+                sku='12345',
+                description='product description',
+                price=555.55,
+                is_active=True,
+                is_new=True
+            )
+        Product.objects.create(
+                category=Category.objects.get(id=1),
+                name='zz later name',
+                sku='12345',
+                description='product description',
+                price=99.00,
+                is_active=True,
+                is_new=True
+            )
+
+        response = self.client.get('/products/?sort=name&direction=asc')
+        self.assertEqual(
+            response.context['products'][0].name, 'a name beginning with a'
+            )
+        # have to use len minus 1 here, as negative indexing not supported
+        last_item = len(response.context['products'])-1
+        self.assertEqual(
+            response.context['products'][last_item].name, 'zz later name'
+            )
+        response = self.client.get('/products/?sort=name&direction=desc')
+        self.assertEqual(response.context['products'][0].name, 'zz later name')
+        last_item = len(response.context['products'])-1
+        self.assertEqual(
+            response.context['products'][last_item].name,
+            'a name beginning with a'
+            )
+        response = self.client.get('/products/?sort=price&direction=asc')
+        self.assertEqual(float(response.context['products'][0].price), 99.00)
+        last_item = len(response.context['products'])-1
+        self.assertEqual(
+            float(response.context['products'][last_item].price), 555.55
+            )
+        response = self.client.get('/products/?sort=price&direction=desc')
+        self.assertEqual(float(response.context['products'][0].price), 555.55)
+        last_item = len(response.context['products'])-1
+        self.assertEqual(
+            float(response.context['products'][last_item].price), 99.00
+            )
+
 
 class TestProductDetailsView(TestCase):
     """Test product details view - page showing individual product in shop"""
