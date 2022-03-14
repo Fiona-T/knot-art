@@ -99,13 +99,15 @@
                             {% endif %}
                         </div>
                     </li>
-                    <!-- Link to bag page, and displays total amount in bag -->
+                    <!-- links to cart.html page, and displays total amount in cart -->
                     <li class="nav-item">
                         <a class="nav-link nav-link-main" href="{% url 'view_cart' %}">
                             <div class="text-center">
-                                <div><i class="bi bi-bag nav-icon"></i></div>
-                                <!-- logic will be added later to display the amount in bag -->
-                                <p class="my-0 nav-text">€0.00</p>
+                                <!-- show filled icon if there are items in the cart, otherwise outlined icon -->
+                                <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"></i></div>
+                                <!-- grand total currently in cart, otherwise 0.00 -->
+                                <p class="my-0 nav-text">
+                                    €{% if grand_total %}{{ grand_total|floatformat:2 }}{% else %}0.00{% endif %}</p>
                             </div>
                         </a>
                     </li>
