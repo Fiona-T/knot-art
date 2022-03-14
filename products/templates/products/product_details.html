@@ -51,15 +51,18 @@
                         <div class="input-group">
                             <!-- button before the input - for decreasing quantity -->
                             <div class="input-group-prepend">
-                                <button class="rounded-0 btn btn-qty" aria-label="Decrease quantity">
+                                <button class="decrement-qty rounded-0 btn btn-qty" aria-label="Decrease quantity"
+                                    data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
                                     <span><i class="bi bi-dash-lg" aria-hidden="true"></i></span>
                                 </button>
                             </div>
                             <!-- quantity input box -->
-                            <input type="number" name="quantity" value="1" class="form-control" min="1" max="10">
+                            <input type="number" name="quantity" value="1" class="form-control qty_input" min="1" max="10"
+                                data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
                             <!-- button after the input - for increasing quantity -->
                             <div class="input-group-append">
-                                <button class="rounded-0 btn btn-qty" aria-label="Increase quantity">
+                                <button class="increment-qty rounded-0 btn btn-qty" aria-label="Increase quantity"
+                                    data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
                                     <span><i class="bi bi-plus-lg" aria-hidden="true"></i></span>
                                 </button>
                             </div>
@@ -77,4 +80,9 @@
     </div>
     <!-- end of row -->
 </section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script for the quantity +/- buttons -->
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
