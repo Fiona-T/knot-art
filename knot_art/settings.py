@@ -84,6 +84,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 # below needed so that the MEDIA_URL template tag will work
                 'django.template.context_processors.media',
+                'cart.contexts.cart_contents',  # for shopping cart items
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
