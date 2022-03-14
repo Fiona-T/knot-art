@@ -4,10 +4,23 @@
 {% block extra_title %} | Cart{% endblock %}
 {% block content %}
 <!-- page contents container -->
-<section class="py-5 container-fluid">
+<section class="py-5 container">
     <!-- 1st row - page heading -->
     <div class="row py-5 justify-content-center">
-        <h1>Your Cart</h1>
+        <h1>Your Shopping Bag</h1>
+    </div>
+    <!-- 2nd row - cart items, if there are any, otherwise a msg stating nothing in cart -->
+    <div class="row">
+        <div class="col">
+            {% if cart_items %}
+            <!-- cart contents -->
+            <div class="table-responsive">
+            </div>
+            {% else %}
+            <p class="fw-600 mb-5">Your don't have any items in your shopping bag.</p>
+            <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
+            {% endif %}
+        </div>
     </div>
 </section>
 {% endblock %}
