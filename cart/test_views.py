@@ -54,3 +54,62 @@ class TestAddToCartView(TestCase):
         self.assertEqual(len(response.context['cart_items']), 1)
         cart = response.context['cart_items'][0]
         self.assertEqual(cart['product'].name, 'Large Wall Hanging')
+
+
+class TestAdjustCartView(TestCase):
+    """To test the adjust_cart view - form posting adjusted quantity"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of Category and Product for test
+        """
+        Category.objects.create(
+            name='category_name',
+            friendly_name='Category'
+        )
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='Large Wall Hanging',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+        )
+
+    def test_item_quantity_is_updated(self):
+        """
+        Add item to cart, then adjust quantity, check page redirects.
+        Check quantity of item in cart was updated
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        response = self.client.post('/cart/adjust/1', {
+            'quantity': 4,
+        })
+        self.assertRedirects(response, '/cart/')
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        cart_item = response.context['cart_items'][0]
+        self.assertEqual(cart_item['quantity'], 4)
+
+    def test_item_is_removed_if_quantity_is_zero(self):
+        """
+        Add item to cart, confirm there is one item in cart.
+        Then adjust quantity to 0, check page redirects, check cart is empty.
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        response = self.client.post('/cart/adjust/1', {
+            'quantity': 0,
+        })
+        self.assertRedirects(response, '/cart/')
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 0)
