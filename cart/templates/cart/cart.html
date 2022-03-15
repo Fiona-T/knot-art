@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- this contains the calc_subtotal function -->
+{% load cart_tools %}
 
 {% block extra_title %} | Cart{% endblock %}
 {% block content %}
@@ -79,7 +81,7 @@
                         </td>
                         <!-- 5th col - subtotal -->
                         <td class="p-2">
-                            <p class="my-0">€{{ item.product.price }}</p>
+                            <p class="my-0">€{{ item.product.price | calc_subtotal:item.quantity }}</p>
                         </td>
                     </tr>
                     {% endfor %}
