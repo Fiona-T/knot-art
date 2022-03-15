@@ -24,24 +24,29 @@ function selectBoxSorting() {
 }
 
 /**
- * Listen for click event on btn_qty.
- * On click, prevent default, get the data-item_id from the element, and get
- * the direction (increment or decrement) from the id of the element.
- * Call changeInputValue function, passing itemId and direction of change.
+ * If quantity buttons exist, call enableDisableQtyBtns to check if input element value is outside range,
+ * or call changeInputValue to increase/decrease input element value.
+ * - on page load, call enableDisableQtyBtns so minus btn disabled (as input value is 1 on page load)
+ * - on click event of button, call changeInputValue
+ * - on change of input box (user using up/down arrows and not the buttons), call enableDisableQtyBtns
  *  */ 
-function quantityButtons() {
+function handleQuantityInput() {
     if(document.querySelectorAll(".btn-qty")){
         let quantityBtns = document.querySelectorAll(".btn-qty");
         for (let button of quantityBtns) {
             let itemId = button.getAttribute("data-item_id");
             enableDisableQtyBtns(itemId);
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                let itemId = this.getAttribute("data-item_id");
+                let direction = this.getAttribute("id").split("-")[0]
+                changeInputValue(itemId, direction);
+            });
         }
-        quantityBtns.forEach(btn => btn.addEventListener("click", function(event) {
-            event.preventDefault();
+        $('.qty_input').change(function() {
             let itemId = this.getAttribute("data-item_id");
-            let direction = this.getAttribute("id").split("-")[0];
-            changeInputValue(itemId, direction);
-        }));
+            enableDisableQtyBtns(itemId);
+        });
     }
 }
 
@@ -81,5 +86,5 @@ function enableDisableQtyBtns(itemId) {
  * and quantity buttons in product details/cart */
 document.addEventListener("DOMContentLoaded", function () {
     selectBoxSorting();
-    quantityButtons();
+    handleQuantityInput();
 });
