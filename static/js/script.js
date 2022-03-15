@@ -25,33 +25,38 @@ function selectBoxSorting() {
 }
 
 /**
- * If btn_qty exists, then listen for click on either increment or decrement btns.
- * On click, prevent default, then get the data-item_id from the element, use this id
- * to get the input element by id (each input/button has the product id on it)
- * Increase or decrease the current value by 1.
- * Credit: initial code from Code Institute, amended/refactored.
+ * Listen for click event on btn_qty.
+ * On click, prevent default, get the data-item_id from the element, and get
+ * the direction (increment or decrement) from the id of the element.
+ * Call changeInputValue function, passing itemId and direction of change.
  *  */ 
 function quantityButtons() {
     if(document.querySelectorAll(".btn-qty")){
-        let incrementBtn = document.querySelectorAll(".increment-qty");
-        incrementBtn.forEach(button => button.addEventListener("click", function (event) {
+        let quantityBtns = document.querySelectorAll(".btn-qty");
+        quantityBtns.forEach(btn => btn.addEventListener("click", function(event) {
             event.preventDefault();
-            let item_id = this.getAttribute("data-item_id");
-            let input_element = document.getElementById(`id_qty_${item_id}`)
-            let old_value = parseInt(input_element.value);
-            input_element.value = ++ old_value;
-        }));
-
-        let decrementBtn = document.querySelectorAll(".decrement-qty");
-        decrementBtn.forEach(button => button.addEventListener("click", function (event) {
-            event.preventDefault();
-            let item_id = this.getAttribute("data-item_id");
-            let input_element = document.getElementById(`id_qty_${item_id}`)
-            let old_value = parseInt(input_element.value);
-            input_element.value = -- old_value;
+            let itemId = this.getAttribute("data-item_id");
+            let direction = this.getAttribute("id").split("-")[0];
+            changeInputValue(itemId, direction);
         }));
     }
 }
+
+/**
+ * Change the value in the input box, either up or down depending on direction
+ * @param {string} itemId the id of the product, to get the relevant input element
+ * @param {string} direction - direction of change, either increment or decrement
+ */
+function changeInputValue(itemId, direction) {
+    let inputElement = document.getElementById(`id_qty_${itemId}`);
+    let oldValue = parseInt(inputElement.value);
+    if(direction === "decrement") {
+        inputElement.value = -- oldValue;
+    } else if(direction === "increment") {
+        inputElement.value = ++ oldValue;
+    }
+}
+
 
 /** initialise the sorting options in select dropdown on products page, 
  * and quantity buttons in product details/cart */
