@@ -82,9 +82,21 @@ function enableDisableQtyBtns(itemId) {
     document.getElementById(`increment-qty_${itemId}`).disabled = plusDisabled;
 }
 
+/**
+ * When the link is clicked, get the form and submit it
+ */
+function submitQuantityUpdateForm() {
+    if($('.update-link')) {
+        $('.update-link').click(function() {
+            $(this).prev('.update-form').submit();
+        });
+    }
+}
+
 /** initialise the sorting options in select dropdown on products page, 
- * and quantity buttons in product details/cart */
+ * and quantity buttons in product details/cart, and link to submit quantity update form */
 document.addEventListener("DOMContentLoaded", function () {
     selectBoxSorting();
     handleQuantityInput();
+    submitQuantityUpdateForm();
 });

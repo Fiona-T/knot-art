@@ -45,7 +45,7 @@
                         </td>
                         <!-- 4th col - quantity -->
                         <td class="p-2 w-25 text-left text-md-center">
-                            <form action="" method="POST">
+                            <form action="{% url 'adjust_cart' item.item_id %}" method="POST" class="update-form">
                                 {% csrf_token %}
                                 <!-- form group for quantity label, buttons and input -->
                                 <div class="form-group">
