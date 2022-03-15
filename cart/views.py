@@ -1,5 +1,5 @@
 """Views for cart app - view, adjust, remove items to be purchased"""
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 
 
 def view_cart(request):
@@ -24,3 +24,20 @@ def add_to_cart(request, item_id):
         cart[item_id] = quantity
     request.session['cart'] = cart
     return redirect(redirect_url)
+
+
+def adjust_cart(request, item_id):
+    """
+    Handles the form submitted from cart.html page to adjust quantity.
+    If quantity greater than zero, set the new quantity, otherwise remove it.
+    Overwrite cart session variable with new cart.
+    Return user to cart page.
+    """
+    quantity = int(request.POST.get('quantity'))
+    cart = request.session.get('cart', {})
+    if quantity > 0:
+        cart[item_id] = quantity
+    else:
+        cart.pop(item_id)
+    request.session['cart'] = cart
+    return redirect(reverse('view_cart'))
