@@ -14,13 +14,12 @@
         <div class="col">
             {% if cart_items %}
             <!-- cart contents -->
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
                 <table class="table table-sm table-borderless">
                     <!-- headings for table, Product Details spans two columns -->
                     <thead>
                         <tr>
-                            <th scope="col">Product details</th>
-                            <th scope="col"></th>
+                            <th scope="col" colspan="2">Product details</th>
                             <th scope="col">Price</th>
                             <th scope="col">Qty</th>
                             <th scope="col">Subtotal</th>
@@ -45,8 +44,37 @@
                             <p class="my-0">€{{ item.product.price }}</p>
                         </td>
                         <!-- 4th col - quantity -->
-                        <td class="p-2">
-                            <p class="my-0">{{ item.quantity }}</p>
+                        <td class="p-2 w-25">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <!-- form group for quantity label, buttons and input -->
+                                <div class="form-group">
+                                    <label for="quantity" class="sr-only">Adjust quantity:</label>
+                                    <div class="input-group">
+                                        <!-- button before the input - for decreasing quantity -->
+                                        <div class="input-group-prepend">
+                                            <button class="decrement-qty rounded-0 btn btn-qty"
+                                                aria-label="Decrease quantity" data-item_id="{{ item.item_id }}"
+                                                id="decrement-qty_{{ item.item_id }}">
+                                                <span><i class="bi bi-dash" aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                        <!-- quantity input box -->
+                                        <input type="number" name="quantity" value="{{ item.quantity }}"
+                                            class="form-control qty_input" min="1" max="10"
+                                            data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                        <!-- button after the input - for increasing quantity -->
+                                        <div class="input-group-append">
+                                            <button class="increment-qty rounded-0 btn btn-qty"
+                                                aria-label="Increase quantity" data-item_id="{{ item.item_id }}"
+                                                id="increment-qty_{{ item.item_id }}">
+                                                <span><i class="bi bi-plus" aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of quantity form group -->
+                            </form>
                         </td>
                         <!-- 5th col - subtotal -->
                         <td class="p-2">
@@ -82,4 +110,9 @@
         </div>
     </div>
 </section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- script for the quantity +/- buttons -->
+    <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}
