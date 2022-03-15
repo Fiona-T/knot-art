@@ -225,6 +225,16 @@ a:focus {
     border: 0.01rem solid #1c1c1c;
 }
 
+/* link on cart page to update quantity */
+.update-link {
+    cursor: pointer;
+}
+
+.update-link:hover {
+    border: 0.1rem solid #ff8881;
+    font-size: 110%;
+}
+
 /* ---------------------------------------- Allauth form formatting */
 
 .allauth-form-inner-content input {

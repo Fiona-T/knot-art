@@ -44,7 +44,7 @@
                             <p class="my-0">€{{ item.product.price }}</p>
                         </td>
                         <!-- 4th col - quantity -->
-                        <td class="p-2 w-25">
+                        <td class="p-2 w-25 text-left text-md-center">
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 <!-- form group for quantity label, buttons and input -->
@@ -75,6 +75,7 @@
                                 </div>
                                 <!-- end of quantity form group -->
                             </form>
+                            <a class="update-link"><small class="fw-600">Update quantity</small></a>
                         </td>
                         <!-- 5th col - subtotal -->
                         <td class="p-2">
