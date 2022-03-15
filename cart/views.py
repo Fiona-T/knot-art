@@ -1,5 +1,5 @@
 """Views for cart app - view, adjust, remove items to be purchased"""
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponse
 
 
 def view_cart(request):
@@ -41,3 +41,18 @@ def adjust_cart(request, item_id):
         cart.pop(item_id)
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
+
+
+def remove_from_cart(request, item_id):
+    """
+    Handles the link from cart.html to remove an item (via javascript).
+    Get cart from session, remove item, update cart session variable.
+    Return success response. If error, raise server error.
+    """
+    try:
+        cart = request.session.get('cart', {})
+        cart.pop(item_id)
+        request.session['cart'] = cart
+        return HttpResponse(status=200)
+    except Exception as error:
+        return HttpResponse(status=500)
