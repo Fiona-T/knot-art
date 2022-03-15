@@ -32,6 +32,10 @@ function selectBoxSorting() {
 function quantityButtons() {
     if(document.querySelectorAll(".btn-qty")){
         let quantityBtns = document.querySelectorAll(".btn-qty");
+        for (let button of quantityBtns) {
+            let itemId = button.getAttribute("data-item_id");
+            enableDisableQtyBtns(itemId);
+        }
         quantityBtns.forEach(btn => btn.addEventListener("click", function(event) {
             event.preventDefault();
             let itemId = this.getAttribute("data-item_id");
