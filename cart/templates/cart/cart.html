@@ -40,7 +40,12 @@
                         <!-- 2nd col - name -->
                         <td class="p-2">
                             <p class="my-0">{{ item.product.name }}</p>
-                            <p class="pt-4"><a class="remove-item" id="remove_{{ item.item_id }}"><small class="fw-600">Remove item</small></a></p>
+                            <p class="pt-4">
+                                <!-- this link triggers script to post the form to remove the item -->
+                                <a class="remove-item" id="remove_{{ item.item_id }}" data-csrf="{{ csrf_token }}">
+                                    <small class="fw-600">Remove item</small>
+                                </a>
+                            </p>
                         </td>
                         <!-- 3rd col - price -->
                         <td class="p-2">
@@ -117,19 +122,6 @@
 {% endblock %}
 {% block postloadjs %}
     {{ block.super }}
-    <!-- script for the quantity +/- buttons -->
+    <!-- script for the quantity +/- buttons, update quantity, remove item -->
     <script src="{% static 'js/script.js' %}"></script>
-    <!-- remove item script. Credit: Code Institute -->
-    <script>
-        $('.remove-item').click(function(e) {
-        let csrfToken = "{{ csrf_token }}";
-        let itemId = $(this).attr('id').split('remove_')[1];
-        let url = `/cart/remove/${itemId}/`;
-        let data = {'csrfmiddlewaretoken': csrfToken};
-        $.post(url, data)
-         .done(function() {
-             location.reload();
-         });
-    });
-    </script>
 {% endblock %}

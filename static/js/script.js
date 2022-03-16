@@ -93,10 +93,35 @@ function submitQuantityUpdateForm() {
     }
 }
 
+/**
+ * When link is clicked, get csrf token and create url using item id,
+ * post the data to the url, and reload the page when done.
+ * Credit: Code Institute, with some modifications
+ */
+function removeItemFromCart() {
+    if ($(".remove-link")) {
+        $(".remove-item").click(function () {
+            let csrfToken = this.getAttribute("data-csrf");
+            let itemId = this.getAttribute("id").split("remove_")[1];
+            let url = `/cart/remove/${itemId}/`;
+            let data = {
+                "csrfmiddlewaretoken": csrfToken
+            };
+            $.post(url, data)
+                .done(function () {
+                    location.reload();
+                });
+        });
+    }
+}
+
 /** initialise the sorting options in select dropdown on products page, 
- * and quantity buttons in product details/cart, and link to submit quantity update form */
+ * and quantity buttons in product details/cart, link to submit quantity update form,
+ * link to post form to remove item
+*/
 document.addEventListener("DOMContentLoaded", function () {
     selectBoxSorting();
     handleQuantityInput();
     submitQuantityUpdateForm();
+    removeItemFromCart();
 });
