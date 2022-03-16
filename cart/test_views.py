@@ -55,6 +55,35 @@ class TestAddToCartView(TestCase):
         cart = response.context['cart_items'][0]
         self.assertEqual(cart['product'].name, 'Large Wall Hanging')
 
+    def test_quantity_updates_when_adding_an_existing_item_to_cart(self):
+        """
+        Test add item to cart that is already in cart, quantity should update
+        Starting with empty cart, post add to cart form, verify item in cart
+        and qty is 1.
+        Post add to cart form again with same item, verify that length of
+        context is still 1 (i.e. still 1 item id) but quantity of item is 2.
+        """
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 0)
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        cart_item = response.context['cart_items'][0]
+        self.assertEqual(cart_item['product'].name, 'Large Wall Hanging')
+        self.assertEqual(cart_item['quantity'], 1)
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        cart_item = response.context['cart_items'][0]
+        self.assertEqual(cart_item['product'].name, 'Large Wall Hanging')
+        self.assertEqual(cart_item['quantity'], 2)
+
 
 class TestAdjustCartView(TestCase):
     """To test the adjust_cart view - form posting adjusted quantity"""
