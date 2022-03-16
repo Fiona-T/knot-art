@@ -142,3 +142,41 @@ class TestAdjustCartView(TestCase):
         self.assertRedirects(response, '/cart/')
         response = self.client.get('/cart/')
         self.assertEqual(len(response.context['cart_items']), 0)
+
+
+class TestRemoveFromView(TestCase):
+    """Test remove_from_cart view - triggered by script that posts the url"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of Category and Product for test
+        """
+        Category.objects.create(
+            name='category_name',
+            friendly_name='Category'
+        )
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='Large Wall Hanging',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+        )
+
+    def test_item_is_removed(self):
+        """
+        Add item to cart, confirm there is one item in cart.
+        Then remove the item, check response successful,
+        go to cart page and check cart is empty.
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 1)
+        response = self.client.post('/cart/remove/1/', {})
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/cart/')
+        self.assertEqual(len(response.context['cart_items']), 0)
