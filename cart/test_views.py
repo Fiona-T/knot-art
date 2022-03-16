@@ -261,3 +261,37 @@ class TestRemoveFromView(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get('/cart/')
         self.assertEqual(len(response.context['cart_items']), 0)
+
+    def test_msg_shown_when_item_is_removed(self):
+        """
+        Add an item to the cart. Then go to cart and remove the
+        item. Confirm success message is correct.
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.client.get('/cart/')
+        response = self.client.post('/cart/remove/1/', {})
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Large Wall Hanging removed from your bag'
+            )
+
+    def test_error_msg_shown_when_exception_raised(self):
+        """
+        Post to remove from cart url without any items in the cart
+        Confirm error message is raised.
+        """
+        self.client.get('/cart/')
+        response = self.client.post('/cart/remove/1/', {})
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            "Error removing item: '1'"
+            )
