@@ -37,6 +37,13 @@ a:focus {
     border: 0.1rem solid #ff8881;
 }
 
+/* dark button */
+.btn-brand-dark {
+    color: #fdfdfd;
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
 .btn-brand:hover {
     color: #fdfdfd;
     background-color: #1c1c1c;
@@ -46,6 +53,11 @@ a:focus {
 .btn-brand-outline:hover { 
     background-color: #ff8881;
     border-color: #1c1c1c;
+}
+
+.btn-brand-dark:hover { 
+    background-color: #fdfdfd;
+    border: 0.1rem solid #ff8881;
 }
 
 .fw-600 {
@@ -169,6 +181,13 @@ a:focus {
 
 .arrow-info {
     border-bottom-color: #17a2b8;
+}
+
+/* stop the bag summary in toast msg getting too big */
+.bag-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* ---------------------------------------- Home page */
