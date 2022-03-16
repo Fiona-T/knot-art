@@ -60,6 +60,29 @@ a:focus {
     border: 0.1rem solid #ff8881;
 }
 
+/* div holding back to top link - bottom right, position sticky so stays above footer */
+.btt-button {
+    height: 3rem;
+    width: 3rem;
+    position: sticky;
+    bottom: 2vh;
+    left: 100%;
+}
+
+/* back to top link, no href as works with javascript, over-ride bootstrap inherit color for no href */
+a:not([href]).btt-link {
+    cursor: pointer;
+    background-color: #fdfdfd;
+    border: 0.1rem solid #1c1c1c;
+}
+
+/* back to top link, no href as works with javascript, over-ride bootstrap inherit color for no href */
+a:not([href]).btt-link:hover {
+    background-color: #ff8881;
+    border-color: #ff8881;
+    font-size: 130%;
+}
+
 .fw-600 {
     font-weight: 600;
 }
