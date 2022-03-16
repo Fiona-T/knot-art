@@ -115,6 +115,29 @@
             </div>
         </nav>
     </header>
+    {% if messages %}
+    <!-- to display error/info/warning/success messages for user actions -->
+    <div class="message-container">
+        {% for message in messages %}
+            <!-- using Django message levels -->
+            {% with message.level as level %}
+                {% if level == 40 %}
+                    <!-- error -->
+                    {% include 'includes/toasts/toast_error.html' %}
+                {% elif level == 30 %}
+                    <!-- warning -->
+                    {% include 'includes/toasts/toast_warning.html' %}
+                {% elif level == 25 %}
+                    <!-- success -->
+                    {% include 'includes/toasts/toast_success.html' %}
+                {% else %}
+                    <!-- info for everything else -->
+                    {% include 'includes/toasts/toast_info.html' %}
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
     <main class="pt-4 pt-md-5">
     {% block page_header %}
     <!-- specific page header under main header -->
@@ -170,6 +193,10 @@
     </footer>
     {% block postloadjs %}
     <!-- specific page scripts that need to load at end of body -->
+    <script>
+        // call Bootstrap toast method with show option on all elements with class toast
+        $(".toast").toast("show");
+    </script>
     {% endblock %}
 </body>
 </html>
