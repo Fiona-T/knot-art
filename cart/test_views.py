@@ -1,5 +1,6 @@
 """Tests for views in 'cart' app (display items in cart, adjust, remove)"""
 from django.test import TestCase
+from django.contrib.messages import get_messages
 from products.models import Category, Product
 
 
@@ -55,6 +56,21 @@ class TestAddToCartView(TestCase):
         cart = response.context['cart_items'][0]
         self.assertEqual(cart['product'].name, 'Large Wall Hanging')
 
+    def test_message_displayed_when_item_added(self):
+        """Add item, confirm correct success message is displayed"""
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.assertRedirects(response, '/products/1')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Large Wall Hanging added to your bag'
+            )
+
     def test_quantity_updates_when_adding_an_existing_item_to_cart(self):
         """
         Test add item to cart that is already in cart, quantity should update
@@ -84,6 +100,28 @@ class TestAddToCartView(TestCase):
         self.assertEqual(cart_item['product'].name, 'Large Wall Hanging')
         self.assertEqual(cart_item['quantity'], 2)
 
+    def test_message_displayed_when_item_added_again(self):
+        """
+        Add item, then add the same item again
+        Confirm correct success message is displayed
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.assertRedirects(response, '/products/1')
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.assertRedirects(response, '/products/1')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Quantity for Large Wall Hanging updated to 2'
+            )
 
 class TestAdjustCartView(TestCase):
     """To test the adjust_cart view - form posting adjusted quantity"""
