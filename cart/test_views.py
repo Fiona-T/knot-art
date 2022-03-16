@@ -123,6 +123,7 @@ class TestAddToCartView(TestCase):
             'Quantity for Large Wall Hanging updated to 2'
             )
 
+
 class TestAdjustCartView(TestCase):
     """To test the adjust_cart view - form posting adjusted quantity"""
     @classmethod
@@ -163,6 +164,27 @@ class TestAdjustCartView(TestCase):
         cart_item = response.context['cart_items'][0]
         self.assertEqual(cart_item['quantity'], 4)
 
+    def test_message_displayed_when_quantity_increased(self):
+        """
+        Add an item to the cart. Then go to cart and adjust the
+        quantity. Confirm success message is correct.
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.client.get('/cart/')
+        response = self.client.post('/cart/adjust/1', {
+            'quantity': 4,
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Quantity for Large Wall Hanging updated to 4'
+            )
+
     def test_item_is_removed_if_quantity_is_zero(self):
         """
         Add item to cart, confirm there is one item in cart.
@@ -180,6 +202,27 @@ class TestAdjustCartView(TestCase):
         self.assertRedirects(response, '/cart/')
         response = self.client.get('/cart/')
         self.assertEqual(len(response.context['cart_items']), 0)
+
+    def test_msg_shown_when_quantity_reduced_to_zero(self):
+        """
+        Add an item to the cart. Then go to cart and adjust the
+        quantity to zero. Confirm success message is correct.
+        """
+        response = self.client.post('/cart/add/1', {
+            'quantity': 1,
+            'redirect_url': '/products/1'
+        })
+        self.client.get('/cart/')
+        response = self.client.post('/cart/adjust/1', {
+            'quantity': 0,
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Large Wall Hanging removed from your bag'
+            )
 
 
 class TestRemoveFromView(TestCase):
