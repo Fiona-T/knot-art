@@ -1,8 +1,9 @@
 """Views for products app - shop pages, product admin"""
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import Http404
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.contrib import messages
 from .models import Product, Category
 
 
@@ -50,6 +51,12 @@ def show_products(request):
         # handles searches
         if 'q' in request.GET:
             search_term = request.GET['q']
+            if not search_term:
+                messages.error(
+                    request,
+                    "You didn't enter anything in the search box! Try again."
+                    )
+                return redirect(reverse('products'))
             matches_search = Q(
                 name__icontains=search_term
                 ) | Q(
