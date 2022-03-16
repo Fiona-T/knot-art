@@ -1,6 +1,7 @@
 """Tests for views in 'product' app (shop)"""
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from .models import Category, Product
 
 
@@ -140,6 +141,22 @@ class TestShowProductsView(TestCase):
             )
         response = self.client.get('/products/?q=description')
         self.assertEqual(len(response.context['products']), 15)
+
+    def test_error_message_displayed_if_no_search_term(self):
+        """
+        Test that if search box posted without any search terms,
+        an error message is displayed. Get the messages, check
+        length, tag and content are all as expected.
+        """
+        response = self.client.get('/products/?q=')
+        self.assertRedirects(response, '/products/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            "You didn't enter anything in the search box! Try again."
+            )
 
     def test_category_filtering_returns_correct_products(self):
         """
