@@ -115,13 +115,23 @@ function removeItemFromCart() {
     }
 }
 
+/**
+ * listen for click on link, scroll back to top of page
+ */
+function scrollBackToTop() {
+    document.querySelector(".btt-link").addEventListener("click", function() {
+        window.scrollTo(0,0);
+    })
+}
+
 /** initialise the sorting options in select dropdown on products page, 
  * and quantity buttons in product details/cart, link to submit quantity update form,
- * link to post form to remove item
+ * link to post form to remove item, link to scroll back to top
 */
 document.addEventListener("DOMContentLoaded", function () {
     selectBoxSorting();
     handleQuantityInput();
     submitQuantityUpdateForm();
     removeItemFromCart();
+    scrollBackToTop();
 });
