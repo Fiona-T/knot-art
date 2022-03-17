@@ -1,3 +1,13 @@
+h2 {
+    font-size: 100%;
+    margin-bottom: 1rem;
+}
+
+.order-summary-hr {
+    border-top: 0.1rem solid rgba(255, 136, 129, 0.3);
+}
+
+/* ---------------------------------------- Order form */
 .order-form-input {
     border-radius: 0;
     background-color: white;
