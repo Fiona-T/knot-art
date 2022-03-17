@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load cart_tools %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block extra_title %} | Checkout{% endblock %}
+{% block content %}
+<!-- page contents container with two rows -->
+<section class="container py-5">
+    <!-- row with one colum - Checkout heading-->
+    <div class="row pt-5">
+        <div class="col">
+            <h1 class="mb-4">Checkout</h1>
+        </div>
+    </div>
+    <!-- row with two colums - checkout form, and order summary (to be added)-->
+    <div class="row">
+        <!-- checkout form -->
+        <div class="col-12 col-lg-6">
+            <p>Nearly there! Fill out the form below to complete your order.</p>
+            <p><em>Fields marked with * must be completed.</em></p>
+            <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="order-form">
+                {% csrf_token %}
+                <!-- form fields grouped into 3 fieldsets -->
+                <!-- 1st fieldset - Personal details - form fields rendered with crispy forms -->
+                <fieldset>
+                    <legend class="fieldset-label px-2 w-auto mb-0">Your Details</legend>
+                    {{ order_form.full_name | as_crispy_field }}
+                    {{ order_form.email | as_crispy_field }}
+                    {{ order_form.phone_number | as_crispy_field }}
+                </fieldset>
+                <!-- 2nd fieldset - Delivery details - form fields rendered with crispy forms -->
+                <fieldset>
+                    <legend class="fieldset-label px-2 w-auto">Delivery Details</legend>
+                    {{ order_form.street_address1 | as_crispy_field }}
+                    {{ order_form.street_address2 | as_crispy_field }}
+                    {{ order_form.town_or_city | as_crispy_field }}
+                    {{ order_form.county | as_crispy_field }}
+                    {{ order_form.postcode | as_crispy_field }}
+                    {{ order_form.country | as_crispy_field }}
+                </fieldset>
+                <!-- 3rd fieldset, Payment info. No form fields - using stripe - two empty divs to hold stripe elements -->
+                <fieldset>
+                    <legend class="fieldset-label px-2 w-auto">Payment Details</legend>
+                        <!-- A Stripe card element will go here -->
+                        <div class="mb-3" id="card-element"></div>
+                        <!-- Needed for stripe card errors -->
+                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
