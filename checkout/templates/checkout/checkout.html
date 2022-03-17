@@ -16,10 +16,67 @@
             <h1 class="mb-4">Checkout</h1>
         </div>
     </div>
-    <!-- row with two colums - checkout form, and order summary (to be added)-->
+    <!-- row with two colums - order summary and checkout form -->
     <div class="row">
+        <!-- order summary - column with 3 rows-->
+        <div class="col-12 col-lg-6 order-lg-last mb-5">
+            <!-- order summary header -->
+            <h2 class="text-uppercase">Your Order Summary ({{ product_count }})</h2>
+            <!-- 1st row with column sub headings -->
+            <div class="row">
+                <div class="col-7 offset-2">
+                    <p class="mb-1 mt-0 small">Item</p>
+                </div>
+                <div class="col-3 text-right">
+                    <p class="mb-1 mt-0 small">Subtotal</p>
+                </div>
+            </div>
+            <!-- 2nd row loop through bag items, display image, name, qty, subtotal -->
+            {% for item in cart_items %}
+            <div class="row">
+                <div class="col-2 mb-1">
+                    <a href="{% url 'product_details' item.product.id %}">
+                        {% if item.product.image %}
+                        <img class="w-100" src="{{ item.product.image.url }}" alt="Photo of {{ item.product.name }}">
+                        {% else %}
+                        <img class="w-100" src="{{ MEDIA_URL }}no-image.png"
+                            alt="No image yet for {{ item.product.name }}, image coming soon.">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-7">
+                    <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                    <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
+                </div>
+                <div class="col-3 text-right">
+                    <p class="my-0 small">€{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <hr class="order-summary-hr">
+            <!-- 3rd row - totals -->
+            <div class="row fw-600 text-right">
+                <div class="col-7 offset-2">
+                    <p class="my-0">Order Total:</p>
+                    <p class="my-0">Delivery:</p>
+                    <p class="my-0">Grand Total:</p>
+                </div>
+                <div class="col-3">
+                    <p class="my-0">€{{ total | floatformat:2 }}</p>
+                    <p class="my-0">€{{ delivery | floatformat:2 }}</p>
+                    <p class="my-0"><strong>€{{ grand_total | floatformat:2 }}</strong></p>
+                </div>
+            </div>
+            <hr class="order-summary-hr">
+            <!-- button to go back to the cart page -->
+            <div class="text-right">
+                <a href="{% url 'view_cart' %}" class="btn btn-brand btn-lg">Adjust Bag</a>
+            </div>
+        </div>
+        <!-- end of order summary -->
         <!-- checkout form -->
         <div class="col-12 col-lg-6">
+            <h2 class="text-uppercase">Complete Your Order</h2>
             <p>Nearly there! Fill out the form below to complete your order.</p>
             <p><em>Fields marked with * must be completed.</em></p>
             <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="order-form">
@@ -45,13 +102,14 @@
                 <!-- 3rd fieldset, Payment info. No form fields - using stripe - two empty divs to hold stripe elements -->
                 <fieldset>
                     <legend class="fieldset-label px-2 w-auto">Payment Details</legend>
-                        <!-- A Stripe card element will go here -->
-                        <div class="mb-3" id="card-element"></div>
-                        <!-- Needed for stripe card errors -->
-                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                    <!-- A Stripe card element will go here -->
+                    <div class="mb-3" id="card-element"></div>
+                    <!-- Needed for stripe card errors -->
+                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                 </fieldset>
             </form>
         </div>
+        <!-- end of checkout form -->
     </div>
 </section>
 
