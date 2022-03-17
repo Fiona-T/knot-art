@@ -55,7 +55,7 @@
             {% endfor %}
             <hr class="order-summary-hr">
             <!-- 3rd row - totals -->
-            <div class="row fw-600 text-right">
+            <div class="row fw-600 text-right justify-content-end">
                 <div class="col-7 offset-2">
                     <p class="my-0">Order Total:</p>
                     <p class="my-0">Delivery:</p>
@@ -66,6 +66,10 @@
                     <p class="my-0">€{{ delivery | floatformat:2 }}</p>
                     <p class="my-0"><strong>€{{ grand_total | floatformat:2 }}</strong></p>
                 </div>
+                {% if free_delivery_spend_needed > 0 %}
+                <p class="font-italic pr-3 pt-3 mb-0">You can get free delivery if you spend
+                    <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
+                {% endif %}
             </div>
             <hr class="order-summary-hr">
             <!-- button to go back to the cart page -->
