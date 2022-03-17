@@ -5,6 +5,7 @@ html, body {
 body {
     font-family: 'Overpass', sans-serif;
     color: #1c1c1c;
+    font-weight: 300;
 }
 
 h1, h2 {
@@ -346,12 +347,15 @@ a:not([href]).btt-link:hover {
 
 /* labels heavier weight */
 .allauth-form-inner-content label {
-    font-weight: 600;
+    font-size: 90%;
+    font-weight: 500;
+    margin-bottom: 0;
 }
 
 /* give placeholders same color as text */
 .allauth-form-inner-content input::placeholder {
     color: #1c1c1c;
+    font-weight: 100;
 }
 
 .allauth-form-inner-content p {
