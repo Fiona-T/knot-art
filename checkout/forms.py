@@ -15,6 +15,10 @@ class OrderForm(forms.ModelForm):
                   'street_address1', 'street_address2',
                   'town_or_city', 'postcode', 'country',
                   'county',)
+        labels = {
+            'street_address1': 'Street address 1',
+            'street_address2': 'Street address 2',
+        }
 
     def __init__(self, *args, **kwargs):
         """
