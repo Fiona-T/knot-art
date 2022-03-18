@@ -59,3 +59,38 @@ select option[value=""] {
   border-radius: 0;
   background-color: white;
 }
+
+/* div to overlay screen when payment processing - triggered by JS */
+#loading-overlay {
+	display: none;
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(108, 113, 114, 0.85);
+    z-index: 9999;
+}
+
+/* icon spinner */
+.spinner {
+    font-size: 4rem;
+    text-align: center;
+    display: block;
+    color: #fcfcfc;
+}
+
+/* div holding spinner */
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+    animation: spin infinite 4s linear;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
