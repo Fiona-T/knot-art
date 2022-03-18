@@ -37,3 +37,19 @@ const style = {
 const card = elements.create('card', {style: style});
 // mount the card element to the div in the checkout.html file
 card.mount('#card-element');
+
+// handle realtime validation errors on the card element & display errors in card-errors div
+card.addEventListener('change', function(event) {
+    let errorDiv = document.getElementById('card-errors');
+    if (event.error) {
+        let html = `
+        <span role="alert">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </span>
+        <span>${event.error.message}</span>
+        `;
+        $(errorDiv).html(html);
+    } else {
+        errorDiv.textContent = '';
+    }
+});
