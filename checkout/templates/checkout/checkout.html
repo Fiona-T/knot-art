@@ -107,10 +107,10 @@
                 <fieldset>
                     <legend class="fieldset-label px-2 w-auto">Payment Details</legend>
                     <p class="small"><em>All transactions are secure and encrypted.</em></p>
-                    <!-- A Stripe card element will go here -->
+                    <!-- Stripe card element is mounted here -->
                     <div class="mb-3" id="card-element"></div>
-                    <!-- Needed for stripe card errors -->
-                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                    <!-- Stripe card errors displayed here - event listener for change on card, displays error here -->
+                    <div class="mb-3 text-danger fw-600 small" id="card-errors" role="alert"></div>
                 </fieldset>
                 <!-- submit button section -->
                 <div class="text-right mt-5 mb-2">
