@@ -49,3 +49,13 @@ select option[value=""] {
     font-weight: 100;
     font-size: 90%;
 }
+
+/* stripe card element box */
+.StripeElement {
+  box-sizing: border-box;
+  height: 2.5rem;
+  padding: .625rem .75rem;
+  border: 0.1rem solid #1c1c1c;
+  border-radius: 0;
+  background-color: white;
+}
