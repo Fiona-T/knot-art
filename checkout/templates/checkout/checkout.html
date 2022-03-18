@@ -115,7 +115,7 @@
                 <!-- submit button section -->
                 <div class="text-right mt-5 mb-2">
                     <!-- submit button -->
-                    <button class="btn btn-brand btn-lg">
+                    <button class="btn btn-brand btn-lg" id="submit-button">
                         <i class="bi bi-lock" aria-hidden="true"></i> Complete Order
                     </button>
                     <!-- notification that the card will be charged the amount once submitted -->
@@ -127,6 +127,12 @@
         <!-- end of checkout form -->
     </div>
 </section>
+<!-- overlay to cover screen while payment is being processed -->
+<div id="loading-overlay">
+    <div class="loading-spinner">
+        <i class="bi bi-dash-circle-dotted spinner" aria-label="request processing"></i>
+    </div>
+</div>
 
 {% endblock %}
 
