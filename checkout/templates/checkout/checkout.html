@@ -74,14 +74,14 @@
             <hr class="order-summary-hr">
             <!-- button to go back to the cart page -->
             <div class="text-right">
-                <a href="{% url 'view_cart' %}" class="btn btn-brand btn-lg">Adjust Bag</a>
+                <a href="{% url 'view_cart' %}" class="btn btn-brand-outline btn-lg">Adjust Bag</a>
             </div>
         </div>
         <!-- end of order summary -->
         <!-- checkout form -->
         <div class="col-12 col-lg-6">
             <h2 class="text-uppercase">Complete Your Order</h2>
-            <p>Nearly there! Fill out the form below to complete your order.</p>
+            <p>Nearly there! Fill out the form below to complete your order and pay.</p>
             <p><em>Fields marked with * must be completed.</em></p>
             <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="order-form">
                 {% csrf_token %}
@@ -106,15 +106,34 @@
                 <!-- 3rd fieldset, Payment info. No form fields - using stripe - two empty divs to hold stripe elements -->
                 <fieldset>
                     <legend class="fieldset-label px-2 w-auto">Payment Details</legend>
+                    <p class="small"><em>All transactions are secure and encrypted.</em></p>
                     <!-- A Stripe card element will go here -->
                     <div class="mb-3" id="card-element"></div>
                     <!-- Needed for stripe card errors -->
                     <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                 </fieldset>
+                <!-- submit button section -->
+                <div class="text-right mt-5 mb-2">
+                    <!-- submit button -->
+                    <button class="btn btn-brand btn-lg">
+                        <i class="bi bi-lock" aria-hidden="true"></i> Complete Order
+                    </button>
+                    <!-- notification that the card will be charged the amount once submitted -->
+                    <p class="small fw-600 mt-2">Your card will be charged
+                        <strong>€{{ grand_total|floatformat:2 }}</strong></p>
+                </div>
             </form>
         </div>
         <!-- end of checkout form -->
     </div>
 </section>
 
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- render the django template variables here, to then access in the JS file -->
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
