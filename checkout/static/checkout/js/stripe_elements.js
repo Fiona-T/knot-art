@@ -53,3 +53,45 @@ card.addEventListener('change', function(event) {
         errorDiv.textContent = '';
     }
 });
+
+// Handle form submit
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    // disable card element and submit btn to prevent multiple submissions
+    card.update({ 'disabled': true});
+    $('#submit-button').attr('disabled', true);
+    // fade out the form and trigger the overlay
+    $('#payment-form').fadeToggle(100);
+    $('#loading-overlay').fadeToggle(100);
+
+    // call confirm card payment method, providing the card to stripe, then execute
+    // the function on the result
+    stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+            card: card,
+        }
+    }).then(function(result) {
+        // show errors
+        if (result.error) {
+            let errorDiv = document.getElementById('card-errors');
+            let html = `
+                <span class="icon" role="alert">
+                <i class="bi bi-x-lg" aria-hidden="true"></i>
+                </span>
+                <span>${result.error.message}</span>`;
+            $(errorDiv).html(html);
+            // fade in the form again and remove overlay so errors can be fixed
+            $('#payment-form').fadeToggle(100);
+            $('#loading-overlay').fadeToggle(100);
+            // re-enable the card element and the submit btn so error can be fixed
+            card.update({ 'disabled': false});
+            $('#submit-button').attr('disabled', false);
+        } else {
+            // payment successful, submit the form (prevented above)
+            if (result.paymentIntent.status === 'succeeded') {
+                form.submit();
+            }
+        }
+    });
+});
