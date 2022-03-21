@@ -1,5 +1,5 @@
 """Views for checkout app - checkout page to complete a purchase"""
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 
@@ -7,7 +7,7 @@ import stripe
 
 from cart.contexts import cart_contents
 from products.models import Product
-from .models import OrderLineItem
+from .models import OrderLineItem, Order
 from .forms import OrderForm
 
 
@@ -113,5 +113,9 @@ def checkout(request):
 
 def checkout_success(request, order_number):
     """success page"""
+    order = get_object_or_404(Order, order_number=order_number)
     template = 'checkout/checkout_success.html'
-    return render(request, template)
+    context = {
+        'order': order,
+    }
+    return render(request, template, context)
