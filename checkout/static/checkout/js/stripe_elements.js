@@ -65,57 +65,72 @@ form.addEventListener('submit', function(ev) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
-    // call confirm card payment method, providing the card + form details to stripe,
-    // then executethe function on the result
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-            billing_details: {
+    // Get value of csrf token from using {% csrf_token %} in the form
+    let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    // info to post to the cache_checkout_data view, at the url below
+    let postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+    };
+    // posting here triggers the cache_checkout_data view to add cart to meta data
+    let url = '/checkout/cache_checkout_data/';
+    // after posting to cache_checkout_data, wait for 200 response from the view
+    $.post(url, postData).done(function() {
+        // then call confirm card payment method, providing the card + form details to stripe,
+        // then executethe function on the result
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email.value),
+                    address:{
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        country: $.trim(form.country.value),
+                        state: $.trim(form.county.value),
+                    }
+                }
+            },
+            shipping: {
                 name: $.trim(form.full_name.value),
                 phone: $.trim(form.phone_number.value),
-                email: $.trim(form.email.value),
-                address:{
+                address: {
                     line1: $.trim(form.street_address1.value),
                     line2: $.trim(form.street_address2.value),
                     city: $.trim(form.town_or_city.value),
                     country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
                     state: $.trim(form.county.value),
                 }
+            },
+        }).then(function(result) {
+            // show errors
+            if (result.error) {
+                let errorDiv = document.getElementById('card-errors');
+                let html = `
+                    <span class="icon" role="alert">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                    </span>
+                    <span>${result.error.message}</span>`;
+                $(errorDiv).html(html);
+                // fade in the form again and remove overlay so errors can be fixed
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
+                // re-enable the card element and the submit btn so error can be fixed
+                card.update({ 'disabled': false});
+                $('#submit-button').attr('disabled', false);
+            } else {
+                // payment successful, submit the form (prevented above)
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
             }
-        },
-        shipping: {
-            name: $.trim(form.full_name.value),
-            phone: $.trim(form.phone_number.value),
-            address: {
-                line1: $.trim(form.street_address1.value),
-                line2: $.trim(form.street_address2.value),
-                city: $.trim(form.town_or_city.value),
-                country: $.trim(form.country.value),
-                postal_code: $.trim(form.postcode.value),
-                state: $.trim(form.county.value),
-            }
-        },
-    }).then(function(result) {
-        // show errors
-        if (result.error) {
-            let errorDiv = document.getElementById('card-errors');
-            let html = `
-                <span class="icon" role="alert">
-                <i class="bi bi-x-lg" aria-hidden="true"></i>
-                </span>
-                <span>${result.error.message}</span>`;
-            $(errorDiv).html(html);
-            // fade in the form again and remove overlay so errors can be fixed
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
-            // re-enable the card element and the submit btn so error can be fixed
-            card.update({ 'disabled': false});
-            $('#submit-button').attr('disabled', false);
-        } else {
-            // payment successful, submit the form (prevented above)
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
-            }
-        }
-    });
+        });
+    }).fail(function() {
+        // if cache_checkout_data view returns 400 response - reload page
+        location.reload();
+    })
 });
