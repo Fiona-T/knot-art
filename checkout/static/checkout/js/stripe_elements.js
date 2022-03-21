@@ -2,7 +2,7 @@
     Core logic/payment flow comes from:
     https://stripe.com/docs/payments/accept-a-payment
     Options for style object from: https://stripe.com/docs/js/appendix/style
-    Also credit to Code Institute.
+    Credit to Code Institute for form submit part.
 */
 
 // get the text from the script elements, and slice off the quotation marks
@@ -65,12 +65,36 @@ form.addEventListener('submit', function(ev) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
-    // call confirm card payment method, providing the card to stripe, then execute
-    // the function on the result
+    // call confirm card payment method, providing the card + form details to stripe,
+    // then executethe function on the result
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
-        }
+            billing_details: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                email: $.trim(form.email.value),
+                address:{
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    state: $.trim(form.county.value),
+                }
+            }
+        },
+        shipping: {
+            name: $.trim(form.full_name.value),
+            phone: $.trim(form.phone_number.value),
+            address: {
+                line1: $.trim(form.street_address1.value),
+                line2: $.trim(form.street_address2.value),
+                city: $.trim(form.town_or_city.value),
+                country: $.trim(form.country.value),
+                postal_code: $.trim(form.postcode.value),
+                state: $.trim(form.county.value),
+            }
+        },
     }).then(function(result) {
         // show errors
         if (result.error) {
