@@ -94,3 +94,29 @@ select option[value=""] {
     0% { transform: rotate(0deg);}
     100% { transform: rotate(360deg);}
 }
+
+/* ---------------------------------------- Order Success page */
+.order-success-wrapper {
+    padding: 1rem 0.5rem;
+    border: 0.1rem solid #ff8881;
+}
+
+.order-summary-header {
+    background-color: #ff8881;
+    padding: 0.625rem;
+}
+
+.order-success-heading {
+    font-weight: 100;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+}
+
+.order-summary-header .order-success-heading {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.order-hr {
+    border-top: 0.1rem solid #ff8881;
+}
