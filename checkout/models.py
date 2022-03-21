@@ -10,7 +10,11 @@ from products.models import Product
 
 
 class Order(models.Model):
-    """The order as a whole, with the delivery details"""
+    """
+    The order as a whole, with the delivery details.
+    Two fields are unique identifiers in webhook handler to check if order
+    already exists (so can create if not): original_cart and stripe_pid.
+    """
     order_number = models.CharField(max_length=32, null=False, editable=False)
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
@@ -33,6 +37,13 @@ class Order(models.Model):
         )
     grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0
+        )
+    original_cart = models.TextField(null=False, blank=False, default='')
+    stripe_pid = models.CharField(
+        max_length=254,
+        null=False,
+        blank=False,
+        default=''
         )
 
     def _generate_order_number(self):
