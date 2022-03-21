@@ -112,8 +112,17 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
-    """success page"""
+    """
+    Show the checkout success page, pass back order so order summary can be
+    displayed. Show success message, and delete cart session variable.
+    """
     order = get_object_or_404(Order, order_number=order_number)
+    messages.success(
+        request,
+        f'Order number: {order_number} successfully created! '
+        f'An email will be sent to {order.email} with the order details.')
+    if 'cart' in request.session:
+        del request.session['cart']
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
