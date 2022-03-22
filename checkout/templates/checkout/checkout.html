@@ -102,6 +102,22 @@
                     {{ order_form.county | as_crispy_field }}
                     {{ order_form.postcode | as_crispy_field }}
                     {{ order_form.country | as_crispy_field }}
+                    <!-- Save Info section -->
+                    <div class="form-check form-check-inline float-right mr-0">
+                        {% if user.is_authenticated %}
+                        <!-- if user logged in - checkbox to save default ph number + delivery info to profile -->
+                        <label class="form-check-label" for="id-save-info">Save delivery information and phone number to
+                            my profile</label>
+                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info"
+                            checked>
+                        {% else %}
+                        <!-- Or else links to sign in/create account, to then save the delivery info to profile -->
+                        <label class="form-check-label" for="id-save-info">
+                            <a href="{% url 'account_login' %}">Sign in</a> or
+                            <a href="{% url 'account_signup' %}">create an account</a> to save delivery information
+                        </label>
+                        {% endif %}
+                    </div>
                 </fieldset>
                 <!-- 3rd fieldset, Payment info. No form fields - using stripe - two empty divs to hold stripe elements -->
                 <fieldset>
