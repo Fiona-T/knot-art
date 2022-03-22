@@ -91,9 +91,10 @@
                                 </p>
                             </div>
                         </a>
-                        <!-- dropdown menu items options depend on signed in status (to be added later) -->
+                        <!-- dropdown menu items options depend on signed in status -->
                         <div class="dropdown-menu border-0" aria-labelledby="account-options">
                             {% if request.user.is_authenticated %}
+                            <a href="{% url 'profile' %}" class="dropdown-item nav-text">My Profile</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item nav-text">Sign Out</a>
                             {% else %}
                             <a href="{% url 'account_login' %}" class="dropdown-item nav-text">Sign In</a>
