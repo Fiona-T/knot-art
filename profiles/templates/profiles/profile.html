@@ -8,8 +8,27 @@
     <!-- row with one colum - heading-->
     <div class="row pt-5">
         <div class="col">
-            <h1 class="mb-4">Your Profile</h1>
+            <h1 class="mb-4">My Profile</h1>
         </div>
     </div>
+    <!-- second row with Profile form -->
+    <div class="row">
+        <!-- profile - form to add delivery info, see saved info, update saved info -->
+        <div class="col-12 col-lg-6">
+            <h2 class="text-uppercase">Delivery information</h2>
+            <p>Add or update your saved delivery details using the form below. Any details you previously saved are
+                shown below.</p>
+            <p>Saved details will be prepopulated on the checkout form next time you make a purchase, making the
+                checkout process quicker.</p>
+            <form class="mt-3 profile-form" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+                <fieldset>
+                    <legend class="fieldset-label px-2 w-auto mb-0">Default Delivery Information</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <!-- submit button -->
+                <button class="btn btn-brand btn-lg float-right">Update Information</button>
+            </form>
+        </div>
 </section>
 {% endblock %}
