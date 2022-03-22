@@ -20,9 +20,12 @@ def cache_checkout_data(request):
     """
     Cache the data in the webhooks process from stripe_elements.js
     Before calling confirmCardPayment js, makes a post request to this view
-    This view modifies the Stripe payment intent, adding cart contents to
-    the metadata. Cart contents will be used by payment_intent_succeeded handler
-    to find the order in the database and create it if it's not there.
+    This view modifies the Stripe payment intent, adding cart contents, user
+    and whether user wants to save delivery info, to the metadata
+    Cart contents will be used by payment_intent_succeeded handler to find
+    the order in the database and create it if it's not there. Save info will
+    be added to session in checkout view, used by checkout success to save
+    to user profile.
     Response sent back to js - 200 means will call confirmCardPayment Stripe
     method; 400 means page will reload to show the error message.
     """
@@ -31,6 +34,8 @@ def cache_checkout_data(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
             'cart': json.dumps(request.session.get('cart', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
         })
         return HttpResponse(status=200)
     except Exception as e:
@@ -50,7 +55,8 @@ def checkout(request):
     Post request:
     Create instance of order form with the data posted, if form is valid then
     for each item in the cart, get the product and create an orderlineitem
-    instance, add client secret + original_cart, return to success page.
+    instance, save 'save-info' variable to session. In context add client secret
+    and original_cart, return to success page.
     If product doesn't exist, delete order, return cart page with error msg.
     If form not valid, display error message.
     """
@@ -94,6 +100,7 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_cart'))
+            request.session['save_info'] = 'save-info' in request.POST
             return redirect(
                 reverse('checkout_success', args=[order.order_number])
                 )
@@ -148,6 +155,8 @@ def checkout_success(request, order_number):
     Show the checkout success page, pass back order so order summary can be
     displayed. Show success message, and delete cart session variable.
     """
+    save_info = request.session.get('save_info')
+    print(save_info)
     order = get_object_or_404(Order, order_number=order_number)
     messages.success(
         request,
