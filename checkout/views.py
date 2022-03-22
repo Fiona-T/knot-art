@@ -11,6 +11,7 @@ import stripe
 
 from cart.contexts import cart_contents
 from products.models import Product
+from profiles.models import UserProfile
 from .models import OrderLineItem, Order
 from .forms import OrderForm
 
@@ -47,7 +48,8 @@ def cache_checkout_data(request):
 def checkout(request):
     """
     Get request:
-    Show the checkout page with Order form
+    Show the checkout page with Order form. If user logged in, get
+    default info from profile if it exists, otherwise blank form.
     If nothing in cart, return to shop page with error message.
     Get stripe variables, create payment intent using secret key.
     Get client_secret back from the intent, pass it to context to confirm
@@ -55,8 +57,8 @@ def checkout(request):
     Post request:
     Create instance of order form with the data posted, if form is valid then
     for each item in the cart, get the product and create an orderlineitem
-    instance, save 'save-info' variable to session. In context add client secret
-    and original_cart, return to success page.
+    instance, save 'save-info' variable to session. In context add client
+    secret and original_cart. Return to success page.
     If product doesn't exist, delete order, return cart page with error msg.
     If form not valid, display error message.
     """
@@ -129,8 +131,25 @@ def checkout(request):
             currency=settings.STRIPE_CURRENCY,
         )
         print(intent)
-
-        order_form = OrderForm()
+        # generate order form - either prefilled or empty:
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'full_name': str(profile.user),
+                    'email': profile.user.email,
+                    'phone_number': profile.default_phone_number,
+                    'country': profile.default_country,
+                    'postcode': profile.default_postcode,
+                    'town_or_city': profile.default_town_or_city,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'county': profile.default_county,
+                })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
     # message alert if public key not set
     if not stripe_public_key:
