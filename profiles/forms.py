@@ -13,8 +13,8 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         exclude = ('user',)
         labels = {
-            'default_street_address1': 'Street address 1',
-            'default_street_address2': 'Street address 2',
+            'default_street_address1': 'Default Street address 1',
+            'default_street_address2': 'Default Street address 2',
         }
 
     def __init__(self, *args, **kwargs):
@@ -24,8 +24,8 @@ class UserProfileForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         placeholders = {
-            'postcode': 'Postal Code or Eircode',
-            'county': 'County, State or Locality',
+            'default_postcode': 'Postal Code or Eircode',
+            'default_county': 'County, State or Locality',
         }
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
