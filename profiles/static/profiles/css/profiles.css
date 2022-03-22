@@ -1,0 +1,11 @@
+/* ---------------------------------------- UserProfile form */
+/* select options except first one black by default */
+.country-input,
+.country-input option:not(:first-child) {
+    color: #000;
+}
+
+/* first option same color as placeholder */
+.country-input option:first-child {
+    color: #6c757d;
+}
