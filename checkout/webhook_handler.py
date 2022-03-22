@@ -3,6 +3,7 @@ import json
 import time
 from django.http import HttpResponse
 from products.models import Product
+from profiles.models import UserProfile
 from .models import Order, OrderLineItem
 
 
@@ -30,6 +31,8 @@ class StripeWebHookHandler:
         """
         Handle payment_intent.succeeded webhook from stripe.
         Which is sent when payment successful.
+        If save-info from metadata is true, get user, if logged in then get
+        profile, attach delivery info to it and save the profile.
         Check if the order was created (i.e. is in the database), and create
         it if not, using info from payment intent,including cart info which
         was added to intent metadata in cache_checkout_data view.
@@ -39,6 +42,7 @@ class StripeWebHookHandler:
         intent = event.data.object
         pid = intent.id
         cart = intent.metadata.cart
+        save_info = intent.metadata.save_info
         billing_details = intent.charges.data[0].billing_details
         shipping_details = intent.shipping
         grand_total = round(intent.charges.data[0].amount / 100, 2)
@@ -46,6 +50,25 @@ class StripeWebHookHandler:
         for field, value in shipping_details.address.items():
             if value == "":
                 shipping_details.address[field] = None
+        # update the user profile if save info box was ticked
+        profile = None
+        username = intent.metadata.username
+        if username != 'AnonymousUser':
+            profile = UserProfile.objects.get(user__username=username)
+            if save_info:
+                profile.default_phone_number = shipping_details.phone
+                profile.default_street_address1 = (
+                    shipping_details.address.line1
+                    )
+                profile.default_street_address2 = (
+                    shipping_details.address.line2
+                    )
+                profile.default_town_or_city = shipping_details.address.city
+                profile.default_county = shipping_details.address.state
+                profile.default_postcode = shipping_details.address.postal_code
+                profile.default_country = shipping_details.address.country
+                profile.save()
+        # try to find the order for 5 attempts, break out if it is found
         order_exists = False
         attempt_number = 1
         while attempt_number <= 5:
@@ -74,6 +97,7 @@ class StripeWebHookHandler:
                     content=f'Webhook received: {event["type"]} | '
                     'SUCCESS: Verified order already in database',
                     status=200)
+        # if order not found then try to create it
         else:
             order = None
             try:
