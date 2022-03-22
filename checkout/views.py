@@ -177,6 +177,18 @@ def checkout_success(request, order_number):
     save_info = request.session.get('save_info')
     print(save_info)
     order = get_object_or_404(Order, order_number=order_number)
+    profile = None
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        if save_info:
+            profile.default_phone_number = order.phone_number
+            profile.default_street_address1 = order.street_address1
+            profile.default_street_address2 = order.street_address2
+            profile.default_town_or_city = order.town_or_city
+            profile.default_county = order.county
+            profile.default_postcode = order.postcode
+            profile.default_country = order.country
+            profile.save()
     messages.success(
         request,
         f'Order number: {order_number} successfully created! '
