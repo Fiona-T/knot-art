@@ -65,12 +65,15 @@ form.addEventListener('submit', function(ev) {
     $('#payment-form').fadeToggle(100);
     $('#loading-overlay').fadeToggle(100);
 
+    // get Boolean value of savinfo box by looking at its checked attribute
+    let saveInfo = Boolean($('#id-save-info').attr('checked'));
     // Get value of csrf token from using {% csrf_token %} in the form
     let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     // info to post to the cache_checkout_data view, at the url below
     let postData = {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
+        'save_info': saveInfo,
     };
     // posting here triggers the cache_checkout_data view to add cart to meta data
     let url = '/checkout/cache_checkout_data/';
