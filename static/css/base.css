@@ -12,6 +12,11 @@ h1, h2 {
     font-weight: 700;
 }
 
+h2 {
+    font-size: 100%;
+    margin-bottom: 1rem;
+}
+
 /* remove text decoration from links */
 a,
 a:hover,
@@ -336,6 +341,41 @@ a:not([href]).btt-link:hover {
 .remove-item:hover {
     border: 0.1rem solid #ff8881;
     font-size: 110%;
+}
+
+/* ---------------------------------------- Checkout and Profile forms */
+.order-form-input {
+    border-radius: 0;
+    background-color: white;
+}
+
+.order-form label, .profile-form label {
+    margin-bottom: 0;
+    font-size: 80%;
+    font-weight: 500;
+}
+
+.order-form ::placeholder, .profile-form ::placeholder {
+    font-weight: 100;
+    font-size: 90%;
+}
+
+/* set colour for select box and select option children */
+select,
+select option {
+    color: #000000;
+}
+
+.fieldset-label {
+    font-size: 90%;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+fieldset {
+    padding: 0.5rem 1rem;
+    border: 0.1rem solid #ff8881;
+    margin-bottom: 3rem;
 }
 
 /* ---------------------------------------- Allauth form formatting */

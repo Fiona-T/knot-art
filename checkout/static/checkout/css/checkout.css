@@ -1,29 +1,8 @@
-h2 {
-    font-size: 100%;
-    margin-bottom: 1rem;
-}
-
 .order-summary-hr {
     border-top: 0.1rem solid rgba(255, 136, 129, 0.3);
 }
 
 /* ---------------------------------------- Order form */
-.order-form-input {
-    border-radius: 0;
-    background-color: white;
-}
-
-.order-form label {
-    margin-bottom: 0;
-    font-size: 80%;
-    font-weight: 500;
-}
-
-.order-form ::placeholder {
-    font-weight: 100;
-    font-size: 90%;
-}
-
 .fieldset-label {
     font-size: 90%;
     font-weight: 600;
@@ -34,12 +13,6 @@ fieldset {
     padding: 0.5rem 1rem;
     border: 0.1rem solid #ff8881;
     margin-bottom: 3rem;
-}
-
-/* set colour for select box and select option children */
-select,
-select option {
-    color: #000000;
 }
 
 /* select box - set blank label and invalid selection to same font style as placeholder */
