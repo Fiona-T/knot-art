@@ -17,8 +17,8 @@
                 <hr class="mt-1 mb-3">
             </div>
         </div>
-        {% if grand_total %}
-        <!-- show the bag summary if there is a grand total -->
+        {% if grand_total and not on_profile_page %}
+        <!-- show the bag summary if grand total and NOT on profile page (so update to profile doesn't show bag) -->
         <p class="bg-white py-1 fw-600 text-uppercase">Your Bag ({{ product_count }})</p>
         <!-- wrapper to stop it getting to big -->
         <div class="bag-notification-wrapper">
