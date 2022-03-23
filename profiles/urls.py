@@ -5,4 +5,9 @@ from . import views
 
 urlpatterns = [
     path('', views.profile, name='profile'),
+    path(
+        'order_history/<order_number>',
+        views.previous_order_detail,
+        name='previous_order_detail'
+        ),
 ]
