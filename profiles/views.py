@@ -9,9 +9,9 @@ from .forms import UserProfileForm
 @login_required
 def profile(request):
     """
-    Show the user profile page with form pre-populated with saved
-    info. 'on_profile_page' in context is for messages so that bag
-    information is not shown in toast msg when just updating profile.
+    Show the user profile page with form pre-populated with saved info and
+    order history list. 'on_profile_page' in context is for messages so that
+    bag info is not shown in toast msg when just updating profile.
     If post request, update the profile with the data from the form.
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -26,10 +26,12 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user_profile)
 
+    orders = user_profile.orders.all()
     template = 'profiles/profile.html'
     context = {
         'form': form,
         'on_profile_page': True,
+        'orders': orders,
     }
 
     return render(request, template, context)
