@@ -12,6 +12,7 @@ import stripe
 from cart.contexts import cart_contents
 from products.models import Product
 from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from .models import OrderLineItem, Order
 from .forms import OrderForm
 
@@ -181,14 +182,18 @@ def checkout_success(request, order_number):
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         if save_info:
-            profile.default_phone_number = order.phone_number
-            profile.default_street_address1 = order.street_address1
-            profile.default_street_address2 = order.street_address2
-            profile.default_town_or_city = order.town_or_city
-            profile.default_county = order.county
-            profile.default_postcode = order.postcode
-            profile.default_country = order.country
-            profile.save()
+            profile_data = {
+                'default_phone_number': order.phone_number,
+                'default_street_address1': order.street_address1,
+                'default_street_address2': order.street_address2,
+                'default_town_or_city': order.town_or_city,
+                'default_county': order.county,
+                'default_postcode': order.postcode,
+                'default_country': order.country,
+            }
+            user_profile_form = UserProfileForm(profile_data, instance=profile)
+            if user_profile_form.is_valid():
+                user_profile_form.save()
     messages.success(
         request,
         f'Order number: {order_number} successfully created! '
