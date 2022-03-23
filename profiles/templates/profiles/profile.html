@@ -7,7 +7,7 @@
 
 {% block extra_title %} | Profile{% endblock %}
 {% block content %}
-<!-- page contents container -->
+<!-- page contents container - two rows -->
 <section class="container py-5">
     <!-- row with one colum - heading-->
     <div class="row pt-5">
@@ -15,10 +15,10 @@
             <h1 class="mb-4">My Profile</h1>
         </div>
     </div>
-    <!-- second row with Profile form -->
+    <!-- second row with 2 columns - Profile form + Order history -->
     <div class="row">
-        <!-- profile - form to add delivery info, see saved info, update saved info -->
-        <div class="col-12 col-lg-6">
+        <!-- 1st column: profile - form to add delivery info, see saved info, update saved info -->
+        <div class="col-12 col-lg-6 mb-4">
             <h2 class="text-uppercase">Delivery information</h2>
             <p>Add or update your saved delivery details using the form below. Any details you previously saved are
                 shown below.</p>
@@ -34,6 +34,61 @@
                 <button class="btn btn-brand btn-lg float-right">Update Information</button>
             </form>
         </div>
+        <!-- 2nd col: order history -->
+        <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+            <h2 class="text-uppercase">Order History</h2>
+            <p>Below you can find a list of your previous orders. Note, the order will only be shown here if you were
+                logged in when you made the purchase.</p>
+            {% if orders %}
+            <!-- table to show order history -->
+            <div class="order-history table-responsive">
+                <table class="table table-sm table-borderless">
+                    <!-- table headings -->
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Order Total</th>
+                        </tr>
+                    </thead>
+                    <!-- table body - row for each order with order info -->
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>
+                                <!-- order number to link to url for order history -->
+                                <!-- title so can see full order number when hover over link (truncated below) -->
+                                <a href="" title="{{ order.order_number }}">
+                                    {{ order.order_number|truncatechars:6 }}
+                                </a>
+                            </td>
+                            <td>{{ order.date|date:'d-m-Y' }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    {% for item in order.lineitems.all %}
+                                    <li class="small">
+                                        {{ item.product.name }} x{{ item.quantity }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>€{{ order.grand_total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end of div wrapping the order history table -->
+            {% else %}
+            <!-- If no previous orders to show - note and link to shop -->
+            <div>
+                <p class="fw-600 mb-5">You don't have any previous orders to be displayed yet.</p>
+                <a href="{% url 'products' %}" class="btn btn-brand btn-lg float-right">Go to Shop</a>
+            </div>
+            {% endif %}
+        </div>
+        <!-- end of order history column -->
     </div>
 </section>
 {% endblock %}
