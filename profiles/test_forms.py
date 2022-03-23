@@ -13,11 +13,13 @@ class TestUserProfileForm(TestCase):
         form = UserProfileForm()
         self.assertTrue(
             form.fields['default_street_address1'].label is None or
-            form.fields['default_street_address1'].label == 'Default Street address 1'
+            form.fields[
+                'default_street_address1'].label == 'Default Street address 1'
             )
         self.assertTrue(
             form.fields['default_street_address2'].label is None or
-            form.fields['default_street_address2'].label == 'Default Street address 2'
+            form.fields[
+                'default_street_address2'].label == 'Default Street address 2'
             )
 
     def test_placeholders_exist(self):
