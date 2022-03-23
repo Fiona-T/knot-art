@@ -1,6 +1,7 @@
 """Tests for views in profiles app"""
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from .models import UserProfile
 
 
@@ -84,4 +85,62 @@ class TestProfileView(TestCase):
         self.assertEqual(
             response.context['form']['default_town_or_city'].value(),
             'My Town'
+            )
+
+    def test_can_update_profile_information(self):
+        """
+        Go to profile and verify existing data in the profile form.
+        Test that posting the profile form with updated information works and
+        the default information in the form is the updated values.
+        """
+        self.client.login(username='TesterTwo', password='SecretCode14!')
+        response = self.client.get('/profile/')
+        self.assertEqual(
+            response.context['form']['default_phone_number'].value(),
+            '123456'
+            )
+        self.assertEqual(
+            response.context['form']['default_street_address1'].value(),
+            'My Street'
+            )
+        self.assertEqual(
+            response.context['form']['default_town_or_city'].value(),
+            'My Town'
+            )
+        self.client.post('/profile/', {
+            'default_phone_number': '123456789',
+            'default_street_address1': 'My new Street',
+            'default_town_or_city': 'My new Town',
+            })
+        response = self.client.get('/profile/')
+        self.assertEqual(
+            response.context['form']['default_phone_number'].value(),
+            '123456789'
+            )
+        self.assertEqual(
+            response.context['form']['default_street_address1'].value(),
+            'My new Street'
+            )
+        self.assertEqual(
+            response.context['form']['default_town_or_city'].value(),
+            'My new Town'
+            )
+
+    def test_success_msg_shown_when_profile_updated(self):
+        """
+        Test that the success message is generated after posting the form
+        and that the msg is as expected.
+        """
+        self.client.login(username='TesterTwo', password='SecretCode14!')
+        response = self.client.post('/profile/', {
+            'default_phone_number': '123456789',
+            'default_street_address1': 'My new Street',
+            'default_town_or_city': 'My new Town',
+            })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Your profile information was updated.'
             )
