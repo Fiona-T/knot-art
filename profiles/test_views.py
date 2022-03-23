@@ -1,18 +1,31 @@
 """Tests for views in profiles app"""
 from django.test import TestCase
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 class TestProfileView(TestCase):
     """Tests for profile view"""
     @classmethod
     def setUpTestData(cls):
-        """ Create a test user """
-        user = User.objects.create_user(
+        """
+        Two test users - second one with information attached to profile
+        """
+        user1 = User.objects.create_user(
             username='Tester',
             password='SecretCode14',
         )
-        user.save()
+        user2 = User.objects.create_user(
+            username='TesterTwo',
+            password='SecretCode14!',
+        )
+        user1.save()
+        user2.save()
+        profile = UserProfile.objects.get(id=2)
+        profile.default_phone_number = '123456'
+        profile.default_street_address1 = 'My Street'
+        profile.default_town_or_city = 'My Town'
+        profile.save()
 
     def test_redirects_if_not_logged_in(self):
         """
@@ -34,3 +47,41 @@ class TestProfileView(TestCase):
         self.assertEqual(str(response.context['user']), 'Tester')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/profile.html')
+
+    def test_form_is_blank_if_user_has_no_saved_info(self):
+        """
+        Login the first user who doesn't have info attached to their profile.
+        Go to profile page, test that the form fields do not contain any values
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get('/profile/')
+        self.assertEqual(str(response.context['user']), 'Tester')
+        fields = [
+            'default_phone_number', 'default_street_address1',
+            'default_street_address2', 'default_town_or_city',
+            'default_postcode', 'default_county', 'default_country'
+            ]
+        for field in fields:
+            self.assertEqual(response.context['form'][field].value(), None)
+
+    def test_form_contains_users_saved_info(self):
+        """
+        Login the second user that has info attached to their profile.
+        Go to profile page, test that the form fields contain the correct
+        information from the profile.
+        """
+        self.client.login(username='TesterTwo', password='SecretCode14!')
+        response = self.client.get('/profile/')
+        self.assertEqual(str(response.context['user']), 'TesterTwo')
+        self.assertEqual(
+            response.context['form']['default_phone_number'].value(),
+            '123456'
+            )
+        self.assertEqual(
+            response.context['form']['default_street_address1'].value(),
+            'My Street'
+            )
+        self.assertEqual(
+            response.context['form']['default_town_or_city'].value(),
+            'My Town'
+            )
