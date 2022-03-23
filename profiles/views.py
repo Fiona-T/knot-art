@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from checkout.models import Order
 from .models import UserProfile
 from .forms import UserProfileForm
 
@@ -34,4 +35,23 @@ def profile(request):
         'orders': orders,
     }
 
+    return render(request, template, context)
+
+
+def previous_order_detail(request, order_number):
+    """
+    Show the details of a previous order from order history list.
+    Re-using the checkout_success template as it has layout needed.
+    Send 'from_profile' boolean to context, so can change template accordingly
+    """
+    order = get_object_or_404(Order, order_number=order_number)
+    messages.info(request, (
+        f'This is a past confirmation for order number {order_number}. '
+        f'A confirmation email was sent on the order date { order.date }.'
+    ))
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+        'from_profile': True,
+    }
     return render(request, template, context)
