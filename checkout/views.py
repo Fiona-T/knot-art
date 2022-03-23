@@ -174,6 +174,8 @@ def checkout_success(request, order_number):
     """
     Show the checkout success page, pass back order so order summary can be
     displayed. Show success message, and delete cart session variable.
+    If user logged in, attach the user to the order, and if save-info session
+    variable (set in checkout view) is true, update delivery info onto profile
     """
     save_info = request.session.get('save_info')
     print(save_info)
@@ -181,6 +183,8 @@ def checkout_success(request, order_number):
     profile = None
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
+        order.user_profile = profile
+        order.save()
         if save_info:
             profile_data = {
                 'default_phone_number': order.phone_number,
