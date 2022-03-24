@@ -202,3 +202,97 @@ class TestProfileView(TestCase):
         for order in response.context['orders']:
             self.assertEqual(response.context['user'], order.user_profile.user)
         self.assertEqual(len(response.context['orders']), 1)
+
+
+class TestPreviousOrderDetailView(TestCase):
+    """Tests for previous_order_detail view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Two test users - second one with information attached to profile.
+        Category and Product instance so Order can be created. 2nd user
+        attached to the Order instance.
+        """
+        user1 = User.objects.create_user(
+            username='Tester',
+            password='SecretCode14',
+        )
+        user2 = User.objects.create_user(
+            username='TesterTwo',
+            password='SecretCode14!',
+        )
+        user1.save()
+        user2.save()
+        profile = UserProfile.objects.get(id=2)
+        profile.default_phone_number = '123456'
+        profile.default_street_address1 = 'My Street'
+        profile.default_town_or_city = 'My Town'
+        profile.save()
+
+        Category.objects.create(
+            name='category_and_category',
+            friendly_name='Category & Category'
+        )
+
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='product name',
+            sku='44444',
+            description='product description',
+            price=50.00,
+        )
+
+        order = Order.objects.create(
+            full_name='Name',
+            user_profile=UserProfile.objects.get(id=2),
+            email='email@email.com',
+            phone_number=profile.default_phone_number,
+            street_address1=profile.default_street_address1,
+            town_or_city=profile.default_town_or_city,
+            country='IE',
+        )
+        order.save()
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to order history detail page
+        after log in.
+        """
+        order = Order.objects.get(id=1)
+        response = self.client.get(
+            f'/profile/order_history/{order.order_number}'
+            )
+        self.assertRedirects(
+            response,
+            f'/accounts/login/?next=/profile/order_history/'
+            f'{order.order_number}'
+            )
+
+    def test_correct_url_and_template_used_for_logged_in_user_own_order(self):
+        """
+        Login the user who is attached to order and check they can access the
+        page using the order number. Check the response is 200, check the
+        correct template is used - checkout_success.html in checkout app
+        """
+        order = Order.objects.get(id=1)
+        self.client.login(username='TesterTwo', password='SecretCode14!')
+        response = self.client.get(
+            f'/profile/order_history/{order.order_number}'
+            )
+        self.assertEqual(response.context['user'], order.user_profile.user)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'checkout/checkout_success.html')
+
+    def test_404_raised_for_logged_in_user_but_user_profile_not_on_order(self):
+        """
+        Login the user who is not attached to the order and check they cannot
+        access the page using that order number. Check the response is 404.
+        """
+        order = Order.objects.get(id=1)
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get(
+            f'/profile/order_history/{order.order_number}'
+            )
+        self.assertNotEqual(response.context['user'], order.user_profile.user)
+        self.assertEqual(response.status_code, 404)
