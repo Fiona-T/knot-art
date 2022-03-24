@@ -97,12 +97,26 @@ def product_details(request, product_id):
 def add_product(request):
     """
     View for admin user to add product from front end. Raise 403 if not admin.
+    Post request: handle posting of the form, show success/errors messages.
     Get request: render the form
-    Post request: handle posting of the form/show errors etc.
     """
     if not request.user.is_superuser:
         raise PermissionDenied()
-    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, f'New product: { product.name } added!')
+            return redirect(reverse('product_details', args=[product.id]))
+        else:
+            messages.error(
+                request,
+                'Product not added. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = ProductForm()
+
     template = 'products/add_product.html'
     context = {
         'form': form,
