@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib import messages
 from .models import Product, Category
+from .forms import ProductForm
 
 
 def show_products(request):
@@ -88,3 +89,17 @@ def product_details(request, product_id):
             'product': product,
         }
         return render(request, 'products/product_details.html', context)
+
+
+def add_product(request):
+    """
+    View for admin user to add product from front end.
+    Get request: render the form
+    Post request: handle posting of the form/show errors etc.
+    """
+    form = ProductForm()
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
