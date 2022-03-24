@@ -2,6 +2,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import Http404
 from checkout.models import Order
 from .models import UserProfile
 from .forms import UserProfileForm
@@ -38,16 +39,22 @@ def profile(request):
     return render(request, template, context)
 
 
+@login_required
 def previous_order_detail(request, order_number):
     """
-    Show the details of a previous order from order history list.
+    If user is different to the user on the order, raise 404, otherwise
+    show the details of a previous order from order history list.
     Re-using the checkout_success template as it has layout needed.
     Send 'from_profile' boolean to context, so can adjust template if true.
     """
+    user_profile = get_object_or_404(UserProfile, user=request.user)
     order = get_object_or_404(Order, order_number=order_number)
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-        'from_profile': True,
-    }
-    return render(request, template, context)
+    if user_profile != order.user_profile:
+        raise Http404
+    else:
+        template = 'checkout/checkout_success.html'
+        context = {
+            'order': order,
+            'from_profile': True,
+        }
+        return render(request, template, context)
