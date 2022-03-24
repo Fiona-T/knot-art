@@ -4,6 +4,8 @@ from django.http import Http404
 from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from .models import Product, Category
 from .forms import ProductForm
 
@@ -91,12 +93,15 @@ def product_details(request, product_id):
         return render(request, 'products/product_details.html', context)
 
 
+@login_required
 def add_product(request):
     """
-    View for admin user to add product from front end.
+    View for admin user to add product from front end. Raise 403 if not admin.
     Get request: render the form
     Post request: handle posting of the form/show errors etc.
     """
+    if not request.user.is_superuser:
+        raise PermissionDenied()
     form = ProductForm()
     template = 'products/add_product.html'
     context = {
