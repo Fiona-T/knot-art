@@ -327,3 +327,45 @@ class TestProductDetailsView(TestCase):
         self.assertFalse(product.is_active)
         response = self.client.get('/products/2')
         self.assertEqual(response.status_code, 404)
+
+
+class TestAddProductView(TestCase):
+    """Tests for add_products view"""
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to add product page after login.
+        """
+        response = self.client.get('/products/add/')
+        self.assertRedirects(response, '/accounts/login/?next=/products/add/')
+
+    def test_403_raised_if_logged_in_but_not_superuser(self):
+        """
+        View restricted to logged in superusers. Test logged in user who is
+        not a superuser gets a 403 response (permission denied)
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/products/add/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_correct_url_and_template_used_for_logged_in_superuser(self):
+        """
+        get the url for product details page using id of 1st test Product
+        instance, Check the response is 200 (i.e. successful)
+        Check correct template is used - product_details.html in products app
+        """
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/add/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'products/add_product.html')
