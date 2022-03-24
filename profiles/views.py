@@ -27,7 +27,7 @@ def profile(request):
     else:
         form = UserProfileForm(instance=user_profile)
 
-    orders = user_profile.orders.all()
+    orders = user_profile.orders.all().order_by('-date')
     template = 'profiles/profile.html'
     context = {
         'form': form,
@@ -42,13 +42,9 @@ def previous_order_detail(request, order_number):
     """
     Show the details of a previous order from order history list.
     Re-using the checkout_success template as it has layout needed.
-    Send 'from_profile' boolean to context, so can change template accordingly
+    Send 'from_profile' boolean to context, so can adjust template if true.
     """
     order = get_object_or_404(Order, order_number=order_number)
-    messages.info(request, (
-        f'This is a past confirmation for order number {order_number}. '
-        f'A confirmation email was sent on the order date { order.date }.'
-    ))
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
