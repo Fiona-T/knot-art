@@ -5,29 +5,30 @@
 {% block content %}
 <!-- page contents container - two rows -->
 <section class="container py-5">
-        <!-- 1st row - headings -->
-        <div class="row pt-5">
-            <div class="col-12 col-md-6 col-lg-8">
-                <h1 class="mb-4">Product Management</h1>
-            </div>
+    <!-- 1st row - headings -->
+    <div class="row pt-5">
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1 class="mb-4">Product Management</h1>
         </div>
-        <!-- second row - add product form -->
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-8">
-                <h2 class="text-uppercase">Add a Product</h2>
-                <p>Complete the form below to add a new product to the shop.</p>
-                <p>The product will be immediately visible in the shop after submitting the form, if the 'Active Product' flag is checked.</p>
-                <form method="POST" action="{% url 'add_product' %}" class="profile-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-wrapper">
+    </div>
+    <!-- second row - add product form -->
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-8">
+            <h2 class="text-uppercase">Add a Product</h2>
+            <p>Complete the form below to add a new product to the shop.</p>
+            <p>The product will be immediately visible in the shop after submitting the form, if the 'Active Product'
+                flag is checked.</p>
+            <form method="POST" action="{% url 'add_product' %}" class="profile-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-wrapper">
                     {{ form|crispy }}
-                    </div>
-                    <div class="text-right pt-3 pb-5">
-                        <a class="btn btn-brand-outline" href="{% url 'products' %}">Back to Shop</a>
-                        <button class="btn btn-brand" type="submit">Add Product</button>
-                    </div>
-                </form>
-            </div>            
+                </div>
+                <div class="text-right pt-3 pb-5">
+                    <a class="btn btn-brand-outline" href="{% url 'products' %}">Back to Shop</a>
+                    <button class="btn btn-brand" type="submit">Add Product</button>
+                </div>
+            </form>
         </div>
+    </div>
 </section>
 {% endblock %}
