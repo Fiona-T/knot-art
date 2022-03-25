@@ -89,6 +89,19 @@ a:not([href]).btt-link:hover {
     font-size: 130%;
 }
 
+/* links on shop/market page for admin actions */
+.admin-link {
+    color: #1c1c1c;
+    border-bottom: .5rem solid #ff8881;
+}
+
+.admin-link:hover,
+.admin-link:active,
+.admin-link:focus {
+    color: #ff8881;
+    border-color: #1c1c1c;
+}
+
 .fw-600 {
     font-weight: 600;
 }

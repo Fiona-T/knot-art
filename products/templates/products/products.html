@@ -63,12 +63,13 @@
                                 </a>
                             </p>
                         </div>
-                        <!-- card footer - price, and will have edit/delete links for admin user later -->
-                        <div class="card-footer border-0 bg-white py-1">
+                        <!-- card footer - price, and admin links -->
+                        <div class="card-footer border-0 bg-white py-1 mb-4">
                             <p class="fw-600">€{{ product.price }}</p>
-                            <!-- show whether product is active or not, if user is admin user -->
                             {% if request.user.is_superuser %}
-                            <p class="small">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                            <!-- show whether product is active or not + edit/delete links,, if user is admin user -->
+                            <p class="small mb-0">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                            <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit</a>
                             {% endif %}
                         </div>
                     </div>

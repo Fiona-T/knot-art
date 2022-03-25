@@ -38,9 +38,12 @@
                 </p>
                 <p>{{ product.description }}</p>
                 <p class="fw-600">€{{ product.price }}</p>
-                <!-- show whether product is active or not, if user is admin user -->
                 {% if request.user.is_superuser %}
-                <p class="small">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                <div class="mb-4">
+                    <!-- show whether product is active or not + edit/delete links, if user is admin user -->
+                    <p class="small mb-0">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                    <a class="small admin-link mb-0" href="{% url 'edit_product' product.id %}">Edit</a>
+                </div>
                 {% endif %}
                 <!-- Quantity and Add to Bag form -->
                 <form action="{% url 'add_to_cart' product.id %}" method="POST">
