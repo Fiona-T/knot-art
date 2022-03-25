@@ -2,6 +2,9 @@
 import json
 import time
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 from products.models import Product
 from profiles.models import UserProfile
 from .models import Order, OrderLineItem
@@ -16,6 +19,24 @@ class StripeWebHookHandler:
         request from stripe can be accessed
         """
         self.request = request
+
+    def _send_confirmation_email(self, order):
+        """Send order confirmation email to user. private method"""
+        customer_email = order.email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order}
+            )
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL}
+            )
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [customer_email]
+        )
 
     def handle_event(self, event):
         """
@@ -93,6 +114,7 @@ class StripeWebHookHandler:
                 attempt_number += 1
                 time.sleep(1)
         if order_exists:
+            self._send_confirmation_email(order)
             return HttpResponse(
                     content=f'Webhook received: {event["type"]} | '
                     'SUCCESS: Verified order already in database',
@@ -133,6 +155,7 @@ class StripeWebHookHandler:
                     f'ERROR: {error}',
                     status=500)
         # order must have been created, at this point in code, return response
+        self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | '
             'SUCCESS: Created order in webhook',
