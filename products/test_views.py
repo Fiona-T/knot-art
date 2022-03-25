@@ -1,4 +1,5 @@
 """Tests for views in 'product' app (shop)"""
+from decimal import Decimal
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
@@ -384,9 +385,8 @@ class TestAddProductView(TestCase):
 
     def test_correct_url_and_template_used_for_logged_in_superuser(self):
         """
-        get the url for product details page using id of 1st test Product
-        instance, Check the response is 200 (i.e. successful)
-        Check correct template is used - product_details.html in products app
+        get the url for add_product page. Check the response is 200
+        Check correct template is used - add_product.html in products app
         """
         self.client.login(username='admin', password='secret')
         response = self.client.get('/products/add/')
@@ -461,5 +461,142 @@ class TestAddProductView(TestCase):
         self.assertEqual(
             messages[0].message,
             'Product not added. Please check the form for errors and '
+            're-submit.'
+            )
+
+
+class TestEditProductView(TestCase):
+    """Tests for edit_product view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Standard user and Superuser for access tests.
+        Category and Product for creating new products.
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        Category.objects.create(
+            name='category_and_category',
+            friendly_name='Category & Category'
+        )
+
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='product name',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+            is_new=True
+        )
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to edit product page after login.
+        """
+        response = self.client.get('/products/edit/1/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/products/edit/1/'
+            )
+
+    def test_403_raised_if_logged_in_but_not_superuser(self):
+        """
+        View restricted to logged in superusers. Test logged in user who is
+        not a superuser gets a 403 response (permission denied)
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/products/edit/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_correct_url_and_template_used_for_logged_in_superuser(self):
+        """
+        get the url for edit product page using id of test Product
+        instance, Check the response is 200 (i.e. successful)
+        Check correct template is used - edit_product.html in products app
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/edit/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'products/edit_product.html')
+
+    def test_can_edit_product(self):
+        """
+        login the admin user do POST request on edit product url to amend
+        details. Check redirects to the correct success url
+        Check product in get request has the updated details.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/product_details/1')
+        response = self.client.post('/products/edit/1/', {
+            'category': 1,
+            'name': 'edited product name',
+            'sku': '1234567',
+            'description': 'edited product description',
+            'price': 1150.99,
+            'is_active': True,
+            'is_new': False,
+        })
+        self.assertRedirects(response, '/products/1')
+        updated_product = Product.objects.get(id=1)
+        self.assertEqual(updated_product.name, 'edited product name')
+        self.assertEqual(
+            updated_product.description, 'edited product description'
+            )
+        self.assertEqual(updated_product.price, Decimal('1150.99'))
+
+    def test_success_message_displayed_when_product_edited(self):
+        """Edit a product and check msg displayed + is correct"""
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/products/edit/1/', {
+            'category': 1,
+            'name': 'updated product name',
+            'sku': '1234567',
+            'description': 'product description edited',
+            'price': 100.88,
+            'is_active': True,
+            'is_new': False,
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Updates made to product: updated product name!'
+            )
+
+    def test_error_message_displayed_when_form_not_valid(self):
+        """
+        Attempt to edit product with invalid form, and check error msg
+        displayed + is correct
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/products/edit/1/', {
+            'category': 1,
+            'name': 'product name updated',
+            'sku': '1234567',
+            'description': 'product description edited',
+            'price': 12345.88,  # too many digits so form invalid
+            'is_active': True,
+            'is_new': False,
+        })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Product NOT updated. Please check the form for errors and '
             're-submit.'
             )
