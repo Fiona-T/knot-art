@@ -133,9 +133,23 @@ def edit_product(request, product_id):
     """
     if not request.user.is_superuser:
         raise PermissionDenied()
-
     product = get_object_or_404(Product, pk=product_id)
-    form = ProductForm(instance=product)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request, f'Updates made to product: { product.name }!'
+                )
+            return redirect(reverse('product_details', args=[product.id]))
+        else:
+            messages.error(
+                request,
+                'Product NOT updated. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = ProductForm(instance=product)
 
     template = 'products/edit_product.html'
     context = {
