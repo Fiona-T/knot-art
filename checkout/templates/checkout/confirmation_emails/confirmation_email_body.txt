@@ -1,0 +1,31 @@
+Dear {{ order.full_name }},
+
+Thank you for buying from Knot Art!
+
+Your order has been received and the confirmation details are below. 
+
+Order summary for order #{{ order.order_number }} placed on {{ order.date|date:'d/m/Y' }}:
+{% for item in order.lineitems.all %}
+{{ item.product.name }} x {{ item.quantity }} @ €{{ item.product.price }} each
+{% endfor %}
+Order Total: €{{ order.order_total }}
+Delivery: €{{ order.delivery_cost }}
+Grand Total: €{{ order.grand_total }}
+
+Delivery details:
+{{ order.full_name }}
+{{ order.street_address1 }}
+{% if order.street_address2 %}{{ order.street_address2 }}{% endif %}
+{{ order.town_or_city }}
+{% if order.postcode %}{{ order.postcode }}{% endif %}
+{% if order.county %}{{ order.county }}{% endif %}
+{{ order.country.name }}
+
+We'll contact you on {{ order.phone_number }} if we have any queries in relation to delivery.
+
+You can contact us on this email: {{ contact_email }}, if you have any queries in relation to your order.
+
+Thank you ordering from our small business!
+
+Sincerely,
+Knot Art
