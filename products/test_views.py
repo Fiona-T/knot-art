@@ -331,6 +331,40 @@ class TestProductDetailsView(TestCase):
 
 class TestAddProductView(TestCase):
     """Tests for add_products view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Standard user and Superuser for access tests.
+        Category and Product for creating new products.
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        Category.objects.create(
+            name='category_and_category',
+            friendly_name='Category & Category'
+        )
+
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='product name',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+            is_new=True
+        )
+
     def test_redirects_if_not_logged_in(self):
         """
         View restricted to logged in users. Test user redirected to login
@@ -344,11 +378,6 @@ class TestAddProductView(TestCase):
         View restricted to logged in superusers. Test logged in user who is
         not a superuser gets a 403 response (permission denied)
         """
-        test_user = User.objects.create_user(
-            username='User',
-            password='secret12',
-        )
-        test_user.save()
         self.client.login(username='User', password='secret12')
         response = self.client.get('/products/add/')
         self.assertEqual(response.status_code, 403)
@@ -359,13 +388,78 @@ class TestAddProductView(TestCase):
         instance, Check the response is 200 (i.e. successful)
         Check correct template is used - product_details.html in products app
         """
-        test_superuser = User.objects.create_user(
-            username='admin',
-            password='secret',
-            is_superuser=True
-        )
-        test_superuser.save()
         self.client.login(username='admin', password='secret')
         response = self.client.get('/products/add/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'products/add_product.html')
+
+    def test_can_add_product(self):
+        """
+        login the admin user, get products url and check length of products is
+        one initially (existing product). Then do POST request on add product
+        url, with test product. Check redirects to the correct success url
+        after adding. Check that length of products is now 2, and name matches.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/')
+        self.assertEqual(len(response.context['products']), 1)
+        response = self.client.post('/products/add/', {
+            'category': 1,
+            'name': 'new product name',
+            'sku': '1234567',
+            'description': 'product description new',
+            'price': 79.88,
+            'is_active': True,
+            'is_new': False,
+        })
+        self.assertRedirects(response, '/products/2')
+        response = self.client.get('/products/')
+        self.assertEqual(len(response.context['products']), 2)
+        self.assertEqual(
+            response.context['products'][1].name, 'new product name'
+            )
+
+    def test_success_message_displayed_when_product_added(self):
+        """Add a product and check msg displayed + is correct"""
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/products/add/', {
+            'category': 1,
+            'name': 'new product name',
+            'sku': '1234567',
+            'description': 'product description new',
+            'price': 79.88,
+            'is_active': True,
+            'is_new': False,
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'New product: new product name added!'
+            )
+
+    def test_error_message_displayed_when_form_not_valid(self):
+        """
+        Attempt to add product with invalid form, and check error msg
+        displayed + is correct
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/products/add/', {
+            'category': 1,
+            'name': 'product name',  # same as existing product so form invalid
+            'sku': '1234567',
+            'description': 'product description new',
+            'price': 79.88,
+            'is_active': True,
+            'is_new': False,
+        })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Product not added. Please check the form for errors and '
+            're-submit.'
+            )
