@@ -1,5 +1,6 @@
 """Forms for 'products' app - shop"""
 from django import forms
+from .widgets import CustomClearableFileInput
 from .models import Product, Category
 
 
@@ -9,6 +10,7 @@ class ProductForm(forms.ModelForm):
         """
         Form based on Product model.
         Helptexts and labels specified for some fields.
+        Image field - use custom file input widget that overrides Django one
         """
         model = Product
         fields = '__all__'
@@ -23,6 +25,10 @@ class ProductForm(forms.ModelForm):
             'is_new': 'A "New!" badge will be shown on the product if this '
             'is ticked',
             }
+
+    image = forms.ImageField(
+        label='Image', required=False, widget=CustomClearableFileInput
+        )
 
     def __init__(self, *args, **kwargs):
         """
