@@ -122,3 +122,24 @@ def add_product(request):
         'form': form,
     }
     return render(request, template, context)
+
+
+@login_required
+def edit_product(request, product_id):
+    """
+    View for admin user to edit product from front end. Raise 403 if not admin.
+    Post request: handle posting of the form, show success/errors messages.
+    Get request: render the form with the existing product details.
+    """
+    if not request.user.is_superuser:
+        raise PermissionDenied()
+
+    product = get_object_or_404(Product, pk=product_id)
+    form = ProductForm(instance=product)
+
+    template = 'products/edit_product.html'
+    context = {
+        'product': product,
+        'form': form,
+    }
+    return render(request, template, context)
