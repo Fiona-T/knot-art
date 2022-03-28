@@ -119,9 +119,11 @@ function removeItemFromCart() {
  * listen for click on link, scroll back to top of page
  */
 function scrollBackToTop() {
-    document.querySelector(".btt-link").addEventListener("click", function() {
-        window.scrollTo(0,0);
-    })
+    if(document.querySelector(".btt-link")){
+        document.querySelector(".btt-link").addEventListener("click", function() {
+            window.scrollTo(0,0);
+        });
+    }
 }
 
 /** initialise the sorting options in select dropdown on products page, 
