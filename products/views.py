@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from .models import Product, Category
 from .forms import ProductForm
@@ -157,3 +158,21 @@ def edit_product(request, product_id):
         'form': form,
     }
     return render(request, template, context)
+
+
+@require_POST
+@login_required
+def delete_product(request, product_id):
+    """
+    View for admin user to delete product from front end.
+    Raise 403 if not admin.
+    Post request only: delete product, show success message.
+    """
+    if not request.user.is_superuser:
+        raise PermissionDenied()
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(
+        request, f'Product: "{ product.name }" deleted!'
+        )
+    return redirect(reverse('products'))
