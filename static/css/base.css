@@ -92,7 +92,7 @@ a:not([href]).btt-link:hover {
 /* links on shop/market page for admin actions */
 .admin-link {
     color: #1c1c1c;
-    border-bottom: .5rem solid #ff8881;
+    border-bottom: .3rem solid #ff8881;
 }
 
 .admin-link:hover,
@@ -100,6 +100,14 @@ a:not([href]).btt-link:hover {
 .admin-link:focus {
     color: #ff8881;
     border-color: #1c1c1c;
+}
+
+/* box with edit and delete links for admin */
+.admin-link-container {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+    border: 0.1rem solid #ff8881;
 }
 
 .fw-600 {
@@ -359,6 +367,23 @@ a:not([href]).btt-link:hover {
 .remove-item:hover {
     border: 0.1rem solid #ff8881;
     font-size: 110%;
+}
+
+/* ---------------------------------------- Modal to Delete Product */
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-header {
+    border-bottom: 1px solid #ff8881;
+}
+
+.modal-footer {
+    border-top: 1px solid #ff8881;
+}
+
+.modal-body .col-10 {
+    border: 0.1px solid rgba(28, 28, 28, 0.3);
 }
 
 /* ---------------------------------------- Checkout, Profile Product forms */
