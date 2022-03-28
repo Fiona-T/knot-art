@@ -126,9 +126,20 @@ function scrollBackToTop() {
     }
 }
 
-/** initialise the sorting options in select dropdown on products page, 
- * and quantity buttons in product details/cart, link to submit quantity update form,
- * link to post form to remove item, link to scroll back to top
+/**
+ * Listen for change on file input for image upload on product form. On change,
+ * set text in the paragraph below it to show the name of the file being uploaded.
+ */
+     function fileInputShowFileName() {
+        if($("#new-image")){
+            $("#new-image").change(function() {
+                let file = $("#new-image")[0].files[0];
+                $("#filename").text(`Image for this product will be set to: ${file.name}`)
+            });    
+        }
+    }
+
+/** initialise the links/buttons that are listening for click/change events
 */
 document.addEventListener("DOMContentLoaded", function () {
     selectBoxSorting();
@@ -136,4 +147,5 @@ document.addEventListener("DOMContentLoaded", function () {
     submitQuantityUpdateForm();
     removeItemFromCart();
     scrollBackToTop();
+    fileInputShowFileName();
 });
