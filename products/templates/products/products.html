@@ -69,9 +69,14 @@
                             {% if request.user.is_superuser %}
                             <!-- show whether product is active or not + edit/delete links,, if user is admin user -->
                             <p class="small mb-0">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
-                            <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit</a>
+                            <div class="admin-link-container">
+                                <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit</a>
+                                <!-- brings up delete product modal, included in the includes below -->
+                                <a class="small admin-link" href="#deleteModal{{ product.id }}" data-toggle="modal">Delete</a>
+                            </div>
                             {% endif %}
                         </div>
+                        {% include '../products/includes/delete-product-modal.html' %}
                     </div>
                 </div>
                 {% endfor %}
