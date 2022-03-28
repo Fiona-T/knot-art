@@ -77,3 +77,11 @@ class TestProductForm(TestCase):
             ]
         for field in not_required_fields:
             self.assertNotIn(field, form.errors.keys())
+
+    def test_custom_widget_exists_on_image_field(self):
+        """Check that image field has CustomClearableFileInput widget"""
+        form = ProductForm()
+        self.assertEqual(
+            form.fields['image'].widget.__class__.__name__,
+            'CustomClearableFileInput'
+            )
