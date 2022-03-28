@@ -1,5 +1,5 @@
 {% if widget.is_initial %}
-    <p class="small">{{ widget.initial_text }}:</p>
+    <p class="current-image-label">{{ widget.initial_text }}:</p>
     <a href="{{ widget.value.url }}">
         <img width="96" height="96" class="shadow-sm" src="{{ widget.value.url }}">
     </a>
@@ -15,10 +15,11 @@
 {% endif %}
 <!-- file input -->
 <span class="btn btn-brand btn-file">
-    Select Image <input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"
+    Choose Image <input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"
         {% include "django/forms/widgets/attrs.html" %}>
 </span>
-<strong>
-    <!-- filename once file chosen -->
-    <p class="text-danger" id="filename"></p>
-</strong>
+<!-- helptext -->
+<small id="hint_id_image" class="form-text text-muted">If no file chosen, the 'image coming soon' file will be
+    used.</small>
+<!-- filename once file chosen will be shown here, javascript listens for change on input-->
+<p class="text-danger small mt-2" id="filename"></p>
