@@ -1,3 +1,13 @@
+"""Views for 'markets' app - craft markets seller will be attending"""
 from django.shortcuts import render
+from .models import Market
 
-# Create your views here.
+
+def show_markets(request):
+    """Show the markets"""
+    markets = Market.objects.all()
+    context = {
+        'markets': markets,
+    }
+    template = 'markets/markets.html'
+    return render(request, template, context)
