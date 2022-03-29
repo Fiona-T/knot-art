@@ -86,6 +86,8 @@
                                 class="btn btn-sm btn-brand-dark mb-2">
                                 {% if product.is_active %}Make Inactive{% else %}Make Active{% endif %}
                             </button>
+                            <!-- hidden input with url path, so view can redirect back to same page -->
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
                         </form>
                     </div>
                 </div>
