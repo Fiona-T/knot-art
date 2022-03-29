@@ -178,15 +178,19 @@ def delete_product(request, product_id):
     return redirect(reverse('products'))
 
 
+@require_POST
 @login_required
 def toggle_product_active_status(request, product_id):
     """
     View for admin user to amend active status on product from front end.
     Raise 403 if not admin.
     Post request only: delete product, show success message.
+    Form is on products and product_details pages, so using hidden input
+    to send request.path, and redirecting to this so user stays on same page
     """
     if not request.user.is_superuser:
         raise PermissionDenied()
+    redirect_url = request.POST.get('redirect_url')
     product = get_object_or_404(Product, pk=product_id)
     product.is_active = not product.is_active
     product.save()
@@ -195,4 +199,4 @@ def toggle_product_active_status(request, product_id):
         f'Status for product: "{ product.name }" updated to '
         f'{"Active" if product.is_active else "Not Active"}!'
         )
-    return redirect(reverse('products'))
+    return redirect(redirect_url)
