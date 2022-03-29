@@ -110,7 +110,7 @@ a:not([href]).btt-link:hover {
 }
 
 /* heading in admin box, but can be re-used elsewhere */
-.small-header {
+.font-90 {
     font-size: 90%;
 }
 
