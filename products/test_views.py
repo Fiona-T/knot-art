@@ -693,3 +693,113 @@ class TestDeleteProductView(TestCase):
             messages[0].message,
             'Product: "product name" deleted!'
             )
+
+
+class TestToggleProductActiveStatusView(TestCase):
+    """Tests for toggle_product_active_status view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Standard user and Superuser for access tests.
+        Category and Product for toggling product status.
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        Category.objects.create(
+            name='category_and_category',
+            friendly_name='Category & Category'
+        )
+
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='product name',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+            is_new=True
+        )
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='product name two',
+            sku='123456789',
+            description='product two description',
+            price=60.45,
+            is_active=False,
+            is_new=False
+        )
+
+    def test_405_raised_for_get_request(self):
+        """
+        View restricted to post requests.
+        Test 405 (method not allowed) is raised for a get request.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/products/toggle/1/')
+        self.assertEqual(response.status_code, 405)
+
+    def test_403_raised_for_regular_user_post_request(self):
+        """
+        View restricted to logged in superusers. Test logged in user who is
+        not a superuser gets a 403 response (permission denied)
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/products/toggle/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_user_can_toggle_product_from_product_details_page(self):
+        """
+        Confirm logged in admin user can toggle product from details page,
+        refirects to the correct page, product active status updates
+        """
+        self.client.login(username='admin', password='secret')
+        product = Product.objects.get(id=1)
+        self.assertTrue(product.is_active)
+        response = self.client.post('/products/toggle/1/', {
+            'redirect_url': '/products/1'
+        })
+        self.assertRedirects(response, '/products/1')
+        updated_product = Product.objects.get(id=1)
+        self.assertFalse(updated_product.is_active)
+
+    def test_admin_user_can_toggle_product_from_products_page(self):
+        """
+        Confirm logged in admin user can toggle product from products page,
+        refirects to the correct page, product active status updates
+        """
+        self.client.login(username='admin', password='secret')
+        product = Product.objects.get(id=2)
+        self.assertFalse(product.is_active)
+        response = self.client.post('/products/toggle/2/', {
+            'redirect_url': '/products/'
+        })
+        self.assertRedirects(response, '/products/')
+        updated_product = Product.objects.get(id=2)
+        self.assertTrue(updated_product.is_active)
+
+    def test_success_message_displayed_when_product_toggled(self):
+        """Toggle a product and check msg displayed + is correct"""
+        self.client.login(username='admin', password='secret')
+        product = Product.objects.get(id=2)
+        self.assertFalse(product.is_active)
+        response = self.client.post('/products/toggle/2/', {
+            'redirect_url': '/products/'
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(
+            messages[0].message,
+            'Status for product: "product name two" updated to Active!'
+            )
