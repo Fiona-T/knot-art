@@ -28,7 +28,7 @@
         </div>
         <!-- 2nd column - product details + form with quantity and add to cart/back buttons -->
         <div class="col-12 col-sm-10 col-md-6 col-lg-4 px-4 mt-4">
-            <div class="my-4">
+            <div class="mb-5">
                 <h1>{{ product.name }}</h1>
                 <p class="small my-1">
                     <!-- category name is also a link to category filter -->
@@ -38,17 +38,6 @@
                 </p>
                 <p>{{ product.description }}</p>
                 <p class="fw-600">€{{ product.price }}</p>
-                {% if request.user.is_superuser %}
-                <div class="mb-4">
-                    <!-- show whether product is active or not + edit/delete links, if user is admin user -->
-                    <p class="small mb-0">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
-                    <div class="admin-link-container w-50">
-                        <a class="small admin-link mb-0" href="{% url 'edit_product' product.id %}">Edit</a>
-                        <!-- brings up delete product modal, included in the includes below -->
-                        <a class="small admin-link" href="#deleteModal{{ product.id }}" data-toggle="modal">Delete</a>
-                    </div>
-                </div>
-                {% endif %}
                 <!-- Quantity and Add to Bag form -->
                 <form action="{% url 'add_to_cart' product.id %}" method="POST">
                     {% csrf_token %}
@@ -64,8 +53,8 @@
                                 </button>
                             </div>
                             <!-- quantity input box -->
-                            <input type="number" name="quantity" value="1" class="form-control qty_input" min="1" max="10"
-                                data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
+                            <input type="number" name="quantity" value="1" class="form-control qty_input" min="1"
+                                max="10" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
                             <!-- button after the input - for increasing quantity -->
                             <div class="input-group-append">
                                 <button class="increment-qty rounded-0 btn btn-qty" aria-label="Increase quantity"
@@ -82,6 +71,36 @@
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </form>
             </div>
+            {% if request.user.is_superuser %}
+            <!-- admin actions - activate/deactivate, edit, delete, if user is admin user -->
+            <div class="admin-link-container col-10 p-3">
+                <div class="row mx-0">
+                    <h5 class="fw-600 small-header">Admin actions:</h5>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-12 px-0">
+                        <form class="d-inline" action="{% url 'toggle_product_active_status' product.id %}"
+                            method="POST">
+                            {% csrf_token %}
+                            <button type="submit" value="{{ product.id }}" name="product_id"
+                                class="btn btn-sm btn-brand-dark mb-2">
+                                {% if product.is_active %}Make Inactive{% else %}Make Active{% endif %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mx-0">
+                    <div class="col-6 px-0">
+                        <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit Details</a>
+                    </div>
+                    <!-- brings up delete product modal, included in the includes below -->
+                    <div class="col-6 px-0">
+                        <a class="small admin-link" href="#deleteModal{{ product.id }}" data-toggle="modal">Delete
+                            Product</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
         <!-- end of product details column -->
         {% include '../products/includes/delete-product-modal.html' %}

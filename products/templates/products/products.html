@@ -67,12 +67,34 @@
                         <div class="card-footer border-0 bg-white py-1 mb-4">
                             <p class="fw-600">€{{ product.price }}</p>
                             {% if request.user.is_superuser %}
-                            <!-- show whether product is active or not + edit/delete links,, if user is admin user -->
-                            <p class="small mb-0">{{ product.is_active|yesno:"Active Product,Product Not Active" }}</p>
+                            <!-- admin actions - activate/deactivate, edit, delete, if user is admin user -->
                             <div class="admin-link-container">
-                                <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit</a>
-                                <!-- brings up delete product modal, included in the includes below -->
-                                <a class="small admin-link" href="#deleteModal{{ product.id }}" data-toggle="modal">Delete</a>
+                                <div class="row mx-0">
+                                    <h5 class="fw-600 small-header">Admin actions:</h5>
+                                </div>
+                                <div class="row mx-0">
+                                    <div class="col-12 px-0">
+                                        <form class="d-inline"
+                                            action="{% url 'toggle_product_active_status' product.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit" value="{{ product.id }}" name="product_id"
+                                                class="btn btn-sm btn-brand-dark mb-2">
+                                                {% if product.is_active %}Make Inactive{% else %}Make Active{% endif %}
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row mx-0">
+                                    <div class="col-6 px-0">
+                                        <a class="small admin-link" href="{% url 'edit_product' product.id %}">Edit
+                                            Details</a>
+                                    </div>
+                                    <!-- brings up delete product modal, included in the includes below -->
+                                    <div class="col-6 px-0">
+                                        <a class="small admin-link" href="#deleteModal{{ product.id }}"
+                                            data-toggle="modal">Delete Product</a>
+                                    </div>
+                                </div>
                             </div>
                             {% endif %}
                         </div>
