@@ -92,29 +92,33 @@ a:not([href]).btt-link:hover {
 /* links on shop/market page for admin actions */
 .admin-link {
     color: #1c1c1c;
-    border-bottom: .3rem solid #ff8881;
+    border-bottom: .3rem solid #1c1c1c;
 }
 
 .admin-link:hover,
 .admin-link:active,
 .admin-link:focus {
-    color: #ff8881;
-    border-color: #1c1c1c;
+    border-color: #ff8881;
 }
 
-/* box with edit and delete links for admin */
+/* box with edit and delete links for admin, and active/not active button */
 .admin-link-container {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     padding: 0.5rem;
     border: 0.1rem solid #ff8881;
+}
+
+/* heading in admin box, but can be re-used elsewhere */
+.small-header {
+    font-size: 90%;
 }
 
 .fw-600 {
     font-weight: 600;
 }
 
-/* change defautl Bootstrap border on select box */
+/* change default Bootstrap border on select box */
 .custom-select {
     border: 0.1rem solid #1c1c1c;
 }
