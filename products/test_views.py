@@ -75,7 +75,6 @@ class TestShowProductsView(TestCase):
         """
         Create a superuser, log them in
         Check view returns 18 products i.e. all including active + not active
-        Check that for each product in the context, the is_active flag is True
         """
         test_superuser = User.objects.create_user(
             username='admin',
