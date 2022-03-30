@@ -127,14 +127,14 @@ function scrollBackToTop() {
 }
 
 /**
- * Listen for change on file input for image upload on product form. On change,
+ * Listen for change on file input for image upload on product + market form. On change,
  * set text in the paragraph below it to show the name of the file being uploaded.
  */
      function fileInputShowFileName() {
         if($("#new-image")){
             $("#new-image").change(function() {
                 let file = $("#new-image")[0].files[0];
-                $("#filename").text(`Image for this product will be set to: ${file.name}`)
+                $("#filename").text(`Image will be set to: ${file.name}`)
             });    
         }
     }
