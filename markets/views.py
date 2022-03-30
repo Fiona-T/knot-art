@@ -6,12 +6,12 @@ from .models import Market
 
 def show_markets(request):
     """
-    Show markets with date of today or later in date order
-    If superuser, show all markets, newest first
+    Show markets with date of today or later, oldest date first
+    If superuser, show all markets (default ordering, newest first)
     """
     today = datetime.date.today()
     if request.user.is_superuser:
-        markets = Market.objects.all().order_by('-date')
+        markets = Market.objects.all()
     else:
         markets = Market.objects.filter(date__gte=today).order_by('date')
     context = {
