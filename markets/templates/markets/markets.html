@@ -51,6 +51,16 @@
                         <div class="card-footer border-0 bg-white py-1 mb-4">
                             <a href="{{ market.website }}" target="_blank" rel="noopener"
                                 class="font-90">{{ market.website }}</a>
+                            {% if request.user.is_superuser %}
+                            <!-- superuser can view all markets so show status -->
+                            <p class="font-90 mt-2"><span class="fw-600">Status:</span>
+                                <span>{% if market.date_passed %}
+                                    <i class="bi bi-exclamation-circle-fill shop-icon" aria-hidden="true"></i>Date has
+                                    passed
+                                    {% else %} Upcoming {% endif %}
+                                </span>
+                            </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
