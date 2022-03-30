@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Add Market{% endblock %}
+{% block content %}
+<!-- page contents container - two rows -->
+<section class="container py-5">
+    <!-- 1st row - headings -->
+    <div class="row pt-5">
+        <div class="col-12 col-md-6 col-lg-8">
+            <h1 class="mb-4">Markets Management</h1>
+        </div>
+    </div>
+    <!-- second row - add market form -->
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-8">
+            <h2 class="text-uppercase">Add a Market</h2>
+            <p>Complete the form below to add a new market to the Markets page.</p>
+            <p>The market will be immediately visible in the Markets page after submitting the form.</p>
+            <form method="POST" action="{% url 'add_market' %}" class="profile-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-wrapper">
+                    {% for field in form %}
+                        {% if field.name != 'image' %}
+                            {{ field | as_crispy_field }}
+                        {% else %}
+                        <!-- render the image field not as a crispy field, using custom clearable file input -->
+                            {{ field }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="text-right pt-3 pb-5">
+                    <a class="btn btn-brand-outline" href="{% url 'markets' %}">Back to Markets</a>
+                    <button class="btn btn-brand" type="submit">Add Market</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- contains function to show file name once chosen for image field file input on form -->
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
