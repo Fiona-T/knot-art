@@ -1,5 +1,7 @@
 """Forms for 'markets' app"""
+import datetime
 from django import forms
+from django.core.exceptions import ValidationError
 from products.widgets import CustomClearableFileInput
 from .models import Market, County
 
@@ -25,8 +27,8 @@ class MarketForm(forms.ModelForm):
         help_texts = {
             'date': 'Cannot be in the past, only markets with today\'s date '
             'or later are shown to users',
-            'start_time': 'Must be before End Time!',
-            'end_time': 'Must be after Start Time!',
+            'start_time': 'Must be before End time!',
+            'end_time': 'Must be after Start time!',
             'website': 'Use social media link if market does not have website',
             }
         widgets = {
@@ -60,3 +62,36 @@ class MarketForm(forms.ModelForm):
         self.fields['county'].choices = friendly_names
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'order-form-input'
+
+    def clean(self):
+        """
+        Override the clean method on form to include checks on date and times.
+        Date not earlier than today, start time must be before end time.
+        Raise errors on field + remove helptext (as error msgs are similar).
+        """
+        cleaned_data = super().clean()
+        market_date = cleaned_data.get('date')
+        today = datetime.date.today()
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+
+        if start_time and end_time:
+            if end_time < start_time:
+                self.add_error(
+                    'end_time',
+                    ValidationError('End time must be after Start time')
+                    )
+                self.add_error(
+                    'start_time',
+                    ValidationError('Start time must be before End time')
+                    )
+                for fieldname in ['end_time', 'start_time']:
+                    self.fields[fieldname].help_text = None
+
+        if market_date:
+            if market_date < today:
+                self.add_error(
+                    'date',
+                    ValidationError('Market date must not be in the past')
+                    )
+                self.fields['date'].help_text = None
