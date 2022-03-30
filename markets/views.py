@@ -1,8 +1,9 @@
 """Views for 'markets' app - craft markets seller will be attending"""
 import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.contrib import messages
 from .models import Market
 from .forms import MarketForm
 
@@ -28,10 +29,27 @@ def show_markets(request):
 def add_market(request):
     """
     Show market form for admin user to add market. Raise 403 if not admin.
+    Handle posting of form, show success/error messages.
     """
     if not request.user.is_superuser:
         raise PermissionDenied()
-    form = MarketForm()
+    if request.method == 'POST':
+        form = MarketForm(request.POST, request.FILES)
+        if form.is_valid():
+            market = form.save()
+            market_date = market.date.strftime('%d/%m/%Y')
+            messages.success(
+                request, f'New market: "{market.name}" on {market_date} added!'
+                )
+            return redirect('markets')
+        else:
+            messages.error(
+                request,
+                'Market not added. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = MarketForm()
     context = {
         'form': form,
     }
