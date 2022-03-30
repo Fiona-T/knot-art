@@ -39,7 +39,7 @@
                             <p class="small mt-1 mb-2">
                                 <!-- county name - will update to link to county filter when this is added -->
                                 <a href="#" class="text-muted">
-                                    <i class="bi bi-geo-alt-fill shop-icon"
+                                    <i class="bi bi-geo-alt-fill icon"
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
                             </p>
@@ -55,7 +55,7 @@
                             <!-- superuser can view all markets so show status -->
                             <p class="font-90 mt-2"><span class="fw-600">Status:</span>
                                 <span>{% if market.date_passed %}
-                                    <i class="bi bi-exclamation-circle-fill shop-icon" aria-hidden="true"></i>Date has
+                                    <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
                                     passed
                                     {% else %} Upcoming {% endif %}
                                 </span>
