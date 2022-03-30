@@ -1,4 +1,5 @@
 """Models for 'markets' app"""
+import datetime
 from django.db import models
 
 
@@ -27,6 +28,10 @@ class County(models.Model):
 
 class Market(models.Model):
     """Details about the markets - date time etc."""
+    class Meta:
+        """order by date, newest date first"""
+        ordering = ['-date']
+
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     county = models.ForeignKey(
@@ -39,6 +44,11 @@ class Market(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     website = models.URLField(max_length=254,)
+
+    @property
+    def date_passed(self):
+        """For superuser views so can flag event has passed"""
+        return self.date < datetime.date.today()
 
     def __str__(self):
         """string method - return the market name and date"""
