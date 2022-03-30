@@ -1,6 +1,7 @@
 """Tests for views in 'markets' app"""
 import datetime
 from django.test import TestCase
+from django.contrib.auth.models import User
 from .models import County, Market
 
 
@@ -49,3 +50,31 @@ class TestShowMarketsView(TestCase):
         self.assertEqual(len(response.context['markets']), 4)
         for market in response.context['markets']:
             self.assertGreaterEqual(market.date, datetime.date.today())
+
+    def test_soonest_market_shown_first_for_non_superuser(self):
+        """
+        Test ordering for non-superuser. If no order selected, the soonest
+        should be displayed first + dated today. And latest last.
+        """
+        response = self.client.get('/markets/')
+        today = datetime.date.today()
+        latest = today + datetime.timedelta(days=5)
+        self.assertEqual(response.context['markets'][0].date, today)
+        self.assertEqual(response.context['markets'][3].date, latest)
+
+    def test_all_markets_displayed_for_superuser(self):
+        """
+        Create a superuser, log them in. Check view returns 7 markets i.e. all
+        including those in the past.
+        """
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/')
+        self.assertTrue('markets' in response.context)
+        self.assertEqual(len(response.context['markets']), 7)
