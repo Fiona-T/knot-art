@@ -18,6 +18,8 @@ class MarketAdmin(admin.ModelAdmin):
     Market model - admin set up: fields to show in list view,
     Allow filtering by county, and search by name + website.
     """
-    list_display = ('name', 'location', 'county', 'date', 'website',)
+    list_display = (
+        'name', 'location', 'county', 'date', 'website', 'date_passed',
+        )
     list_filter = ('county',)
     search_fields = ['name', 'website', ]
