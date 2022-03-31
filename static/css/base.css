@@ -431,6 +431,12 @@ fieldset {
     padding: 1rem;
 }
 
+/* change helptext when associated market form input is invalid, added by JS */
+.invalid-text {
+    color: #dc3545;
+    font-weight: 600;
+}
+
 /* ------- custom clearable file input (image field on product form) Credit: Code Institute */
 /* span wrapped around file input */
 .btn-file {
