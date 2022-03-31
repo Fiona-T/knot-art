@@ -55,13 +55,18 @@ class MarketForm(forms.ModelForm):
         Override init method to make changes to fields:
         Create tuple of county ids and friendly names, use this to set the
         choices in the County field dropdown. Add CSS class to all fields.
+        Add time-input class for time fields, to be used by JS validation.
         """
         super().__init__(*args, **kwargs)
         counties = County.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in counties]
         self.fields['county'].choices = friendly_names
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'order-form-input'
+            if field == 'start_time' or field == 'end_time':
+                self.fields[field].widget.attrs['class'] = (
+                    'order-form-input time-input')
+            else:
+                self.fields[field].widget.attrs['class'] = 'order-form-input'
 
     def clean(self):
         """
