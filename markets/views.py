@@ -1,6 +1,6 @@
 """Views for 'markets' app - craft markets seller will be attending"""
 import datetime
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
@@ -54,4 +54,39 @@ def add_market(request):
         'form': form,
     }
     template = 'markets/add_market.html'
+    return render(request, template, context)
+
+
+@login_required()
+def edit_market(request, market_id):
+    """
+    Show form for admin user to edit existing market. Raise 403 if not admin.
+    Handle posting of form, show success/error messages.
+    """
+    if not request.user.is_superuser:
+        raise PermissionDenied()
+    market = get_object_or_404(Market, pk=market_id)
+    if request.method == 'POST':
+        form = MarketForm(request.POST, request.FILES, instance=market)
+        if form.is_valid():
+            market = form.save()
+            market_date = market.date.strftime('%d/%m/%Y')
+            messages.success(
+                request,
+                f'Updates to market: "{market.name}" on {market_date} saved!'
+                )
+            return redirect('markets')
+        else:
+            messages.error(
+                request,
+                'Market NOT updated. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = MarketForm(instance=market)
+    context = {
+        'market': market,
+        'form': form,
+    }
+    template = 'markets/edit_market.html'
     return render(request, template, context)
