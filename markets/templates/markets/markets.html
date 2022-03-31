@@ -61,8 +61,10 @@
                                 </span>
                             </p>
                             <a class="small admin-link" href="{% url 'edit_market' market.id %}">Edit Details</a>
+                            <a class="small admin-link" href="#deleteMarketModal{{ market.id }}" data-toggle="modal">Delete Market</a>
                             {% endif %}
                         </div>
+                        {% include '../markets/includes/delete-market-modal.html' %}
                     </div>
                 </div>
                 {% endfor %}
