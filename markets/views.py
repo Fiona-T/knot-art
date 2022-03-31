@@ -3,6 +3,7 @@ import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from .models import Market
 from .forms import MarketForm
@@ -90,3 +91,22 @@ def edit_market(request, market_id):
     }
     template = 'markets/edit_market.html'
     return render(request, template, context)
+
+
+@require_POST
+@login_required
+def delete_market(request, market_id):
+    """
+    View for admin user to delete market from front end.
+    Raise 403 if not admin.
+    Post request only: delete market, show success message.
+    """
+    if not request.user.is_superuser:
+        raise PermissionDenied()
+    market = get_object_or_404(Market, pk=market_id)
+    market_date = market.date.strftime('%d/%m/%Y')
+    market.delete()
+    messages.success(
+        request, f'Market: "{ market.name }" on { market_date } deleted!'
+        )
+    return redirect('markets')
