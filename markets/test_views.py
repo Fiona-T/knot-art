@@ -216,3 +216,146 @@ class TestAddMarketView(TestCase):
             'Market not added. Please check the form for errors and '
             're-submit.'
             )
+
+
+class TestEditMarketView(TestCase):
+    """Tests for edit_market view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Standard user and Superuser for access tests.
+        County and Market instance for tests.
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        today = datetime.date.today()
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=today + datetime.timedelta(days=5),
+            start_time='09:00',
+            end_time='17:00',
+            website='www.crafted.ie',
+        )
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to add market page after login.
+        """
+        response = self.client.get('/markets/edit/1/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/markets/edit/1/'
+            )
+
+    def test_403_raised_if_logged_in_but_not_superuser(self):
+        """
+        View restricted to logged in superusers. Test logged in user who is
+        not a superuser gets a 403 response (permission denied)
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/markets/edit/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_correct_url_and_template_used_for_logged_in_superuser(self):
+        """Get the url, check response is 200 + correct template"""
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/edit/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'markets/edit_market.html')
+
+    def test_can_edit_market(self):
+        """
+        login the admin user do POST request on edit market url to amend
+        details. Check redirects to the correct success url
+        Check market in get request has the updated details.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/')
+        self.assertEqual(len(response.context['markets']), 1)
+        today = datetime.date.today()
+        response = self.client.post('/markets/edit/1/', {
+            'name': 'The Edited Craft Market',
+            'location': 'The Street Edited',
+            'county': 1,
+            'date': today + datetime.timedelta(days=5),
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'www.crafted-edited.ie',
+        })
+        self.assertRedirects(response, '/markets/')
+        response = self.client.get('/markets/')
+        updated_market = Market.objects.get(id=1)
+        self.assertEqual(updated_market.name, 'The Edited Craft Market')
+        self.assertEqual(
+            updated_market.location, 'The Street Edited'
+            )
+        self.assertEqual(
+            updated_market.website, 'http://www.crafted-edited.ie'
+            )
+
+    def test_success_message_displayed_when_market_edited(self):
+        """Edit a market and check msg displayed + is correct"""
+        self.client.login(username='admin', password='secret')
+        today = datetime.date.today()
+        response = self.client.post('/markets/edit/1/', {
+            'name': 'The Edited Craft Market',
+            'location': 'The Street Edited',
+            'county': 1,
+            'date': today + datetime.timedelta(days=3),
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'www.crafted-edited.ie',
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        expected_date = today + datetime.timedelta(days=3)
+        formatted_date = expected_date.strftime('%d/%m/%Y')
+        self.assertEqual(
+            messages[0].message,
+            f'Updates to market: "The Edited Craft Market" on '
+            f'{formatted_date} saved!'
+            )
+
+    def test_error_message_displayed_when_form_not_valid(self):
+        """
+        Attempt to add market with invalid form, confirm form is invalid,
+        check error msg is displayed + is correct.
+        """
+        self.client.login(username='admin', password='secret')
+        today = datetime.date.today()
+        response = self.client.post('/markets/edit/1/', {
+            'name': 'The Edited Craft Market',
+            'location': 'The Street Edited',
+            'county': 1,
+            'date': today - datetime.timedelta(days=5),  # invalid
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'www.crafted-edited.ie',
+        })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Market NOT updated. Please check the form for errors and '
+            're-submit.'
+            )
