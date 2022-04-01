@@ -6,6 +6,8 @@ from django.dispatch import receiver
 
 from django_countries.fields import CountryField
 
+from markets.models import Market
+
 
 class UserProfile(models.Model):
     """
@@ -46,3 +48,18 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
     instance.userprofile.save()
+
+
+class SavedMarketList(models.Model):
+    """
+    To hold the market(s) that a user can save to their profile.
+    Instance created when a user first saves a market, then markets are
+    added to, or removed from, the list instance when user saves/removes
+    a market via frontend buttons.
+    """
+    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    market = models.ManyToManyField(Market, blank=True)
+
+    def __str__(self):
+        """string method, return 'username's saved markets'"""
+        return f'{self.user.user.username}\'s saved markets'
