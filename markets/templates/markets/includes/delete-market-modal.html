@@ -1,9 +1,9 @@
-<!-- Delete Product modal, with button to confirm deletion and post to view, or Cancel to cancel -->
+<!-- Delete Market modal, with button to confirm deletion and post to view, or Cancel to cancel -->
 <div class="modal fade" id="deleteMarketModal{{ market.id }}" tabindex="-1"
     aria-labelledby="deleteMarketModalMarket{{ market.id }}" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <!-- Delete Product modal header, with Close button -->
+            <!-- Delete Market modal header, with Close button -->
             <div class="modal-header">
                 <h5 class="modal-title" id="deleteMarketModalMarket{{ market.id }}">Delete Market</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -19,8 +19,7 @@
                     <div class="row">
                         <div class="col-6">
                             {% if market.image %}
-                            <img class="w-100" src="{{ market.image.url }}"
-                                alt="Photo of {{ market.name }}">
+                            <img class="w-100" src="{{ market.image.url }}" alt="Photo of {{ market.name }}">
                             {% else %}
                             <img class="w-100" src="{{ MEDIA_URL }}no-image.png"
                                 alt="No image yet for {{ market.name }}, image coming soon.">
@@ -43,8 +42,11 @@
                     </div>
                 </div>
                 <p><strong>This action cannot be undone.</strong></p>
-                <p>If the date has passed, the event will no longer show in the Markets page for users.
+                {% if market.date_passed %}
+                <p class="font-italic">Note: This market is in the past so does not show in the Markets page for users.
+                    Only markets with a date of today or later are shown to users.
                 </p>
+                {% endif %}
                 <p>If you are sure you want to delete the market, then press Delete Market below. Otherwise, Cancel to
                     go back.</p>
             </div>
