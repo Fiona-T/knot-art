@@ -5,7 +5,7 @@
         <div class="modal-content">
             <!-- Delete Product modal header, with Close button -->
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteProductbModalProduct{{ product.id }}">Delete Product</h5>
+                <h5 class="modal-title" id="deleteProductModalProduct{{ product.id }}">Delete Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -18,12 +18,12 @@
                     <!-- row with two columns - image + product details -->
                     <div class="row">
                         <div class="col-6">
-                            {% if item.product.image %}
-                            <img class="w-100" src="{{ item.product.image.url }}"
-                                alt="Photo of {{ item.product.name }}">
+                            {% if product.image %}
+                            <img class="w-100" src="{{ product.image.url }}"
+                                alt="Photo of {{ product.name }}">
                             {% else %}
                             <img class="w-100" src="{{ MEDIA_URL }}no-image.png"
-                                alt="No image yet for {{ item.product.name }}, image coming soon.">
+                                alt="No image yet for {{ product.name }}, image coming soon.">
                             {% endif %}
                         </div>
                         <div class="col-6 mt-4">
