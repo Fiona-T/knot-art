@@ -51,5 +51,6 @@ class Market(models.Model):
         return self.date < datetime.date.today()
 
     def __str__(self):
-        """string method - return the market name and date"""
-        return f'{self.name} on {self.date}'
+        """string method - return the market name and formatted date"""
+        market_date = self.date.strftime('%d/%m/%Y')
+        return f'{self.name} on {market_date}'
