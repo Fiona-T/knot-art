@@ -359,3 +359,95 @@ class TestEditMarketView(TestCase):
             'Market NOT updated. Please check the form for errors and '
             're-submit.'
             )
+
+
+class TestDeleteMarkettView(TestCase):
+    """Tests for delete_market view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Standard user and Superuser for access tests.
+        County, Markets instances for tests.
+        """
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        test_superuser = User.objects.create_user(
+            username='admin',
+            password='secret',
+            is_superuser=True
+        )
+        test_superuser.save()
+
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        today = datetime.date.today()
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=today + datetime.timedelta(days=5),
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.crafted.ie',
+        )
+        Market.objects.create(
+            name='The Lovely Market',
+            location='The Lane',
+            county=County.objects.get(id=1),
+            date=today + datetime.timedelta(days=6),
+            start_time='10:00',
+            end_time='20:00',
+            website='http://www.lovely.ie',
+        )
+
+    def test_405_raised_for_get_request(self):
+        """
+        View restricted to post requests.
+        Test 405 (method not allowed) is raised for a get request.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/delete/1/')
+        self.assertEqual(response.status_code, 405)
+
+    def test_403_raised_for_regular_user_post_request(self):
+        """
+        View restricted to logged in superusers. Test logged in user who is
+        not a superuser gets a 403 response (permission denied)
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/delete/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_admin_user_can_delete_market(self):
+        """
+        Confirm logged in admin user can delete market, the page
+        refirects to the correct page, the number of markets on the
+        markets page is reduced by 1.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/')
+        self.assertEqual(len(response.context['markets']), 2)
+        response = self.client.post('/markets/delete/1/')
+        self.assertRedirects(response, '/markets/')
+        response = self.client.get('/markets/')
+        self.assertEqual(len(response.context['markets']), 1)
+
+    def test_success_message_displayed_when_market_deleted(self):
+        """Delete a market and check msg displayed + is correct"""
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/markets/delete/1/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        expected_date = datetime.date.today() + datetime.timedelta(days=5)
+        formatted_date = expected_date.strftime('%d/%m/%Y')
+        self.assertEqual(
+            messages[0].message,
+            f'Market: "The Craft Market" on { formatted_date } deleted!'
+            )
