@@ -1,6 +1,7 @@
 """Views for profile app - user profile"""
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import Http404
 from checkout.models import Order
@@ -61,6 +62,7 @@ def previous_order_detail(request, order_number):
         return render(request, template, context)
 
 
+@require_POST
 @login_required
 def add_saved_market(request, market_id):
     """
