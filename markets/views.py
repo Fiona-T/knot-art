@@ -38,9 +38,8 @@ def add_market(request):
         form = MarketForm(request.POST, request.FILES)
         if form.is_valid():
             market = form.save()
-            market_date = market.date.strftime('%d/%m/%Y')
             messages.success(
-                request, f'New market: "{market.name}" on {market_date} added!'
+                request, f'New market: "{market}" added!'
                 )
             return redirect('markets')
         else:
@@ -71,10 +70,9 @@ def edit_market(request, market_id):
         form = MarketForm(request.POST, request.FILES, instance=market)
         if form.is_valid():
             market = form.save()
-            market_date = market.date.strftime('%d/%m/%Y')
             messages.success(
                 request,
-                f'Updates to market: "{market.name}" on {market_date} saved!'
+                f'Updates to market: "{market}" saved!'
                 )
             return redirect('markets')
         else:
@@ -104,9 +102,8 @@ def delete_market(request, market_id):
     if not request.user.is_superuser:
         raise PermissionDenied()
     market = get_object_or_404(Market, pk=market_id)
-    market_date = market.date.strftime('%d/%m/%Y')
     market.delete()
     messages.success(
-        request, f'Market: "{ market.name }" on { market_date } deleted!'
+        request, f'Market: "{market}" deleted!'
         )
     return redirect('markets')
