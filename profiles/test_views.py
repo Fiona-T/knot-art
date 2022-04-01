@@ -1,10 +1,12 @@
 """Tests for views in profiles app"""
+import datetime
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from products.models import Category, Product
 from checkout.models import Order
-from .models import UserProfile
+from markets.models import Market
+from .models import UserProfile, SavedMarketList
 
 
 class TestProfileView(TestCase):
@@ -296,3 +298,101 @@ class TestPreviousOrderDetailView(TestCase):
             )
         self.assertNotEqual(response.context['user'], order.user_profile.user)
         self.assertEqual(response.status_code, 404)
+
+
+class TestAddSavedMarketView(TestCase):
+    """Tests for add_saved_market view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Test user and Market instances so can test adding
+        a market to the saved list.
+        """
+        user1 = User.objects.create_user(
+            username='Tester',
+            password='SecretCode14',
+        )
+        user1.save()
+
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            date=datetime.date.today(),
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.crafted.ie',
+        )
+        Market.objects.create(
+            name='The Other Market',
+            location='The Field',
+            date=datetime.date.today(),
+            start_time='10:00',
+            end_time='16:00',
+            website='http://www.other.ie',
+        )
+
+    def test_405_raised_for_get_request(self):
+        """
+        View restricted to post requests.
+        Test 405 (method not allowed) is raised for a get request.
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get('/profile/save_market/1')
+        self.assertEqual(response.status_code, 405)
+
+    def test_logged_in_user_can_save_their_first_market(self):
+        """
+        Login the user, save a market. Get the user's profile and the market
+        that was saved, and their saved markets list. Confirm that the market
+        just saved is on the list for that user.
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.post('/profile/save_market/1', {
+            'market_id': '1'
+        })
+        self.assertRedirects(response, '/markets/')
+        market = Market.objects.get(id=1)
+        user_profile = UserProfile.objects.get(id=1)
+        saved_market_list = SavedMarketList.objects.get(user=user_profile)
+        self.assertTrue(market in saved_market_list.market.all())
+
+    def test_logged_in_user_can_save_another_market_to_list(self):
+        """
+        Login the user, save a market (which creates the saved list), then
+        add another market. Confirm that both of the markets are in the
+        saved markets list for that user.
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.post('/profile/save_market/1', {
+            'market_id': '1'
+        })
+        response = self.client.post('/profile/save_market/2', {
+            'market_id': '2'
+        })
+        self.assertRedirects(response, '/markets/')
+        market1 = Market.objects.get(id=1)
+        market2 = Market.objects.get(id=2)
+        user_profile = UserProfile.objects.get(id=1)
+        saved_market_list = SavedMarketList.objects.get(user=user_profile)
+        self.assertTrue(market1 in saved_market_list.market.all())
+        self.assertTrue(market2 in saved_market_list.market.all())
+
+    def test_success_message_displayed_when_market_saved(self):
+        """
+        Login the user, save a market. Check success message generates
+        and wording is correct.
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.post('/profile/save_market/1', {
+            'market_id': '1'
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        expected_date = datetime.date.today()
+        formatted_date = expected_date.strftime('%d/%m/%Y')
+        self.assertEqual(
+            messages[0].message,
+            f'Market: "The Craft Market on {formatted_date}" added to your '
+            'saved markets!'
+            )
