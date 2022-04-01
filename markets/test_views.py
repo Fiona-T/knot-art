@@ -188,7 +188,7 @@ class TestAddMarketView(TestCase):
         formatted_date = expected_date.strftime('%d/%m/%Y')
         self.assertEqual(
             messages[0].message,
-            f'New market: "The New Market" on {formatted_date} added!'
+            f'New market: "The New Market on {formatted_date}" added!'
             )
 
     def test_error_message_displayed_when_form_not_valid(self):
@@ -330,8 +330,8 @@ class TestEditMarketView(TestCase):
         formatted_date = expected_date.strftime('%d/%m/%Y')
         self.assertEqual(
             messages[0].message,
-            f'Updates to market: "The Edited Craft Market" on '
-            f'{formatted_date} saved!'
+            f'Updates to market: "The Edited Craft Market on '
+            f'{formatted_date}" saved!'
             )
 
     def test_error_message_displayed_when_form_not_valid(self):
@@ -449,5 +449,5 @@ class TestDeleteMarkettView(TestCase):
         formatted_date = expected_date.strftime('%d/%m/%Y')
         self.assertEqual(
             messages[0].message,
-            f'Market: "The Craft Market" on { formatted_date } deleted!'
+            f'Market: "The Craft Market on { formatted_date }" deleted!'
             )
