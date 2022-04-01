@@ -10,4 +10,9 @@ urlpatterns = [
         views.previous_order_detail,
         name='previous_order_detail'
         ),
+    path(
+        'save_market/<market_id>',
+        views.add_saved_market,
+        name='add_saved_market'
+        ),
 ]

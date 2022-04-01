@@ -1,10 +1,11 @@
 """Views for profile app - user profile"""
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import Http404
 from checkout.models import Order
-from .models import UserProfile
+from markets.models import Market
+from .models import UserProfile, SavedMarketList
 from .forms import UserProfileForm
 
 
@@ -58,3 +59,27 @@ def previous_order_detail(request, order_number):
             'from_profile': True,
         }
         return render(request, template, context)
+
+
+@login_required
+def add_saved_market(request, market_id):
+    """
+    Add a market to profile. If instance of SavedMarketList exists for
+    user, then add market to it. If not, then create the instance and add
+    the market.
+    """
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    market = get_object_or_404(Market, pk=market_id)
+    try:
+        saved_markets_list = get_object_or_404(
+            SavedMarketList, user=user_profile
+            )
+    except Http404:
+        saved_markets_list = SavedMarketList(user=user_profile)
+        saved_markets_list.save()
+    saved_markets_list.market.add(market)
+    saved_markets_list.save()
+    messages.success(
+        request, f'Market: "{market}" added to your saved markets!'
+        )
+    return redirect('markets')
