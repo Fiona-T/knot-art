@@ -98,7 +98,7 @@ class TestMarketModel(TestCase):
         called on this record returns the correct string
         """
         market = Market.objects.get(id=1)
-        self.assertEqual(str(market), 'The Craft Market on 2022-06-01')
+        self.assertEqual(str(market), 'The Craft Market on 01/06/2022')
 
     def test_date_passed_property_returns_true_if_date_passed(self):
         """Market id 3 has date of yesterday, confirm date_passed is true"""
