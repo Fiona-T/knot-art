@@ -19,6 +19,7 @@ def show_markets(request):
     that template can show if market on their saved list or not)
     """
     today = datetime.date.today()
+    saved_markets_list = None
     if request.user.is_superuser:
         markets = Market.objects.all()
     else:
