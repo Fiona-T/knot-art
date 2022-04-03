@@ -4,7 +4,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.http import require_POST
+from django.http import Http404
 from django.contrib import messages
+from profiles.models import SavedMarketList, UserProfile
 from .models import Market
 from .forms import MarketForm
 
@@ -13,14 +15,27 @@ def show_markets(request):
     """
     Show markets with date of today or later, oldest date first
     If superuser, show all markets (default ordering, newest first)
+    If user logged in, get their saved markets list if they have one (so
+    that template can show if market on their saved list or not)
     """
     today = datetime.date.today()
     if request.user.is_superuser:
         markets = Market.objects.all()
     else:
         markets = Market.objects.filter(date__gte=today).order_by('date')
+
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        try:
+            saved_markets_list = get_object_or_404(
+                SavedMarketList, user=user_profile
+                )
+        except Http404:
+            saved_markets_list = None
+
     context = {
         'markets': markets,
+        'saved_markets_list': saved_markets_list
     }
     template = 'markets/markets.html'
     return render(request, template, context)
