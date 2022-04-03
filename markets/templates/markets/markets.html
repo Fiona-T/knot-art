@@ -62,12 +62,20 @@
                             <form action="{% url 'add_saved_market' market.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" value="{{ market.id }}" name="market_id"
-                                    class="btn btn-brand-dark my-2"><i class="bi bi-heart-fill icon"
-                                    aria-hidden="true"></i>SAVE TO PROFILE
+                                    class="btn btn-brand-dark my-2">
+                                    {% if market in saved_markets_list.market.all %}
+                                    <i class="bi bi-x-circle icon" aria-hidden="true"></i>REMOVE
+                                    {% else %}
+                                    <i class="bi bi-heart-fill icon" aria-hidden="true"></i>SAVE
+                                    {% endif %}
                                 </button>
+                                <p class="small text-muted">
+                                    This will {% if market in saved_markets_list.market.all %}remove{% else %}add
+                                    {% endif %} the market from the My Markets list in your profile
+                                </p>
                             </form>
                             {% else %}
-                            <p class="font-90 fw-600 font-italic mt-2"><i class="bi bi-heart-fill icon"
+                            <p class="small text-muted mt-2"><i class="bi bi-heart-fill icon"
                                     aria-hidden="true"></i><a href="{% url 'account_login' %}">Sign In</a> or <a
                                     href="{% url 'account_signup' %}">Sign Up</a> to save this market to your profile.
                             </p>
