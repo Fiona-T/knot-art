@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.decorators.http import require_POST
 from django.http import Http404
 from django.contrib import messages
+from django.db.models.functions import Lower
 from profiles.models import SavedMarketList, UserProfile
 from .models import Market
 from .forms import MarketForm
@@ -13,13 +14,18 @@ from .forms import MarketForm
 
 def show_markets(request):
     """
-    Show markets with date of today or later, oldest date first
-    If superuser, show all markets (default ordering, newest first)
+    Show markets with date of today or later, earliest first
+    If superuser, show all markets (default ordering, latest first)
+    If sort is present in the get request, then sort the markets by that
+    option + pass current sorting back to context.
     If user logged in, get their saved markets list if they have one (so
     that template can show if market on their saved list or not)
     """
     today = datetime.date.today()
     saved_markets_list = None
+    sort = None
+    sort_direction = None
+
     if request.user.is_superuser:
         markets = Market.objects.all()
     else:
@@ -34,9 +40,30 @@ def show_markets(request):
         except Http404:
             saved_markets_list = None
 
+    # GET requests for sorting
+    if request.GET:
+        # handles sorting
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            # if sorting by market name, add lowercase name to model to sort
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                markets = markets.annotate(lower_name=Lower('name'))
+            # if direction is descending then reverse the sorting
+            if 'direction' in request.GET:
+                sort_direction = request.GET['direction']
+                if sort_direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            markets = markets.order_by(sortkey)
+
+    # used in context for select box to show the selected option
+    current_sorting = f'{sort}_{sort_direction}'
+
     context = {
         'markets': markets,
-        'saved_markets_list': saved_markets_list
+        'saved_markets_list': saved_markets_list,
+        'current_sorting': current_sorting,
     }
     template = 'markets/markets.html'
     return render(request, template, context)
