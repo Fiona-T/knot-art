@@ -60,13 +60,15 @@
                         <div class="card-footer border-0 bg-white py-1 mb-4">
                             <a href="{{ market.website }}" target="_blank" rel="noopener"
                                 class="font-90">{{ market.website }}</a>
-                            <form action="{% url 'add_saved_market' market.id %}" method="POST">
+                            <form action="{% url 'update_my_markets' market.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" value="{{ market.id }}" name="market_id"
                                     class="bg-transparent border-0 p-0 my-2">
                                     <i class="bi bi-heart-fill icon" aria-hidden="true"></i>
                                     <span class="small text-muted">Remove from My Markets</span>
                                 </button>
+                                <!-- hidden input with url path, so view can redirect back to same page -->
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
                             <p class="font-90 mt-2"><span class="fw-600">Status:</span>
                                 <span>{% if market.date_passed %}
