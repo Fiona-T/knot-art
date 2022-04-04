@@ -85,3 +85,23 @@ def add_saved_market(request, market_id):
         request, f'Market: "{market}" added to your saved markets!'
         )
     return redirect('markets')
+
+
+@login_required
+def show_saved_markets(request):
+    """
+    Displays the markets in the user's saved market list, if they have one
+    """
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    try:
+        saved_markets_list = get_object_or_404(
+            SavedMarketList, user=user_profile
+            )
+    except Http404:
+        saved_markets_list = None
+
+    context = {
+        'saved_markets_list': saved_markets_list
+    }
+    template = 'profiles/my_markets.html'
+    return render(request, template, context)

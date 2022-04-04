@@ -15,4 +15,7 @@ urlpatterns = [
         views.add_saved_market,
         name='add_saved_market'
         ),
+    path(
+        'my_markets', views.show_saved_markets, name='my_markets'
+        ),
 ]
