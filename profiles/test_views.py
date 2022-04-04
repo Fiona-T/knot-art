@@ -300,8 +300,8 @@ class TestPreviousOrderDetailView(TestCase):
         self.assertEqual(response.status_code, 404)
 
 
-class TestAddSavedMarketView(TestCase):
-    """Tests for add_saved_market view"""
+class TestUpdateSavedMarketsView(TestCase):
+    """Tests for update_saved_markets_list view"""
     @classmethod
     def setUpTestData(cls):
         """
@@ -337,7 +337,7 @@ class TestAddSavedMarketView(TestCase):
         Test 405 (method not allowed) is raised for a get request.
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.get('/profile/save_market/1')
+        response = self.client.get('/profile/update_my_markets/1')
         self.assertEqual(response.status_code, 405)
 
     def test_logged_in_user_can_save_their_first_market(self):
@@ -347,8 +347,9 @@ class TestAddSavedMarketView(TestCase):
         just saved is on the list for that user.
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.post('/profile/save_market/1', {
-            'market_id': '1'
+        response = self.client.post('/profile/update_my_markets/1', {
+            'market_id': '1',
+            'redirect_url': '/markets/'
         })
         self.assertRedirects(response, '/markets/')
         market = Market.objects.get(id=1)
@@ -363,11 +364,13 @@ class TestAddSavedMarketView(TestCase):
         saved markets list for that user.
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.post('/profile/save_market/1', {
-            'market_id': '1'
+        response = self.client.post('/profile/update_my_markets/1', {
+            'market_id': '1',
+            'redirect_url': '/markets/'
         })
-        response = self.client.post('/profile/save_market/2', {
-            'market_id': '2'
+        response = self.client.post('/profile/update_my_markets/2', {
+            'market_id': '2',
+            'redirect_url': '/markets/'
         })
         self.assertRedirects(response, '/markets/')
         market1 = Market.objects.get(id=1)
@@ -383,8 +386,9 @@ class TestAddSavedMarketView(TestCase):
         and wording is correct.
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.post('/profile/save_market/1', {
-            'market_id': '1'
+        response = self.client.post('/profile/update_my_markets/1', {
+            'market_id': '1',
+            'redirect_url': '/markets/'
         })
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
