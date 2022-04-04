@@ -288,6 +288,7 @@ a:not([href]).btt-link:hover {
 .btn-callout {
     padding: 0.5rem 0.8rem;
     margin-top: 1rem;
+    text-transform: uppercase;
 }
 
 .btn-callout:hover, 
