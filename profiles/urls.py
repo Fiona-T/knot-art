@@ -11,9 +11,9 @@ urlpatterns = [
         name='previous_order_detail'
         ),
     path(
-        'save_market/<market_id>',
-        views.add_saved_market,
-        name='add_saved_market'
+        'update_my_markets/<market_id>',
+        views.update_saved_markets_list,
+        name='update_my_markets'
         ),
     path(
         'my_markets', views.show_saved_markets, name='my_markets'

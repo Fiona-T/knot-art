@@ -64,7 +64,7 @@ def previous_order_detail(request, order_number):
 
 @require_POST
 @login_required
-def add_saved_market(request, market_id):
+def update_saved_markets_list(request, market_id):
     """
     Add or remove a market to the user's SavedMarketList:
     Get SavedMarketList for user if it exists, otherwise create it.
