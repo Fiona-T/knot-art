@@ -80,6 +80,80 @@ class TestShowMarketsView(TestCase):
         self.assertTrue('markets' in response.context)
         self.assertEqual(len(response.context['markets']), 7)
 
+    def test_sort_request_urls_and_context_are_correct(self):
+        """
+        For sort requests, check that each combination of url is successful
+        And that the 'current_sorting' returned in context is correct
+        """
+        response = self.client.get('/markets/')
+        self.assertEqual(response.context['current_sorting'], 'None_None')
+        sort_options = ['name', 'date']
+        for opt in sort_options:
+            response = self.client.get(f'/markets/?sort={opt}&direction=desc')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(
+                response.context['current_sorting'], f'{opt}_desc'
+                )
+        for opt in sort_options:
+            response = self.client.get(f'/markets/?sort={opt}&direction=asc')
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.context['current_sorting'], f'{opt}_asc')
+
+    def test_sort_by_name_returns_markets_in_correct_order(self):
+        """
+        Test order of markets returned for a sort by name request is correct,
+        by checking 1st and last. Markets created with A + Z and names to test
+        """
+        names = ['A First Market', 'Z Last Market']
+        for market in range(2):
+            Market.objects.create(
+                    name=names[market],
+                    location='The Street',
+                    date=datetime.date.today(),
+                    start_time='09:00',
+                    end_time='17:00',
+                    website='http://www.aacrafted.ie',
+                )
+
+        response = self.client.get('/markets/?sort=name&direction=asc')
+        self.assertEqual(
+            response.context['markets'][0].name, 'A First Market'
+            )
+        # have to use len minus 1 here, as negative indexing not supported
+        last_item = len(response.context['markets'])-1
+        self.assertEqual(
+            response.context['markets'][last_item].name, 'Z Last Market'
+            )
+
+        response = self.client.get('/markets/?sort=name&direction=desc')
+        self.assertEqual(response.context['markets'][0].name, 'Z Last Market')
+        last_item = len(response.context['markets'])-1
+        self.assertEqual(
+            response.context['markets'][last_item].name, 'A First Market'
+            )
+
+    def test_sort_by_date_returns_markets_in_correct_order(self):
+        """
+        Test that order of markets returned for a sort by date request is
+        correct by checking 1st and last. Earliest date from markets in
+        setUp will be today because other dates are in past so not shown.
+        """
+        today = datetime.date.today()
+        latest_date = today + datetime.timedelta(days=5)
+
+        response = self.client.get('/markets/?sort=date&direction=asc')
+        self.assertEqual(response.context['markets'][0].date, today)
+        last_item = len(response.context['markets'])-1
+        self.assertEqual(
+            response.context['markets'][last_item].date, latest_date
+            )
+        response = self.client.get('/markets/?sort=date&direction=desc')
+        self.assertEqual(response.context['markets'][0].date, latest_date)
+        last_item = len(response.context['markets'])-1
+        self.assertEqual(
+            response.context['markets'][last_item].date, today
+            )
+
 
 class TestAddMarketView(TestCase):
     """Tests for add_market view"""
