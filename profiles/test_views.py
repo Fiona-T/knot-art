@@ -396,3 +396,66 @@ class TestAddSavedMarketView(TestCase):
             f'Market: "The Craft Market on {formatted_date}" added to your '
             'saved markets!'
             )
+
+
+class TestShowSavedMarketsView(TestCase):
+    """Tests for show_saved_markets view"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Test user and 10 Market instances. Instance of SavedMarketList, add
+        7 markets to it (mix of dates in future + past).
+        """
+        user1 = User.objects.create_user(
+            username='Tester',
+            password='SecretCode14',
+        )
+        user1.save()
+        user_profile = UserProfile.objects.get(id=1)
+        today = datetime.date.today()
+        for market in range(10):
+            increment = today + datetime.timedelta(days=market)
+            decrement = today - datetime.timedelta(days=market)
+            Market.objects.create(
+                name='The Craft Market',
+                location='The Street',
+                date=increment if market % 2 else decrement,
+                start_time='09:00',
+                end_time='17:00',
+                website='http://www.crafted.ie',
+            )
+        saved_market_list = SavedMarketList.objects.create(
+            user=user_profile
+            )
+        for market in Market.objects.filter(id__lt=8):
+            saved_market_list.market.add(market)
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to add market page after login.
+        """
+        response = self.client.get('/profile/my_markets')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/profile/my_markets'
+            )
+
+    def test_correct_url_and_template_used_for_logged_in_user(self):
+        """
+        Get url for my markets page, check response is 200 + correct template
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get('/profile/my_markets')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/my_markets.html')
+
+    def test_all_markets_from_saved_list_displayed(self):
+        """
+        Check view returns 7 markets i.e. those that were added to the saved
+        market list instance, including those in the past.
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get('/profile/my_markets')
+        self.assertTrue('saved_markets_list' in response.context)
+        markets = response.context['saved_markets_list'].market.all()
+        self.assertEqual(len(markets), 7)
