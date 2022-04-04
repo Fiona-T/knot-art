@@ -401,6 +401,49 @@ class TestUpdateSavedMarketsView(TestCase):
             'saved markets!'
             )
 
+    def test_logged_in_user_can_remove_a_market_and_list_remains(self):
+        """
+        Login the user, create their market list and add two market.
+        Post request to remove one market. Confirm redirects, confirm the
+        saved market list still exists but removed market no longer on the list
+        """
+        user_profile = UserProfile.objects.get(id=1)
+        saved_market_list = SavedMarketList.objects.create(
+            user=user_profile
+            )
+        markets = Market.objects.all()
+        for market in markets:
+            saved_market_list.market.add(market)
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.post('/profile/update_my_markets/1', {
+            'market_id': '1',
+            'redirect_url': '/markets/'
+        })
+        self.assertRedirects(response, '/markets/')
+        saved_market_list = SavedMarketList.objects.get(user=user_profile)
+        self.assertFalse(markets[0] in saved_market_list.market.all())
+        self.assertTrue(markets[1] in saved_market_list.market.all())
+
+    def test_logged_in_user_can_remove_a_market_and_list_is_deleted(self):
+        """
+        Login the user, create their market list and add a market.
+        Post request to remove the market. Confirm redirects, confirm the
+        saved market list no longer exists (deleted as no markets left on it)
+        """
+        user_profile = UserProfile.objects.get(id=1)
+        saved_market_list = SavedMarketList.objects.create(
+            user=user_profile
+            )
+        market = Market.objects.get(id=1)
+        saved_market_list.market.add(market)
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.post('/profile/update_my_markets/1', {
+            'market_id': '1',
+            'redirect_url': '/markets/'
+        })
+        self.assertRedirects(response, '/markets/')
+        self.assertTrue(saved_market_list.DoesNotExist())
+
 
 class TestShowSavedMarketsView(TestCase):
     """Tests for show_saved_markets view"""
