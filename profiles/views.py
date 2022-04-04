@@ -66,12 +66,16 @@ def previous_order_detail(request, order_number):
 @login_required
 def add_saved_market(request, market_id):
     """
-    Add a market to profile. If instance of SavedMarketList exists for
-    user, then add market to it. If not, then create the instance and add
-    the market.
+    Add or remove a market to the user's SavedMarketList:
+    Get SavedMarketList for user if it exists, otherwise create it.
+    If market is in the list, then remove it, then check if list is now
+    empty, if it is then delete the list. If market not in list, then add it.
+    Redirect to the page the user sent the request from (markets or my_markets)
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
     market = get_object_or_404(Market, pk=market_id)
+    redirect_url = request.POST.get('redirect_url')
+
     try:
         saved_markets_list = get_object_or_404(
             SavedMarketList, user=user_profile
@@ -79,12 +83,22 @@ def add_saved_market(request, market_id):
     except Http404:
         saved_markets_list = SavedMarketList(user=user_profile)
         saved_markets_list.save()
-    saved_markets_list.market.add(market)
-    saved_markets_list.save()
+
+    if market in saved_markets_list.market.all():
+        saved_markets_list.market.remove(market)
+        action = 'removed from'
+        saved_markets_list.save()
+        if not saved_markets_list.market.all().exists():
+            saved_markets_list.delete()
+    else:
+        saved_markets_list.market.add(market)
+        action = 'added to'
+        saved_markets_list.save()
+
     messages.success(
-        request, f'Market: "{market}" added to your saved markets!'
+        request, f'Market: "{market}" { action } your saved markets!'
         )
-    return redirect('markets')
+    return redirect(redirect_url)
 
 
 @login_required
