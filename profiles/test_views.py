@@ -482,9 +482,9 @@ class TestShowSavedMarketsView(TestCase):
         View restricted to logged in users. Test user redirected to login
         page if not logged in, with redirect to add market page after login.
         """
-        response = self.client.get('/profile/my_markets')
+        response = self.client.get('/profile/my_markets/')
         self.assertRedirects(
-            response, '/accounts/login/?next=/profile/my_markets'
+            response, '/accounts/login/?next=/profile/my_markets/'
             )
 
     def test_correct_url_and_template_used_for_logged_in_user(self):
@@ -492,7 +492,7 @@ class TestShowSavedMarketsView(TestCase):
         Get url for my markets page, check response is 200 + correct template
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.get('/profile/my_markets')
+        response = self.client.get('/profile/my_markets/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/my_markets.html')
 
@@ -502,7 +502,7 @@ class TestShowSavedMarketsView(TestCase):
         market list instance, including those in the past.
         """
         self.client.login(username='Tester', password='SecretCode14')
-        response = self.client.get('/profile/my_markets')
+        response = self.client.get('/profile/my_markets/')
         self.assertTrue('saved_markets_list' in response.context)
         markets = response.context['saved_markets_list'].market.all()
         self.assertEqual(len(markets), 7)

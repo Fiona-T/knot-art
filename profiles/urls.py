@@ -16,6 +16,6 @@ urlpatterns = [
         name='update_my_markets'
         ),
     path(
-        'my_markets', views.show_saved_markets, name='my_markets'
+        'my_markets/', views.show_saved_markets, name='my_markets'
         ),
 ]
