@@ -33,6 +33,11 @@ main a:focus {
     font-weight: 600;
 }
 
+/* class for links that appear in body text */
+.text-link {
+    border-bottom: 0.1rem solid #ff8881;
+}
+
 /* adjust Bootstrap general btn styles */
 .btn {
     border-radius: 0;

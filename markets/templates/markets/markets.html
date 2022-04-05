@@ -19,7 +19,7 @@
                 chance to buy new styles before they are available on my website!</p>
             <p>I update this list regularly, so check back for updates!</p>
             <p>To make sure you don't miss out, use the SAVE button to add the market to your profile, you can then view
-                it in your My Markets page. If you don't have a profile yet, you can <a
+                it in your My Markets page. If you don't have a profile yet, you can <a class="text-link"
                     href="{% url 'account_signup' %}">easily create an account at this link</a>.</p>
         </div>
     </div>
@@ -89,9 +89,10 @@
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
                             {% else %}
-                            <p class="small text-muted mt-2"><i class="bi bi-heart icon"
-                                    aria-hidden="true"></i><a href="{% url 'account_login' %}">Sign In</a> or <a
-                                    href="{% url 'account_signup' %}">Sign Up</a> to save this market to your My Markets list.
+                            <p class="small text-muted mt-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a
+                                    class="text-link" href="{% url 'account_login' %}">Sign In</a> or <a
+                                    class="text-link" href="{% url 'account_signup' %}">Sign Up</a> to save this market
+                                to your My Markets list.
                             </p>
                             {% endif %}
                             {% if request.user.is_superuser %}

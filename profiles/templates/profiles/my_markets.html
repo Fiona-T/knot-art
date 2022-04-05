@@ -14,15 +14,15 @@
         <div class="col-10 offset-1 mt-4">
             <h2 class="text-uppercase">Saved Markets</h2>
             {% if not saved_markets_list %}
-            <p class="fw-600 mb-5">You don't have any saved markets. You can save markets from the <a
-                    href="{% url 'markets' %}">Markets page</a> and once saved they will
-                appear in your list here.</p>
+            <p class="fw-600 mb-5">You don't have any saved markets. You can save markets from the <a class="text-link"
+                    href="{% url 'markets' %}">Markets page</a> and once saved they will appear in your list here.</p>
             <a href="{% url 'markets' %}" class="btn btn-brand">Back to Markets</a>
             {% else %}
-            <p>These are the markets that you have saved from the <a href="{% url 'markets' %}">Markets page</a>,
-                including those that are in the past. If you no longer want to attend a market you can remove it.</p>
-            <p>You can save additional markets from the <a href="{% url 'markets' %}">Markets page</a> and they will
-                appear in your list here.</p>
+            <p>These are the markets that you have saved from the <a href="{% url 'markets' %}"
+                    class="text-link">Markets page</a>, including those that are in the past. If you no longer want to
+                attend a market you can remove it.</p>
+            <p>You can save additional markets from the <a href="{% url 'markets' %}" class="text-link">Markets page</a>
+                and they will appear in your list here.</p>
         </div>
     </div>
     <!-- 2nd row - markets -->
