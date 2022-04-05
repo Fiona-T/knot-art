@@ -17,12 +17,20 @@ h2 {
     margin-bottom: 1rem;
 }
 
-/* remove text decoration from links */
+/* remove default colour + text decoration from links */
 a,
 a:hover,
 a:active,
 a:focus {
     text-decoration: none;
+    color: inherit;
+}
+
+/* hover etc. for general links */
+main a:hover,
+main a:active,
+main a:focus {
+    font-weight: 600;
 }
 
 /* adjust Bootstrap general btn styles */
