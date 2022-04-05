@@ -27,3 +27,10 @@ thead {
     background-color: #1c1c1c;
     color: white;
 }
+
+/* ---------------------------------------- Account details section */
+/* border around username/email details */
+.wrapper {
+    padding: 0.5rem;
+    border: 0.1rem solid #ff8881;
+}

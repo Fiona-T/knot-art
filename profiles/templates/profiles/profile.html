@@ -36,6 +36,12 @@
         </div>
         <!-- 2nd col: order history -->
         <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+            <h2 class="text-uppercase">Account Details</h2>
+            <p>This is the username and email address associated with your account.</p>
+            <div class="wrapper mb-5">
+                <p class="mb-0"><span class="fw-600 font-90">Username:</span> {{ user.username }}</p>
+                <p class="mb-0"><span class="fw-600 font-90">Email address:</span> {{ user.email }}</p>
+            </div>
             <h2 class="text-uppercase">Order History</h2>
             <p>Below you can find a list of your previous orders. Note, the order will only be shown here if you were
                 logged in when you made the purchase.</p>
