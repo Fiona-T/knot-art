@@ -90,12 +90,16 @@
                     </li>
                     <!-- This link is a dropdown menu for Account options. Link name changes depending on signed in status of user -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link nav-link-main" href="" id="account-options" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a class="nav-link nav-link-main" href="" id="account-options" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
-                                <div><i class="bi bi-person nav-icon"></i></div>
+                                <div>
+                                    <i
+                                        class="bi bi-person{% if request.user.is_authenticated %}-fill{% endif %} nav-icon"></i>
+                                </div>
                                 <p class="my-0 nav-text">
                                     {% if request.user.is_authenticated %}Account{% else %}Sign In{% endif %}
+                                    <i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
                                 </p>
                             </div>
                         </a>
