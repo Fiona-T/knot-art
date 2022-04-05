@@ -82,6 +82,12 @@
         <div class="col-12 col-lg-6">
             <h2 class="text-uppercase">Complete Your Order</h2>
             <p>Nearly there! Fill out the form below to complete your order and pay.</p>
+            {% if not request.user.is_authenticated %}
+            <p class="font-90 fw-500 mt-2"><a class="text-link" href="{% url 'account_login' %}">Sign in</a> to use or
+                update your saved delivery information, or <a class="text-link" href="{% url 'account_signup' %}">create
+                    an account</a> to save delivery information and make the checkout process faster next time.
+            </p>
+            {% endif %}
             <p><em>Fields marked with * must be completed.</em></p>
             <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="order-form">
                 {% csrf_token %}
@@ -113,8 +119,9 @@
                         {% else %}
                         <!-- Or else links to sign in/create account, to then save the delivery info to profile -->
                         <label class="form-check-label" for="id-save-info">
-                            <a href="{% url 'account_login' %}">Sign in</a> or
-                            <a href="{% url 'account_signup' %}">create an account</a> to save delivery information
+                            <a href="{% url 'account_login' %} " class="text-link">Sign in</a> or
+                            <a href="{% url 'account_signup' %}" class="text-link">create an account</a> to save
+                            delivery information
                         </label>
                         {% endif %}
                     </div>
