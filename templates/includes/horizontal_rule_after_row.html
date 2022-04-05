@@ -1,0 +1,32 @@
+<!-- 
+    Horiztonal rule (col-12) after each row of products/markets.
+    Used when looping through the returned products/markets from the database.
+    Insert the hr after a certain number of items, depending on no. of columns in the row,
+    for screen size, hide at other screen sizes.
+    Credit: from Code Institute, Boutique Ado project
+-->
+{% if forloop.counter|divisibleby:1 %}
+<!-- mobile - single column in each row, full width col every second row -->
+<div class="col-12 d-sm-none mb-5">
+    <hr class="row-divider">
+</div>
+{% endif %}
+{% if forloop.counter|divisibleby:2 %}
+<!-- small + medium screen, 2 cols per row, hr after every third row -->
+<div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+    <hr class="row-divider">
+</div>
+{% endif %}
+{% if forloop.counter|divisibleby:3 %}
+<!-- large screen, 3 cols per row, hr after every fourth row -->
+<div class="col-12 d-none d-lg-block d-xl-none mb-5">
+    <hr class="row-divider">
+</div>
+{% endif %}
+{% if forloop.counter|divisibleby:4 %}
+<!-- x-large screen, 4 cols per row, hr after every fifth row -->
+<div class="col-12 d-none d-xl-block mb-5">
+    <hr class="row-divider">
+</div>
+{% endif %}
+<!-- End of if statements for horizontal rule -->

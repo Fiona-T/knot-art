@@ -123,6 +123,12 @@ a:not([href]).btt-link:hover {
     border: 0.1rem solid #1c1c1c;
 }
 
+/* hr dividing rows of products, markets on shop, markets, my markets pages */
+.row-divider {
+    border-top: 0.1rem solid #ff8881;
+    width: 80%;
+}
+
 /* ---------------------------------------- Header */
 .nav-main, .dropdown-menu {
     background-color: #1c1c1c;
