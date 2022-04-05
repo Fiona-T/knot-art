@@ -1,0 +1,14 @@
+<!-- Markets sorting row -->
+<div class="row pb-3">
+    <!-- select box with sorting options - works using selectBoxSorting function in script.js, event listener on id -->
+    <div class="col-12 col-md-6 col-lg-4 justify-content-center justify-content-md-end">
+        <select id="sorting-selector" class="custom-select custom-select-sm rounded-0"
+            aria-label="Sorting options">
+            <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+            <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Market name (A-Z)</option>
+            <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Market name (Z-A)</option>
+            <option value="date_asc" {% if current_sorting == 'date_asc' %}selected{% endif %}>Date (soonest to latest)</option>
+            <option value="date_desc" {% if current_sorting == 'date_desc' %}selected{% endif %}>Date (latest to soonest)</option>
+        </select>
+    </div>
+</div>
