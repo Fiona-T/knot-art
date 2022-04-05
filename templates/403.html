@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} | Page Not Found{% endblock %}
+{% block extra_title %} | Permission Denied{% endblock %}
 {% block content %}
 
 <!-- page contents container -->
 <section class="container-fluid py-5">
-    <!-- 1st row - heading -->
+    <!-- row with heading + contents-->
     <div class="row py-5 justify-content-center">
         <div class="col-12 col-md-6 pt-3">
-            <h1 class="mb-4">404 Page not found!</h1>
+            <h1 class="mb-4">403 Error!</h1>
             <hr>
-            <p>The page you were looking for can't be found.</p>
-            <p>The link may be incorrect, or you may not have access to that page.</p>
+            <p>You don't have access to view this page.</p>
+            <p>If you think you should have access, make sure you have <a href="{% url 'account_login' %}"
+                    class="text-link">signed in to your account</a>, and that you are using the correct link.</p>
             <p>You can <a href="{% url 'home' %}" class="text-link">go back to our home page</a>, or <a
                     href="{% url 'products' %}" class="text-link">browse the wall hangings in our Shop</a>.</p>
         </div>
