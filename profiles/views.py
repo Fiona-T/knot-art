@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.http import Http404
+from django.db.models.functions import Lower
 from checkout.models import Order
 from markets.models import Market
 from .models import UserProfile, SavedMarketList
@@ -104,18 +105,49 @@ def update_saved_markets_list(request, market_id):
 @login_required
 def show_saved_markets(request):
     """
-    Displays the markets in the user's saved market list, if they have one
+    Displays the markets in the user's saved market list, if they have one.
+    Get the saved market list, then get the markets from it (for sorting)
+    If sort is present in the get request, then sort the markets by that
+    option + pass current sorting back to context.
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
+    sort = None
+    sort_direction = None
+    saved_markets = None
     try:
         saved_markets_list = get_object_or_404(
             SavedMarketList, user=user_profile
             )
+        saved_markets = saved_markets_list.market.all()
     except Http404:
         saved_markets_list = None
 
+    # GET requests for sorting
+    if request.GET:
+        # handles sorting
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            # if sorting by market name, add lowercase name to sort
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                saved_markets = saved_markets.annotate(
+                    lower_name=Lower('name')
+                    )
+            # if direction is descending then reverse the sorting
+            if 'direction' in request.GET:
+                sort_direction = request.GET['direction']
+                if sort_direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            saved_markets = saved_markets.order_by(sortkey)
+
+    # used in context for select box to show the selected option
+    current_sorting = f'{sort}_{sort_direction}'
+
     context = {
-        'saved_markets_list': saved_markets_list
+        'saved_markets_list': saved_markets_list,
+        'current_sorting': current_sorting,
+        'saved_markets': saved_markets,
     }
     template = 'profiles/my_markets.html'
     return render(request, template, context)
