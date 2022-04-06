@@ -35,11 +35,19 @@ class TestMarketForm(TestCase):
                     form.fields[field].help_text, help_texts[field])
 
     def test_css_class_exists_on_fields(self):
-        """Test CSS class is present and correct on the form fields"""
+        """Test CSS classes are present and correct on the form fields"""
         form = MarketForm()
         for field in form.fields:
-            self.assertEqual(
-                form.fields[field].widget.attrs['class'], 'order-form-input')
+            if field == 'start_time' or field == 'end_time':
+                self.assertEqual(
+                    form.fields[field].widget.attrs['class'],
+                    'order-form-input time-input'
+                    )
+            else:
+                self.assertEqual(
+                    form.fields[field].widget.attrs['class'],
+                    'order-form-input'
+                    )
 
     def test_required_fields_are_required(self):
         """
@@ -88,7 +96,7 @@ class TestMarketForm(TestCase):
         self.assertEqual(
             form.fields['date'].widget.__class__.__name__, 'DateInput'
             )
-    
+
     def test_widget_exists_on_time_fields(self):
         """Test that time fields have TimeInput widget attached"""
         form = MarketForm()
