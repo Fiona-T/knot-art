@@ -61,6 +61,9 @@ class MarketForm(forms.ModelForm):
         counties = County.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in counties]
         self.fields['county'].choices = friendly_names
+        self.fields['county'].choices.insert(
+            0, ('', 'Choose county, or Dublin postcode')
+            )
         for field in self.fields:
             if field == 'start_time' or field == 'end_time':
                 self.fields[field].widget.attrs['class'] = (
