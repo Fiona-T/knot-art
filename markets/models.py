@@ -13,6 +13,7 @@ class County(models.Model):
     class Meta:
         """Specify correct plural so it doesn't appear as Countys"""
         verbose_name_plural = 'Counties'
+        ordering = ['name']
 
     name = models.CharField(max_length=20, unique=True)
     friendly_name = models.CharField(max_length=20)
