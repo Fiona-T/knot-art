@@ -120,3 +120,18 @@ class TestProductModel(TestCase):
         """
         product = Product.objects.get(id=1)
         self.assertEqual(str(product), 'product name in category_and_category')
+
+    def test_sku_is_generated_and_added_when_instance_created(self):
+        """
+        Create a new product instance, check that the sku is as expected: first
+        three letters of category name (CAT), dash, id (2) preceded by leading
+        zeros to make up 6 digits (5 zeros in this case).
+        """
+        product = Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='different product name',
+            description='product description new',
+            price=1563.45,
+            is_active=False
+            )
+        self.assertEqual(product.sku, 'CAT-000002')
