@@ -52,7 +52,6 @@ class TestProductForm(TestCase):
         """
         form = ProductForm({
             'category': '',
-            'sku': '',
             'name': '',
             'description': '',
             'price': '',
@@ -63,7 +62,6 @@ class TestProductForm(TestCase):
         })
 
         required_fields = [
-            'sku',
             'name',
             'description',
             'price',
