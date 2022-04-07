@@ -368,8 +368,12 @@ a:not([href]).btt-link:hover {
 /* 'new' badge for items in shop */
 .badge-brand {
     border-radius: 0;
-    border: 0.1rem solid #ff8881;
+    background-color: #ff8881;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08rem;
     position: absolute;
+    padding: 0.4rem;
     top: 0.5rem;
     right: -0.5rem;
 }
