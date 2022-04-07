@@ -1,0 +1,453 @@
+[
+    {
+        "pk":1,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000001",
+            "name":"Rainbow mini macrame hanging",
+            "description":"We love this cute mini rainbow-inspired piece of macrame art! Guaranteed to brighten up your day. The bright red yarn combines so well with the soft pink and cream. You could hang this in any room to bring a touch of joy!",
+            "price":"16.50",
+            "image_url":null,
+            "image":"mini-rainbow-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":2,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000002",
+            "name":"Boho Macrame Wall Hanging",
+            "description":"Large cream macrame wall hanging. This is a really special piece with a lot of intricate knot work, made with a premium yarn. There is texture and pattern in abundance in this magical piece of art. Give this plenty of space on a wall for maximum impact.",
+            "price":"155.00",
+            "image_url":null,
+            "image":"boho-macrame-wall-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":3,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000003",
+            "name":"Yellow mini macrame wall hanging",
+            "description":"Small macrame wall hanging made from a bright yellow yarn. A lovely balance between the knots and loose yarn in this piece.",
+            "price":"25.00",
+            "image_url":null,
+            "image":"yellow-mini-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":4,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000004",
+            "name":"Large headboard macrame hanging",
+            "description":"Make a statement with this large cream macrame wall hanging that can be used as a headboard piece behind a bed. There is a lot of intricate knots in this piece and it definitely rewards repeated viewing. The semi-circular design makes this art piece pleasing to the eye and calming.",
+            "price":"175.00",
+            "image_url":null,
+            "image":"large-headboard-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":5,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000005",
+            "name":"Rustic double macrame hanging",
+            "description":"This one works really well behind a bed as shown in the image here. Perfect for a minimal bedroom set up that lets the pop of rust and the natural colour shine.",
+            "price":"165.00",
+            "image_url":null,
+            "image":"rustic-bedroom-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":6,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000006",
+            "name":"Navy and cream rustic macrame hanging",
+            "description":"This is a statement piece! The addition of the navy really sets this one apart and the darker wood of the branch compliments it well. This deserves some space, so is perfect for a living room wall behind a sofa.",
+            "price":"235.00",
+            "image_url":null,
+            "image":"navy-large-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":7,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000007",
+            "name":"CREAM MINI MACRAME WALL HANGING",
+            "description":"This piece is very tactile because of the extra long, soft threads. A perfect little hanging for any room in the house.",
+            "price":"15.00",
+            "image_url":null,
+            "image":"mini-cream-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":8,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000008",
+            "name":"Boho Medium Macrame Hanging",
+            "description":"Bring a sense of calm to your living room with this all white hanging. No colour needed here, the knots and patterns speak for themselves! This macrame wall hanging has a straight wooden support and is quite lightweight.",
+            "price":"70.00",
+            "image_url":null,
+            "image":"boho-medium-macrame-wall-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":9,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000009",
+            "name":"Large natural macrame hanging",
+            "description":"Made with un-dyed yarn, this macrame wall hanging has a lot of texture so would suit a wall where there is space around to appreciate the beautiful natural textures. It is bulkier than some of the flatter pieces so bear that in mind when choosing a hanging location.",
+            "price":"145.00",
+            "image_url":null,
+            "image":"large-natural-macrame-wall-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":10,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000010",
+            "name":"Grey rustic leaves macrame hanging",
+            "description":"Something a bit different for this wall hanging! Using autumnal leaves as the inspiration, but switching up the colours for a more modern take. The grey, black and cream shades keep this piece neutral, while the rustic hanging branch stop it from being too sleek! This is a lightweight piece.",
+            "price":"35.00",
+            "image_url":null,
+            "image":"rustic-leaves-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":11,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000011",
+            "name":"Cream triangles macrame hanging",
+            "description":"Perfect for behind a bed. The macrame knots in this piece are uniform, with long trailing pieces to give a sense of calm and tranquility. There are small rust coloured knots between each section which add to the boho vibe.",
+            "price":"65.00",
+            "image_url":null,
+            "image":"cream-boho-bedroom-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":12,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000012",
+            "name":"Yellow textured macrame hanging",
+            "description":"Medium sized, beautifully textured macrame wall hanging. Perfect for bringing a pop of colour to a bedroom. Reminiscent of a dream catcher. The textured yarn used in this piece needs to be felt to be truly appreciated.",
+            "price":"45.00",
+            "image_url":null,
+            "image":"yellow-medium-textured-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":13,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000013",
+            "name":"Rustic chunky macrame hanging",
+            "description":"This is a super rustic wall hanging with a textured branch support and a thicker yarn resulting in chunkier knots. Black beads add a moody feel and contrast with the cream yarn. This is a relaxed piece of art for your living room.",
+            "price":"48.00",
+            "image_url":null,
+            "image":"rustic-cream-black-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":14,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000014",
+            "name":"Yellow and white mini macrame hanging",
+            "description":"The mustard yellow contrasts so well with the white yarn in this cute macrame wall hanging! Simple coiled knots allow the texture of the white yarn to take centre stage. A gorgeous mini art piece, sure to brighten up any room.",
+            "price":"20.00",
+            "image_url":null,
+            "image":"yellow-white-mini-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":15,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000015",
+            "name":"Dreamcatcher macrame hanging",
+            "description":"A lovely dreamcatcher style macrame hanging, on a green hoop. White yarn contrast nicely with the green. This wall art has intricate knots made with a fine grade yarn. Perfect for a calming presence in a bedroom!",
+            "price":"35.00",
+            "image_url":null,
+            "image":"dream-catcher-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":16,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000016",
+            "name":"Sage green mini macrame hanging",
+            "description":"We think you'll love this sage green yarn as much as us! Medium weight yarn and chunky knots make this a lovely textured macrame hanging a sweet little piece.",
+            "price":"21.00",
+            "image_url":null,
+            "image":"sage-green-min-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":17,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000017",
+            "name":"Diamonds headboard macrame hanging",
+            "description":"This is a large macrame hanging that is flat enough to be used as a headboard piece. Cream medium weight yarn twisted into interlocking diamonds creates a subtle backdrop for a bedroom wall. This is a an extra special art piece.",
+            "price":"150.00",
+            "image_url":null,
+            "image":"diamond-cream-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":18,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000018",
+            "name":"Boho textured cream macrame hanging",
+            "description":"Made with a fine weight cream yarn with a gorgeous texture giving a floaty, elegant feel. This macrame hanging is perfect for a living room to add some texture to your walls.",
+            "price":"55.00",
+            "image_url":null,
+            "image":"boho-textured-cream-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":19,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000019",
+            "name":"Autumnal boho macrame hanging",
+            "description":"The autumnal colours of the yarn used in this macrame hanging will add a  relaxed, boho feel to your living room, adding warmth and texture to your wall.",
+            "price":"75.00",
+            "image_url":null,
+            "image":"autumnal-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":20,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000020",
+            "name":"White flat mini macrame hanging",
+            "description":"This macrame hanging is made with a fine yarn and small knots to give a flat finish. It is much less textured than some of our other pieces and will sit flat on a wall. Beautiful cream lightweight yarn make this a delicate piece.",
+            "price":"18.00",
+            "image_url":null,
+            "image":"white-flat-mini-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":21,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000021",
+            "name":"Feather texture cream macrame hanging",
+            "description":"This ethereal macrame wall hanging is elegant and feminine. Made with feathery lightweight yarn to give a dreamy feel perfect for a bedroom.",
+            "price":"45.00",
+            "image_url":null,
+            "image":"feather-boho-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":22,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000022",
+            "name":"Colourful macrame dreamcatcher",
+            "description":"A dreamcatcher style macrame wall hanging, even the feathers are made from yarn! The addition of the yellow and blue 'feathers' make this a colourful and fun piece.",
+            "price":"22.00",
+            "image_url":null,
+            "image":"colourful-macrame-dream-catcher.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":23,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000023",
+            "name":"Textured Rustic Cream Macrame Hanging",
+            "description":"A beautifully textured macrame wall hanging which combines perfectly with the rustic wood hanger. A medium weight cream yarn was used to create this piece, with geometric style knot work and loose hanging ends.",
+            "price":"75.00",
+            "image_url":null,
+            "image":"textured-rustic-macrame-wall-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":24,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000024",
+            "name":"Mustard yellow mini macrame hanging",
+            "description":"A colourful mini macrame wall hanging! The deep mustard of this yarn needs to be seen in person to be truly appreciated. Intricate knots combine with the voluminous texture of the yarn ends making this a very pleasing little art piece.",
+            "price":"30.00",
+            "image_url":null,
+            "image":"mustard-yellow-mini-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":25,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000025",
+            "name":"Textured Natural Boho Macrame Hanging",
+            "description":"Made with a robust yarn, this macrame wall hanging has so much texture and interest. The knots stand out sharply with this yarn, so it is a perfect piece for a living room where you can notice new features each time you look at it. Made using natural un-dyed yarn.",
+            "price":"78.00",
+            "image_url":null,
+            "image":"textured-natural-boho-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":26,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000026",
+            "name":"Two tone boho macrame hanging",
+            "description":"Contrasting dark navy and soft white yarns make up this two tone macrame wall hanging.  Combined with the dark wood hanger, this makes an eye-catching piece.",
+            "price":"89.00",
+            "image_url":null,
+            "image":"two-tone-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":27,
+        "model":"products.product",
+        "fields":{
+            "category":1,
+            "sku":"LIV-000027",
+            "name":"Rustic tassel macrame hanging",
+            "description":"The perfect statement piece for the wall behind your sofa. This simple but elegant piece combines natural wood with a pared down macrame style to create knotted tassels that hang from the wooden branch. The cream yarn and untreated wood pair beautifully for a rustic look.",
+            "price":"50.00",
+            "image_url":null,
+            "image":"rustic-tassel-wall-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    },
+    {
+        "pk":28,
+        "model":"products.product",
+        "fields":{
+            "category":3,
+            "sku":"MIN-000028",
+            "name":"Cream coils mini macrame hanging",
+            "description":"A mini macrame wall hanging made with a textured cream yarn. The repeated coils make a pleasing pattern. This is a subtly simple mini piece of art for your wall.",
+            "price":"17.50",
+            "image_url":null,
+            "image":"coiled-cream-mini-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":29,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000029",
+            "name":"Wings rustic boho macrame hanging",
+            "description":"Fly off to sleep with these beautiful wings hanging by your bed! The combination of robust macrame knots with the textured loose yarn makes this piece full of character and interest. The wood hanger is locally sourced driftwood, adding even more rustic charm.",
+            "price":"95.00",
+            "image_url":null,
+            "image":"wings-rustic-boho-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":false
+        }
+    },
+    {
+        "pk":30,
+        "model":"products.product",
+        "fields":{
+            "category":2,
+            "sku":"BED-000030",
+            "name":"Mustard yellow macrame hanging",
+            "description":"Add a pop of colour to your bedroom with this deep mustard macrame wall hanging. Made with soft, medium weight yarn to give an elegant, understated look where the main texture comes from the knots themselves.",
+            "price":"45.00",
+            "image_url":null,
+            "image":"mustard-yellow-macrame-hanging.jpg",
+            "is_active":true,
+            "is_new":true
+        }
+    }
+
+]
