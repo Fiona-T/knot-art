@@ -21,7 +21,7 @@
                 </span>
                 {% endif %}
                 <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
-                <img class="card-img-top img-fluid"
+                <img class="img-fluid"
                     src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
                     alt="{% if product.image %}Photo of {% else %}No image yet for {% endif %}{{ product.name }}{% if not product.image %}, image coming soon.{% endif %}">
             </div>

@@ -38,7 +38,7 @@
                         <!-- market image links to the market website (external) -->
                         <a href="{{ market.website }}" target="_blank" rel="noopener">
                             <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
-                            <img class="card-img-top img-fluid"
+                            <img class="img-fluid"
                                 src="{% if market.image %}{{ market.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
                                 alt="{% if market.image %}Photo of {% else %}No image yet for {% endif %}{{ market.name }}{% if not market.image %}, image coming soon.{% endif %}">
                         </a>
