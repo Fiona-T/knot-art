@@ -17,9 +17,9 @@
         <!-- outer container for products + will have row showing sorting options -->
         <div class="col-10 offset-1">
             <!-- Products sorting row -->
-            <div class="row pb-3">
+            <div class="row pb-3 align-items-center">
                 <!-- select box with product sorting options - works using script linked below, event listener on id -->
-                <div class="col-12 col-md-6 col-lg-4 justify-content-center justify-content-md-end">
+                <div class="col-12 col-md-6 col-lg-4">
                     <select id="sorting-selector" class="custom-select custom-select-sm rounded-0"
                         aria-label="Sorting options">
                         <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
@@ -29,7 +29,23 @@
                         <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Product name (Z-A)</option>
                     </select>
                 </div>
+                <!-- search/filter results column -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <p class="text-muted font-90 mt-3">
+                        {{ products|length }} products
+                        {% if search_term %}
+                        found for <strong>"{{ search_term }}"</strong>
+                        {% else %}
+                        {% if not current_category %} in all categories
+                            {% else %}
+                            in category <strong>"{{ current_category.get_friendly_name }}"</strong>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- end of search results column -->
             </div>
+            <!-- end of sorting/search results row -->
             <!-- products row -->
             <div class="row mt-3">
                 {% for product in products %}
