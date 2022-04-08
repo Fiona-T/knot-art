@@ -1,0 +1,1 @@
+web: gunicorn knot_art.wsgi:application
