@@ -494,6 +494,38 @@ The project is developed using the Django framework and is structured under the 
 ---
 ### Languages
 ### Frameworks, Libraries, Programmes and Tools
+- [Balsamiq](https://balsamiq.com/) to design the wireframes
+- The fonts used in the project are imported from [Google Fonts](https://fonts.google.com/)
+- [Eye Dropper](https://eyedropper.org/) extension for Chrome to pick and generate colours for the project
+- [Coolors](https://coolors.co/) to generate a colour palette/see how colours worked beside each other
+- [Webaim Contrast Checker](https://webaim.org/resources/contrastchecker/) to check the contrast for the colour choices
+- [tiny png](https://tinypng.com/) to compress the images
+- [tempmailo](https://tempmailo.com/) for temporary emails when creating test users
+- Git for version control, using the [Gitpod](https://www.gitpod.io/) terminal to commit to Git and push to GitHub
+- [GitHub](https://github.com/) to store the project code
+- [GitHub](https://github.com/) Issues, Boards and Milsetones features were used as Agile tools in the planning and implementation of the project through the lifecycle
+- [Heroku](https://www.heroku.com/) to host the live application
+- [Heroku Postgres](https://www.heroku.com/postgres) is the database for the deployed project
+- [SQLLite](https://www.sqlite.org/index.html) the local development database
+- [AWS](https://aws.amazon.com/) to host media and static files.
+- The project is built using the [Django web framework](https://www.djangoproject.com/)
+- [Stripe](https://stripe.com/ie) for handling payments (currently only set up to handle test payments)
+- [Gmail](https://www.google.com/intl/en-GB/gmail/about/) to send emails
+- [Bootstrap v4.4.1](https://getbootstrap.com/docs/4.4/getting-started/download/) for responsiveness, layout, modals, and general styles on the frontend
+- [jQuery](https://jquery.com/) in some of the JavaScript files for ease of use
+- [json formatter](https://jsonformatter.curiousconcept.com/#) to format the database data downloaded from the development database, so that fixures files could be created to import to the production database
+- [django-allauth](https://django-allauth.readthedocs.io/en/latest/index.html) for user registration and authentication
+- [Django countries](https://github.com/SmileyChris/django-countries#template-tags) for countries dropdown list in checkout form
+- [Django Crisy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) for rendering and styling of forms
+- [miniwebtool](https://miniwebtool.com/django-secret-key-generator/) to generate secret keys
+- [Bootstrap Icons](https://icons.getbootstrap.com/) for the icons used throughout the site
+- [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) during development and testing to fix issues with the code and check for responsiveness/different device sizes
+- [W3C HTML validator](https://validator.w3.org/) to validate the HTML code
+- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) to validate the CSS code
+- [JSHint](https://jshint.com/) to check the quality of and check for errors in the JavaScript code
+- [PEP8](http://pep8online.com/) checker to validate the Python code
+- [Coverage.py](https://coverage.readthedocs.io/en/6.2/index.html) for checking the level of coverage for the automated python tests
+
 
 ## Testing
 ---
