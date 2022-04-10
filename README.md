@@ -728,3 +728,6 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 
 ## Acknowledgements
 ---
+I would like to thank the following:
+- my mentor Rohit Sharma for feedback and guidance throughout this project.
+- the Code Institute Slack community for advice and support along the way
