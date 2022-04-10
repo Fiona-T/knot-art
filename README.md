@@ -507,6 +507,160 @@ Gitpod was used as the development environment, with GitHub for version control 
 -   Files and code were added to the staging area in Gitpod using the command `git add .` and commited using `git commit -m "commit message"`. 
 -   Commited changes were then pushed to GitHub using the `git push` command.
 
+### Deployment to Heroku
+The following steps show how to deploy the application to [Heroku](https://www.heroku.com/), using [AWS](https://aws.amazon.com/) to host media and static files. *Note:* these steps explain how you would do this, however some steps will be irrelevant if you are forking the repository as it will already contain settings.py file for example. You can also install the requirements in one go using the requirements.txt file instead of individually as explained below. The below steps are intended as a guide to explain how this project was deployed.
+
+#### Initial set up in workspace:
+Before deploying to Heroku, the initial set up and creation of the project and app need to be completed in the IDE, in this case Gitpod workspace. Do the following in the command line:
+1. Install django `pip3 install Django==3.2` *Note: using version 3.2 of Django and not the latest version which is version 4.*
+ and gunicorn: `pip3 install django gunicorn`
+2. Install gunicorn for running the deployed website `pip3 install gunicorn`
+3. Install supporting libraries - for postgres: `pip3 install dj_database_url pyscopg2`
+4. Install any other required libraries/tools
+5. Create the requirements.txt file: `pip3 freeze --local > requirements`. This creates the requirements.txt file with the above dependencies. Later on in development, any further dependencies that are installed can be added to the file using `pip3 freeze > requirements.txt`. Heroku will use this file to install the requirements when creating the application on Heroku.
+6. Create the django project: `django-admin startproject projectname .`. The ` .` means create the project in the current directory
+7. Create app: `python3 manage.py startapp appname`. 
+8. Go to `settings.py` (this is located in the project folder) and add the appname to `INSTALLED_APPS` list
+9. The creation of the app creates initial migrations for the model and these need to be migrated. Back in the commandline: `python3 manage.py migrate`
+
+Repeat steps 7, 8 and 9 throughout development as you create further apps within the project. When models are created or updated during development, the changes also need to be made and migrated using `python3 manage.py makemigration` and `python3 manage.py migrate`. Remember you will need to do the migrations on the production database as well.
+To view the local version of the project before deployment to heroku, use `python3 manage.py runserver`, and open the port 8000 when it pops up.
+
+#### Create the app on [Heroku](https://www.heroku.com/) and attach the database:
+1. Sign in to/create account on Heroku, and "create app". If you don't have an account, then set one up: Click the Sign up button in the header, fill out the form and Click Create Free Account when done. You will receive an email, click the link to confirm. Then you will be brought to page called SET YOUR PASSWORD. Enter password, click SET PASSWORD AND LOG IN. Will then show welcome page, click on CLICK HERE TO PROCEED, then click Accept to accept the terms of service. Then click on "Create new app". If you do have an account then Sign In to your account and go to the Dashboard. Click on "New" on the top right of the screen and then "Create new app"
+2. Under App name, enter the name of the application. Note: the name must be unique, so you would not be able to name it the same as the already deployed version
+3. Then choose the Region and click "Create app"
+4. Attach the database: go to the Resources tab, Add-ons and then search for 'Heroku Postgres'. Add and choose e.g. Hobby Dev
+5. Back in the workspace, create a new file called `env.py` to store the environment variables. The file should be in the top level directory, and it should also be added to the `.gitignore file` to ensure it does not get pushed to GitHub as it contains sensitive information
+6. In env.py:
+    - `import os`
+    - `os.environ["SECRET_KEY"] = '`generate a secret key and paste it here`'`
+7. Back in Heroku, go to Settings tab, Config Vars, click Reveal Config Vars. Add a new one called `SECRET_KEY` and paste in the value from the `env.py` file
+8. In the workspace go to the `settings.py` file and do the following (no need if using this project's settings.py file):
+    - add `import os` underneath where it says `from pathlib import Path`
+    - underneath this, `import dj_database_url`
+    - and then add a conditional statement to import the `env.py` when in the development environment. 
+    ```python
+    if os.path.isfile('env.py'): 
+    import env
+    ```
+    This means the environment variables in `env.py` are used while in the development workspace, but if not in the development environment then it will use the ones set in Heroku. 
+    - update the value for `SECRET_KEY` to get it from `env.py` or Heroku: `SECRET_KEY = os.environ.get('SECRET_KEY')`
+    - update the `DATABASES` section so that it connects to Heroku Postgres database on the deployed site (where there is a DATABASE_URL config var), and to the development sqlite3 in the local environment:
+    ```python
+    if 'DATABASE_URL' in os.environ:
+      DATABASES = {
+              'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+          }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+      ```
+    When you need to connect to the Postgres database from the local development environment (e.g. to run migrations, create a superuser, etc.), you can adjust the above as needed so that you connect to Postgres. You will need to add the DATABASE_URL value to connect, but remember not to commit this to the repo as it should remain secret.
+
+9. Attach to the Postgres database (adjust in settings.py as needed, and use the database_url key but do not commit it) and in the command line, make the migrations to the Heroku Postgres database: `python3 manage.py migrate`
+10. Then import the data using the fixtures files. Repeat the following command, with appropriate file name for each fixture file (categories, products, counties, markets) to import the data to the Postgres database: `python3 manage.py loaddate filename`. Note the categories file must be imported before products, and counties before markets as they contain the foreign key information. 
+11. After doing the above, revert the DATABASES settings back as shown in step 8 above, so that production is connected to Postgres and development attached to local sqllite3 database.
+
+#### Add allowed hosts and create Procfile:
+1. In `settings.py`, find the `ALLOWED_HOSTS` list and add the heroku appname to it: `ALLOWED_HOSTS = ['yourherokuappname.herokuapp.com', 'localhost']`. This is so that the Heroku hostname is recognised and Django will allow it to run the project
+2. Create a file named `Procfile`, this must be at the top level directory
+3. Inside the `Procfile` add `web: gunicorn projectname.wsgi`. This is so that Heroku knows how to run the project
+
+#### Initial Deployment:
+1. Add all the changes above, commit them and push them to GitHub using `git add`, `git commit -m "commit msg"` and `git push` commands in command line
+2. Go to Heroku and in Config vars, add `DISABLE_COLLECTSTATIC` with a value of `1`, for the initial deployment.
+3. In the Deploy tab, go to Deployment method and click GitHub
+    - If have not connected to GitHub previously:
+        - Underneath, it will show a section called Connect to GitHub, with a button at the bottom called “Connect to GitHub”. Press this button.
+        - A pop up will ask you to Authorize Heroku’s access to your GitHub – click to Authorize, then enter your password and Confirm Password
+        - The pop up will close and in the Connect to GitHub section it will show your GitHub username and a box to search for the repository to connect to. 
+    - If have already connected to GitHub you do not need to do the above and it should show your GitHub username and a box to search for the repo name as above
+    - Enter the repo-name in the box and press Search
+    - Underneath, it will display the repo: `yourGitHubUsername/your-github-repo-name`, then press "Connect"
+    - Once connected it will then show: Connected to `yourGitHubUsername/your-github-repo-name` by `yourGitHubUsername`
+4. Underneath the Connect section, there are two options "Automatic deploys" or "Manual deploy"
+    - Automatic – future pushes to GitHub will mean Heroku automatically builds a new version of the app with the pushed changes
+    - Manual – the app is not automatically updated with future pushes to GitHub but these can be manually made if needed.
+    - click Deploy Branch. I deployed using Manual. The logs will show the dependencies and requirements being installed. When done, the page will refresh and say “Your app was successfully deployed” with a View button.
+5. Click the View button to view the app – it opens in a new window. For the initial deployment the static and media files have not been used but the database information should be there.
+
+#### To add AWS for hosting static and media files:
+If you don't have an account, create one, if you do log in. 
+##### Create Bucket to store the files:
+1. From services, go to S3 and Buckets, and Create bucket
+2. Type in the name of the bucket (keep it similar to project name to avoid confusion), select the region, uncheck 'block all public access' (it needs to be public to access the static files) and Create the bucket
+3. Go to Properties tab, scroll down to 'Static website hosting', click Edit. Select 'Host a static website', fill in default index.html and error.html (we won't be using these) and press Save
+4. Then go to the Permissions tab and scroll down to 'Cross-origin resource sharing (CORS)'. Click Edit and paste in the following:
+`[
+    {
+        "AllowedHeaders": [
+            "Authorization"
+        ],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]`
+5. Still in Permissions, scroll to the 'Bucket policy' section and select 'Policy generator' (opens in a new tab). In the Policy Type, select 'S3 Bucket Policy'. In Principal, type in * (to all all). In the Action dropdown, select 'Get Object'. And in Amazon Resources Name (ARN), paste in the code from the other tab, it will look like: `arn:aws:s3::your-bucket-name`. Then click 'Add Statement'. Then click 'Generate Policy'. Copy the code in the 'Policy JSON Document' and paste it into the Bucket policy editor window in the other tab. Before pressing save, add `/*` onto the end of the bucket ARN in the Resource key (this is to allow access to all resources in the bucket). Then click Save.
+
+##### Create a user to access the bucket:
+1. From services, go to IAM and User groups, and Create group
+2. Give the group a name (e.g. `manage-knot-art` so it is clear it's related to this project and the bucket created earlier), click Create Group
+3. Create the policy that will be used to access the bucket. In Permissions. click on 'Add permissions' and then 'Create inline policy'. Go to the JSON tab and click on 'Import managed policies'. In the search box, type in S3, then from the resulting list select 'AmazonS3FullAccess' and press Import. In the JSON box, update the "Resource" key so that we allow access to just the bucket and everything in it. Update it from `"Resource": "*"` to the below, using the ARN:
+```json
+"Resource": [
+                "arn:aws:s3:::bucket-name",
+                "arn:aws:s3:::bucket-name/*"
+            ]
+```
+Then click 'Next: Tags', then 'Next:Review', then give the policy a Name and Description, then click Create Policy.
+4. Then go to User Groups, choose the group created in step 2, then in the Permissions tab choose Add Permission and Attach policies. Find the policy just created in step 3, and click Add Permission.
+5. Then go to the Users page (from the side menu), click Add Users. Fill in the User name (e.g. knot-art-static-files-user) and click the option for 'Access key - Programmatic access', click Next, add the user to the group created in step 2, click the next buttons until you get to Create user
+6. Download the csv file which contains the access key and secret access key for this user. Make sure to download as it won't be available again
+
+##### Upload media files to AWS:
+1. In AWS, go to S3 and locate the bucket created earlier. Create a new folder called 'media' inside the bucket. 
+2. Inside this folder, click Upload and select the media files (download them from GitHub) to upload - these are the product images, market images, and home page images.
+
+##### Add settings and environment variables for S3:
+1. Back in the workspace, install boto3 and django-storages: `pip3 install boto3` `pip3 install django-storages`, update `requirements.txt` and in `settings.py` add `'storages' `to the `INSTALLED_APPS`
+2. Go to `settings.py` and add the following (no need to do so if using this project's settings.py file):
+``` python
+if 'USE_AWS' in os.environ:
+    AWS_STORAGE_BUCKET_NAME = 'bucket-name'
+    AWS_S3_REGION_NAME = 'your bucket region'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+```
+This tells Django which bucket to communicate with, where the static files will be coming from in production (the bucket name followed by .s3.amazonaws.com), to use S3 to store the static files when collectstatic is run, and to store uploaded images in S3 (references custom_storages.py which outlines these locations)
+3. In Heroku, add `Config vars` for `AWS_ACCESS_KEY_ID` (value from csv file downloaded earlier), `AWS_SECRET_ACCESS_KEY` (value from csv file downloaded earlier), and `USE_AWS` (set to True so that the above settings are used in production). 
+
+#### Further Deployments during Development and for Final Deployment:
+During development for future deployments:
+1. Ensure `DEBUG` in `settings.py` is set to `False` (or to `'DEVELOPMENT' in os.environ`, if you have a `DEVELOPMENT` environment variable in your env.py and no such variable in the Heroku Config vars)
+2. Ensure all changes are pushed to GitHub
+3. In Heroku remove the `DISABLE_COLLECTSTATIC` config var once you have static files and have set up AWS bucket and user.
+4. Follow steps 4 and 5 from the [Initial Deployment](#initial-deployment) section above to deploy and view the updated deployed app
+
 ## Credits
 ---
 ### Code
