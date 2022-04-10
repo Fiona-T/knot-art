@@ -493,6 +493,12 @@ The project is developed using the Django framework and is structured under the 
 ## Technology
 ---
 ### Languages
+- HTML
+- CSS
+- JavaScript
+- Python (with Django framework)
+- Django templating language
+
 ### Frameworks, Libraries, Programmes and Tools
 - [Balsamiq](https://balsamiq.com/) to design the wireframes
 - The fonts used in the project are imported from [Google Fonts](https://fonts.google.com/)
