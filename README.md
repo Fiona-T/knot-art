@@ -661,6 +661,14 @@ During development for future deployments:
 3. In Heroku remove the `DISABLE_COLLECTSTATIC` config var once you have static files and have set up AWS bucket and user.
 4. Follow steps 4 and 5 from the [Initial Deployment](#initial-deployment) section above to deploy and view the updated deployed app
 
+### Forking the GitHub Repository
+The repository can be forked on GitHub, this creates a copy of the repository that can be viewed or amended without affecting the original repository. This can be done using the following steps:
+1. Login to [GitHub](https://github.com/) 
+2. Locate the relevant repository on GitHub. [This is the repository for Knot Art](https://github.com/Fiona-T/knot-art).
+3. At the top right of the repository (under your avatar) locate the Fork button and click this button
+4. You should now have a copy of the repository in your own GitHub account, to which you can make changes
+5. To run the project locally, you will need to create an `env.py` file with the environment variables and install the requirements from the `requirements.txt` file using `pip3 install -r requirements.txt`
+
 ## Credits
 ---
 ### Code
