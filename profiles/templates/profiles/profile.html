@@ -101,6 +101,7 @@
 {% endblock %}
 
 {% block postloadjs %}
-<!-- script to add css to country select box on change -->
-<script src="{% static 'profiles/js/countryfield.js' %}"></script>
+    {{ block.super }}
+    <!-- script to add css to country select box on change -->
+    <script src="{% static 'profiles/js/countryfield.js' %}"></script>
 {% endblock %}

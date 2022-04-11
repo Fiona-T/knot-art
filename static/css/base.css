@@ -218,11 +218,6 @@ a:not([href]).btt-link:hover {
     z-index: 99999999999;
 }
 
-/* added this as opactiy 0 on profile page causing toast msg not to show up */
-.toast {
-    opacity: 1;
-}
-
 /* border along top of toast box */
 .toast-capper {
     height: 0.3rem;
