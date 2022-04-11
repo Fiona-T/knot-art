@@ -8,7 +8,7 @@ from django.http import Http404
 from django.contrib import messages
 from django.db.models.functions import Lower
 from profiles.models import SavedMarketList, UserProfile
-from .models import Market
+from .models import Market, County
 from .forms import MarketForm
 
 
@@ -20,16 +20,20 @@ def show_markets(request):
     option + pass current sorting back to context.
     If user logged in, get their saved markets list if they have one (so
     that template can show if market on their saved list or not)
+    If 'county' in get request then filter results by that county.
     """
     today = datetime.date.today()
     saved_markets_list = None
     sort = None
     sort_direction = None
+    county = None
 
     if request.user.is_superuser:
         markets = Market.objects.all()
     else:
         markets = Market.objects.filter(date__gte=today).order_by('date')
+    # used in context to generate dropdown of available counties to filter by
+    all_markets = markets.order_by('county')
 
     if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -57,6 +61,12 @@ def show_markets(request):
                     sortkey = f'-{sortkey}'
             markets = markets.order_by(sortkey)
 
+        # handles filtering by county
+        if 'county' in request.GET:
+            county = request.GET['county']
+            county = get_object_or_404(County, name=county)
+            markets = markets.filter(county=county)
+
     # used in context for select box to show the selected option
     current_sorting = f'{sort}_{sort_direction}'
 
@@ -64,6 +74,8 @@ def show_markets(request):
         'markets': markets,
         'saved_markets_list': saved_markets_list,
         'current_sorting': current_sorting,
+        'current_county': county,
+        'all_markets': all_markets,
     }
     template = 'markets/markets.html'
     return render(request, template, context)
