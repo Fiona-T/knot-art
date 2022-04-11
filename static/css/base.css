@@ -210,11 +210,11 @@ a:not([href]).btt-link:hover {
 }
 
 /* ---------------------------------------- Bootstrap toasts (messages) */
-/* message container positioned to show underneath Cart icon in header */
+/* message container positioned to show near header in top right */
 .message-container {
     position: fixed;
     top: 12vh;
-    right: 7vw;
+    right: 2vw;
     z-index: 99999999999;
 }
 

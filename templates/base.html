@@ -61,13 +61,13 @@
         <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-5" aria-label="Primary">
             {% if request.user.is_authenticated %}
             <!-- Top row showing name if logged in -->
-            <div class="container-lg justify-content-end">
+            <div class="container-fluid justify-content-end">
                 <div class="row mx-0">
                     <p class="my-0 username">Signed in as: <span class="font-italic">{{ user.username }}</span></p>
                 </div>
             </div>
             {% endif %}
-            <div class="container-lg">
+            <div class="container-fluid">
                 <!-- logo -->
                 <a class="navbar-brand logo" href="{% url 'home' %}"><span class="display-4 d-md-none">K</span><span
                     class="d-none d-md-inline">KnotArt</span></a>
