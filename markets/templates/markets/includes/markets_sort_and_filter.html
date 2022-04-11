@@ -11,6 +11,17 @@
             <option value="date_desc" {% if current_sorting == 'date_desc' %}selected{% endif %}>Date (latest to soonest)</option>
         </select>
     </div>
+    <!-- Display results column. Show number of markets being shown, and county name if county filter selected -->
+    <div class="col-12 col-md-6 col-lg-4">
+        <p class="text-muted font-90 mt-3">
+            {{ markets|length }} market{% if markets|length != 1 %}s{% endif %} in
+            {% if current_county %}
+            <strong>{{ current_county.get_friendly_name }}</strong>
+            {% else %}all counties. Choose county to filter.
+            {% endif %}
+        </p>
+    </div>
+    <!-- end of display results column -->
     <!-- dropdown box to choose county to filter markets by -->
     <div class="col-12 col-md-6 col-lg-4">
         <div class="dropdown">
