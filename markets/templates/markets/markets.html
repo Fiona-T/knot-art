@@ -25,9 +25,9 @@
     </div>
     <!-- 2nd row - markets -->
     <div class="row">
-        <!-- outer container for markets + will have row showing sorting options -->
+        <!-- outer container for markets -->
         <div class="col-10 offset-1">
-            <!-- sorting box dropdown -->
+            <!-- row with sorting box dropdown, display results + county filtering dropdown -->
             {% include '../markets/includes/markets_sort_and_filter.html' %}
             <!-- markets row -->
             <div class="row mt-3">
@@ -46,8 +46,8 @@
                         <div class="card-body pt-3 pb-0">
                             <p class="card-title mb-0 text-uppercase">{{ market.name }}</p>
                             <p class="small mt-1 mb-2">
-                                <!-- county name - will update to link to county filter when this is added -->
-                                <a href="#" class="text-muted">
+                                <!-- county name - also links to filter all markets by that county -->
+                                <a href="{% url 'markets' %}?county={{market.county.name}}" class="text-muted">
                                     <i class="bi bi-geo-alt-fill icon"
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
