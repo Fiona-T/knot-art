@@ -233,40 +233,6 @@ a:not([href]).btt-link:hover {
     background-color: #ff8881 !important;
 }
 
-/* so that arrow shows up on top of toast box */
-.custom-toast {
-    overflow: visible;
-}
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
-.arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
-}
-
-/* colours for the arrow, aligned with Bootstrap colours except succes is brand colour */
-/* the bg- class sets the background colour for the toast capper, arrow sits on top of this */
-.arrow-success {
-    border-bottom-color: #ff8881;
-}
-
-.arrow-danger {
-    border-bottom-color: #dc3545;
-}
-
-.arrow-warning {
-    border-bottom-color: #ffc107;
-}
-
-.arrow-info {
-    border-bottom-color: #17a2b8;
-}
-
 /* stop the bag summary in toast msg getting too big */
 .bag-notification-wrapper {
     height: 100px;
