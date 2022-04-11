@@ -493,7 +493,6 @@ class TestEditProductView(TestCase):
         Product.objects.create(
             category=Category.objects.get(id=1),
             name='product name',
-            sku='12345',
             description='product description',
             price=123.45,
             is_active=True,
@@ -541,7 +540,6 @@ class TestEditProductView(TestCase):
         response = self.client.post('/products/edit/1/', {
             'category': 1,
             'name': 'edited product name',
-            'sku': '1234567',
             'description': 'edited product description',
             'price': 1150.99,
             'is_active': True,
@@ -561,7 +559,6 @@ class TestEditProductView(TestCase):
         response = self.client.post('/products/edit/1/', {
             'category': 1,
             'name': 'updated product name',
-            'sku': '1234567',
             'description': 'product description edited',
             'price': 100.88,
             'is_active': True,
@@ -584,7 +581,6 @@ class TestEditProductView(TestCase):
         response = self.client.post('/products/edit/1/', {
             'category': 1,
             'name': 'product name updated',
-            'sku': '1234567',
             'description': 'product description edited',
             'price': 12345.88,  # too many digits so form invalid
             'is_active': True,
@@ -599,6 +595,29 @@ class TestEditProductView(TestCase):
             'Product NOT updated. Please check the form for errors and '
             're-submit.'
             )
+
+    def test_sku_updates_when_category_changed_on_edit(self):
+        """
+        Edit a product and change the category (create a new category to add),
+        confirm the first part of the sku updates to reflect the new category.
+        """
+        self.client.login(username='admin', password='secret')
+        product = Product.objects.get(id=1)
+        self.assertEqual(product.sku, 'CAT-000001')
+        Category.objects.create(
+            name='new_category',
+            friendly_name='New Category'
+        )
+        self.client.post('/products/edit/1/', {
+            'category': 2,
+            'name': 'product name updated',
+            'description': 'product description edited',
+            'price': 123.88,
+            'is_active': True,
+            'is_new': False,
+        })
+        updated_product = Product.objects.get(id=1)
+        self.assertEqual(updated_product.sku, 'NEW-000001')
 
 
 class TestDeleteProductView(TestCase):
