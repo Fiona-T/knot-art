@@ -129,7 +129,8 @@ def add_product(request):
 def edit_product(request, product_id):
     """
     View for admin user to edit product from front end. Raise 403 if not admin.
-    Post request: handle posting of the form, show success/errors messages.
+    Post request: handle posting of the form, show success/errors messages,
+    (check if category matches sku, if not generate sku before saving).
     Get request: render the form with the existing product details.
     """
     if not request.user.is_superuser:
@@ -138,7 +139,10 @@ def edit_product(request, product_id):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
-            form.save()
+            product = form.save(commit=False)
+            if product.sku[:3] != product.category.name[:3].upper():
+                product.sku = product.generate_sku()
+            product.save()
             messages.success(
                 request, f'Updates made to product: { product.name }!'
                 )
