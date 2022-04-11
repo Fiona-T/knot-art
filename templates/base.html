@@ -139,7 +139,7 @@
     </header>
     {% if messages %}
     <!-- to display error/info/warning/success messages for user actions -->
-    <div class="message-container">
+    <div aria-live="polite" aria-atomic="true" class="message-container">
         {% for message in messages %}
             <!-- using Django message levels -->
             {% with message.level as level %}

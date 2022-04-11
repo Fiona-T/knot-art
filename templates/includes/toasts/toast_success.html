@@ -1,4 +1,5 @@
-<div class="toast custom-toast rounded-0 border-top-0" data-autohide="false">
+<div role="status" aria-live="polite" aria-atomic="true" class="toast custom-toast rounded-0 border-top-0"
+    data-autohide="false">
     <div class="w-100 toast-capper bg-success"></div>
     <div class="toast-header bg-white">
         <strong class="mr-auto">Success!</strong>
@@ -10,8 +11,7 @@
     <div class="toast-body bg-white">
         <div class="row">
             <div class="col">
-                <!-- message to be displayed in message container in base template -->
-                {{ message }} 
+                {{ message }}
                 <hr class="mt-1 mb-3">
             </div>
         </div>
@@ -28,7 +28,8 @@
                     {% if item.product.image %}
                     <img class="w-100" src="{{ item.product.image.url }}" alt="Photo of {{ item.product.name }}">
                     {% else %}
-                    <img class="w-100" src="{{ MEDIA_URL }}no-image.png" alt="No image yet for {{ item.product.name }}, image coming soon.">
+                    <img class="w-100" src="{{ MEDIA_URL }}no-image.png"
+                        alt="No image yet for {{ item.product.name }}, image coming soon.">
                     {% endif %}
                 </div>
                 <!-- 2nd col = name, quantity -->
