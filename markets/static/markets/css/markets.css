@@ -1,0 +1,28 @@
+/* using for county filter dropdown - padding + font-size to match sorting select box */
+.btn-brand-dark-outline {
+    color: #1c1c1c;
+    background-color: #fdfdfd;
+    border-color: #1c1c1c;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    font-size: .875rem;
+}
+
+.county-dropdown {
+    width: 100%;
+    background-color: #fdfdfd;
+}
+
+.county-dropdown .dropdown-item {
+    color: #1c1c1c;
+    font-size: .875rem;
+}
+
+.county-dropdown .dropdown-item.active,
+.county-dropdown .dropdown-item:hover,
+.county-dropdown .dropdown-item:focus,
+.county-dropdown .dropdown-item:active {
+    background-color: #1c1c1c;
+    color: #fdfdfd;
+}

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'markets/css/markets.css' %}">
+{% endblock %}
+
 {% block extra_title %} | Markets{% endblock %}
 
 {% block content %}

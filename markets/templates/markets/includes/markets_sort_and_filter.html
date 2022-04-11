@@ -25,19 +25,19 @@
     <!-- dropdown box to choose county to filter markets by -->
     <div class="col-12 col-md-6 col-lg-4">
         <div class="dropdown">
-            <a class="btn w-100 d-flex align-items-center justify-content-between" href="#"
+            <a class="btn btn-brand-dark-outline w-100 d-flex align-items-center justify-content-between" href="#"
                 id="filterByCounty" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 data-display="static">
-                <span class="font-90">Filter by county...</span>
+                <span>Filter by county...</span>
                 <i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
         </a>
-            <div class="dropdown-menu" aria-labelledby="filterByCounty">
-                <!-- option to select all counties -->
-                <a class="dropdown-item" href="{% url 'markets' %}">All</a>
+            <div class="dropdown-menu county-dropdown" aria-labelledby="filterByCounty">
+                <!-- option to select all counties, with active class if no county currently selected -->
+                <a class="dropdown-item{% if not current_county %} active{% endif %}" href="{% url 'markets' %}">All</a>
                 {% for market in all_markets %}
-                <!-- remaining dropdown options are the available counties from the markets in the queryset, county name only shown once -->
+                <!-- remaining options are the available counties from markets in queryset, county name only shown once, active class if selected -->
                 {% ifchanged %}
-                <a class="dropdown-item"
+                <a class="dropdown-item{% if market.county.name == current_county.name %} active{% endif %}" 
                     href="{% url 'markets' %}?county={{market.county.name}}">{{ market.county.friendly_name }}</a>
                 {% endifchanged %}
                 {% endfor %}
