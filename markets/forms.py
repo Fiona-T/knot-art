@@ -56,6 +56,7 @@ class MarketForm(forms.ModelForm):
         Create tuple of county ids and friendly names, use this to set the
         choices in the County field dropdown. Add CSS class to all fields.
         Add time-input class for time fields, to be used by JS validation.
+        Amend the helptext on date field if existing date in past.
         """
         super().__init__(*args, **kwargs)
         counties = County.objects.all()
@@ -71,15 +72,25 @@ class MarketForm(forms.ModelForm):
             else:
                 self.fields[field].widget.attrs['class'] = 'order-form-input'
 
+        today = datetime.date.today()
+        if self.instance.date:
+            if self.instance.date < today:
+                date = self.instance.date.strftime('%d/%m/%Y')
+                self.fields['date'].help_text = (
+                    f'Editing a past market dated {date}. If you are amending '
+                    'the date it can only be changed to a future date.')
+
     def clean(self):
         """
         Override the clean method on form to include checks on date and times.
-        Date not earlier than today, start time must be before end time.
+        Date not earlier than today, unless it is equal to existing date,
+        start time must be before end time.
         Raise errors on field + remove helptext (as error msgs are similar).
         """
         cleaned_data = super().clean()
         market_date = cleaned_data.get('date')
         today = datetime.date.today()
+        existing_date = self.instance.date
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
 
@@ -97,7 +108,7 @@ class MarketForm(forms.ModelForm):
                     self.fields[fieldname].help_text = None
 
         if market_date:
-            if market_date < today:
+            if market_date < today and market_date != existing_date:
                 self.add_error(
                     'date',
                     ValidationError('Market date must not be in the past')
