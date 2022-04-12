@@ -65,7 +65,7 @@ class TestAddToCartView(TestCase):
         self.assertRedirects(response, '/products/1')
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(messages[0].tags, 'show_bag_in_toast success')
         self.assertEqual(
             messages[0].message,
             'Large Wall Hanging added to your bag'
@@ -117,7 +117,7 @@ class TestAddToCartView(TestCase):
         self.assertRedirects(response, '/products/1')
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(messages[0].tags, 'show_bag_in_toast success')
         self.assertEqual(
             messages[0].message,
             'Quantity for Large Wall Hanging updated to 2'
@@ -179,7 +179,7 @@ class TestAdjustCartView(TestCase):
         })
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(messages[0].tags, 'show_bag_in_toast success')
         self.assertEqual(
             messages[0].message,
             'Quantity for Large Wall Hanging updated to 4'
@@ -218,7 +218,7 @@ class TestAdjustCartView(TestCase):
         })
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(messages[0].tags, 'show_bag_in_toast success')
         self.assertEqual(
             messages[0].message,
             'Large Wall Hanging removed from your bag'
@@ -275,7 +275,7 @@ class TestRemoveFromView(TestCase):
         response = self.client.post('/cart/remove/1/', {})
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].tags, 'success')
+        self.assertEqual(messages[0].tags, 'show_bag_in_toast success')
         self.assertEqual(
             messages[0].message,
             'Large Wall Hanging removed from your bag'
