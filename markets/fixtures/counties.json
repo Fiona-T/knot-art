@@ -19,7 +19,7 @@
         "pk":3,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-8",
+            "name":"dublin_8",
             "friendly_name":"Dublin 8"
         }
     },
@@ -211,7 +211,7 @@
         "pk":27,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-1",
+            "name":"dublin_1",
             "friendly_name":"Dublin 1"
         }
     },
@@ -219,7 +219,7 @@
         "pk":28,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-2",
+            "name":"dublin_2",
             "friendly_name":"Dublin 2"
         }
     },
@@ -227,7 +227,7 @@
         "pk":29,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-3",
+            "name":"dublin_3",
             "friendly_name":"Dublin 3"
         }
     },
@@ -235,7 +235,7 @@
         "pk":30,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-4",
+            "name":"dublin_4",
             "friendly_name":"Dublin 4"
         }
     },
@@ -243,7 +243,7 @@
         "pk":31,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-5",
+            "name":"dublin_5",
             "friendly_name":"Dublin 5"
         }
     },
@@ -251,7 +251,7 @@
         "pk":32,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-6",
+            "name":"dublin_6",
             "friendly_name":"Dublin 6"
         }
     },
@@ -259,7 +259,7 @@
         "pk":33,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-6-w",
+            "name":"dublin_6w",
             "friendly_name":"Dublin 6W"
         }
     },
@@ -267,7 +267,7 @@
         "pk":34,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-7",
+            "name":"dublin_7",
             "friendly_name":"Dublin 7"
         }
     },
@@ -275,7 +275,7 @@
         "pk":35,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-9",
+            "name":"dublin_9",
             "friendly_name":"Dublin 9"
         }
     },
@@ -283,7 +283,7 @@
         "pk":36,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-10",
+            "name":"dublin_10",
             "friendly_name":"Dublin 10"
         }
     },
@@ -291,7 +291,7 @@
         "pk":37,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-11",
+            "name":"dublin_11",
             "friendly_name":"Dublin 11"
         }
     },
@@ -299,7 +299,7 @@
         "pk":38,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-12",
+            "name":"dublin_12",
             "friendly_name":"Dublin 12"
         }
     },
@@ -307,7 +307,7 @@
         "pk":39,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-13",
+            "name":"dublin_13",
             "friendly_name":"Dublin 13"
         }
     },
@@ -315,7 +315,7 @@
         "pk":40,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-14",
+            "name":"dublin_14",
             "friendly_name":"Dublin 14"
         }
     },
@@ -323,7 +323,7 @@
         "pk":41,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-15",
+            "name":"dublin_15",
             "friendly_name":"Dublin 15"
         }
     },
@@ -331,7 +331,7 @@
         "pk":42,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-16",
+            "name":"dublin_16",
             "friendly_name":"Dublin 16"
         }
     },
@@ -339,7 +339,7 @@
         "pk":43,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-17",
+            "name":"dublin_17",
             "friendly_name":"Dublin 17"
         }
     },
@@ -347,7 +347,7 @@
         "pk":44,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-18",
+            "name":"dublin_18",
             "friendly_name":"Dublin 18"
         }
     },
@@ -355,7 +355,7 @@
         "pk":45,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-20",
+            "name":"dublin_20",
             "friendly_name":"Dublin 20"
         }
     },
@@ -363,7 +363,7 @@
         "pk":46,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-22",
+            "name":"dublin_22",
             "friendly_name":"Dublin 22"
         }
     },
@@ -371,7 +371,7 @@
         "pk":47,
         "model":"markets.county",
         "fields":{
-            "name":"dublin-24",
+            "name":"dublin_24",
             "friendly_name":"Dublin 24"
         }
     },
