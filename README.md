@@ -558,6 +558,7 @@ The project is developed using the Django framework and is structured under the 
 
 ## Testing
 ---
+The testing section is contained in a separate file [which you can read here: TESTING.md](TESTING.md).
 
 ## Deployment
 ---
