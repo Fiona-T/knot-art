@@ -11,12 +11,18 @@ class TestShowMarketsView(TestCase):
     @classmethod
     def setUp(cls):
         """
-        Create instance of County
+        Create 2 instances of County
         Create 7 instances of Market, one today's date, 3 each before
         and after this date - for tests depending on market date.
+        Create 5 instances of market, 2 with 1st county, 3 with 2nd county,
+        for tests of filtering by county
         """
-        County.objects.create(
+        county_1 = County.objects.create(
             name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        county_2 = County.objects.create(
+            name='dublin_4',
             friendly_name='Dublin 3'
         )
         today = datetime.date.today()
@@ -30,7 +36,17 @@ class TestShowMarketsView(TestCase):
                 date=increment if market % 2 else decrement,
                 start_time='09:00',
                 end_time='17:00',
-                website='www.crafted.ie',
+                website='http://www.crafted.ie',
+            )
+        for market in range(5):
+            Market.objects.create(
+                name='The Craft Market',
+                location='The Street',
+                county=county_1 if market % 2 else county_2,
+                date=today,
+                start_time='09:00',
+                end_time='17:00',
+                website='http://www.crafted.ie',
             )
 
     def test_correct_url_and_template_used(self):
@@ -43,12 +59,12 @@ class TestShowMarketsView(TestCase):
 
     def test_only_markets_dated_today_or_after_are_displayed(self):
         """
-        Check view returns 4 markets i.e. from those created in setUp dated
-        today or in future. Confirm date greater/equal to today.
+        Check view returns 9 markets i.e. from those created in setUp dated
+        today or in future 4 + 5. Confirm date greater/equal to today.
         """
         response = self.client.get('/markets/')
         self.assertTrue('markets' in response.context)
-        self.assertEqual(len(response.context['markets']), 4)
+        self.assertEqual(len(response.context['markets']), 9)
         for market in response.context['markets']:
             self.assertGreaterEqual(market.date, datetime.date.today())
 
@@ -61,11 +77,11 @@ class TestShowMarketsView(TestCase):
         today = datetime.date.today()
         latest = today + datetime.timedelta(days=5)
         self.assertEqual(response.context['markets'][0].date, today)
-        self.assertEqual(response.context['markets'][3].date, latest)
+        self.assertEqual(response.context['markets'][8].date, latest)
 
     def test_all_markets_displayed_for_superuser(self):
         """
-        Create a superuser, log them in. Check view returns 7 markets i.e. all
+        Create a superuser, log them in. Check view returns 12 markets i.e. all
         including those in the past.
         """
         test_superuser = User.objects.create_user(
@@ -78,7 +94,7 @@ class TestShowMarketsView(TestCase):
         self.client.login(username='admin', password='secret')
         response = self.client.get('/markets/')
         self.assertTrue('markets' in response.context)
-        self.assertEqual(len(response.context['markets']), 7)
+        self.assertEqual(len(response.context['markets']), 12)
 
     def test_sort_request_urls_and_context_are_correct(self):
         """
@@ -153,6 +169,25 @@ class TestShowMarketsView(TestCase):
         self.assertEqual(
             response.context['markets'][last_item].date, today
             )
+
+    def test_county_filtering_returns_correct_markets(self):
+        """
+        If county is selected, ensure only markets in that county shown.
+        Check that markets page initially contains 9 markets (i.e. those
+        dated today or later).
+        Filter using to county1 name, check 6 markets returned
+        Filter using to county2 name, check 3 markets returned
+        """
+        response = self.client.get('/markets/')
+        self.assertEqual(len(response.context['markets']), 9)
+        response = self.client.get('/markets/?county=dublin_3')
+        self.assertEqual(len(response.context['markets']), 6)
+        for market in response.context['markets']:
+            self.assertEqual(market.county.name, 'dublin_3')
+        response = self.client.get('/markets/?county=dublin_4')
+        self.assertEqual(len(response.context['markets']), 3)
+        for market in response.context['markets']:
+            self.assertEqual(market.county.name, 'dublin_4')
 
 
 class TestAddMarketView(TestCase):
