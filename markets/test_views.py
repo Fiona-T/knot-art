@@ -362,6 +362,15 @@ class TestEditMarketView(TestCase):
             end_time='17:00',
             website='www.crafted.ie',
         )
+        Market.objects.create(
+            name='The Old Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date='2022-04-10',  # past date
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.market.ie',
+        )
 
     def test_redirects_if_not_logged_in(self):
         """
@@ -396,8 +405,6 @@ class TestEditMarketView(TestCase):
         Check market in get request has the updated details.
         """
         self.client.login(username='admin', password='secret')
-        response = self.client.get('/markets/')
-        self.assertEqual(len(response.context['markets']), 1)
         today = datetime.date.today()
         response = self.client.post('/markets/edit/1/', {
             'name': 'The Edited Craft Market',
@@ -458,6 +465,94 @@ class TestEditMarketView(TestCase):
             'start_time': '09:00',
             'end_time': '17:00',
             'website': 'www.crafted-edited.ie',
+        })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Market NOT updated. Please check the form for errors and '
+            're-submit.'
+            )
+
+    def test_info_message_displayed_when_existing_date_is_in_past(self):
+        """
+        Go to edit page for market with past date, confirm info message is
+        displayed + is correct.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.get('/markets/edit/2/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'info')
+        self.assertEqual(
+            messages[0].message,
+            'You\'re editing a past market. You can update the details but if '
+            'you change the date, the new date must be a future date.<br>If '
+            'you want to post details of this market on a new date, then '
+            'create a new market record using the Add Market form.'
+            )
+
+    def test_can_edit_market_when_existing_date_is_in_past(self):
+        """
+        Edit existing market with past date, leaving the date the same. Confirm
+        redirects and updated details were saved.
+        """
+        self.client.login(username='admin', password='secret')
+        response = self.client.post('/markets/edit/2/', {
+            'name': 'The Edited Old Market',
+            'location': 'Address',
+            'county': 1,
+            'date': '2022-04-10',  # existing past date,
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'http://www.market.ie',
+        })
+        self.assertRedirects(response, '/markets/')
+        response = self.client.get('/markets/')
+        updated_market = Market.objects.get(id=2)
+        self.assertEqual(updated_market.name, 'The Edited Old Market')
+        self.assertEqual(
+            updated_market.location, 'Address'
+            )
+
+    def test_can_edit_market_with_date_in_past_to_future_date(self):
+        """
+        Edit existing market with past date, changing date to today. Confirm
+        redirects and updated details were saved.
+        """
+        self.client.login(username='admin', password='secret')
+        today = datetime.date.today()
+        response = self.client.post('/markets/edit/2/', {
+            'name': 'The Edited Old Market',
+            'location': 'Address',
+            'county': 1,
+            'date': today,  # change past date to today,
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'http://www.market.ie',
+        })
+        self.assertRedirects(response, '/markets/')
+        response = self.client.get('/markets/')
+        updated_market = Market.objects.get(id=2)
+        self.assertEqual(updated_market.date, today)
+
+    def test_cannot_edit_market_with_date_in_past_to_another_past_date(self):
+        """
+        Edit existing market with past date, changing date to yesterday.
+        Confirm form is not valid + error msg displayed.
+        """
+        self.client.login(username='admin', password='secret')
+        today = datetime.date.today()
+        response = self.client.post('/markets/edit/2/', {
+            'name': 'The Edited Old Market',
+            'location': 'Address',
+            'county': 1,
+            'date': today - datetime.timedelta(days=1),
+            'start_time': '09:00',
+            'end_time': '17:00',
+            'website': 'http://www.market.ie',
         })
         self.assertFalse(response.context['form'].is_valid())
         messages = list(get_messages(response.wsgi_request))
