@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.http import Http404
 from django.contrib import messages
 from django.db.models.functions import Lower
+from django.utils.safestring import mark_safe
 from profiles.models import SavedMarketList, UserProfile
 from .models import Market, County
 from .forms import MarketForm
@@ -117,6 +118,7 @@ def edit_market(request, market_id):
     """
     Show form for admin user to edit existing market. Raise 403 if not admin.
     Handle posting of form, show success/error messages.
+    Show alert if editing a market with a past date.
     """
     if not request.user.is_superuser:
         raise PermissionDenied()
@@ -138,6 +140,19 @@ def edit_market(request, market_id):
                 )
     else:
         form = MarketForm(instance=market)
+        today = datetime.date.today()
+        if market.date < today:
+            messages.info(
+                request,
+                mark_safe(
+                    'You\'re editing a past market. You can update the '
+                    'details but if you change the date, the new date must be '
+                    'a future date.<br>If you want to post details of this '
+                    'market on a new date, then create a new market record '
+                    'using the Add Market form.'
+                )
+            )
+
     context = {
         'market': market,
         'form': form,
