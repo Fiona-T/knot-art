@@ -2,10 +2,29 @@
 import datetime
 from django.test import TestCase
 from .forms import MarketForm
+from .models import County, Market
 
 
 class TestMarketForm(TestCase):
     """Tests for the MarketForm"""
+    @classmethod
+    def setUpTestData(cls):
+        """Set up past market instance for testing editing past market"""
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        today = datetime.date.today()
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=today - datetime.timedelta(days=1),
+            start_time='09:00',
+            end_time='17:00',
+            website='www.crafted.ie',
+        )
+
     def test_explicitly_set_field_labels_exist(self):
         """
         Check labels are present for the fields where a label was explicitly
@@ -33,6 +52,20 @@ class TestMarketForm(TestCase):
             if field in help_texts.keys():
                 self.assertEqual(
                     form.fields[field].help_text, help_texts[field])
+
+    def test_helptext_correct_when_editing_past_market(self):
+        """
+        Instantiate form for existing market with a date in the past, confirm
+        helptext is as expected.
+        """
+        market = Market.objects.get(id=1)
+        form = MarketForm(instance=market)
+        date = market.date.strftime('%d/%m/%Y')
+        self.assertEqual(
+            form.fields['date'].help_text,
+            f'Editing a past market dated {date}. If you are amending '
+            'the date it can only be changed to a future date.'
+            )
 
     def test_css_class_exists_on_fields(self):
         """Test CSS classes are present and correct on the form fields"""
@@ -154,6 +187,15 @@ class TestMarketForm(TestCase):
             form.errors['date'][0],
             'Market date must not be in the past'
             )
+
+    def test_editing_past_market_does_not_raise_date_error_message(self):
+        """
+        Instantiate form for existing market with a date in the past, confirm
+        the date error message is not raised.
+        """
+        market = Market.objects.get(id=1)
+        form = MarketForm(instance=market)
+        self.assertNotIn('date', form.errors.keys())
 
     def test_fields_are_explicit_in_form_metaclass(self):
         """
