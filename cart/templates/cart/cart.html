@@ -35,9 +35,9 @@
                         <!-- 1st col - image -->
                         <td class="p-2 w-25">
                             <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
-                            <img class="card-img-top img-fluid"
-                                src="{% if product.image %}{{ product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
-                                alt="{% if product.image %}Photo of {% else %}No image yet for {% endif %}{{ product.name }}{% if not product.image %}, image coming soon.{% endif %}">
+                            <img class="img-fluid"
+                                src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                                alt="{% if item.product.image %}Photo of {% else %}No image yet for {% endif %}{{ item.product.name }}{% if not item.product.image %}, image coming soon.{% endif %}">
                         </td>
                         <!-- 2nd col - name -->
                         <td class="p-2">
