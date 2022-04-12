@@ -30,7 +30,7 @@
         <!-- outer container for markets + will have row showing sorting options -->
         <div class="col-10 offset-1">
             <!-- sorting box dropdown -->
-            {% include 'includes/select_sorting_box.html' %}
+            {% include '../markets/includes/markets_sort_and_filter.html' %}
             <!-- markets row -->
             <div class="row mt-3">
                 {% for market in saved_markets %}
