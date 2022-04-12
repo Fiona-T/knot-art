@@ -27,11 +27,16 @@ def add_to_cart(request, item_id):
         cart[item_id] += quantity
         messages.success(
             request,
-            f'Quantity for {product.name} updated to {cart[item_id]}'
+            f'Quantity for {product.name} updated to {cart[item_id]}',
+            extra_tags='show_bag_in_toast'
             )
     else:
         cart[item_id] = quantity
-        messages.success(request, f'{product.name} added to your bag')
+        messages.success(
+            request,
+            f'{product.name} added to your bag',
+            extra_tags='show_bag_in_toast'
+            )
     request.session['cart'] = cart
     return redirect(redirect_url)
 
@@ -50,11 +55,16 @@ def adjust_cart(request, item_id):
         cart[item_id] = quantity
         messages.success(
             request,
-            f'Quantity for {product.name} updated to {cart[item_id]}'
+            f'Quantity for {product.name} updated to {cart[item_id]}',
+            extra_tags='show_bag_in_toast'
             )
     else:
         cart.pop(item_id)
-        messages.success(request, f'{product.name} removed from your bag')
+        messages.success(
+            request,
+            f'{product.name} removed from your bag',
+            extra_tags='show_bag_in_toast'
+            )
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
 
@@ -70,7 +80,11 @@ def remove_from_cart(request, item_id):
         cart = request.session.get('cart', {})
         cart.pop(item_id)
         request.session['cart'] = cart
-        messages.success(request, f'{product.name} removed from your bag')
+        messages.success(
+            request,
+            f'{product.name} removed from your bag',
+            extra_tags='show_bag_in_toast'
+            )
         return HttpResponse(status=200)
     except Exception as error:
         messages.error(request, f'Error removing item: {error}')
