@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from products.models import Category, Product
 from checkout.models import Order
-from markets.models import Market
+from markets.models import Market, County
 from .models import UserProfile, SavedMarketList
 
 
@@ -452,19 +452,29 @@ class TestShowSavedMarketsView(TestCase):
         """
         Test user and 10 Market instances. Instance of SavedMarketList, add
         7 markets to it (mix of dates in future + past).
+        Test instances of county for creating markets with different counties
+        for filtering by county test.
         """
         user1 = User.objects.create_user(
             username='Tester',
             password='SecretCode14',
         )
         user1.save()
-        user_profile = UserProfile.objects.get(id=1)
+        county_1 = County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        county_2 = County.objects.create(
+            name='dublin_4',
+            friendly_name='Dublin 3'
+        )
         today = datetime.date.today()
         for market in range(10):
             increment = today + datetime.timedelta(days=market)
             decrement = today - datetime.timedelta(days=market)
             Market.objects.create(
                 name='The Craft Market',
+                county=county_1 if market % 2 else county_2,
                 location='The Street',
                 date=increment if market % 2 else decrement,
                 start_time='09:00',
@@ -472,7 +482,7 @@ class TestShowSavedMarketsView(TestCase):
                 website='http://www.crafted.ie',
             )
         saved_market_list = SavedMarketList.objects.create(
-            user=user_profile
+            user=UserProfile.objects.get(id=1)
             )
         for market in Market.objects.filter(id__lt=8):
             saved_market_list.market.add(market)
@@ -610,3 +620,22 @@ class TestShowSavedMarketsView(TestCase):
         self.assertEqual(
             response.context['markets'][last_item].date, earliest_date
             )
+
+    def test_county_filtering_returns_correct_markets(self):
+        """
+        If county is selected, ensure only markets in that county shown.
+        Check that markets page initially contains 7 saved markets.
+        Filter using to county1 name, check 3 markets returned
+        Filter using to county2 name, check 4 markets returned
+        """
+        self.client.login(username='Tester', password='SecretCode14')
+        response = self.client.get('/profile/my_markets/')
+        self.assertEqual(len(response.context['markets']), 7)
+        response = self.client.get('/profile/my_markets/?county=dublin_3')
+        self.assertEqual(len(response.context['markets']), 3)
+        for market in response.context['markets']:
+            self.assertEqual(market.county.name, 'dublin_3')
+        response = self.client.get('/profile/my_markets/?county=dublin_4')
+        self.assertEqual(len(response.context['markets']), 4)
+        for market in response.context['markets']:
+            self.assertEqual(market.county.name, 'dublin_4')
