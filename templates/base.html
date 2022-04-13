@@ -201,38 +201,47 @@
                     </ul>
                 </div>
                 <!-- newsletter sign up column - Mailchimp embedded form -->
-                <div id="mc_embed_signup" class="col-12 col-md-6">
+                <div id="mc_embed_signup" class="col-12 col-md-6 mt-3 mt-md-0">
                     <h5 class="sm-heading text-center">Sign up to our newsletter</h5>
+                    <p class="font-90 m-0">Be the first to hear about my new designs, markets and special sale events!</p>
                     <form
                         action="https://herokuapp.us14.list-manage.com/subscribe/post?u=1beeb9fe77b2622a8021637d3&amp;id=afabe6fb17"
                         method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
                         class="validate order-form" target="_blank" novalidate>
                         <div id="mc_embed_signup_scroll">
                             <div class="form-row">
-                                <div class="col-12 col-sm-9">
-                                    <!-- <div class="indicates-required"><span class="asterisk">*</span> indicates required</div> -->
+                                <div class="col-12 col-sm-8">
                                     <div class="mc-field-group">
                                         <label for="mce-EMAIL" class="sr-only">Email Address</label>
-                                        <input type="email" value="" name="EMAIL" class="required email newsletter-form-input w-100" id="mce-EMAIL" placeholder="Email address">
+                                        <input type="email" value="" name="EMAIL"
+                                            class="required email newsletter-form-input w-100" id="mce-EMAIL"
+                                            placeholder="Email address">
                                     </div>
                                 </div>
-                                <div class="col-12 col-sm-3 mt-2 mt-sm-0">
-                                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-newsletter w-100">
+                                <div class="col-12 col-sm-4 mt-2 mt-sm-0">
+                                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe"
+                                        class="button btn btn-newsletter w-100">
                                 </div>
                             </div>
-                        <div id="mce-responses" class="clear foot">
-                            <div class="response" id="mce-error-response" style="display:none"></div>
-                            <div class="response" id="mce-success-response" style="display:none"></div>
-                        </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_1beeb9fe77b2622a8021637d3_afabe6fb17" tabindex="-1" value=""></div>
-
-                                <div class="clear foot col-3 offset-9 mt-1 pr-0 pl-1">
-                                    <p class="brandingLogo mb-0"><a href="http://eepurl.com/hZys35"
-                                            title="Mailchimp - email marketing made easy and fun"><img
-                                                src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg" class="img-fluid border-0"></a>
+                            <!-- mailchimp containers for error or success msgs -->
+                            <div id="mce-responses" class="clear foot">
+                                <div class="response" id="mce-error-response" style="display:none"></div>
+                                <div class="response" id="mce-success-response" style="display:none"></div>
+                            </div>
+                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text"
+                                    name="b_1beeb9fe77b2622a8021637d3_afabe6fb17" tabindex="-1" value="">
+                            </div>
+                            <!-- mailchimp credit for form -->
+                            <div class="form-row flex-row-reverse mx-0">
+                                <div class="clear foot col-4 mt-2 pr-0 pl-1">
+                                    <p class="brandingLogo mb-0"><a href="http://eepurl.com/hZys35" target="_blank"
+                                            rel="nofollow" title="Mailchimp - email marketing made easy and fun"><img
+                                                src="https://eep.io/mc-cdn-images/template_images/branding_logo_text_dark_dtp.svg"
+                                                class="img-fluid"></a>
                                     </p>
                                 </div>
-
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -249,6 +258,7 @@
                 </div>
             </div>
         </div>
+        <!-- end of footer container -->
     </footer>
     {% block postloadjs %}
     <!-- specific page scripts that need to load at end of body -->
