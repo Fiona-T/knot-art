@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.http import Http404
 from django.db.models.functions import Lower
 from checkout.models import Order
-from markets.models import Market
+from markets.models import Market, County
 from .models import UserProfile, SavedMarketList
 from .forms import UserProfileForm
 
@@ -15,7 +15,7 @@ from .forms import UserProfileForm
 def profile(request):
     """
     Show the user profile page with form pre-populated with saved info and
-    order history list. 
+    order history list.
     If post request, update the profile with the data from the form.
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -107,18 +107,23 @@ def show_saved_markets(request):
     Get the saved market list, then get the markets from it (for sorting)
     If sort is present in the get request, then sort the markets by that
     option + pass current sorting back to context.
+    If 'county' in get request then filter results by that county. all_markets
+    variable used to generate list of counties for dropdown filter in template
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
     sort = None
     sort_direction = None
     saved_markets = None
+    county = None
     try:
         saved_markets_list = get_object_or_404(
             SavedMarketList, user=user_profile
             )
         saved_markets = saved_markets_list.market.all()
+        all_markets = saved_markets.order_by('county')
     except Http404:
         saved_markets_list = None
+        all_markets = None
 
     # GET requests for sorting
     if request.GET:
@@ -138,6 +143,11 @@ def show_saved_markets(request):
                 if sort_direction == 'desc':
                     sortkey = f'-{sortkey}'
             saved_markets = saved_markets.order_by(sortkey)
+        # handles filtering by county
+        if 'county' in request.GET:
+            county = request.GET['county']
+            county = get_object_or_404(County, name=county)
+            saved_markets = saved_markets.filter(county=county)
 
     # used in context for select box to show the selected option
     current_sorting = f'{sort}_{sort_direction}'
@@ -145,7 +155,9 @@ def show_saved_markets(request):
     context = {
         'saved_markets_list': saved_markets_list,
         'current_sorting': current_sorting,
-        'saved_markets': saved_markets,
+        'markets': saved_markets,
+        'current_county': county,
+        'all_markets': all_markets,
     }
     template = 'profiles/my_markets.html'
     return render(request, template, context)
