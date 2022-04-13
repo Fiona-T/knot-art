@@ -508,16 +508,19 @@ label[for="image-clear_id"]{
 }
 
 .btn-newsletter {
-    background-color: #ff8881;
+    background-color: #010101;
     border: 0.1rem solid #ff8881;
+    color: #ff8881;
     padding: 0.5rem;
     text-transform: uppercase;
+    letter-spacing: 0.05rem;
 }
 
 .btn-newsletter:hover,
 .btn-newsletter:focus,
 .btn-newsletter:active {
-    background-color: #FDFDFD;
+    background-color: #ff8881;
+    color: #010101;
 }
 
 /* 
