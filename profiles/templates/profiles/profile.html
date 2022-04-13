@@ -7,11 +7,30 @@
 
 {% block extra_title %} | Profile{% endblock %}
 {% block content %}
+<div class="container pt-5">
+    <div class="row pt-5 m-0">
+        <div class="col-12 col-md-6 pt-md-5 px-0 d-flex order-md-last mb-4 mb-md-0">
+            {% if request.path == '/profile/' %}
+            <a href="{% url 'my_markets' %}" class="btn btn-brand-dark ml-md-auto">View My Markets</a>
+            {% else %}
+            <a href="{% url 'profile' %}" class="btn btn-brand-dark ml-md-auto">View My Profile</a>
+            {% endif %}
+        </div>
+        <div class="col-12 col-md-6 pt-md-5 px-0 d-flex align-items-end">
+            <nav aria-label="Breadcrumb navigation">
+                <ul class="breadcrumb p-0 m-0">
+                    <li class="breadcrumb-item">Account</li><span class="mx-2">></span>
+                    <li class="breadcrumb-item current" aria-current="page">My {% if request.path == '/profile/' %}Profile{% else %}Markets{% endif %}</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
 <!-- page contents container - two rows -->
 <section class="container py-5">
     <!-- row with one colum - heading-->
-    <div class="row pt-5">
-        <div class="col pt-3">
+    <div class="row pt-2">
+        <div class="col">
             <h1 class="mb-4">My Profile</h1>
         </div>
     </div>

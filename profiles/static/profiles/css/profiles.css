@@ -1,3 +1,16 @@
+/* ---------------------------------------- Breadcrumb navigation */
+.breadcrumb {
+    background-color: #fdfdfd;
+    color: #1c1c1c;
+    font-weight: 500;
+}
+
+/* current page bolder + underlined */
+.breadcrumb-item.current {
+    font-weight: 600;
+    border-bottom: 0.35rem solid #1c1c1c;
+}
+
 /* ---------------------------------------- UserProfile form */
 /* select options except first one black by default */
 .country-input,
