@@ -503,8 +503,8 @@ class TestShowSavedMarketsView(TestCase):
         """
         self.client.login(username='Tester', password='SecretCode14')
         response = self.client.get('/profile/my_markets/')
-        self.assertTrue('saved_markets' in response.context)
-        self.assertEqual(len(response.context['saved_markets']), 7)
+        self.assertTrue('markets' in response.context)
+        self.assertEqual(len(response.context['markets']), 7)
 
     def test_sort_request_urls_and_context_are_correct(self):
         """
@@ -558,24 +558,24 @@ class TestShowSavedMarketsView(TestCase):
             '/profile/my_markets/?sort=name&direction=asc'
             )
         self.assertEqual(
-            response.context['saved_markets'][0].name, 'A First Market'
+            response.context['markets'][0].name, 'A First Market'
             )
         # have to use len minus 1 here, as negative indexing not supported
-        last_item = len(response.context['saved_markets'])-1
+        last_item = len(response.context['markets'])-1
         self.assertEqual(
-            response.context['saved_markets'][last_item].name, 'Z Last Market'
+            response.context['markets'][last_item].name, 'Z Last Market'
             )
         # sort descending name
         response = self.client.get(
             '/profile/my_markets/?sort=name&direction=desc'
             )
         self.assertEqual(
-            response.context['saved_markets'][0].name,
+            response.context['markets'][0].name,
             'Z Last Market'
             )
-        last_item = len(response.context['saved_markets'])-1
+        last_item = len(response.context['markets'])-1
         self.assertEqual(
-            response.context['saved_markets'][last_item].name, 'A First Market'
+            response.context['markets'][last_item].name, 'A First Market'
             )
 
     def test_sort_by_date_returns_markets_in_correct_order(self):
@@ -593,20 +593,20 @@ class TestShowSavedMarketsView(TestCase):
             '/profile/my_markets/?sort=date&direction=asc'
             )
         self.assertEqual(
-            response.context['saved_markets'][0].date, earliest_date
+            response.context['markets'][0].date, earliest_date
             )
-        last_item = len(response.context['saved_markets'])-1
+        last_item = len(response.context['markets'])-1
         self.assertEqual(
-            response.context['saved_markets'][last_item].date, latest_date
+            response.context['markets'][last_item].date, latest_date
             )
         # sort descending date
         response = self.client.get(
             '/profile/my_markets/?sort=date&direction=desc'
             )
         self.assertEqual(
-            response.context['saved_markets'][0].date, latest_date
+            response.context['markets'][0].date, latest_date
             )
-        last_item = len(response.context['saved_markets'])-1
+        last_item = len(response.context['markets'])-1
         self.assertEqual(
-            response.context['saved_markets'][last_item].date, earliest_date
+            response.context['markets'][last_item].date, earliest_date
             )
