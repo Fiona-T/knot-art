@@ -109,6 +109,7 @@ def show_saved_markets(request):
     option + pass current sorting back to context.
     If 'county' in get request then filter results by that county. all_markets
     variable used to generate list of counties for dropdown filter in template
+    'on_my_markets_page' Boolean used in template to set url for dropdown.
     """
     user_profile = get_object_or_404(UserProfile, user=request.user)
     sort = None
@@ -158,6 +159,7 @@ def show_saved_markets(request):
         'markets': saved_markets,
         'current_county': county,
         'all_markets': all_markets,
+        'on_my_markets_page': True,
     }
     template = 'profiles/my_markets.html'
     return render(request, template, context)
