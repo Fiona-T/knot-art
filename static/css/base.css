@@ -499,6 +499,19 @@ label[for="image-clear_id"]{
 }
 
 /* ---------------------------------------- Footer */
+
+/* embedded mailchimp form - custom CSS */
+.newsletter-form-input {
+    border-radius: 0;
+    background-color: white;
+    padding: 0.5rem;
+}
+
+.btn-newsletter {
+    background-color: #ff8881;
+    border: 0.1rem solid #ff8881;
+}
+
 /* 
 position sticky + 100vh, combined with 100% on body and html for sticky footer 
 from: https://css-tricks.com/a-clever-sticky-footer-technique/
