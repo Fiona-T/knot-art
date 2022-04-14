@@ -55,7 +55,6 @@ class TestProductForm(TestCase):
             'name': '',
             'description': '',
             'price': '',
-            'image_url': '',
             'image': '',
             'is_active': '',
             'is_new': '',
@@ -71,7 +70,7 @@ class TestProductForm(TestCase):
             self.assertEqual(form.errors[field][0], 'This field is required.')
 
         not_required_fields = [
-            'category', 'image_url', 'image', 'is_active', 'is_new',
+            'category', 'image', 'is_active', 'is_new',
             ]
         for field in not_required_fields:
             self.assertNotIn(field, form.errors.keys())
