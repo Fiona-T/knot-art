@@ -68,13 +68,13 @@
                             <form action="{% url 'update_my_markets' market.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" value="{{ market.id }}" name="market_id"
-                                    class="bg-transparent border-0 p-0 my-2">
+                                    class="bg-transparent border-0 p-0 my-2 small">
                                     {% if market in saved_markets_list.market.all %}
                                     <i class="bi bi-heart-fill icon" aria-hidden="true"></i>
-                                    <span class="small text-muted">Remove from My Markets</span>
+                                    <span class="text-muted">Remove from My Markets</span>
                                     {% else %}
                                     <i class="bi bi-heart icon" aria-hidden="true"></i>
-                                    <span class="small text-muted">Save to your My Markets list</span>
+                                    <span class="text-muted">Save to My Markets</span>
                                     {% endif %}
                                 </button>
                                 <!-- hidden input with url path, so view can redirect back to same page -->
@@ -87,6 +87,18 @@
                                 to your My Markets list.
                             </p>
                             {% endif %}
+                            <!-- Comments: will link to details page to view comments. Show number of comments if there are any -->
+                            <a href="#" class="small"
+                                aria-label="'go to market details page to view comments or add comment">
+                                {% if market.comments.all|length > 0 %}
+                                <i class="bi bi-chat-left-fill icon" aria-hidden="true"></i>
+                                <span class="text-muted">{{ market.comments.all|length }}
+                                    comment{% if market.comments.all|length > 1 %}s{% endif %}</span>
+                                {% else %}
+                                <i class="bi-chat-left icon" aria-hidden="true"></i>
+                                <span class="text-muted">Be the first to comment</span>
+                                {% endif %}
+                            </a>
                             {% if request.user.is_superuser %}
                             <!-- superuser can view all markets so show status -->
                             <p class="font-90 mt-2"><span class="fw-600">Status:</span>
