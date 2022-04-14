@@ -20,6 +20,7 @@ class ProductForm(forms.ModelForm):
         }
         help_texts = {
             'name': 'Product name must be unique',
+            'category': 'If category is not in list, you can add a new one',
             'is_active': 'Only active products are visible in the shop to '
             'users. Leave un-checked if product not ready to be shown in shop',
             'is_new': 'A "New!" badge will be shown on the product if this '
@@ -40,5 +41,8 @@ class ProductForm(forms.ModelForm):
         categories = Category.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
         self.fields['category'].choices = friendly_names
+        self.fields['category'].choices.insert(
+            0, ('', 'Choose category from the list')
+            )
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'order-form-input'
