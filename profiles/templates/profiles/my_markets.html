@@ -82,6 +82,18 @@
                                 <!-- hidden input with url path, so view can redirect back to same page -->
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
+                            <!-- Comments: will link to details page to view comments. Show number of comments if there are any -->
+                            <a href="#" class="small"
+                                aria-label="'go to market details page to view comments or add comment">
+                                {% if market.comments.all|length > 0 %}
+                                <i class="bi bi-chat-left-fill icon" aria-hidden="true"></i>
+                                <span class="text-muted">{{ market.comments.all|length }}
+                                    comment{% if market.comments.all|length > 1 %}s{% endif %}</span>
+                                {% else %}
+                                <i class="bi-chat-left icon" aria-hidden="true"></i>
+                                <span class="text-muted">Be the first to comment</span>
+                                {% endif %}
+                            </a>
                             <p class="font-90 mt-2"><span class="fw-600">Status:</span>
                                 <span>{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
