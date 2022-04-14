@@ -2,7 +2,8 @@
 import datetime
 from django.test import TestCase
 from django.db import IntegrityError
-from .models import County, Market
+from django.contrib.auth.models import User
+from .models import County, Market, Comment
 
 
 class TestCountyModel(TestCase):
@@ -68,7 +69,7 @@ class TestMarketModel(TestCase):
             name='The Craft Market',
             location='The Street',
             county=County.objects.get(id=1),
-            date='2022-06-01',
+            date=today + datetime.timedelta(days=3),
             start_time='09:00',
             end_time='17:00',
             website='www.crafted.ie',
@@ -98,7 +99,10 @@ class TestMarketModel(TestCase):
         called on this record returns the correct string
         """
         market = Market.objects.get(id=1)
-        self.assertEqual(str(market), 'The Craft Market on 01/06/2022')
+        today = datetime.date.today()
+        expected_date = today + datetime.timedelta(days=3)
+        formatted_date = expected_date.strftime('%d/%m/%Y')
+        self.assertEqual(str(market), f'The Craft Market on {formatted_date}')
 
     def test_date_passed_property_returns_true_if_date_passed(self):
         """Market id 3 has date of yesterday, confirm date_passed is true"""
@@ -109,3 +113,50 @@ class TestMarketModel(TestCase):
         """Market id 2 has date of today, confirm date_passed is false"""
         market = Market.objects.get(id=2)
         self.assertFalse(market.date_passed)
+
+
+class TestCommentModel(TestCase):
+    """tests for Comment model in markets app"""
+    @classmethod
+    def setUpTestData(cls):
+        """
+        Create instance of County for creating Market instances.
+        Create instance of Market and Comment linked to that market,
+        create User to link to the comment.
+        """
+        County.objects.create(
+            name='dublin_2',
+            friendly_name='Dublin 2'
+        )
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=datetime.date.today(),
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.crafted.ie',
+        )
+        User.objects.create(
+            username='Tester',
+            password='SecretCode14',
+        )
+        Comment.objects.create(
+            author=User.objects.get(id=1),
+            market=Market.objects.get(id=1),
+            comment='This is the comment',
+        )
+
+    def test_string_method_returns_comment_author_and_market(self):
+        """
+        Get the comment instance created in setUp. Check that the string method
+        called on this instance returns the correct string
+        """
+        comment = Comment.objects.get(id=1)
+        expected_date = datetime.date.today()
+        formatted_date = expected_date.strftime('%d/%m/%Y')
+        self.assertEqual(
+            str(comment),
+            'This is the comment by Tester on The Craft Market on '
+            f'{formatted_date}'
+            )
