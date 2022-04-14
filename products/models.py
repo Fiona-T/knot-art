@@ -27,9 +27,7 @@ class Product(models.Model):
     """Product model - for products in shop"""
     category = models.ForeignKey(
         'Category',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         related_name='products_in_category'
         )
     sku = models.CharField(max_length=10, null=False, editable=False)
