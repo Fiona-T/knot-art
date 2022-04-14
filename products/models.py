@@ -28,7 +28,6 @@ class Product(models.Model):
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE,
-        default=3,
         related_name='products_in_category'
         )
     sku = models.CharField(max_length=10, null=False, editable=False)
