@@ -1,6 +1,7 @@
 """Models for 'markets' app"""
 import datetime
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class County(models.Model):
@@ -55,3 +56,22 @@ class Market(models.Model):
         """string method - return the market name and formatted date"""
         market_date = self.date.strftime('%d/%m/%Y')
         return f'{self.name} on {market_date}'
+
+
+class Comment(models.Model):
+    """Model for users to add comments on markets"""
+    class Meta:
+        """order by when created, oldest comments first"""
+        ordering = ['created_on']
+
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='market_comments'
+        )
+    market = models.ForeignKey(
+        Market, on_delete=models.CASCADE, related_name='comments'
+        )
+    comment = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment {self.comment} by {self.author} on {self.market}'

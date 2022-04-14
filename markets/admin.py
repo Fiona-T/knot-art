@@ -1,6 +1,6 @@
 """Set up of django admin site for markets app"""
 from django.contrib import admin
-from .models import County, Market
+from .models import County, Market, Comment
 
 
 @admin.register(County)
@@ -23,3 +23,6 @@ class MarketAdmin(admin.ModelAdmin):
         )
     list_filter = ('county',)
     search_fields = ['name', 'website', ]
+
+
+admin.site.register(Comment)
