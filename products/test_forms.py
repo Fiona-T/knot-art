@@ -27,6 +27,7 @@ class TestProductForm(TestCase):
         form = ProductForm()
         help_texts = {
             'name': 'Product name must be unique',
+            'category': 'If category is not in list, you can add a new one',
             'is_active': 'Only active products are visible in the shop to '
             'users. Leave un-checked if product not ready to be shown in shop',
             'is_new': 'A "New!" badge will be shown on the product if this '
