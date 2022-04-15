@@ -3,7 +3,7 @@ import datetime
 from django import forms
 from django.core.exceptions import ValidationError
 from products.widgets import CustomClearableFileInput
-from .models import Market, County
+from .models import Market, County, Comment
 
 
 class MarketForm(forms.ModelForm):
@@ -114,3 +114,16 @@ class MarketForm(forms.ModelForm):
                     ValidationError('Market date must not be in the past')
                     )
                 self.fields['date'].help_text = None
+
+
+class CommentForm(forms.ModelForm):
+    """
+    Comment form to add comments on markets
+    """
+    class Meta:
+        """
+        Form based on Comment model.
+        Other fields - author, market, created set in view
+        """
+        model = Comment
+        fields = ('comment', )
