@@ -82,6 +82,19 @@ def show_markets(request):
     return render(request, template, context)
 
 
+def market_details(request, market_id):
+    """
+    View to show an individual market and the comments on that market
+    """
+    market = get_object_or_404(Market, pk=market_id)
+    comments = market.comments.all()
+    context = {
+        'market': market,
+        'comments': comments,
+    }
+    return render(request, 'markets/market_details.html', context)
+
+
 @login_required()
 def add_market(request):
     """
