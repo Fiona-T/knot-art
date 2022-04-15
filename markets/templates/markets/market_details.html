@@ -94,6 +94,12 @@
             <hr class="mt-1">
             <!-- card to show comments inside -->
             <div class="card-body pt-0">
+                <!-- comment form -->
+                <form method="POST" action="" class="profile-form">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                </form>
+                <button class="btn btn-brand">Post Comment</button>
                 {% for comment in comments %}
                 <div class="comments">
                     <p class="font-weight-bold mb-0">{{ comment.author }}</p>
