@@ -83,7 +83,7 @@
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
                             <!-- Comments: will link to details page to view comments. Show number of comments if there are any -->
-                            <a href="#" class="small"
+                            <a href="{% url 'market_details' market.id %}" class="small"
                                 aria-label="'go to market details page to view comments or add comment">
                                 {% if market.comments.all|length > 0 %}
                                 <i class="bi bi-chat-left-fill icon" aria-hidden="true"></i>
