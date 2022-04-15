@@ -10,7 +10,7 @@ from django.db.models.functions import Lower
 from django.utils.safestring import mark_safe
 from profiles.models import SavedMarketList, UserProfile
 from .models import Market, County
-from .forms import MarketForm
+from .forms import MarketForm, CommentForm
 
 
 def show_markets(request):
@@ -88,9 +88,11 @@ def market_details(request, market_id):
     """
     market = get_object_or_404(Market, pk=market_id)
     comments = market.comments.all()
+    form = CommentForm()
     context = {
         'market': market,
         'comments': comments,
+        'form': form,
     }
     return render(request, 'markets/market_details.html', context)
 
