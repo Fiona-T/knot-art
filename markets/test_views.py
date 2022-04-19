@@ -245,7 +245,7 @@ class TestMarketDetailsView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'markets/market_details.html')
 
-    def test_comments_are_in_conetxt_when_market_has_comments(self):
+    def test_comments_are_in_context_when_market_has_comments(self):
         """
         The second market created in setup has 2 comments attached, go to
         page for this market and confirm 2 comments in context.
@@ -258,6 +258,75 @@ class TestMarketDetailsView(TestCase):
         """Check there are no comments shown for market with no comments"""
         response = self.client.get('/markets/1/')
         self.assertEqual(len(response.context['comments']), 0)
+
+    def test_403_raised_when_adding_a_comment_not_logged_in(self):
+        """
+        Can only post a comment if logged in, check 403 raised when not
+        logged in
+        """
+        response = self.client.post('/markets/1/', {
+            'redirect_url': '/markets/1/',
+            'comment': 'This is a comment',
+            }
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_logged_in_user_can_add_a_comment(self):
+        """Login test user, post a comment, check comment added"""
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/markets/1/')
+        self.assertEqual(len(response.context['comments']), 0)
+        response = self.client.post('/markets/1/', {
+            'redirect_url': '/markets/1/',
+            'comment': 'This is a comment',
+            }
+        )
+        self.assertRedirects(response, '/markets/1/')
+        response = self.client.get('/markets/1/')
+        self.assertEqual(len(response.context['comments']), 1)
+        self.assertEqual(
+            response.context['comments'][0].comment, 'This is a comment'
+            )
+
+    def test_success_message_displayed_when_comment_added(self):
+        """
+        Login test user, post a comment, check success msg present + correct
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/1/', {
+            'redirect_url': '/markets/1/',
+            'comment': 'This is a comment',
+            }
+        )
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        market = Market.objects.get(id=1)
+        self.assertEqual(
+            messages[0].message,
+            f'Comment on: "{market}" successfully posted!'
+            )
+
+    def test_error_message_displayed_when_form_not_valid(self):
+        """
+        Attempt to add comment with invalid form, confirm form is invalid,
+        check error msg is displayed + is correct.
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/1/', {
+            'redirect_url': '/markets/1/',
+            'comment': 'and on ' * 1000,  # too long - invalid
+            }
+        )
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Comment NOT posted. Please check the form for errors and '
+            're-submit.'
+            )
 
 
 class TestAddMarketView(TestCase):
