@@ -87,11 +87,11 @@ def market_details(request, market_id):
     View to show an individual market and the comments on that market.
     Need to also retrieve the user's saved market list if they have one,
     so that the page shows whether the market is saved or not.
+    Show comment form and handle posting of the form.
     """
     saved_markets_list = None
     market = get_object_or_404(Market, pk=market_id)
     comments = market.comments.all()
-    form = CommentForm()
 
     if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -101,6 +101,27 @@ def market_details(request, market_id):
                 )
         except Http404:
             saved_markets_list = None
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.market = market
+            comment.save()
+            messages.success(
+                request,
+                f'Comment on: "{market}" successfully posted!'
+                )
+            form = CommentForm()
+        else:
+            messages.error(
+                request,
+                'Comment NOT posted. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = CommentForm()
 
     context = {
         'market': market,

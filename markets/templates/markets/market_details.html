@@ -98,7 +98,7 @@
                 <div class="mb-4">
                     {% if request.user.is_authenticated %}
                     <!-- comment form -->
-                    <form method="POST" action="" class="profile-form">
+                    <form method="POST" action="{% url 'market_details' market.id %}" class="profile-form">
                         {% csrf_token %}
                         {{ form|crispy }}
                         <div class="text-right">
