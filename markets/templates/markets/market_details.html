@@ -54,15 +54,16 @@
                     href="{% url 'account_signup' %}">Sign Up</a> to save to My Markets.
             </p>
             {% endif %}
-            {% if request.user.is_superuser %}
-            <!-- superuser can view all markets so show status -->
+            {% if market in saved_markets_list.market.all or request.user.is_superuser %}
+            <!-- superuser can view all markets so show status, or if user saved this market show the status -->
             <p class="font-90 mt-2"><span class="fw-600">Status:</span>
                 <span>{% if market.date_passed %}
-                    <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
-                    passed
-                    {% else %} Upcoming {% endif %}
+                    <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has passed
+                    {% else %}Upcoming {% endif %}
                 </span>
             </p>
+            {% endif %}
+            {% if request.user.is_superuser %}
             <!-- admin actions - edit/delete, if user is admin user -->
             <div class="admin-link-container col-12 col-md-10 col-xl-8 mb-5">
                 <div class="row mx-0">
@@ -92,7 +93,7 @@
             <span class="text-muted small">({{ market.comments.all|length }}
                 Comment{% if market.comments.all|length > 1 %}s{% endif %})</span>
             <hr class="mt-1">
-            <!-- card to show comments inside -->
+            <!-- card to show comment form + comments inside -->
             <div class="card-body pt-0">
                 <div class="mb-4">
                     {% if request.user.is_authenticated %}
@@ -122,6 +123,7 @@
                 <p>No comments on this market yet. Start the conversation...</p>
                 {% endfor %}
             </div>
+            <!-- end of card holding comment form and comments -->
             <!-- navigation - to main markets page but if market is saved by this user, then option to go to My Markets -->
             <div class="pl-3 pt-2">
                 {% if market in saved_markets_list.market.all %}
