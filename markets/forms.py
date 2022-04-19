@@ -127,9 +127,14 @@ class CommentForm(forms.ModelForm):
         """
         model = Comment
         fields = ('comment', )
+        labels = {'comment': 'Your comment', }
 
     def __init__(self, *args, **kwargs):
-        """Override init method to add CSS class to fields."""
+        """
+        Override init method to add number of rows for text area field and
+        add CSS class to fields.
+        """
         super().__init__(*args, **kwargs)
+        self.fields['comment'].widget.attrs['rows'] = 5
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'order-form-input'
