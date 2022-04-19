@@ -104,6 +104,7 @@ def market_details(request, market_id):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
+        redirect_url = request.POST.get('redirect_url')
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -113,7 +114,7 @@ def market_details(request, market_id):
                 request,
                 f'Comment on: "{market}" successfully posted!'
                 )
-            form = CommentForm()
+            return redirect(redirect_url)
         else:
             messages.error(
                 request,
