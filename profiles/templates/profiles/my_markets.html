@@ -47,8 +47,8 @@
                 <!-- each market displayed in a card within columns - still inside else block, i.e. there is a saved_market_list -->
                 <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 card-group">
                     <div class="card h-100 border-0">
-                        <!-- market image links to the market website (external) -->
-                        <a href="{{ market.website }}" target="_blank" rel="noopener">
+                        <!-- market image links to the market details page -->
+                        <a href="{% url 'market_details' market.id %}">
                             <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
                             <img class="card-img-top img-fluid"
                                 src="{% if market.image %}{{ market.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
