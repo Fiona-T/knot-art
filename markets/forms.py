@@ -123,7 +123,13 @@ class CommentForm(forms.ModelForm):
     class Meta:
         """
         Form based on Comment model.
-        Other fields - author, market, created set in view
+        Other fields - author, market and created_on are set in view
         """
         model = Comment
         fields = ('comment', )
+
+    def __init__(self, *args, **kwargs):
+        """Override init method to add CSS class to fields."""
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'order-form-input'
