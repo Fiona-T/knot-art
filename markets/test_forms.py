@@ -103,6 +103,7 @@ class TestMarketForm(TestCase):
         required_fields = [
             'name',
             'location',
+            'county',
             'date',
             'start_time',
             'end_time',
@@ -112,7 +113,7 @@ class TestMarketForm(TestCase):
             self.assertIn(field, form.errors.keys())
             self.assertEqual(form.errors[field][0], 'This field is required.')
 
-        not_required_fields = ['county', 'image', ]
+        not_required_fields = ['image', ]
         for field in not_required_fields:
             self.assertNotIn(field, form.errors.keys())
 
@@ -149,6 +150,7 @@ class TestMarketForm(TestCase):
         """
         form = MarketForm({
             'name': 'my market',
+            'county': 1,
             'location': 'the street',
             'date': '2022-10-01',
             'start_time': '17:00',
@@ -176,6 +178,7 @@ class TestMarketForm(TestCase):
         today = datetime.date.today()
         form = MarketForm({
             'name': 'my market',
+            'county': 1,
             'location': 'the street',
             'date': today - datetime.timedelta(days=1),
             'start_time': '11:00',
