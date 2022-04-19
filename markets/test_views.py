@@ -124,6 +124,7 @@ class TestShowMarketsView(TestCase):
         for market in range(2):
             Market.objects.create(
                     name=names[market],
+                    county=County.objects.get(id=1),
                     location='The Street',
                     date=datetime.date.today(),
                     start_time='09:00',
