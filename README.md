@@ -637,7 +637,7 @@ To view the local version of the project before deployment to heroku, use `pytho
 1. Add all the changes above, commit them and push them to GitHub using `git add`, `git commit -m "commit msg"` and `git push` commands in command line
 2. Go to Heroku and in Config vars, add `DISABLE_COLLECTSTATIC` with a value of `1`, for the initial deployment.
 
-**Note:** steps 3 and 4 below are not currently possible in Heroku due to a change as of 16th April 2022. Heroku have removed the functionality to deploy from the Heroku dashboard or to add automatic deployments. It is not clear if this functionality has been removed on a permanent or temporary basis, so the steps have been left below in case the functionality is restored in the future. Until the functionality is restored, these two steps must be done through the command line.
+**Note:** steps 3 and 4 below are not currently possible in Heroku due to a change as of 16th April 2022. Heroku have removed the functionality to deploy from the Heroku dashboard or to add automatic deployments. It is not clear if this functionality has been removed on a permanent or temporary basis, so the steps have been left below in case the functionality is restored in the future. Until the functionality is restored, these two steps must be done through the command line, as shown [in this section underneath steps 3 and 4](#to-do-the-above-steps-3-and-4-through-the-command-line-instead).
 
 3. In the Deploy tab, go to Deployment method and click GitHub
     - If have not connected to GitHub previously:
@@ -653,9 +653,9 @@ To view the local version of the project before deployment to heroku, use `pytho
     - Manual – the app is not automatically updated with future pushes to GitHub but these can be manually made if needed.
     - click Deploy Branch. I deployed using Manual. The logs will show the dependencies and requirements being installed. When done, the page will refresh and say “Your app was successfully deployed” with a View button.
 
-*To do the above steps 3 and 4 through the command line instead:*
+##### *To do the above steps 3 and 4 through the command line instead:*
 - use command `heroku login -i` and enter you username and password when prompted. You will see confirmation in the terminal that you are logged in.
-- if you are not sure of the app name, you can find this using the command `heroku apps` which will list them. Use your app name in each step below where `knot-art` is used
+- if you are not sure of the app name, you can find this using the command `heroku apps` which will list them. Use your app name below where `knot-art` is used
 - Set the remote for the app on heroku using command `heroku git:remote -a knot-art`. You should see confirmation that the remote has been set to the heroku remote for that app.
 - Push to heroku to do the deployment, using command `git push heroku main` (when you push to the repo on github you will use command `git push origin main`)
 - You will see the build log in the terminal and after it has completed it will confirm the deployment was done, with the version number and the url for the website
