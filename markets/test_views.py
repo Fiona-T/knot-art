@@ -3,7 +3,7 @@ import datetime
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
-from .models import County, Market
+from .models import County, Market, Comment
 
 
 class TestShowMarketsView(TestCase):
@@ -188,6 +188,76 @@ class TestShowMarketsView(TestCase):
         self.assertEqual(len(response.context['markets']), 3)
         for market in response.context['markets']:
             self.assertEqual(market.county.name, 'dublin_4')
+
+
+class TestMarketDetailsView(TestCase):
+    """Tests for market_details view to show comments"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of County and Market. Create user to create
+        Comments on the market for tests.
+        """
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+
+        today = datetime.date.today()
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=today,
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.crafted.ie',
+        )
+        Market.objects.create(
+            name='Market with comments',
+            location='The Road',
+            county=County.objects.get(id=1),
+            date=today,
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.market.ie',
+        )
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        Comment.objects.create(
+            author=test_user,
+            market=Market.objects.get(id=2),
+            comment='This is a comment'
+        )
+        Comment.objects.create(
+            author=test_user,
+            market=Market.objects.get(id=2),
+            comment='This is a second comment'
+        )
+
+    def test_correct_url_and_template_used(self):
+        """Get the url, check response is 200 + correct template"""
+        response = self.client.get('/markets/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'markets/market_details.html')
+
+    def test_comments_are_in_conetxt_when_market_has_comments(self):
+        """
+        The second market created in setup has 2 comments attached, go to
+        page for this market and confirm 2 comments in context.
+        """
+        response = self.client.get('/markets/2/')
+        self.assertTrue('comments' in response.context)
+        self.assertEqual(len(response.context['comments']), 2)
+
+    def test_message_displayed_when_there_are_no_comment(self):
+        """Check there are no comments shown for market with no comments"""
+        response = self.client.get('/markets/1/')
+        self.assertEqual(len(response.context['comments']), 0)
 
 
 class TestAddMarketView(TestCase):
