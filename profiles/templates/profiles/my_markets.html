@@ -59,7 +59,7 @@
                             <p class="card-title mb-0 text-uppercase">{{ market.name }}</p>
                             <p class="small mt-1 mb-2">
                                 <!-- county name - will update to link to county filter when this is added -->
-                                <a href="#" class="text-muted">
+                                <a href="{% url 'my_markets' %}?county={{market.county.name}}" class="text-muted">
                                     <i class="bi bi-geo-alt-fill icon"
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
