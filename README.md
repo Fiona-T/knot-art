@@ -636,6 +636,9 @@ To view the local version of the project before deployment to heroku, use `pytho
 #### Initial Deployment:
 1. Add all the changes above, commit them and push them to GitHub using `git add`, `git commit -m "commit msg"` and `git push` commands in command line
 2. Go to Heroku and in Config vars, add `DISABLE_COLLECTSTATIC` with a value of `1`, for the initial deployment.
+
+**Note:** steps 3 and 4 below are not currently possible in Heroku due to a change as of 16th April 2022. Heroku have removed the functionality to deploy from the Heroku dashboard or to add automatic deployments. It is not clear if this functionality has been removed on a permanent or temporary basis, so the steps have been left below in case the functionality is restored in the future. Until the functionality is restored, these two steps must be done through the command line.
+
 3. In the Deploy tab, go to Deployment method and click GitHub
     - If have not connected to GitHub previously:
         - Underneath, it will show a section called Connect to GitHub, with a button at the bottom called “Connect to GitHub”. Press this button.
@@ -649,7 +652,17 @@ To view the local version of the project before deployment to heroku, use `pytho
     - Automatic – future pushes to GitHub will mean Heroku automatically builds a new version of the app with the pushed changes
     - Manual – the app is not automatically updated with future pushes to GitHub but these can be manually made if needed.
     - click Deploy Branch. I deployed using Manual. The logs will show the dependencies and requirements being installed. When done, the page will refresh and say “Your app was successfully deployed” with a View button.
-5. Click the View button to view the app – it opens in a new window. For the initial deployment the static and media files have not been used but the database information should be there.
+
+*To do the above steps 3 and 4 through the command line instead:*
+- use command `heroku login -i` and enter you username and password when prompted. You will see confirmation in the terminal that you are logged in.
+- if you are not sure of the app name, you can find this using the command `heroku apps` which will list them. Use your app name in each step below where `knot-art` is used
+- Set the remote for the app on heroku using command `heroku git:remote -a knot-art`. You should see confirmation that the remote has been set to the heroku remote for that app.
+- Push to heroku to do the deployment, using command `git push heroku main` (when you push to the repo on github you will use command `git push origin main`)
+- You will see the build log in the terminal and after it has completed it will confirm the deployment was done, with the version number and the url for the website
+
+*The rest of the process is the same regardless of whether the deployment was done through Heroku dashboard or via the command line:*
+
+5. In Heroku, Click the Open app (or View button if still in the Deploy tab in Heroku) to view the app – it opens in a new window. For the initial deployment the static and media files have not been used but the database information should be there.
 
 #### To add AWS for hosting static and media files:
 If you don't have an account, create one, if you do log in. 
@@ -721,7 +734,7 @@ During development for future deployments:
 1. Ensure `DEBUG` in `settings.py` is set to `False` (or to `'DEVELOPMENT' in os.environ`, if you have a `DEVELOPMENT` environment variable in your env.py and no such variable in the Heroku Config vars)
 2. Ensure all changes are pushed to GitHub
 3. In Heroku remove the `DISABLE_COLLECTSTATIC` config var once you have static files and have set up AWS bucket and user.
-4. Follow steps 4 and 5 from the [Initial Deployment](#initial-deployment) section above to deploy and view the updated deployed app
+4. Follow steps 4 and 5 from the [Initial Deployment](#initial-deployment) section above to deploy and view the updated deployed app. *Note: if the Heroku dashboard doesn't have the option to connect to GitHub (functionality removed as of 16th April 2022 but may be reinstated), then follow the command line instructions outlined there instead.*
 
 ### Forking the GitHub Repository
 The repository can be forked on GitHub, this creates a copy of the repository that can be viewed or amended without affecting the original repository. This can be done using the following steps:
