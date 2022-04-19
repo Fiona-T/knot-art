@@ -37,8 +37,7 @@ class Market(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
     county = models.ForeignKey(
-        County, on_delete=models.SET_NULL, null=True, blank=True,
-        related_name='markets',
+        County, on_delete=models.CASCADE, related_name='markets'
         )
     date = models.DateField()
     start_time = models.TimeField()
