@@ -314,8 +314,13 @@ class TestUpdateSavedMarketsView(TestCase):
         )
         user1.save()
 
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
         Market.objects.create(
             name='The Craft Market',
+            county=County.objects.get(id=1),
             location='The Street',
             date=datetime.date.today(),
             start_time='09:00',
@@ -324,6 +329,7 @@ class TestUpdateSavedMarketsView(TestCase):
         )
         Market.objects.create(
             name='The Other Market',
+            county=County.objects.get(id=1),
             location='The Field',
             date=datetime.date.today(),
             start_time='10:00',
@@ -554,6 +560,7 @@ class TestShowSavedMarketsView(TestCase):
         for market in range(2):
             new_market = Market.objects.create(
                     name=names[market],
+                    county=County.objects.get(id=1),
                     location='The Street',
                     date=datetime.date.today(),
                     start_time='09:00',
