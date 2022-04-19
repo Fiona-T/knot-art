@@ -2,7 +2,7 @@
 import datetime
 from django.test import TestCase
 from django.contrib.auth.models import User
-from markets.models import Market
+from markets.models import Market, County
 from .models import UserProfile, SavedMarketList
 
 
@@ -37,8 +37,13 @@ class TestSavedMarketListModel(TestCase):
         )
         user.save()
         profile = UserProfile.objects.get(id=1)
+        county = County.objects.create(
+            name='dublin_4',
+            friendly_name='Dublin 4'
+        )
         market = Market.objects.create(
             name='The Craft Market',
+            county=county,
             location='The Street',
             date=datetime.date.today(),
             start_time='09:00',
