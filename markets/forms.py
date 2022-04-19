@@ -131,19 +131,19 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Override init method to add number of rows for text area field and
-        add CSS class to fields.
+        Override init method to add number of rows ++ maxlength for textarea field
+        and add CSS class.
         """
         super().__init__(*args, **kwargs)
-        self.fields['comment'].widget.attrs['rows'] = 5
-        self.fields['comment'].widget.attrs['maxlength'] = 1000
+        self.fields['comment'].widget.attrs = {'rows': 5, 'maxlength': 1000}
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'order-form-input'
 
     def clean(self):
         """
         Override the clean method on form to include check on textarea field.
-        Raise error on comment field if length is too long.
+        Raise error on comment field if length is too long. As Django doesn't do
+        a check for maxlength on this field type.
         """
         cleaned_data = super().clean()
         comment = cleaned_data.get('comment')
