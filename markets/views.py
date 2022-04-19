@@ -87,7 +87,8 @@ def market_details(request, market_id):
     View to show an individual market and the comments on that market.
     Need to also retrieve the user's saved market list if they have one,
     so that the page shows whether the market is saved or not.
-    Show comment form and handle posting of the form.
+    Show comment form and handle posting of the form. If user not logged
+    in then raise 403 as must be logged in to post comment.
     """
     saved_markets_list = None
     market = get_object_or_404(Market, pk=market_id)
@@ -103,24 +104,27 @@ def market_details(request, market_id):
             saved_markets_list = None
 
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        redirect_url = request.POST.get('redirect_url')
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.market = market
-            comment.save()
-            messages.success(
-                request,
-                f'Comment on: "{market}" successfully posted!'
-                )
-            return redirect(redirect_url)
+        if not request.user.is_authenticated:
+            raise PermissionDenied()
         else:
-            messages.error(
-                request,
-                'Comment NOT posted. Please check the form for errors and '
-                're-submit.'
-                )
+            form = CommentForm(request.POST)
+            redirect_url = request.POST.get('redirect_url')
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.author = request.user
+                comment.market = market
+                comment.save()
+                messages.success(
+                    request,
+                    f'Comment on: "{market}" successfully posted!'
+                    )
+                return redirect(redirect_url)
+            else:
+                messages.error(
+                    request,
+                    'Comment NOT posted. Please check the form for errors and '
+                    're-submit.'
+                    )
     else:
         form = CommentForm()
 
