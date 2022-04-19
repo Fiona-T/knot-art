@@ -147,10 +147,11 @@ class CommentForm(forms.ModelForm):
         """
         cleaned_data = super().clean()
         comment = cleaned_data.get('comment')
-        if len(comment) >= 1005:
-            self.add_error(
-                    'comment',
-                    ValidationError(
-                        'Comment is too long. Please shorten and re-submit'
+        if comment:
+            if len(comment) >= 1005:
+                self.add_error(
+                        'comment',
+                        ValidationError(
+                            'Comment is too long. Please shorten and re-submit'
+                        )
                     )
-                )
