@@ -1,7 +1,8 @@
 """Tests for forms in markets app"""
 import datetime
 from django.test import TestCase
-from .forms import MarketForm
+from django.contrib.auth.models import User
+from .forms import MarketForm, CommentForm
 from .models import County, Market
 
 
@@ -209,3 +210,102 @@ class TestMarketForm(TestCase):
                 'image', 'website',
                 )
             )
+
+
+class TestCommentForm(TestCase):
+    """Tests for the CommentForm"""
+    @classmethod
+    def setUpTestData(cls):
+        """Set up user, county and market instance for comments"""
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+        today = datetime.date.today()
+        Market.objects.create(
+            name='The Craft Market',
+            location='The Street',
+            county=County.objects.get(id=1),
+            date=today,
+            start_time='09:00',
+            end_time='17:00',
+            website='www.crafted.ie',
+        )
+
+    def test_explicitly_set_field_labels_exist(self):
+        """
+        Check labels are present for the fields where a label was explicitly
+        set in the form Meta class
+        """
+        form = CommentForm()
+        self.assertTrue(
+            form.fields['comment'].label is None or
+            form.fields['comment'].label == 'Your comment'
+            )
+
+    def test_css_class_exists_on_fields(self):
+        """Test CSS classes are present and correct on the form field"""
+        form = CommentForm()
+        for field in form.fields:
+            self.assertEqual(
+                form.fields[field].widget.attrs['class'], 'order-form-input')
+
+    def test_widgets_exist_on_comment_field(self):
+        """
+        Check comment field has Textarea widget and this has the rows and
+        maxlength attributes set on it.
+        """
+        form = CommentForm()
+        self.assertEqual(form.fields['comment'].widget.attrs['rows'], 5)
+        self.assertEqual(
+            form.fields['comment'].widget.attrs['maxlength'], 1000
+            )
+        self.assertEqual(
+            form.fields['comment'].widget.__class__.__name__, 'Textarea'
+            )
+
+    def test_required_fields_are_required(self):
+        """
+        Check form is not valid if comment field is blank. Comment field
+        is the only field on the form and is required.
+        Check error message exists for this field.
+        """
+        form = CommentForm({
+            'comment': '',
+        })
+
+        self.assertIn('comment', form.errors.keys())
+        self.assertEqual(form.errors['comment'][0], 'This field is required.')
+
+    def test_too_long_comment_raises_error_message(self):
+        """
+        Create form instance with comment which is too long, check form is not
+        valid. Check that the field is in the keys of the form errors dict.
+        Check that the error returned is correct.
+        """
+        comment = 'and on ' * 1000
+        form = CommentForm({
+            'author': User.objects.get(id=1),
+            'market': Market.objects.get(id=1),
+            'comment': comment,
+        })
+        self.assertFalse(form.is_valid())
+        self.assertIn('comment', form.errors.keys())
+        self.assertEqual(
+            form.errors['comment'][0],
+            'Comment is too long. Please shorten and re-submit'
+            )
+
+    def test_fields_are_explicit_in_form_metaclass(self):
+        """
+        Check the Meta fields attribute is equal to the list of fields
+        defined in the form Meta innerclass
+        """
+        form = CommentForm()
+        self.assertEqual(form.Meta.fields, ('comment', ))
