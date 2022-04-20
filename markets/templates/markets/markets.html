@@ -56,7 +56,7 @@
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
                             </p>
-                            <p>{{ market.location }}</p>
+                            <p class="font-90">{{ market.location }}</p>
                             <p class="fw-600 mb-2">{{ market.date }}</p>
                             <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
                         </div>
@@ -100,11 +100,21 @@
                             </a>
                             {% if request.user.is_superuser %}
                             <!-- superuser can view all markets so show status -->
-                            <p class="font-90 mt-2"><span class="fw-600">Status:</span>
-                                <span>{% if market.date_passed %}
+
+                            <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
+                                <span class="font-90">{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
                                     passed
                                     {% else %} Upcoming {% endif %}
+                                </span>
+                            </p>
+                            <p class="font-90 mb-1"><span class="fw-600">Number of saves:</span>
+                                <span class="font-90">
+                                    {% for key, value in markets_saves.items %}
+                                    {% if market.id == key %}
+                                    {{ value }}
+                                    {% endif %}
+                                    {% endfor %}
                                 </span>
                             </p>
                             <!-- admin actions - edit/delete, if user is admin user -->
