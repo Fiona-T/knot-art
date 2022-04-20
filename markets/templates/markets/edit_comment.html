@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %} | Edit Comment on {{ market.name }}{% endblock %}
+{% block content %}
+<!-- page contents container - two rows -->
+<section class="container py-5">
+    <!-- 1st row - headings -->
+    <div class="row pt-5">
+        <div class="col-12 col-md-6 col-lg-8 pt-3">
+            <h1 class="mb-4">Edit your comment</h1>
+        </div>
+    </div>
+    <!-- second row - edit comment form -->
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-8">
+            <p>Make the changes to your comment as needed and submit using the "Update Comment" button.</p>
+            <p>You are editing a comment posted on <span class="fw-600">{{ comment.created_on }}</span> on the market
+                <span class="fw-600">"{{ market.name }} on {{ market.date }}"</span></p>
+            <p>If you want to delete the comment completely, do this using the Delete link underneath the comment on the
+                <a href="{% url 'market_details' market.id %}" class="text-link">market details page</a> instead.</p>
+            <!-- comment form -->
+            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="profile-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="text-right pt-3 pb-5">
+                    <a class="btn btn-brand-outline" href="{% url 'market_details' market.id %}">Cancel</a>
+                    <button class="btn btn-brand" type="submit">Update Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
