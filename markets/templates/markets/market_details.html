@@ -115,11 +115,19 @@
                     {% endif %}
                 </div>
                 {% for comment in comments %}
-                <div class="comments">
+                <div>
                     <p class="font-weight-bold mb-0">{{ comment.author }}</p>
                     <p class="small text-muted mb-2">{{ comment.created_on }}</p>
                     {{ comment.comment | linebreaks }}
+                    {% if request.user == comment.author %}
+                    <div>
+                        <a class="small text-muted text-link" href="#deleteCommentModal{{ comment.id }}"
+                            data-toggle="modal">Delete</a>
+                    </div>
+                    {% endif %}
                 </div>
+                <!-- delete comment modal -->
+                {% include '../markets/includes/delete_comment_modal.html' %}
                 <hr>
                 {% empty %}
                 <p>No comments on this market yet. Start the conversation...</p>
