@@ -91,7 +91,7 @@
         <div class="col-12 col-sm-10 col-md-8 col-lg-8 col-xl-6">
             <h3 class="h6 d-inline">The Conversation</h3>
             <span class="text-muted small">({{ market.comments.all|length }}
-                Comment{% if market.comments.all|length > 1 %}s{% endif %})</span>
+                Comment{% if market.comments.all|length != 1 %}s{% endif %})</span>
             <hr class="mt-1">
             <!-- card to show comment form + comments inside -->
             <div class="card-body pt-0">
