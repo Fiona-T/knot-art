@@ -100,6 +100,7 @@ def market_details(request, market_id):
     saved_markets_list = None
     market = get_object_or_404(Market, pk=market_id)
     comments = market.comments.all()
+    market_saves = SavedMarketList.objects.filter(market__in=[market]).count()
 
     if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -140,6 +141,7 @@ def market_details(request, market_id):
         'comments': comments,
         'form': form,
         'saved_markets_list': saved_markets_list,
+        'market_saves': market_saves,
     }
     return render(request, 'markets/market_details.html', context)
 
