@@ -102,7 +102,7 @@
                         {% csrf_token %}
                         {{ form|crispy }}
                         <div class="text-right">
-                            <button class="btn btn-brand">Post Comment</button>
+                            <button type="submit" class="btn btn-brand">Post Comment</button>
                         </div>
                         <!-- hidden input with url path, so view can redirect back to same page -->
                         <input type="hidden" name="redirect_url" value="{{ request.path }}">
@@ -121,8 +121,9 @@
                     {{ comment.comment | linebreaks }}
                     {% if request.user == comment.author %}
                     <div>
-                        <a class="small text-muted text-link" href="#deleteCommentModal{{ comment.id }}"
+                        <a class="small text-muted text-link mr-2" href="#deleteCommentModal{{ comment.id }}"
                             data-toggle="modal">Delete</a>
+                        <a class="small text-muted text-link" href="{% url 'edit_comment' comment.id %}">Edit</a>
                     </div>
                     {% endif %}
                 </div>
