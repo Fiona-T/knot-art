@@ -330,6 +330,110 @@ class TestMarketDetailsView(TestCase):
             )
 
 
+class TestDeleteCommenttView(TestCase):
+    """Tests for delete_comment view"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of County and Market. Create user to create
+        Comments on the market for tests.
+        """
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+
+        today = datetime.date.today()
+        Market.objects.create(
+            name='Market with comments',
+            location='The Road',
+            county=County.objects.get(id=1),
+            date=today,
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.market.ie',
+        )
+        test_user_1 = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user_2 = User.objects.create_user(
+            username='Seconduser',
+            password='secret12345',
+        )
+        test_user_1.save()
+        test_user_2.save()
+
+        Comment.objects.create(
+            author=test_user_1,
+            market=Market.objects.get(id=1),
+            comment='This is a comment'
+        )
+        Comment.objects.create(
+            author=test_user_1,
+            market=Market.objects.get(id=1),
+            comment='This is a second comment'
+        )
+
+    def test_405_raised_for_get_request(self):
+        """
+        View restricted to post requests.
+        Test 405 (method not allowed) is raised for a get request.
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/markets/delete_comment/1/')
+        self.assertEqual(response.status_code, 405)
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users.
+        Test redirects to login page if not logged in.
+        """
+        response = self.client.post('/markets/delete_comment/1/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/markets/delete_comment/1/'
+            )
+
+    def test_403_raised_if_comment_not_posted_by_that_user(self):
+        """
+        Test logged in user who is not the comment author gets a 403
+        response (permission denied)
+        """
+        self.client.login(username='Seconduser', password='secret12345')
+        response = self.client.post('/markets/delete_comment/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_logged_in_user_can_delete_own_comment(self):
+        """
+        Confirm logged in user can delete comment that they are author of,
+        the page redirects correctly, the number of comments on the page is
+        reduced by 1.
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/markets/1/')
+        self.assertEqual(len(response.context['comments']), 2)
+        response = self.client.post('/markets/delete_comment/1/')
+        self.assertRedirects(response, '/markets/1/')
+        response = self.client.get('/markets/1/')
+        self.assertEqual(len(response.context['comments']), 1)
+
+    def test_success_message_displayed_when_market_deleted(self):
+        """Delete a comment and check msg displayed + is correct"""
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/delete_comment/1/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        now = datetime.datetime.now()
+        expected_comment_created_on = now.strftime('%d/%m/%Y, %-I.%M %p')
+        market = Market.objects.get(id=1)
+        self.assertEqual(
+            messages[0].message,
+            f'Comment from {expected_comment_created_on} posted on '
+            f'"{market}" deleted!'
+            )
+
+
 class TestAddMarketView(TestCase):
     """Tests for add_market view"""
     @classmethod
