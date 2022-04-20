@@ -100,7 +100,6 @@
                             </a>
                             {% if request.user.is_superuser %}
                             <!-- superuser can view all markets so show status -->
-
                             <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
                                 <span class="font-90">{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
@@ -108,6 +107,7 @@
                                     {% else %} Upcoming {% endif %}
                                 </span>
                             </p>
+                            <!-- show number of saves the market has, for admin user -->
                             <p class="font-90 mb-1"><span class="fw-600">Number of saves:</span>
                                 <span class="font-90">
                                     {% for key, value in markets_saves.items %}
