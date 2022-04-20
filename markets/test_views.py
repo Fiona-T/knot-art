@@ -330,6 +330,131 @@ class TestMarketDetailsView(TestCase):
             )
 
 
+class TestEditCommentView(TestCase):
+    """Tests for edit_comment view"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of County and Market. Create user to create
+        Comments on the market for tests.
+        """
+        County.objects.create(
+            name='dublin_3',
+            friendly_name='Dublin 3'
+        )
+
+        today = datetime.date.today()
+        Market.objects.create(
+            name='Market with comments',
+            location='The Road',
+            county=County.objects.get(id=1),
+            date=today,
+            start_time='09:00',
+            end_time='17:00',
+            website='http://www.market.ie',
+        )
+        test_user_1 = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user_2 = User.objects.create_user(
+            username='Seconduser',
+            password='secret12345',
+        )
+        test_user_1.save()
+        test_user_2.save()
+
+        Comment.objects.create(
+            author=test_user_1,
+            market=Market.objects.get(id=1),
+            comment='This is a comment'
+        )
+        Comment.objects.create(
+            author=test_user_1,
+            market=Market.objects.get(id=1),
+            comment='This is a second comment'
+        )
+
+    def test_redirects_if_not_logged_in(self):
+        """
+        View restricted to logged in users. Test user redirected to login
+        page if not logged in, with redirect to edit market page after login.
+        """
+        response = self.client.get('/markets/edit_comment/1/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/markets/edit_comment/1/'
+            )
+
+    def test_403_raised_if_logged_in_but_not_comment_author(self):
+        """
+        Test logged in user who is not the comment author gets 403
+        response (permission denied)
+        """
+        self.client.login(username='Seconduser', password='secret12345')
+        response = self.client.get('/markets/edit_comment/1/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_correct_url_and_template_used_for_logged_in_comment_author(self):
+        """Get the url, check response is 200 + correct template used"""
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/markets/edit_comment/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'markets/edit_comment.html')
+
+    def test_can_edit_comment(self):
+        """
+        login the comment author, do POST request on edit comment url to amend
+        details. Check redirects to the correct success url + comment updated.
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/edit_comment/1/', {
+            'comment': 'Edited comment',
+        })
+        self.assertRedirects(response, '/markets/1/')
+        response = self.client.get('/markets/1/')
+        updated_comment = Comment.objects.get(id=1)
+        self.assertEqual(updated_comment.comment, 'Edited comment')
+
+    def test_success_message_displayed_when_comment_edited(self):
+        """Edit a comment and check msg displayed + is correct"""
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/edit_comment/1/', {
+            'comment': 'Edited comment',
+        })
+        self.assertRedirects(response, '/markets/1/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'success')
+        now = datetime.datetime.now()
+        expected_comment_created_on = now.strftime('%d/%m/%Y, %-I.%M %p')
+        market = Market.objects.get(id=1)
+        self.assertEqual(
+            messages[0].message,
+            f'Updates to comment originally posted on '
+            f'{expected_comment_created_on} saved!'
+            f' Comment is posted on "{market}"'
+            )
+
+    def test_error_message_displayed_when_form_not_valid(self):
+        """
+        Attempt to edit comment with invalid form, confirm form is invalid,
+        check error msg is displayed + is correct.
+        """
+        self.client.login(username='User', password='secret12')
+        response = self.client.post('/markets/edit_comment/1/', {
+            'comment': 'and on ' * 1000,  # too long - invalid
+        })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Comment NOT updated. Please check the form for errors and '
+            're-submit.'
+            )
+
+
 class TestDeleteCommenttView(TestCase):
     """Tests for delete_comment view"""
     @classmethod
@@ -619,7 +744,7 @@ class TestEditMarketView(TestCase):
     def test_redirects_if_not_logged_in(self):
         """
         View restricted to logged in users. Test user redirected to login
-        page if not logged in, with redirect to add market page after login.
+        page if not logged in, with redirect to edit market page after login.
         """
         response = self.client.get('/markets/edit/1/')
         self.assertRedirects(
@@ -696,7 +821,7 @@ class TestEditMarketView(TestCase):
 
     def test_error_message_displayed_when_form_not_valid(self):
         """
-        Attempt to add market with invalid form, confirm form is invalid,
+        Attempt to edit market with invalid form, confirm form is invalid,
         check error msg is displayed + is correct.
         """
         self.client.login(username='admin', password='secret')
