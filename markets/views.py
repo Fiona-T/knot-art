@@ -159,6 +159,45 @@ def delete_comment(request, comment_id):
 
 
 @login_required()
+def edit_comment(request, comment_id):
+    """
+    Show form for user to edit their comment. Raise 403 if not comment author.
+    Handle posting of form, show success/error messages.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if not request.user == comment.author:
+        raise PermissionDenied()
+    market = comment.market
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save()
+            messages.success(
+                request,
+                f'Updates to comment originally posted on '
+                f'{comment.created_on.strftime("%d/%m/%Y, %-I.%M %p")} saved!'
+                f' Comment is posted on "{market}"'
+                )
+            return redirect(reverse('market_details', args=[market.id]))
+        else:
+            messages.error(
+                request,
+                'Comment NOT updated. Please check the form for errors and '
+                're-submit.'
+                )
+    else:
+        form = CommentForm(instance=comment)
+
+    context = {
+        'market': market,
+        'form': form,
+        'comment': comment,
+    }
+    template = 'markets/edit_comment.html'
+    return render(request, template, context)
+
+
+@login_required()
 def add_market(request):
     """
     Show market form for admin user to add market. Raise 403 if not admin.

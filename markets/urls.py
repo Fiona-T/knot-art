@@ -10,6 +10,11 @@ urlpatterns = [
     path('edit/<int:market_id>/', views.edit_market, name='edit_market'),
     path('delete/<int:market_id>/', views.delete_market, name='delete_market'),
     path(
+        'edit_comment/<int:comment_id>/',
+        views.edit_comment,
+        name='edit_comment'
+        ),
+    path(
         'delete_comment/<int:comment_id>/',
         views.delete_comment,
         name='delete_comment'
