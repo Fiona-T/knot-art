@@ -1,6 +1,6 @@
 """Views for 'markets' app - craft markets seller will be attending"""
 import datetime
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.http import require_POST
@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.db.models.functions import Lower
 from django.utils.safestring import mark_safe
 from profiles.models import SavedMarketList, UserProfile
-from .models import Market, County
+from .models import Market, County, Comment
 from .forms import MarketForm, CommentForm
 
 
@@ -135,6 +135,27 @@ def market_details(request, market_id):
         'saved_markets_list': saved_markets_list,
     }
     return render(request, 'markets/market_details.html', context)
+
+
+@require_POST
+@login_required
+def delete_comment(request, comment_id):
+    """
+    View for user to delete a comment they posted on a market.
+    Raise 403 if the user is not the user who posted the comment.
+    Post request only: delete comment, show success message.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if not request.user == comment.author:
+        raise PermissionDenied()
+    market = comment.market
+    comment.delete()
+    messages.success(
+        request,
+        f'Comment from {comment.created_on.strftime("%d/%m/%Y, %-I.%M %p")}'
+        f' posted on "{market}" deleted!'
+        )
+    return redirect(reverse('market_details', args=[market.id]))
 
 
 @login_required()
