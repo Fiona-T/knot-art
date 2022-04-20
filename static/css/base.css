@@ -565,6 +565,20 @@ footer i {
     font-weight: 300;
 }
 
+/* styles for the modals from footer useful links section */
+.useful-links-modal .modal-content {
+    padding: 1rem 0.5rem;
+}
+
+.useful-links-modal .modal-header,
+.useful-links-modal .modal-footer {
+    border: 0;
+}
+
+.useful-links-modal h2 {
+    margin-top: 1.5rem;
+}
+
 /*================================== MEDIA QUERIES ===========================================*/
 /*================================ bigger than mobile ====================================*/
 @media screen and (min-width: 500px) {
