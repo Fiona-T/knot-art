@@ -71,12 +71,19 @@ def show_markets(request):
     # used in context for select box to show the selected option
     current_sorting = f'{sort}_{sort_direction}'
 
+    # dict for context so count of saves for each market can be got in template
+    markets_saves = {
+        market.id: SavedMarketList.objects.filter(market__in=[market]).count()
+        for market in markets
+        }
+
     context = {
         'markets': markets,
         'saved_markets_list': saved_markets_list,
         'current_sorting': current_sorting,
         'current_county': county,
         'all_markets': all_markets,
+        'markets_saves': markets_saves,
     }
     template = 'markets/markets.html'
     return render(request, template, context)
