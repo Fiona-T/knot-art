@@ -1,0 +1,41 @@
+<!-- Delete Comment modal, with button to confirm deletion, or Cancel to cancel -->
+<div class="modal fade" id="deleteCommentModal{{ comment.id }}" tabindex="-1"
+    aria-labelledby="deleteCommentModalComment{{ comment.id }}" aria-hidden="true" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Delete Comment modal header, with Close button -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCommentModalComment{{ comment.id }}">Delete Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Delete Comment modal body, with comment details that will be deleted -->
+            <div class="modal-body">
+                <p><strong>Are you sure you want to permanently delete this comment, posted on the market <span
+                            class="font-italic">{{ comment.market }}</span>?</strong></p>
+                <!-- comment details -->
+                <div class="col-10 offset-1 my-4 py-2">
+                    <div class="mt-2 small">
+                        <p class="mb-0">{{ comment.author }}</p>
+                        <p class="text-muted">{{ comment.created_on }}</p>
+                        <p class="fw-600">{{ comment.comment }}</p>
+                    </div>
+                </div>
+                <p>If you are sure you want to delete the comment, then press Delete Comment below. Otherwise, Cancel to
+                    go back.</p>
+                <p><strong>This action cannot be undone.</strong></p>
+            </div>
+            <!-- Delete Comment modal footer, two buttons - one to cancel, one to submit form to delete item -->
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-brand-outline mb-2" data-dismiss="modal">Cancel</button>
+                <form class="d-inline" action="" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" value="{{ comment.id }}" name="comment_id" class="btn btn-brand mb-2">Delete
+                        Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of Delete Comment modal -->
