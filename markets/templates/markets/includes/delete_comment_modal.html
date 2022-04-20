@@ -19,7 +19,7 @@
                     <div class="mt-2 small">
                         <p class="mb-0">{{ comment.author }}</p>
                         <p class="text-muted">{{ comment.created_on }}</p>
-                        <p class="fw-600">{{ comment.comment }}</p>
+                        <p class="fw-600">{{ comment.comment| linebreaks }}</p>
                     </div>
                 </div>
                 <p>If you are sure you want to delete the comment, then press Delete Comment below. Otherwise, Cancel to
@@ -29,7 +29,7 @@
             <!-- Delete Comment modal footer, two buttons - one to cancel, one to submit form to delete item -->
             <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-brand-outline mb-2" data-dismiss="modal">Cancel</button>
-                <form class="d-inline" action="" method="POST">
+                <form class="d-inline" action="{% url 'delete_comment' comment.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" value="{{ comment.id }}" name="comment_id" class="btn btn-brand mb-2">Delete
                         Comment</button>
