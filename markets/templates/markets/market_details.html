@@ -27,7 +27,7 @@
                     <i class="bi bi-geo-alt-fill icon" aria-hidden="true"></i>{{ market.county.friendly_name }}
                 </a>
             </p>
-            <p>{{ market.location }}</p>
+            <p class="font-90">{{ market.location }}</p>
             <p class="fw-600 mb-2">{{ market.date }}</p>
             <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
             <a href="{{ market.website }}" target="_blank" rel="noopener" class="font-90">{{ market.website }}</a>
@@ -56,7 +56,7 @@
             {% endif %}
             {% if market in saved_markets_list.market.all or request.user.is_superuser %}
             <!-- superuser can view all markets so show status, or if user saved this market show the status -->
-            <p class="font-90 mt-2"><span class="fw-600">Status:</span>
+            <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
                 <span>{% if market.date_passed %}
                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has passed
                     {% else %}Upcoming {% endif %}
@@ -64,7 +64,11 @@
             </p>
             {% endif %}
             {% if request.user.is_superuser %}
-            <!-- admin actions - edit/delete, if user is admin user -->
+            <!-- if user is admin, show number of saves for the market, then the admin links -->
+            <p class="font-90 mb-1"><span class="fw-600">Number of saves:</span>
+                <span class="font-90">{{ market_saves }}</span>
+            </p>
+            <!-- admin actions - edit/delete the market -->
             <div class="admin-link-container col-12 col-md-10 col-xl-8 mb-5">
                 <div class="row mx-0">
                     <h5 class="fw-600 font-90">Admin actions:</h5>
