@@ -683,7 +683,7 @@ class TestDeleteProductView(TestCase):
         response = self.client.post('/products/delete/1/')
         self.assertEqual(response.status_code, 403)
 
-    def test_admin_user_can_deleteproduct(self):
+    def test_admin_user_can_delete_product(self):
         """
         Confirm logged in admin user can delete product, the page
         refirects to the correct page, the number of products on the
@@ -700,7 +700,7 @@ class TestDeleteProductView(TestCase):
         response = self.client.get('/products/product_details/1')
         self.assertEqual(response.status_code, 404)
 
-    def test_success_message_displayed_when_product_edited(self):
+    def test_success_message_displayed_when_product_deleted(self):
         """Delete a product and check msg displayed + is correct"""
         self.client.login(username='admin', password='secret')
         response = self.client.post('/products/delete/1/')
