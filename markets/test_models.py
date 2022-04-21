@@ -147,16 +147,16 @@ class TestCommentModel(TestCase):
             comment='This is the comment',
         )
 
-    def test_string_method_returns_comment_author_and_market(self):
+    def test_string_method_returns_author_created_on_and_market(self):
         """
         Get the comment instance created in setUp. Check that the string method
-        called on this instance returns the correct string
+        called on this instance returns the correct string.
         """
         comment = Comment.objects.get(id=1)
-        expected_date = datetime.date.today()
-        formatted_date = expected_date.strftime('%d/%m/%Y')
+        expected_market_date = datetime.date.today()
+        formatted_date = expected_market_date.strftime('%d/%m/%Y')
         self.assertEqual(
             str(comment),
-            'This is the comment by Tester on The Craft Market on '
-            f'{formatted_date}'
+            f'Comment by Tester, {comment.created_on}, on The Craft Market '
+            f'on {formatted_date}'
             )
