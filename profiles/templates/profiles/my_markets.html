@@ -15,13 +15,13 @@
 
 {% block content %}
 <!-- page contents container -->
-<section class="py-5 container-fluid">
+<section class="py-5 container">
     <!-- 1st row - page heading + subheading, intro -->
     <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-12">
             <h1>My Markets</h1>
         </div>
-        <div class="col-10 offset-1 mt-4 mb-4">
+        <div class="col-12 mt-4 mb-4">
             <h2 class="text-uppercase">Saved Markets</h2>
             {% if not saved_markets_list %}
             <p class="fw-600 mb-5">You don't have any saved markets. You can save markets from the <a class="text-link"
@@ -38,7 +38,7 @@
     <!-- 2nd row - markets -->
     <div class="row">
         <!-- outer container for markets + will have row showing sorting options -->
-        <div class="col-10 offset-1">
+        <div class="col-12">
             <!-- sorting box dropdown -->
             {% include '../markets/includes/markets_sort_and_filter.html' %}
             <!-- markets row -->
