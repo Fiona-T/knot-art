@@ -75,12 +75,12 @@ class TestMarketForm(TestCase):
             if field == 'start_time' or field == 'end_time':
                 self.assertEqual(
                     form.fields[field].widget.attrs['class'],
-                    'order-form-input time-input'
+                    'brand-form-input time-input'
                     )
             else:
                 self.assertEqual(
                     form.fields[field].widget.attrs['class'],
-                    'order-form-input'
+                    'brand-form-input'
                     )
 
     def test_required_fields_are_required(self):
@@ -257,7 +257,7 @@ class TestCommentForm(TestCase):
         form = CommentForm()
         for field in form.fields:
             self.assertEqual(
-                form.fields[field].widget.attrs['class'], 'order-form-input')
+                form.fields[field].widget.attrs['class'], 'brand-form-input')
 
     def test_widgets_exist_on_comment_field(self):
         """

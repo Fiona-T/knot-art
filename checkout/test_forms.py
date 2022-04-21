@@ -99,5 +99,5 @@ class TestOrderForm(TestCase):
         for field in form.fields:
             self.assertEqual(
                 form.fields[field].widget.attrs['class'],
-                'order-form-input'
+                'brand-form-input'
                 )

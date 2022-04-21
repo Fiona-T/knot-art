@@ -43,7 +43,7 @@ class TestProductForm(TestCase):
         form = ProductForm()
         for field in form.fields:
             self.assertEqual(
-                form.fields[field].widget.attrs['class'], 'order-form-input')
+                form.fields[field].widget.attrs['class'], 'brand-form-input')
 
     def test_required_fields_are_required(self):
         """

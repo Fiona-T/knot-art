@@ -45,10 +45,10 @@ class TestUserProfileForm(TestCase):
             if field == 'default_country':
                 self.assertEqual(
                     form.fields[field].widget.attrs['class'],
-                    'order-form-input country-input'
+                    'brand-form-input country-input'
                     )
             else:
                 self.assertEqual(
                     form.fields[field].widget.attrs['class'],
-                    'order-form-input'
+                    'brand-form-input'
                     )
