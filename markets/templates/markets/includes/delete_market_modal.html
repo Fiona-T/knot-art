@@ -31,7 +31,7 @@
                                 {{ market.county.friendly_name }}
                             </p>
                             <p class="fw-600 small">Date: {{ market.date }}</p>
-                            <p class="font-90 mt-2"><span class="fw-600">Status:</span>
+                            <p class="font-90 mt-2 small"><span class="fw-600">Status:</span>
                                 <span>{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
                                     passed
@@ -43,8 +43,10 @@
                 </div>
                 <p><strong>This action cannot be undone.</strong></p>
                 {% if market.date_passed %}
-                <p class="font-italic">Note: This market is in the past so does not show in the Markets page for users.
-                    Only markets with a date of today or later are shown to users.
+                <p class="font-italic">Note: This market is in the past so does not show by default in the Upcoming
+                    Markets page for users. Only markets with a date of today or later are shown to users on that page.
+                    However they can filter to view Past Markets and this market is visible in that view until it is
+                    deleted.
                 </p>
                 {% endif %}
                 <p>If you are sure you want to delete the market, then press Delete Market below. Otherwise, Cancel to
