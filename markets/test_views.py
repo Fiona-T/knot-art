@@ -190,6 +190,17 @@ class TestShowMarketsView(TestCase):
         for market in response.context['markets']:
             self.assertEqual(market.county.name, 'dublin_4')
 
+    def test_past_view_filtering_returns_only_past_markets(self):
+        """
+        If past markets view is selected, ensure only past markets shown.
+        """
+        response = self.client.get('/markets/')
+        self.assertEqual(len(response.context['markets']), 9)
+        response = self.client.get('/markets/?view=past')
+        self.assertEqual(len(response.context['markets']), 3)
+        for market in response.context['markets']:
+            self.assertLess(market.date, datetime.date.today())
+
 
 class TestMarketDetailsView(TestCase):
     """Tests for market_details view to show comments"""
