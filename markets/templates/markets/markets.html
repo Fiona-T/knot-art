@@ -10,11 +10,21 @@
 {% block content %}
 <!-- page contents container -->
 <section class="py-5 container-fluid">
-    <!-- 1st row - page heading -->
+    <!-- 1st row - page heading + intro text -->
     <div class="row pt-5 pb-3">
+        <!-- heading changes depending on whether viewing upcoming (default), past or all (default for admin) -->
         <div class="col-12 text-center pt-3 pb-2">
-            <h1>Upcoming Markets</h1>
+            <h1>{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %} Markets</h1>
         </div>
+        <!-- Intro text - changes depending on if viewing past or upcoming markets -->
+        {% if current_view == 'past' %}
+        <div class="col-10 offset-1">
+            <p>You are currently viewing <strong>past markets.</strong> There's a good chance I'll be at some of these
+                markets again in the future. So have a look around and read the comments.</p>
+            <p>But you won't be able to save these markets as they are past events. Any new dates for these markets will
+                be on the <a href="{% url 'markets' %}" class="text-link">Upcoming Markets page</a>.</p>
+        </div>
+        {% else %}
         <div class="col-10 offset-1 col-lg-5">
             <p>These are the markets you can find me at over the next while. Markets are a great chance to actually
                 touch and feel my macrame wall hangings in person, before deciding to buy! You can really appreciate the
@@ -32,12 +42,13 @@
             <p>You can also <a class="text-link" href="#mc_embed_signup">sign up to my newsletter</a> to keep up to
                 date.</p>
         </div>
+        {% endif %}
     </div>
     <!-- 2nd row - markets -->
     <div class="row">
         <!-- outer container for markets -->
         <div class="col-10 offset-1">
-            <!-- row with sorting box dropdown, display results + county filtering dropdown -->
+            <!-- row with sorting box dropdown, display results + county filtering dropdown + link to view past markets -->
             {% include '../markets/includes/markets_sort_and_filter.html' %}
             <!-- markets row -->
             <div class="row mt-3">
@@ -68,9 +79,12 @@
                         </div>
                         <!-- card footer - market website + button to save market if logged in -->
                         <div class="card-footer border-0 bg-white py-1 mb-4">
-                            <a href="{{ market.website }}" target="_blank" rel="noopener"
-                                class="font-90">{{ market.website }}</a>
+                            <p><a href="{{ market.website }}" target="_blank" rel="noopener"
+                                class="font-90">{{ market.website }}</a></p>
+                            {% if current_view != 'past' %}
+                            <!-- only show the buttons to save the market if not viewing past markets -->
                             {% if request.user.is_authenticated %}
+                            <!-- if logged in and not viewing past markets, buttons to save/remove market -->
                             <form action="{% url 'update_my_markets' market.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" value="{{ market.id }}" name="market_id"
@@ -87,14 +101,18 @@
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
                             {% else %}
+                            <!-- if not logged in, links to sign in/sign up to save market -->
                             <p class="small text-muted mt-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a
                                     class="text-link" href="{% url 'account_login' %}">Sign In</a> or <a
                                     class="text-link" href="{% url 'account_signup' %}">Sign Up</a> to save to My Markets.
                             </p>
                             {% endif %}
-                            <!-- Comments: will link to details page to view comments. Show number of comments if there are any -->
+                            <!-- end of if statement for if user is authenticated -->
+                            {% endif %}
+                            <!-- end of if statement for if not viewing past markets -->
+                            <!-- Comments: links to details page to view comments. Show number of comments if there are any -->
                             <a href="{% url 'market_details' market.id %}" class="small"
-                                aria-label="'go to market details page to view comments or add comment">
+                                aria-label="go to market details page to view comments or add comment">
                                 {% if market.comments.all|length > 0 %}
                                 <i class="bi bi-chat-left-fill icon" aria-hidden="true"></i>
                                 <span class="text-muted">{{ market.comments.all|length }}
@@ -104,6 +122,14 @@
                                 <span class="text-muted">Be the first to comment</span>
                                 {% endif %}
                             </a>
+                            {% if current_view == 'past' %}
+                            <!-- If viewing past markets, show the status -->
+                            <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
+                                <span class="font-90"><i class="bi bi-exclamation-circle-fill icon"
+                                        aria-hidden="true"></i>Date has passed
+                                </span>
+                            </p>
+                            {% endif %}
                             {% if request.user.is_superuser %}
                             <!-- superuser can view all markets so show status -->
                             <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
@@ -140,6 +166,7 @@
                                 </div>
                             </div>
                             {% endif %}
+                            <!-- end of if statement for superuser -->
                         </div>
                         {% include '../markets/includes/delete_market_modal.html' %}
                     </div>
