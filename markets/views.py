@@ -22,12 +22,14 @@ def show_markets(request):
     If user logged in, get their saved markets list if they have one (so
     that template can show if market on their saved list or not)
     If 'county' in get request then filter results by that county.
+    If 'view' in get request then show past markets only.
     """
     today = datetime.date.today()
     saved_markets_list = None
     sort = None
     sort_direction = None
     county = None
+    view = None
 
     if request.user.is_superuser:
         markets = Market.objects.all()
@@ -45,8 +47,16 @@ def show_markets(request):
         except Http404:
             saved_markets_list = None
 
-    # GET requests for sorting
+    # GET requests for sorting and filtering
     if request.GET:
+        # to filter to past markets
+        if 'view' in request.GET:
+            view = request.GET['view']
+            if view == 'past':
+                markets = Market.objects.filter(date__lt=today).order_by('date')
+                # to generate dropdown counties to filter by in template
+                all_markets = markets.order_by('county')
+
         # handles sorting
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
@@ -71,6 +81,9 @@ def show_markets(request):
     # used in context for select box to show the selected option
     current_sorting = f'{sort}_{sort_direction}'
 
+    # used in template to determine options to show for button and sorting
+    current_view = view
+
     # dict for context so count of saves for each market can be got in template
     markets_saves = {
         market.id: SavedMarketList.objects.filter(market__in=[market]).count()
@@ -80,6 +93,7 @@ def show_markets(request):
     context = {
         'markets': markets,
         'saved_markets_list': saved_markets_list,
+        'current_view': current_view,
         'current_sorting': current_sorting,
         'current_county': county,
         'all_markets': all_markets,
