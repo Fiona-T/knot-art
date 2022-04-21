@@ -53,7 +53,8 @@ def show_markets(request):
         if 'view' in request.GET:
             view = request.GET['view']
             if view == 'past':
-                markets = Market.objects.filter(date__lt=today).order_by('date')
+                markets = Market.objects.filter(date__lt=today).order_by(
+                    'date')
                 # to generate dropdown counties to filter by in template
                 all_markets = markets.order_by('county')
 
