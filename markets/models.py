@@ -72,4 +72,4 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.comment} by {self.author} on {self.market}'
+        return f'Comment by {self.author}, {self.created_on}, on {self.market}'
