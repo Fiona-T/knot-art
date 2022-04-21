@@ -45,4 +45,4 @@ class ProductForm(forms.ModelForm):
             0, ('', 'Choose category from the list')
             )
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'order-form-input'
+            self.fields[field].widget.attrs['class'] = 'brand-form-input'

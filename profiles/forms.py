@@ -35,7 +35,7 @@ class UserProfileForm(forms.ModelForm):
                     )
             if field == 'default_country':
                 self.fields[field].widget.attrs['class'] = (
-                    'order-form-input country-input'
+                    'brand-form-input country-input'
                     )
             else:
-                self.fields[field].widget.attrs['class'] = 'order-form-input'
+                self.fields[field].widget.attrs['class'] = 'brand-form-input'

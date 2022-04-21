@@ -37,4 +37,4 @@ class OrderForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = (
                     placeholders[field]
                     )
-            self.fields[field].widget.attrs['class'] = 'order-form-input'
+            self.fields[field].widget.attrs['class'] = 'brand-form-input'

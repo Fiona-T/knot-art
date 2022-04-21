@@ -392,7 +392,7 @@ a:not([href]).btt-link:hover {
 }
 
 /* ---------------------------------------- Checkout, Profile, Product mgmt, Market mgmt forms */
-.order-form-input {
+.brand-form-input {
     border-radius: 0;
     background-color: white;
 }

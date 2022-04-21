@@ -68,9 +68,9 @@ class MarketForm(forms.ModelForm):
         for field in self.fields:
             if field == 'start_time' or field == 'end_time':
                 self.fields[field].widget.attrs['class'] = (
-                    'order-form-input time-input')
+                    'brand-form-input time-input')
             else:
-                self.fields[field].widget.attrs['class'] = 'order-form-input'
+                self.fields[field].widget.attrs['class'] = 'brand-form-input'
 
         today = datetime.date.today()
         if self.instance.date:
@@ -137,7 +137,7 @@ class CommentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['comment'].widget.attrs = {'rows': 5, 'maxlength': 1000}
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'order-form-input'
+            self.fields[field].widget.attrs['class'] = 'brand-form-input'
 
     def clean(self):
         """
