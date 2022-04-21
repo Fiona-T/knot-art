@@ -52,3 +52,17 @@
     </div>
     <!-- end of county filtering options column -->
 </div>
+{% if not request.user.is_superuser %}
+    {% if not on_my_markets_page %}
+    <!-- Link to view old markets. Only shown when not on my_markets page or not a superuser as all markets shown in those views -->
+    <div class="row">
+        <div class="col-12 text-right">
+            {% if current_view == 'past' %}
+            <a href="{% url 'markets' %}" class="btn btn-brand-dark ml-md-auto">View Upcoming Markets</a>
+            {% else %}
+            <a href="{% url 'markets' %}?view=past" class="btn btn-brand-dark ml-md-auto">View Past Markets</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
