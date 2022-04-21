@@ -131,7 +131,6 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
         # generate order form - either prefilled or empty:
         if request.user.is_authenticated:
             try:
@@ -178,7 +177,6 @@ def checkout_success(request, order_number):
     variable (set in checkout view) is true, update delivery info onto profile
     """
     save_info = request.session.get('save_info')
-    print(save_info)
     order = get_object_or_404(Order, order_number=order_number)
     profile = None
     if request.user.is_authenticated:
