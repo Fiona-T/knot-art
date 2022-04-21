@@ -25,4 +25,12 @@ class MarketAdmin(admin.ModelAdmin):
     search_fields = ['name', 'website', ]
 
 
-admin.site.register(Comment)
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    """
+    Admin set up for Comments model - show fields in list display and
+    allow filtering of comments by market or comment author.
+    """
+    readonly_fields = ['id', ]
+    list_display = ('id', 'author', 'market', 'created_on', 'comment', )
+    list_filter = ('market', 'author', )
