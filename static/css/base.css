@@ -201,6 +201,11 @@ a:not([href]).btt-link:hover {
     color: #fdfdfd;
 }
 
+/* to highlight the active website section in main header */
+.nav-item-active .nav-link-main {
+    color: #fdfdfd;
+}
+
 /* links in dropdown menu - hover */
 .dropdown-item:hover,
 .dropdown-item:active,

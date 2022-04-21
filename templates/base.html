@@ -73,7 +73,7 @@
                     class="d-none d-md-inline">KnotArt</span></a>
                 <!-- List of links - each with icon and text below it -->
                 <ul class="nav mb-2 mb-md-0">
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'products' %}">
                             <div class="text-center">
                                 <div><i class="bi bi-cart-plus nav-icon"></i></div>
@@ -81,7 +81,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item {% if not 'profile' in request.path and 'markets' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'markets' %}">
                             <div class="text-center">
                                 <div><i class="bi bi-shop nav-icon"></i></div>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <!-- This link is a dropdown menu for Account options. Link name changes depending on signed in status of user -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {% if 'profile' in request.path or 'account' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="" id="account-options" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
@@ -122,7 +122,7 @@
                         </div>
                     </li>
                     <!-- links to cart.html page, and displays total amount in cart -->
-                    <li class="nav-item">
+                    <li class="nav-item {% if 'cart' in request.path or 'checkout' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'view_cart' %}">
                             <div class="text-center">
                                 <!-- show filled icon if there are items in the cart, otherwise outlined icon -->
