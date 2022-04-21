@@ -18,7 +18,7 @@
             <p>Complete the form below to add a new product to the shop.</p>
             <p>The product will be immediately visible in the shop after submitting the form, if the 'Active Product'
                 flag is checked.</p>
-            <form method="POST" action="{% url 'add_product' %}" class="profile-form" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'add_product' %}" class="brand-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-wrapper">
                     {% for field in form %}

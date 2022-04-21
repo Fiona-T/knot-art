@@ -17,7 +17,7 @@
             <h2 class="text-uppercase">Add a Market</h2>
             <p>Complete the form below to add a new market to the Markets page.</p>
             <p>The market will be immediately visible in the Markets page after submitting the form.</p>
-            <form method="POST" action="{% url 'add_market' %}" class="profile-form" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'add_market' %}" class="brand-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-wrapper">
                     {% for field in form %}

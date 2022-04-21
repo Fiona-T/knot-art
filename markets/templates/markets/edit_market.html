@@ -19,7 +19,7 @@
                     class="fw-600">"{{ market.name }}" on {{ market.date }}</span>.</p>
             <p>Updates will take effect immediately after you submit the form, and the updated market will be visible
                 in the Markets page for users.</p>
-            <form method="POST" action="{% url 'edit_market' market.id %}" class="profile-form" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'edit_market' market.id %}" class="brand-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-wrapper">
                     {% for field in form %}

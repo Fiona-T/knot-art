@@ -27,7 +27,7 @@
                 shown below.</p>
             <p>Saved details will be prepopulated on the checkout form next time you make a purchase, making the
                 checkout process quicker.</p>
-            <form class="mt-3 profile-form" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+            <form class="mt-3 brand-form" action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
                 <fieldset>
                     <legend class="fieldset-label px-2 w-auto mb-0">Default Delivery Information</legend>

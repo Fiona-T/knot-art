@@ -19,7 +19,7 @@
                     class="fw-600">{{ product.name }}</span>.</p>
             <p>Updates will take effect immediately after you submit the form, and the updated product will be visible
                 in the shop if the 'Active Product' flag is checked.</p>
-            <form method="POST" action="{% url 'edit_product' product.id %}" class="profile-form" enctype="multipart/form-data">
+            <form method="POST" action="{% url 'edit_product' product.id %}" class="brand-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-wrapper">
                     {% for field in form %}

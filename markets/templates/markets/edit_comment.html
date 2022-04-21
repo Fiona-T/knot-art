@@ -20,7 +20,7 @@
             <p>If you want to delete the comment completely, do this using the Delete link underneath the comment on the
                 <a href="{% url 'market_details' market.id %}" class="text-link">market details page</a> instead.</p>
             <!-- comment form -->
-            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="profile-form">
+            <form method="POST" action="{% url 'edit_comment' comment.id %}" class="brand-form">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <div class="text-right pt-3 pb-5">

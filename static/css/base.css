@@ -391,19 +391,19 @@ a:not([href]).btt-link:hover {
     border: 0.1px solid rgba(28, 28, 28, 0.3);
 }
 
-/* ---------------------------------------- Checkout, Profile Product forms */
+/* ---------------------------------------- Checkout, Profile, Product mgmt, Market mgmt forms */
 .order-form-input {
     border-radius: 0;
     background-color: white;
 }
 
-.order-form label, .profile-form label {
+.brand-form label {
     margin-bottom: 0;
     font-size: 80%;
     font-weight: 500;
 }
 
-.order-form ::placeholder, .profile-form ::placeholder {
+.brand-form ::placeholder {
     font-weight: 100;
     font-size: 90%;
 }

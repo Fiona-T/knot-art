@@ -89,7 +89,7 @@
             </p>
             {% endif %}
             <p><em>Fields marked with * must be completed.</em></p>
-            <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="order-form">
+            <form action="{% url 'checkout' %}" method="POST" id="payment-form" class="brand-form">
                 {% csrf_token %}
                 <!-- form fields grouped into 3 fieldsets -->
                 <!-- 1st fieldset - Personal details - form fields rendered with crispy forms -->
