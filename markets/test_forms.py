@@ -43,8 +43,8 @@ class TestMarketForm(TestCase):
         """
         form = MarketForm()
         help_texts = {
-            'date': 'Cannot be in the past, only markets with today\'s date '
-            'or later are shown to users',
+            'date': 'Cannot be in the past. Only markets with today\'s date '
+            'or later are shown to users in the Upcoming Markets page',
             'start_time': 'Must be before End time!',
             'end_time': 'Must be after Start time!',
             'website': 'Use social media link if market does not have website',
