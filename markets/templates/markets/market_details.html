@@ -31,6 +31,8 @@
             <p class="fw-600 mb-2">{{ market.date }}</p>
             <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
             <a href="{{ market.website }}" target="_blank" rel="noopener" class="font-90">{{ market.website }}</a>
+            {% if not market.date_passed %}
+            <!-- only show the buttons to save the market if not viewing a past market -->
             {% if request.user.is_authenticated %}
             <!-- Save/Remove market for logged in users -->
             <form action="{% url 'update_my_markets' market.id %}" method="POST">
@@ -54,6 +56,9 @@
                     href="{% url 'account_signup' %}">Sign Up</a> to save to My Markets.
             </p>
             {% endif %}
+            <!-- end of if statement for if user is authenticated -->
+            {% endif %}
+            <!-- end of if statement for if not viewing past market -->
             {% if market in saved_markets_list.market.all or request.user.is_superuser %}
             <!-- superuser can view all markets so show status, or if user saved this market show the status -->
             <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
