@@ -14,7 +14,8 @@
     <div class="row pt-5 pb-3">
         <!-- heading changes depending on whether viewing upcoming (default), past or all (default for admin) -->
         <div class="col-12 text-center pt-3 pb-2">
-            <h1>{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %} Markets</h1>
+            <h1>{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %}
+                Markets</h1>
         </div>
         <!-- Intro text - changes depending on if viewing past or upcoming markets -->
         {% if current_view == 'past' %}
@@ -64,7 +65,7 @@
                                 alt="{% if market.image %}Photo of {% else %}No image yet for {% endif %}{{ market.name }}{% if not market.image %}, image coming soon.{% endif %}">
                         </a>
                         <!-- card body - market details -->
-                        <div class="card-body pt-3 pb-0">
+                        <div class="card-body pt-3 pb-0 px-1 px-md-2">
                             <p class="card-title mb-0 text-uppercase">{{ market.name }}</p>
                             <p class="small mt-1 mb-2">
                                 <!-- county name - also links to filter all markets by that county -->
@@ -73,14 +74,14 @@
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
                             </p>
-                            <p class="font-90">{{ market.location }}</p>
-                            <p class="fw-600 mb-2">{{ market.date }}</p>
-                            <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
+                            <p class="small mb-2">{{ market.location }}</p>
+                            <p class="font-90 mb-2"><a href="{{ market.website }}" target="_blank"
+                                    rel="noopener">{{ market.website }}</a></p>
                         </div>
-                        <!-- card footer - market website + button to save market if logged in -->
-                        <div class="card-footer border-0 bg-white py-1 mb-4">
-                            <p><a href="{{ market.website }}" target="_blank" rel="noopener"
-                                class="font-90">{{ market.website }}</a></p>
+                        <!-- card footer market date/teim + button to save market if logged in, and link for comments -->
+                        <div class="card-footer border-0 bg-white p-1 px-md-2 mb-4">
+                            <p class="fw-600 mb-1">{{ market.date }}</p>
+                            <p class="fw-600 font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
                             {% if current_view != 'past' %}
                             <!-- only show the buttons to save the market if not viewing past markets -->
                             {% if request.user.is_authenticated %}
@@ -102,9 +103,10 @@
                             </form>
                             {% else %}
                             <!-- if not logged in, links to sign in/sign up to save market -->
-                            <p class="small text-muted mt-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a
+                            <p class="small text-muted my-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a
                                     class="text-link" href="{% url 'account_login' %}">Sign In</a> or <a
-                                    class="text-link" href="{% url 'account_signup' %}">Sign Up</a> to save to My Markets.
+                                    class="text-link" href="{% url 'account_signup' %}">Sign Up</a> to save to My
+                                Markets.
                             </p>
                             {% endif %}
                             <!-- end of if statement for if user is authenticated -->
@@ -135,8 +137,7 @@
                             <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
                                 <span class="font-90">{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
-                                    passed
-                                    {% else %} Upcoming {% endif %}
+                                    passed {% else %} Upcoming {% endif %}
                                 </span>
                             </p>
                             <!-- show number of saves the market has, for admin user -->
@@ -185,7 +186,7 @@
     <div class="btt-button shadow-sm rounded-0">
         <a class="btt-link d-flex h-100 justify-content-center align-items-center" aria-label="Back to top">
             <i class="bi bi-arrow-up" aria-hidden="true"></i>
-        </a>	
+        </a>
     </div>
 </section>
 {% endblock %}

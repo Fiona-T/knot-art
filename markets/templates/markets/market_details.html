@@ -27,10 +27,10 @@
                     <i class="bi bi-geo-alt-fill icon" aria-hidden="true"></i>{{ market.county.friendly_name }}
                 </a>
             </p>
-            <p class="font-90">{{ market.location }}</p>
-            <p class="fw-600 mb-2">{{ market.date }}</p>
-            <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
-            <a href="{{ market.website }}" target="_blank" rel="noopener" class="font-90">{{ market.website }}</a>
+            <p class="small mb-2">{{ market.location }}</p>
+            <p class="font-90 mb-2"><a href="{{ market.website }}" target="_blank" rel="noopener">{{ market.website }}</a></p>
+            <p class="fw-600 mb-1">{{ market.date }}</p>
+            <p class="fw-600 font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
             {% if not market.date_passed %}
             <!-- only show the buttons to save the market if not viewing a past market -->
             {% if request.user.is_authenticated %}
@@ -51,7 +51,7 @@
                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
             </form>
             {% else %}
-            <p class="small text-muted mt-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a class="text-link"
+            <p class="small text-muted my-2"><i class="bi bi-heart icon" aria-hidden="true"></i><a class="text-link"
                     href="{% url 'account_login' %}">Sign In</a> or <a class="text-link"
                     href="{% url 'account_signup' %}">Sign Up</a> to save to My Markets.
             </p>
@@ -62,7 +62,7 @@
             {% if market in saved_markets_list.market.all or request.user.is_superuser %}
             <!-- superuser can view all markets so show status, or if user saved this market show the status -->
             <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
-                <span>{% if market.date_passed %}
+                <span class="font-90">{% if market.date_passed %}
                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has passed
                     {% else %}Upcoming {% endif %}
                 </span>

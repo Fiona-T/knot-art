@@ -55,7 +55,7 @@
                                 alt="{% if market.image %}Photo of {% else %}No image yet for {% endif %}{{ market.name }}{% if not market.image %}, image coming soon.{% endif %}">
                         </a>
                         <!-- card body - market details -->
-                        <div class="card-body pt-3 pb-0">
+                        <div class="card-body pt-3 pb-0 px-1 px-md-2">
                             <p class="card-title mb-0 text-uppercase">{{ market.name }}</p>
                             <p class="small mt-1 mb-2">
                                 <!-- county name - will update to link to county filter when this is added -->
@@ -64,25 +64,25 @@
                                         aria-hidden="true"></i>{{ market.county.friendly_name }}
                                 </a>
                             </p>
-                            <p>{{ market.location }}</p>
-                            <p class="fw-600 mb-2">{{ market.date }}</p>
-                            <p class="font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
+                            <p class="small mb-2">{{ market.location }}</p>
+                            <p class="font-90"><a href="{{ market.website }}" target="_blank" rel="noopener">{{ market.website }}</a>
+                            </p>
                         </div>
                         <!-- card footer - market website, button to remove market from list, and status -->
-                        <div class="card-footer border-0 bg-white py-1 mb-4">
-                            <a href="{{ market.website }}" target="_blank" rel="noopener"
-                                class="font-90">{{ market.website }}</a>
+                        <div class="card-footer border-0 bg-white p-1 px-md-2 mb-4">
+                            <p class="fw-600 mb-1">{{ market.date }}</p>
+                            <p class="fw-600 font-90 mb-2">{{ market.start_time }} to {{ market.end_time }}</p>
                             <form action="{% url 'update_my_markets' market.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" value="{{ market.id }}" name="market_id"
-                                    class="bg-transparent border-0 p-0 my-2">
+                                    class="bg-transparent border-0 p-0 my-2 small">
                                     <i class="bi bi-heart-fill icon" aria-hidden="true"></i>
-                                    <span class="small text-muted">Remove from My Markets</span>
+                                    <span class="text-muted">Remove from My Markets</span>
                                 </button>
                                 <!-- hidden input with url path, so view can redirect back to same page -->
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                             </form>
-                            <!-- Comments: will link to details page to view comments. Show number of comments if there are any -->
+                            <!-- Comments: links to details page to view comments. Show number of comments if there are any -->
                             <a href="{% url 'market_details' market.id %}" class="small"
                                 aria-label="'go to market details page to view comments or add comment">
                                 {% if market.comments.all|length > 0 %}
@@ -94,8 +94,8 @@
                                 <span class="text-muted">Be the first to comment</span>
                                 {% endif %}
                             </a>
-                            <p class="font-90 mt-2"><span class="fw-600">Status:</span>
-                                <span>{% if market.date_passed %}
+                            <p class="font-90 mt-2 mb-1"><span class="fw-600">Status:</span>
+                                <span class="font-90">{% if market.date_passed %}
                                     <i class="bi bi-exclamation-circle-fill icon" aria-hidden="true"></i>Date has
                                     passed
                                     {% else %} Upcoming {% endif %}
