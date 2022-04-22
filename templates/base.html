@@ -70,33 +70,35 @@
             <div class="container-fluid">
                 <!-- logo -->
                 <a class="navbar-brand logo" href="{% url 'home' %}"><span class="display-4 d-md-none">K</span><span
-                    class="d-none d-md-inline">KnotArt</span></a>
+                        class="d-none d-md-inline">KnotArt</span></a>
                 <!-- List of links - each with icon and text below it -->
                 <ul class="nav mb-2 mb-md-0">
                     <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'products' %}">
                             <div class="text-center">
-                                <div><i class="bi bi-cart-plus nav-icon"></i></div>
+                                <div><i class="bi bi-cart-plus nav-icon" aria-hidden="true"></i></div>
                                 <p class="my-0 nav-text">Shop</p>
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item {% if not 'profile' in request.path and 'markets' in request.path %}nav-item-active{% endif %}">
+                    <li
+                        class="nav-item {% if not 'profile' in request.path and 'markets' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'markets' %}">
                             <div class="text-center">
-                                <div><i class="bi bi-shop nav-icon"></i></div>
+                                <div><i class="bi bi-shop nav-icon" aria-hidden="true"></i></div>
                                 <p class="my-0 nav-text">Markets</p>
                             </div>
                         </a>
                     </li>
                     <!-- This link is a dropdown menu for Account options. Link name changes depending on signed in status of user -->
-                    <li class="nav-item dropdown {% if 'profile' in request.path or 'account' in request.path %}nav-item-active{% endif %}">
+                    <li
+                        class="nav-item dropdown {% if 'profile' in request.path or 'account' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="" id="account-options" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div>
-                                    <i
-                                        class="bi bi-person{% if request.user.is_authenticated %}-fill{% endif %} nav-icon"></i>
+                                    <i class="bi bi-person{% if request.user.is_authenticated %}-fill{% endif %} nav-icon"
+                                        aria-hidden="true"></i>
                                 </div>
                                 <p class="my-0 nav-text">
                                     {% if request.user.is_authenticated %}Account{% else %}Sign In{% endif %}
@@ -122,11 +124,13 @@
                         </div>
                     </li>
                     <!-- links to cart.html page, and displays total amount in cart -->
-                    <li class="nav-item {% if 'cart' in request.path or 'checkout' in request.path %}nav-item-active{% endif %}">
+                    <li
+                        class="nav-item {% if 'cart' in request.path or 'checkout' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'view_cart' %}">
                             <div class="text-center">
                                 <!-- show filled icon if there are items in the cart, otherwise outlined icon -->
-                                <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"></i></div>
+                                <div><i class="nav-icon bi bi-bag{% if grand_total %}-fill{% endif %}"
+                                        aria-hidden="true"></i></div>
                                 <!-- grand total currently in cart, otherwise 0.00 -->
                                 <p class="my-0 nav-text">
                                     €{% if grand_total %}{{ grand_total|floatformat:2 }}{% else %}0.00{% endif %}</p>
