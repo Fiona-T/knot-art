@@ -63,18 +63,24 @@ main a:focus {
     border-color: #1c1c1c;
 }
 
-.btn-brand:hover {
+.btn-brand:hover,
+.btn-brand:active,
+.btn-brand:focus {
     color: #fdfdfd;
     background-color: #1c1c1c;
     border-color: #1c1c1c;
 }
 
-.btn-brand-outline:hover { 
+.btn-brand-outline:hover,
+.btn-brand-outline:active,
+.btn-brand-outline:focus { 
     background-color: #ff8881;
     border-color: #1c1c1c;
 }
 
-.btn-brand-dark:hover { 
+.btn-brand-dark:hover,
+.btn-brand-dark:active,
+.btn-brand-dark:focus { 
     background-color: #fdfdfd;
     border: 0.1rem solid #ff8881;
 }
@@ -96,7 +102,9 @@ a:not([href]).btt-link {
 }
 
 /* back to top link, no href as works with javascript, over-ride bootstrap inherit color for no href */
-a:not([href]).btt-link:hover {
+a:not([href]).btt-link:hover,
+a:not([href]).btt-link:active,
+a:not([href]).btt-link:focus {
     background-color: #ff8881;
     border-color: #ff8881;
     font-size: 130%;
@@ -351,7 +359,9 @@ a:not([href]).btt-link:hover {
     color: #fdfdfd;
 }
 
-.btn-qty:hover {
+.btn-qty:hover,
+.btn-qty:active,
+.btn-qty:focus {
     background-color: #fdfdfd;
     color: #1c1c1c;
 }
@@ -369,7 +379,11 @@ a:not([href]).btt-link:hover {
 }
 
 .update-link:hover,
-.remove-item:hover {
+.update-link:active,
+.update-link:focus,
+.remove-item:hover,
+.remove-item:active,
+.remove-item:focus {
     border: 0.1rem solid #ff8881;
     font-size: 110%;
 }
