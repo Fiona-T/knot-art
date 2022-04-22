@@ -123,6 +123,38 @@ class TestAddToCartView(TestCase):
             'Quantity for Large Wall Hanging updated to 2'
             )
 
+    def test_cannot_add_same_item_if_total_quantity_will_exceed_max(self):
+        """
+        Add item to cart that is already in cart with a quantity that will
+        bring total for that item above the max of 10. Cart should not update
+        and an error message should be shown.
+        """
+        self.client.post('/cart/add/1', {
+            'quantity': 3,
+            'redirect_url': '/products/1'
+        })
+        response = self.client.get('/cart/')
+        cart_item = response.context['cart_items'][0]
+        self.assertEqual(cart_item['quantity'], 3)
+        response = self.client.post('/cart/add/1', {
+            'quantity': 8,
+            'redirect_url': '/products/1'
+        })
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'As these are handmade items, I only sell a max of 10 of each at '
+            'a time. You have 3 of "Large Wall Hanging" in your bag and '
+            'adding another 8 will bring total quantity for that item above '
+            '10. Thank you for your interest but please reduce the quantity '
+            'and try again. Thank you!'
+            )
+        response = self.client.get('/cart/')
+        cart_item = response.context['cart_items'][0]
+        self.assertEqual(cart_item['quantity'], 3)
+
 
 class TestAdjustCartView(TestCase):
     """To test the adjust_cart view - form posting adjusted quantity"""
