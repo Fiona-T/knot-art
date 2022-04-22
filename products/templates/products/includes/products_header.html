@@ -6,7 +6,7 @@
         <nav class="navbar navbar-expand-md flex-md-row-reverse justify-content-md-between w-100 pt-5"
             aria-label="Shop page categories and search">
             <!-- toggle button for product categories, for small screen size  -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#shop-nav"
+            <button class="navbar-toggler p-0" type="button" data-toggle="collapse" data-target="#shop-nav"
                 aria-controls="shop-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <!-- icon added instead of bootstrap toggler icon -->
                 <span class="menu-icon">
@@ -16,9 +16,9 @@
             <!-- search bar -->
             <form method="GET" action="{% url 'products' %}">
                 <div class="input-group w-100">
-                    <input class="form-control rounded-0" type="text" name="q" placeholder="Search our shop">
+                    <input class="form-control rounded-0 px-2" type="text" name="q" placeholder="Search our shop">
                     <div class="input-group-append">
-                        <button class="form-control btn rounded-0" type="submit" aria-label="Search our shop">
+                        <button class="form-control btn rounded-0 px-2" type="submit" aria-label="Search our shop">
                             <span>
                                 <i class="bi bi-search" aria-hidden="true"></i>
                             </span>
