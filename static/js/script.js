@@ -83,12 +83,13 @@ function enableDisableQtyBtns(itemId) {
 }
 
 /**
- * When the link is clicked, get the form and submit it
+ * When the link is clicked, get the form and submit it. Using requestSubmit() 
+ * in order to invoke html form constraint validation so min/max on form input is validated.
  */
 function submitQuantityUpdateForm() {
     if($('.update-link')) {
         $('.update-link').click(function() {
-            $(this).prev('.update-form').submit();
+            $(this).prev('.update-form')[0].requestSubmit();
         });
     }
 }
