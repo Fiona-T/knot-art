@@ -38,6 +38,7 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
   * [Cloning the GitHub Repository](#cloning-the-github-repository)
 - [Credits](#credits)
   * [Code](#code)
+  * [Content](#content)
   * [Media](#media)
 - [Acknowledgements](#acknowledgements)
 
@@ -557,6 +558,7 @@ The project is developed using the Django framework and is structured under the 
 - [Formito](https://formito.com/tools/favicon) to make the favicon
 - [Privacy Policy Generator](https://www.privacypolicygenerator.info/) to make the Privacy Policy
 - [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) to make the Terms of Use document
+- [Mailchimp](https://mailchimp.com/) for the newsletter sign up form in the site footer
 
 
 ## Testing
@@ -764,6 +766,12 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 ## Credits
 ---
 ### Code
+### Content
+- The full list of counties in the Republic of Ireland for the 'counties' dropdown list for adding/editing a market was sourced from [Wikipedia](https://en.wikipedia.org/wiki/List_of_Irish_counties_by_area)
+- The list of Dublin postcode areas for the same dropdown list was sourced from [Wikipedia](https://en.wikipedia.org/wiki/List_of_Dublin_postal_districts#County_Dublin_(A41_%E2%80%93_K78))
+- The description for each product in the shop was written by the developer
+- It should be noted that the 'markets' listed in the Markets page are all fictional and as such the website urls are fictional also.
+
 ### Media
 - The hero image on the home page is by [Liligance](https://unsplash.com/@liligancephotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/5zpH2y7v4aA)
 - The image in the 'About Us' section on the home page is by [Ga](https://unsplash.com/@neringa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/RBerxXPnZPE)
