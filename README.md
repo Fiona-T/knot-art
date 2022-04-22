@@ -554,6 +554,9 @@ The project is developed using the Django framework and is structured under the 
 - [JSHint](https://jshint.com/) to check the quality of and check for errors in the JavaScript code
 - [PEP8](http://pep8online.com/) checker to validate the Python code
 - [Coverage.py](https://coverage.readthedocs.io/en/6.2/index.html) for checking the level of coverage for the automated python tests
+- [Formito](https://formito.com/tools/favicon) to make the favicon
+- [Privacy Policy Generator](https://www.privacypolicygenerator.info/) to make the Privacy Policy
+- [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) to make the Terms of Use document
 
 
 ## Testing
@@ -762,6 +765,11 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 ---
 ### Code
 ### Media
+- The hero image on the home page is by [Liligance](https://unsplash.com/@liligancephotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/5zpH2y7v4aA)
+- The image in the 'About Us' section on the home page is by [Ga](https://unsplash.com/@neringa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/RBerxXPnZPE)
+- The 'image coming soon' image, used when a product or market has no image yet, is from [freeiconspng](https://www.freeiconspng.com/img/23499)
+- Product images for the Shop page, and market images for the Markets page were sourced from [Pexels](https://www.pexels.com/search/macrame%20wallhanging/), [Unsplash](https://unsplash.com/s/photos/macrame-wallhanging) and [Pixabay](https://pixabay.com/images/search/macrame/)
+
 
 ## Acknowledgements
 ---
