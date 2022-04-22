@@ -619,12 +619,3 @@ footer i {
         font-size: 1rem;
     }
 }
-
-/*================================ bigger than mobile ====================================*/
-@media screen and (min-width: 770px) {
-    /* ---------------------------------------- Products page nav */
-    /* reverse the direction when expanded, so search bar stays on right */
-    .navbar-expand-md {
-        flex-direction: row-reverse;
-    }
-}
