@@ -11,15 +11,15 @@
 <section class="container py-5">
     <!-- row with one colum - heading-->
     <div class="row pt-5">
-        <div class="col pt-3">
+        <div class="col pt-5">
             {% if not from_profile %}
-            <h1 class="mb-4">Order Created!</h1>
+            <h1 class="mb-4 page-title">Order Created!</h1>
             <p>Thank you, <span class="fw-600">{{ order.full_name }}</span>, for your order!</p>
             <p>You can find a summary of your order below and we have also sent a confirmation email to <span
                     class="fw-600">{{ order.email }}</span>.</p>
             {% else %}
             <!-- heading if viewing previous order details -->
-            <h1 class="mb-4">Previous Order Details</h1>
+            <h1 class="mb-4 page-title">Previous Order Details</h1>
             <p>Below you can find the details for <span class="fw-600">Order {{ order.order_number }}</span> placed on
                 {{ order.date|date:'d/m/Y' }}.</p>
             <p>A confirmation email was sent to <span class="fw-600">{{ order.email }}</span> on the order date.</p>

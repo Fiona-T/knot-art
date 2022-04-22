@@ -13,8 +13,8 @@
     <!-- 1st row - page heading + intro text -->
     <div class="row pt-5 pb-3">
         <!-- heading changes depending on whether viewing upcoming (default), past or all (default for admin) -->
-        <div class="col-12 text-center pt-3 pb-2">
-            <h1>{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %}
+        <div class="col-10 offset-1 pt-5 pb-4">
+            <h1 class="page-title">{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %}
                 Markets</h1>
         </div>
         <!-- Intro text - changes depending on if viewing past or upcoming markets -->
