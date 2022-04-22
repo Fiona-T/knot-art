@@ -9,7 +9,6 @@
             "date":"2022-05-27",
             "start_time":"10:00:00",
             "end_time":"17:00:00",
-            "image_url":null,
             "image":"handmade-market.jpg",
             "website":"http://www.handmade.ie"
         }
@@ -24,7 +23,6 @@
             "date":"2022-08-05",
             "start_time":"09:00:00",
             "end_time":"16:30:00",
-            "image_url":null,
             "image":"dublin-city-market.jpg",
             "website":"http://www.dublin-city-market.ie"
         }
@@ -39,7 +37,6 @@
             "date":"2022-03-29",
             "start_time":"09:00:00",
             "end_time":"16:30:00",
-            "image_url":null,
             "image":"",
             "website":"http://www.thelane.ie"
         }
@@ -54,7 +51,6 @@
             "date":"2022-06-30",
             "start_time":"09:30:00",
             "end_time":"17:30:00",
-            "image_url":null,
             "image":"dublin-flea-market.jpg",
             "website":"http://www.dublin-flea-market.ie"
         }
@@ -69,7 +65,6 @@
             "date":"2022-05-27",
             "start_time":"10:00:00",
             "end_time":"16:00:00",
-            "image_url":null,
             "image":"waterford-city-food-and-craft-market.jpg",
             "website":"http://www.waterford-market.ie"
         }
@@ -84,7 +79,6 @@
             "date":"2022-09-10",
             "start_time":"10:00:00",
             "end_time":"20:00:00",
-            "image_url":null,
             "image":"outdoor-flea-market.jpg",
             "website":"http://www.wexford-market.ie"
         }
@@ -99,7 +93,6 @@
             "date":"2022-07-23",
             "start_time":"09:00:00",
             "end_time":"18:00:00",
-            "image_url":null,
             "image":"westport-summer-fair.jpg",
             "website":"http://www.westport-fairie"
         }
@@ -114,7 +107,6 @@
             "date":"2022-06-10",
             "start_time":"09:00:00",
             "end_time":"17:00:00",
-            "image_url":null,
             "image":"makers-market.jpg",
             "website":"http://www.testmarket.ie"
         }
@@ -129,7 +121,6 @@
             "date":"2022-06-24",
             "start_time":"10:00:00",
             "end_time":"16:30:00",
-            "image_url":null,
             "image":"vintage-and-craft-fair.jpg",
             "website":"http://www.bushyparkmarket.ie"
         }
@@ -144,7 +135,6 @@
             "date":"2022-06-10",
             "start_time":"12:30:00",
             "end_time":"18:30:00",
-            "image_url":null,
             "image":"dublin-art-and-craft-fair.jpg",
             "website":"http://www.dublin-craft-fair.ie"
         }
@@ -159,7 +149,6 @@
             "date":"2022-05-25",
             "start_time":"10:00:00",
             "end_time":"16:00:00",
-            "image_url":null,
             "image":"dublin-vintage-and-craft-fair.jpg",
             "website":"http://www.dublin-vintage-craft-fair.ie"
         }
@@ -174,7 +163,6 @@
             "date":"2022-05-28",
             "start_time":"14:00:00",
             "end_time":"18:00:00",
-            "image_url":null,
             "image":"alternative-market.jpg",
             "website":"http://www.we-are-unique.ie"
         }
@@ -189,7 +177,6 @@
             "date":"2022-06-21",
             "start_time":"09:45:00",
             "end_time":"18:00:00",
-            "image_url":null,
             "image":"wicklow-craft-fair.jpg",
             "website":"http://www.wicklowcraft.ie"
         }
