@@ -9,7 +9,7 @@
 <!-- page contents container -->
 <section class="py-5 container-fluid">
     <!-- 1 row - with 2 columns - image and product details -->
-    <div class="row py-5 justify-content-center">
+    <div class="row pt-sm-3 pb-5 justify-content-center">
         <!-- 1st column - image -->
         <div class="col-12 col-sm-10 col-md-6 col-lg-4 col-xl-3 px-4">
             <!-- image inside this div, 'new' badge positioned against this -->
@@ -41,10 +41,10 @@
                 <!-- Quantity and Add to Bag form -->
                 <form action="{% url 'add_to_cart' product.id %}" method="POST">
                     {% csrf_token %}
-                    <!-- form group for quantity label, buttons and input, 50% width -->
-                    <div class="form-group w-50">
-                        <label for="quantity" class="fw-600">Choose quantity:</label>
-                        <div class="input-group">
+                    <!-- form group for quantity label, buttons and input -->
+                    <div class="form-group">
+                        <label for="id_qty_{{ product.id }}" class="fw-600">Choose quantity:</label>
+                        <div class="input-group w-50">
                             <!-- button before the input - for decreasing quantity -->
                             <div class="input-group-prepend">
                                 <button class="decrement-qty rounded-0 btn btn-qty" aria-label="Decrease quantity"
@@ -65,15 +65,15 @@
                         </div>
                     </div>
                     <!-- end of quantity form group -->
-                    <a href="{% url 'products' %}" class="btn btn-brand-outline">Back to Shop</a>
-                    <button class="btn btn-brand">Add to Bag</button>
+                    <a href="{% url 'products' %}" class="btn btn-brand-outline mt-2 mr-1">Back to Shop</a>
+                    <button class="btn btn-brand mt-2">Add to Bag</button>
                     <!-- hidden input with url path, so add_to_cart view can redirect back to same page -->
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                 </form>
             </div>
             {% if request.user.is_superuser %}
             <!-- admin actions - activate/deactivate, edit, delete, if user is admin user -->
-            <div class="admin-link-container col-10 p-3">
+            <div class="admin-link-container col-12 col-sm-10 col-xl-8 p-3">
                 <div class="row mx-0">
                     <h5 class="fw-600 font-90">Admin actions:</h5>
                 </div>
