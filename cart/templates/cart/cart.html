@@ -8,53 +8,60 @@
 <!-- page contents container -->
 <section class="py-5 container">
     <!-- 1st row - page heading -->
-    <div class="row py-5">
+    <div class="row pt-3 pt-md-5 pb-2 pb-md-4">
         <div class="col pt-5">
             <h1 class="page-title">Your Shopping Bag</h1>
         </div>
     </div>
-    <!-- 2nd row - cart items, if there are any, otherwise a msg stating nothing in cart -->
+    <!-- 2nd row - cart items + totals, if there are any, otherwise a msg stating nothing in cart -->
     <div class="row">
-        <div class="col">
-            {% if cart_items %}
+        {% if cart_items %}
+        <!-- totals - show at bottom on larger screen -->
+        <div class="col-12 text-right pb-2 pb-md-5 order-md-last">
+            <p class="text-muted d-md-none">Here are your totals, and the individual item breakdown is below.</p>
+            <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
+            <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
+            <h5 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h4>
+                {% if free_delivery_spend_needed > 0 %}
+                <p class="font-italic">You can get free delivery if you spend
+                    <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
+                {% endif %}
+                <a href="{% url 'products' %}" class="btn btn-brand-outline mt-2 mr-2">Back to Shop</a>
+                <a href="{% url 'checkout' %}" class="btn btn-brand mt-2">Secure Checkout</a>
+                <hr class="d-md-none">
+        </div>
+        <div class="col-12">
             <!-- cart contents -->
-            <div class="table-responsive-sm">
-                <table class="table table-sm table-borderless">
-                    <!-- headings for table, Product Details spans two columns -->
-                    <thead>
-                        <tr>
-                            <th scope="col" colspan="2">Product details</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <!-- row for each item in cart -->
-                    {% for item in cart_items %}
-                    <tr>
-                        <!-- 1st col - image -->
-                        <td class="p-2 w-25">
-                            <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
-                            <img class="img-fluid"
-                                src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
-                                alt="{% if item.product.image %}Photo of {% else %}No image yet for {% endif %}{{ item.product.name }}{% if not item.product.image %}, image coming soon.{% endif %}">
-                        </td>
-                        <!-- 2nd col - name -->
-                        <td class="p-2">
+            {% for item in cart_items %}
+            <!-- row for each item to show img, product name, link to remove, price, qty form, subtotal. These subdivided into two cols -->
+            <div class="row">
+                <!-- 1st col - product image -->
+                <div class="col-12 col-sm-6 col-md-2 mb-2">
+                    <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
+                    <img class="img-fluid"
+                        src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
+                        alt="{% if item.product.image %}Photo of {% else %}No image yet for {% endif %}{{ item.product.name }}{% if not item.product.image %}, image coming soon.{% endif %}">
+                </div>
+                <!-- second col - name, link to remove, price, qty form, subtotal -->
+                <div class="col-12 col-sm-6 col-md-10 mb-2">
+                    <!-- using a row so can split into 4 cols at larger screen sizes -->
+                    <div class="row">
+                        <!-- 1st col - product name plus link to remove from cart -->
+                        <div class="col-12 col-md-4 col-lg-3">
                             <p class="my-0">{{ item.product.name }}</p>
-                            <p class="pt-4">
+                            <p class="pt-1">
                                 <!-- this link triggers script to post the form to remove the item -->
                                 <a class="remove-item" id="remove_{{ item.item_id }}" data-csrf="{{ csrf_token }}">
                                     <small class="fw-600">Remove item</small>
                                 </a>
                             </p>
-                        </td>
-                        <!-- 3rd col - price -->
-                        <td class="p-2">
-                            <p class="my-0">€{{ item.product.price }}</p>
-                        </td>
-                        <!-- 4th col - quantity -->
-                        <td class="p-2 w-25 text-left text-md-center">
+                        </div>
+                        <!-- 2nd col - price -->
+                        <div class="col-12 col-md-2 col-lg-3">
+                            <p class="font-90"><span class="fw-600">Price each: </span> €{{ item.product.price }}</p>
+                        </div>
+                        <!-- 3rd col - quantity form -->
+                        <div class="col-8 col-sm-12 col-md-4 col-lg-3">
                             <form action="{% url 'adjust_cart' item.item_id %}" method="POST" class="update-form">
                                 {% csrf_token %}
                                 <!-- form group for quantity label, buttons and input -->
@@ -85,38 +92,28 @@
                                 </div>
                                 <!-- end of quantity form group -->
                             </form>
+                            <!-- handles the posting of the update quantity form -->
                             <a class="update-link"><small class="fw-600">Update quantity</small></a>
-                        </td>
-                        <!-- 5th col - subtotal -->
-                        <td class="p-2">
-                            <p class="my-0">€{{ item.product.price | calc_subtotal:item.quantity }}</p>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    <!-- row showing summary of costs and how much more to spend to get free delivery -->
-                    <tr>
-                        <td colspan="5" class="pt-5 text-right">
-                            <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
-                            <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
-                            <h4 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h4>
-                            {% if free_delivery_spend_needed > 0 %}
-                            <p class="font-italic">You can get free delivery if you spend
-                                <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <!-- last row - back to shop button + checkout button -->
-                    <tr>
-                        <td colspan="5" class="text-right">
-                            <a href="{% url 'products' %}" class="btn btn-brand-outline btn-lg">Back to Shop</a>
-                            <a href="{% url 'checkout' %}" class="btn btn-brand btn-lg">Secure Checkout</a>
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                        <!-- last col - subtotal -->
+                        <div class="col-12 col-md-2 col-lg-3 mt-4 mt-md-0">
+                            <p class="font-90"><span class="fw-600">Subtotal:
+                                </span>€{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                        </div>
+                    </div>
+                    <!-- end of row showing item, price, qty form and subtotal -->
+                </div>
+                <!-- end of second col for item details -->
             </div>
+            <!-- end of row for each item in the cart -->
+            <hr>
+            {% endfor %}
+            <!-- end of iteration through cart items -->
             {% else %}
-            <p class="fw-600 mb-5">You don't have any items in your shopping bag.</p>
-            <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
+            <div class="col">
+                <p class="fw-600 mb-5">You don't have any items in your shopping bag.</p>
+                <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
+            </div>
             {% endif %}
         </div>
     </div>
