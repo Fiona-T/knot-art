@@ -215,12 +215,14 @@ a:not([href]).btt-link:focus {
 
 /* main header links, dropdown items text - font styles */
 .nav-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 300;
 }
 
+/* reduce Bootstrap padding on dropdown menu for smaller mobile, inceased in media query */
 .dropdown-item {
     color: #F98D85;
+    padding-left: 0.5rem;
 }
 
 /* hover, focus etc. for links in header */
@@ -649,6 +651,16 @@ footer i {
     /* arrow down icon beside icon when no nav-text, hide at this size */
     .nav-icon + .bi-chevron-down {
         display: none;
+    }
+
+    /* increase font size for main nav links, dropdown items text */
+    .nav-text {
+        font-size: 0.8rem;
+    }
+
+    /* increase padding on dropdown menu that was reduced at smaller size */
+    .dropdown-item {
+        padding-left: 1.5rem;
     }
     
     /* ---------------------------------------- Home page */
