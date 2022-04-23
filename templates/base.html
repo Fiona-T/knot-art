@@ -60,11 +60,11 @@
     <!-- main header for all pages -->
     <header>
         <!-- main nav bar for all pages: name if logged in, Logo + list of links: shop, market, account, bag -->
-        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-5" aria-label="Primary">
+        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-md-5" aria-label="Primary">
             {% if request.user.is_authenticated %}
             <!-- Top row showing name if logged in -->
             <div class="container-fluid justify-content-end">
-                <div class="row mx-0">
+                <div class="row mb-2 mx-sm-0">
                     <p class="my-0 username">Signed in as: <span class="font-italic">{{ user.username }}</span></p>
                 </div>
             </div>
@@ -99,8 +99,9 @@
                             aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div>
+                                    <!-- the down arrow is shown with the person icon at small mobile sizes when nav text is hidden -->
                                     <i class="bi bi-person{% if request.user.is_authenticated %}-fill{% endif %} nav-icon"
-                                        aria-hidden="true"></i>
+                                        aria-hidden="true"></i><i class="bi bi-chevron-down ml-1" aria-hidden="true"></i>
                                 </div>
                                 <p class="my-0 nav-text">
                                     {% if request.user.is_authenticated %}Account{% else %}Sign In{% endif %}

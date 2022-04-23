@@ -111,7 +111,6 @@ a:not([href]).btt-link {
     border: 0.1rem solid #1c1c1c;
 }
 
-/* back to top link, no href as works with javascript, over-ride bootstrap inherit color for no href */
 a:not([href]).btt-link:hover,
 a:not([href]).btt-link:active,
 a:not([href]).btt-link:focus {
@@ -182,6 +181,16 @@ a:not([href]).btt-link:focus {
     color: #ff8881;
 }
 
+/* remove default Bootstrap margin, added back at larger size in media query */
+.navbar-brand {
+    margin-right: 0;
+}
+
+/* Logo 'K' - reduce Bootstrap font-size, added back at larger size in media query */
+.display-4 {
+    font-size: 2rem;
+}
+
 /* remove Bootstrap padding + border radius on dropdown */
 .dropdown-menu {
     padding: 0;
@@ -197,6 +206,11 @@ a:not([href]).btt-link:focus {
 /* size for the icons in main header links */
 .nav-icon {
     font-size: 1.3rem;
+}
+
+/* don't show the nav-text under the icons at small mobile size */
+.nav-link .nav-text {
+    display: none;
 }
 
 /* main header links, dropdown items text - font styles */
@@ -295,7 +309,7 @@ a:not([href]).btt-link:focus {
 
 /* headline text */
 .callout h1 {
-    font-weight: 700;
+    font-size: 2rem;
 }
 
 /* buttons on top of hero image */
@@ -609,6 +623,41 @@ footer i {
 }
 
 /*================================== MEDIA QUERIES ===========================================*/
+
+/* larger than 375 px mobiles, increase nav padding + font-sizes */
+@media screen and (min-width: 375px) {
+    /* ---------------------------------------- Header */
+    .navbar .container-fluid {
+        padding: 0;
+    }
+
+    /* Logo 'K' increase font-size back to Bootstrap default (reduced at smaller size) */
+    .display-4 {
+        font-size: 3.5rem;
+    }
+
+    /* add back margin that was removed at smaller size */
+    .navbar-brand {
+        margin-right: 1rem;
+    }
+
+    /* nav-text underneath the icons - hidden at smaller size */
+    .nav-link .nav-text {
+        display: inline;
+    }
+
+    /* arrow down icon beside icon when no nav-text, hide at this size */
+    .nav-icon + .bi-chevron-down {
+        display: none;
+    }
+    
+    /* ---------------------------------------- Home page */
+    /* headline text */
+    .callout h1 {
+        font-size: 2.5rem;
+    }
+}
+
 /*================================ bigger than mobile ====================================*/
 @media screen and (min-width: 500px) {
     /* ---------------------------------------- Header */
@@ -617,7 +666,7 @@ footer i {
         font-size: 3rem;
     }
 
-    .nav-link {
+    .nav-link-main {
         padding: 0.5rem 1rem;
     }
 
@@ -627,5 +676,10 @@ footer i {
     
     .nav-text {
         font-size: 1rem;
+    }
+
+    /* add back padding that was reduced in 375px view */
+    .navbar .container-fluid {
+        padding: 0 1rem;
     }
 }
