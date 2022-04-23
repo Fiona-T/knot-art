@@ -71,7 +71,7 @@
                             </a>
                         </div>
                         <!-- card body - product name and category -->
-                        <div class="card-body pt-3 pb-0">
+                        <div class="card-body pt-3 pb-0 px-1 px-md-2">
                             <p class="card-title mb-0 text-uppercase">{{ product.name }}</p>
                             <p class="small my-1">
                                 <!-- category name is also a link to category filter -->
@@ -82,7 +82,7 @@
                             </p>
                         </div>
                         <!-- card footer - price, and admin links -->
-                        <div class="card-footer border-0 bg-white py-1 mb-4">
+                        <div class="card-footer border-0 bg-white py-1 px-1 px-md-2 mb-4">
                             <p class="fw-600">€{{ product.price }}</p>
                             {% if request.user.is_superuser %}
                             <!-- admin actions - activate/deactivate, edit, delete, if user is admin user -->
