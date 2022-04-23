@@ -54,7 +54,13 @@ main a:focus {
     color: #1c1c1c;
 }
 
-/* brand colours on buttons */
+/* set font styles, exlude search btn and filter by county */
+:not(.input-group-append):not(.dropdown) > .btn {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* brand colours on buttons - border added so same size as outlined btn */
 .btn-brand {
     background-color: #ff8881;
     border: 0.1rem solid #ff8881;
@@ -66,7 +72,7 @@ main a:focus {
     border: 0.1rem solid #ff8881;
 }
 
-/* dark button */
+/* dark button - border added so same size as outlined btn */
 .btn-brand-dark {
     color: #fdfdfd;
     background-color: #1c1c1c;
@@ -75,16 +81,12 @@ main a:focus {
 
 .btn-brand:hover,
 .btn-brand:active,
-.btn-brand:focus {
-    color: #fdfdfd;
-    background-color: #1c1c1c;
-    border-color: #1c1c1c;
-}
-
+.btn-brand:focus,
 .btn-brand-outline:hover,
 .btn-brand-outline:active,
-.btn-brand-outline:focus { 
-    background-color: #ff8881;
+.btn-brand-outline:focus {
+    color: #fdfdfd;
+    background-color: #1c1c1c;
     border-color: #1c1c1c;
 }
 
@@ -135,7 +137,7 @@ a:not([href]).btt-link:focus {
 .admin-link-container {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0.8rem;
     border: 0.1rem solid #ff8881;
 }
 
@@ -371,7 +373,7 @@ a:not([href]).btt-link:focus {
     background-color: #ff8881;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.08rem;
+    letter-spacing: 0.06rem;
     position: absolute;
     padding: 0.4rem;
     top: 0.5rem;
