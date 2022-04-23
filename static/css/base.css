@@ -375,7 +375,6 @@ a:not([href]).btt-link:focus {
     position: absolute;
     padding: 0.4rem;
     top: 0.5rem;
-    right: -0.5rem;
 }
 
 /* quantity buttons */
