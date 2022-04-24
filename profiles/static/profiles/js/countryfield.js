@@ -23,8 +23,7 @@ function countrySelectColour() {
 */
 document.addEventListener("DOMContentLoaded", function () {
     if(!$('#id_default_country').val()) {
-        console.log('new')
         $('#id_default_country').css({'color': '#6c757d', 'font-weight': '100', 'font-size': '90%'});
-    };
+    }
     countrySelectColour();
 });
