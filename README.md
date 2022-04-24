@@ -4,7 +4,7 @@
 
 Knot Art is an e-commerce website for a macrame artist to sell their small collection of exclusive hand-crafted macrame wall hangings. In addition they maintain a list of upcoming craft markets on the website where customers can buy in person. Customers can register with the site to create a profile where they can save upcoming in-person markets and view their order history.
 
-[View the live website here](). *Link opens in same tab, right click to open in a new tab.* **Link to be added once site is deployed**
+[View the live website here](https://knot-art.herokuapp.com/). *Link opens in same tab, right click to open in a new tab.* 
 
 ![device mockup](docs/device-mockup.png) *To be added*
 
@@ -429,7 +429,7 @@ The datasets for the project are:
 - product information: products displayed in Shop
 - order information: items being purchased 
 - user information: username, saved delivery info, saved markets
-- markets information: markets that will be shown on Markets page
+- markets information: markets that will be shown on Markets page, and comments on these markets
 
 The data is organised using the following models:
 - **User:** Django built in User model. For authentication and authorisaton
@@ -441,26 +441,41 @@ The data is organised using the following models:
   - this is a ForeignKey in the Order model so that user can be attached to the order, and the order history can be retrieved.
 - **Category:** Holds the categories for the products. 
   - friendly name is the name shown on the front end
+  - name must be unique so as to avoid conflicts when filtering by category
   - admin user will create/edit/delete instances of this model via the Django admin site
 - **Product:** holds the details of the products that will be displayed on the Shop page.
-  - each product must have a category, Category is a ForeignKey (one to many) in the Product model 
+  - each product must have a category, Category is a ForeignKey (one to many) in the Product model
+  - product name must be unique
   - a BooleanField called 'is_active' will be used to set a product as active or not. Only active products will be shown in the shop. The site owner can set this to False for a product, instead of deleting it. Since there is not yet any stock management built into this website, this is also a method by which the site owner can remove products from the website temporarily when they are out of stock, and show them again when they have made more of that item
   - another BooleanField called 'is_new' will be used to flag whether a product is new or not. The site owner will use this to highlight new products to customers, the flag can them be set to false after a time when they are no longer new
-  - admin user will create instances of this model via the form on the add product page on the frontend. They will edit and delete from the links on each product in the Shop page also. (Shop page displays all products, not just active, to the admin user) 
+  - admin user will create instances of this model via the form on the add product page on the frontend. They will edit and delete from the links on each product in the Shop page also. (Shop page displays all products, not just active, to the admin user)
+  - a method on this model will automatically generate the sku for each product instance
 - **Order:** the details of an Order, delivery details, user, totals
   - instances of this model are created during the Checkout process
   - this model will have some methods to create the order_number, calcuate the order_total, delivery_cost and grand_total and works in conjunction with the OrderLineItem model
-  - this model includes two fields which will be used during the webhook handling process with Stripe. During this process, a check is done to see if the order is already in the database, and if not then create it. Since the same customer can order the same item(s) on more than one occasion, there needs to be some unique fields to prevent the previous identical order being found as this new order. These fields are: 'original_bag', a TextField containing a json dump of the bag, and 'stripe_pid', the Stripe payment intent id from the order, which is unique.
+  - this model includes two fields which will be used during the webhook handling process with Stripe. During this process, a check is done to see if the order is already in the database, and if not then create it. Since the same customer can order the same item(s) on more than one occasion, there needs to be some unique fields to prevent the previous identical order being found as this new order. These fields are: 'original_cart', a TextField containing a json dump of the bag, and 'stripe_pid', the Stripe payment intent id from the order, which is unique.
 - **OrderLineItem:** the individual items in the Order instance
   - Order is a ForeignKey (one to many) in this model (one order to many line items)
   - Product is a ForeignKey (one to many) in this model to access the product details (i.e. price, to calculate the line item total)
   - this model calculates the total for each line item, which is then used by the Order model to calculate order total etc.
+- **County:** Holds the counties in Ireland for the markets that the website owner will post on the website.
+  - this model was created to hold the existing counties in Republic of Ireland, along with the existing Dublin area postcodes. This is so that the markets can then be filtered by county by users, and since the list is quite long a model was used instead of a CHOICES list.
+  - friendly name is the name shown on the front end
+  - name must be unique so as to avoid duplicates/conflicts when filtering by county
+  - admin user will create/edit/delete instances of this model via the Django admin site since this list will not change very often (only likely if a new Dublin postcode is added)
 - **Market:** holds the details of the markets that will be displayed on the Markets page.
-  - admin user will create instances of this model via the form on the add market page on the frontend. They will edit and delete from the links on each market in the Markets page also. 
-- **SavedMarket:** holds the user and the market, to be used to display to the user the details of the markets they have saved.   
-  - ManyToMany relationship with Markets models, as one user can save many markets, and one market can be saved by many users
-  - instances are created by a registered user using the Save button on the market in the Markets page
-  - instances can be deleted by registered user using Remove button on the market in the Markets page or in the MyMarkets page
+  - admin user will create instances of this model via the form on the add market page on the frontend. They will edit and delete from the links on each market in the Markets page also.
+  - each market must have a county, County is a ForeignKey (one to many) in the Market model 
+  - this model will have a property which will return whether the market date has passed or not (this is relevant for the superuser views, and for views where a user has saved that market, as they can view past markets so there will be a flag to show the market is in the past)
+- **SavedMarketList:** holds the user and a list of the markets they have saved, to be used to display to the user the details of the markets they have saved inside their profile section of the website.   
+  - market field has ManyToMany relationship with Markets models, as one user can save many markets, and one market can be saved by many users
+  - when a registered user uses the Save button on the market in the Markets page, an instance of SavedMarketList is created, if one didn't exist for that user, and the market is added to it 
+  - markets are added to the existing SavedMarketList instance when a registered user adds more markets using the Save button, or removed when they use the Remove button in on that market the Markets page or in the MyMarkets page
+  - after using the Remove button to remove a market from the instance, if there are no more markets for that user then the SavedMarketList instance is deleted
+- **Comment:** holds the details of the comments that users add to markets and are displayed on the market details page. 
+  - registered users can create instances of this model via the comment form on market details page.
+  - the comment form will just contain a comment field, the other three fields for author, market (ForeignKey to Market model) and created_on are set in the view
+  - registered users can edit and delete their own comments only, via links on any of their own comments on the market details pages.
 
 The details of each model, and relationships between them, are shown in the database schema below.
 
@@ -479,7 +494,7 @@ The project is developed using the Django framework and is structured under the 
 - Will have a Product model (product details) and Category model (product category names)
 - pages:
   - Shop (displays all products, filter/sort options)
-  - Product Detail (displays individual product)
+  - Product Details (displays individual product)
   - Add Product (add product form, admin user only)
   - Edit Product (edit product form, admin user only)
 
@@ -495,24 +510,27 @@ The project is developed using the Django framework and is structured under the 
 - This app will also use the Product and UserProfile models from the other apps in its views
 - pages:
   - Checkout (delivery + payment form)
-  - Order confirmation (success page after checkout)
+  - Order confirmation (success page after checkout, also used to display details of a previous order from the profile page)
 
 ### profiles
 - To handle the user information - their saved delivery details and their order history, and the markets the user has saved
 - Will have a UserProfile model which extends the Django User model using a OneToOne link, to store the extra information (delivery details)
-- Will also have a SavedMarkets model for the markets the user saves/removes from their profile, linked to the Markets model in the markets app
+- Will also have a SavedMarketList model for the markets the user saves, linked to the Markets model in the markets app
 - This app also uses the Order model from checkout app to display the order history
 - pages:
-  - Profile (displays/allows edits of saved delivery details and order history, registered user only)
+  - My Profile (displays/allows edits of saved delivery details and displays order history, registered user only)
   - My Markets (displays/allows removal of user saved markets, registered user only)
 
 ### markets
 - To handle the viewing of markets in the Market page, as well as the creating, editing and deleting of markets by the admin user
-- Will have a Markets model to hold the market details
+- To handle creating, viewing, editing and deleting of comments added by registered users on the markets
+- Will have a Markets model to hold the market details, and a County model to hold the counties and Dublin area postcodes that the markets can be categorised into. Also a Comment model for the registered user comments on markets.
 - pages:
   - Markets (displays all markets, filter/sort options)
+  - Market Details (display an individual market, along with its comments and the form to add new comments - form only displayed for registered users)
   - Add Market (add market form, admin user only)
   - Edit Market (edit market form, admin user only)
+  - Edit Comment (edit comment form, registered user only)
 
 ## Technology
 ---
