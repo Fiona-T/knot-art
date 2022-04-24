@@ -1,8 +1,13 @@
 /**
- * If select box exists, then listen for change on this element
- * On change, get the current URL, get the value from the select option
- * If the value isn't 'reset', then get the sort and direction from select option value
- * And set these into the search parameters on the url, then put new url into window
+ * This file contains functions used throughout the site: select box sorting for shop
+ * and markets pages, quantity inputs on cart and checkout, back to top btn, file name
+ * for image upload field for markets and products.
+ */
+
+/**
+ * Select dopdown box for sorting options on Shop and Markets pages. If it exists, listen for change on element.
+ * On change, get current URL + get value from the select option. If value not 'reset', get sort and direction 
+ * from select option value, set these into the search parameters on the url, then put new url into window
  * Otherwise, clear any sort and direction so that all results will be shown
  * Credit: initial code from Code Institute, amended/refactored
  *  */ 
@@ -13,7 +18,7 @@ function selectBoxSorting() {
             if(this.value != "reset"){
                 currentUrl.searchParams.set("sort", this.value.split("_")[0]);
                 currentUrl.searchParams.set("direction", this.value.split("_")[1]);
-                window.location.replace(currentUrl)
+                window.location.replace(currentUrl);
             } else {
                 currentUrl.searchParams.delete("sort");
                 currentUrl.searchParams.delete("direction");
@@ -24,6 +29,7 @@ function selectBoxSorting() {
 }
 
 /**
+ * Handles the quantity input on the product details page and cart page in products/cart apps.
  * If quantity buttons exist, call enableDisableQtyBtns to check if input element value is outside range,
  * or call changeInputValue to increase/decrease input element value.
  * - on page load, call enableDisableQtyBtns so minus btn disabled (as input value is 1 on page load)
@@ -36,13 +42,13 @@ function handleQuantityInput() {
         for (let button of quantityBtns) {
             let itemId = button.getAttribute("data-item_id");
             enableDisableQtyBtns(itemId);
-            button.addEventListener("click", function(event) {
-                event.preventDefault();
-                let itemId = this.getAttribute("data-item_id");
-                let direction = this.getAttribute("id").split("-")[0]
-                changeInputValue(itemId, direction);
-            });
         }
+        quantityBtns.forEach(button => button.addEventListener("click", function(event){
+            event.preventDefault();
+            let itemId = this.getAttribute("data-item_id");
+            let direction = this.getAttribute("id").split("-")[0];
+            changeInputValue(itemId, direction);
+            }));
         $('.qty_input').change(function() {
             let itemId = this.getAttribute("data-item_id");
             enableDisableQtyBtns(itemId);
@@ -51,8 +57,8 @@ function handleQuantityInput() {
 }
 
 /**
- * Change the value in the input box, either up or down depending on direction, then call
- * enableDisableQtyBtns, passing itemId
+ * Change the value in the quantity input box, either up or down depending on direction, then 
+ * call enableDisableQtyBtns, passing itemId
  * @param {string} itemId the id of the product, to get the relevant input element
  * @param {string} direction the direction of change, either increment or decrement
  */
@@ -83,8 +89,8 @@ function enableDisableQtyBtns(itemId) {
 }
 
 /**
- * When the link is clicked, get the form and submit it. Using requestSubmit() 
- * in order to invoke html form constraint validation so min/max on form input is validated.
+ * Used in the cart page to submit the updated quantity. Using requestSubmit() in order to 
+ * invoke html form constraint validation so min/max on form input is validated.
  */
 function submitQuantityUpdateForm() {
     if($('.update-link')) {
@@ -95,8 +101,8 @@ function submitQuantityUpdateForm() {
 }
 
 /**
- * When link is clicked, get csrf token and create url using item id,
- * post the data to the url, and reload the page when done.
+ * Used in the cart page to remove item. When link is clicked, get csrf token and create url using 
+ * item id, post the data to the url, and reload the page when done.
  * Credit: Code Institute, with some modifications
  */
 function removeItemFromCart() {
@@ -135,7 +141,7 @@ function scrollBackToTop() {
         if($("#new-image")){
             $("#new-image").change(function() {
                 let file = $("#new-image")[0].files[0];
-                $("#filename").text(`Image will be set to: ${file.name}`)
+                $("#filename").text(`Image will be set to: ${file.name}`);
             });    
         }
     }
