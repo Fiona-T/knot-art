@@ -1,4 +1,5 @@
-/* using for county filter dropdown - padding + font-size to match sorting select box */
+/* ---------------------------------------- County filter dropdown box */
+/* dropdown box - padding + font-size to match sorting select box */
 .btn-brand-dark-outline {
     color: #1c1c1c;
     background-color: #fdfdfd;
@@ -19,6 +20,7 @@
     font-size: .875rem;
 }
 
+/* highlight the currently selected county, and on hover/focus/active */
 .county-dropdown .dropdown-item.active,
 .county-dropdown .dropdown-item:hover,
 .county-dropdown .dropdown-item:focus,
