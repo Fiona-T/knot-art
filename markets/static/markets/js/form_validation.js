@@ -9,7 +9,7 @@
 function checkMarketDate() {
     document.getElementById("id_date").addEventListener("change", function() {
         let form_date = this.value;
-        let today = new Date().toISOString().slice(0, 10)
+        let today = new Date().toISOString().slice(0, 10);
         if (form_date < today) {
             addInvalidClasses("id_date");
         } else {
@@ -23,20 +23,18 @@ function checkMarketDate() {
  * If it is, add invalid class, else, remove invalid class (so previous errors are cleared)
  */
 function checkStartAndEndTimes() {
-    let timeInputs = document.querySelectorAll(".time-input")
-    for (let input of timeInputs) {
-        input.addEventListener("change", function() {
-            let start_time = document.getElementById("id_start_time").value;
-            let end_time = document.getElementById("id_end_time").value;
-            if (start_time && end_time) {
-                if (start_time > end_time) {
-                    addInvalidClasses("id_start_time", "id_end_time");
-                } else {
-                    removeInvalidClasses("id_start_time", "id_end_time");
-                }
+    let timeInputs = document.querySelectorAll(".time-input");
+    timeInputs.forEach(input => input.addEventListener("change", function() {
+        let start_time = document.getElementById("id_start_time").value;
+        let end_time = document.getElementById("id_end_time").value;
+        if (start_time && end_time) {
+            if (start_time > end_time) {
+                addInvalidClasses("id_start_time", "id_end_time");
+            } else {
+                removeInvalidClasses("id_start_time", "id_end_time");
             }
-        })
-    }
+        }
+    }));
 }
 
 /**
@@ -66,8 +64,8 @@ function removeInvalidClasses(...fieldIds) {
     fieldIds.forEach(fieldId => {
         document.getElementById(`${fieldId}`).classList.remove("is-invalid");
         if(document.getElementById(`hint_${fieldId}`)) {
-            document.getElementById(`hint_${fieldId}`).classList.remove("invalid-text")
-            document.getElementById(`hint_${fieldId}`).classList.add("text-muted")
+            document.getElementById(`hint_${fieldId}`).classList.remove("invalid-text");
+            document.getElementById(`hint_${fieldId}`).classList.add("text-muted");
         }
     });
 }
