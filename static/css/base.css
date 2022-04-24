@@ -169,7 +169,7 @@ a:not([href]).btt-link:focus {
 
 /* for icons used throughout */
 .icon {
-    color: #F98D85;
+    color: #ff8881;
     padding-right: 0.3rem;
 }
 
@@ -210,7 +210,7 @@ a:not([href]).btt-link:focus {
 /* main header links - colour + reduce automatic Bootstrap padding */
 .nav-link-main {
     padding: 0.5rem;
-    color: #F98D85;
+    color: #ff8881;
 }
 
 /* size for the icons in main header links */
@@ -231,7 +231,7 @@ a:not([href]).btt-link:focus {
 
 /* reduce Bootstrap padding on dropdown menu for smaller mobile, inceased in media query */
 .dropdown-item {
-    color: #F98D85;
+    color: #ff8881;
     padding-left: 0.5rem;
 }
 
@@ -254,7 +254,7 @@ a:not([href]).btt-link:focus {
 .dropdown-item:hover,
 .dropdown-item:active,
 .dropdown-item:focus {
-    background-color: #F98D85;
+    background-color: #ff8881;
     color: #1c1c1c;
 }
 
@@ -595,7 +595,7 @@ footer {
 
 /* heading in footer for social links */
 .sm-heading {
-    color: #F98D85;
+    color: #ff8881;
     font-weight: 500;
     font-size: 1.2rem;
 }
@@ -607,7 +607,7 @@ footer {
 .footer-link:hover, 
 .footer-link:active,
 .footer-link:focus {
-    color: #F98D85;
+    color: #ff8881;
     text-decoration: underline;
 }
 
