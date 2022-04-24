@@ -457,6 +457,15 @@ select option {
     color: #000000;
 }
 
+/* set blank label, invalid selection and date/time input placeholder to same font style as placeholder */
+select:invalid,
+select option[value=""],
+.brand-form input:not(:valid)::-webkit-datetime-edit {
+    color: #6c757d;
+    font-weight: 100;
+    font-size: 90%;
+}
+
 .fieldset-label {
     font-size: 90%;
     font-weight: 600;
