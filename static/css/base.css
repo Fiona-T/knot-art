@@ -8,6 +8,7 @@ body {
     font-weight: 300;
 }
 
+/* ---------------------------------------- Headings - general */
 h1, h2 {
     font-weight: 700;
 }
@@ -22,10 +23,10 @@ h2 {
 .page-title {
     text-transform: uppercase;
     font-size: 1.5rem;
-    border-bottom: 0.01rem solid rgba(28, 28, 28, 0.3);
+    border-bottom: 0.01rem solid rgba(28, 28, 28, 0.8);
 }
 
-
+/* ---------------------------------------- Links and Buttons - general */
 /* remove default colour + text decoration from links */
 a,
 a:hover,
@@ -54,7 +55,7 @@ main a:focus {
     color: #1c1c1c;
 }
 
-/* set font styles, exlude search btn and filter by county */
+/* set font styles for btn, exlude search btn and filter by county */
 :not(.input-group-append):not(.dropdown) > .btn {
     text-transform: uppercase;
     font-size: 0.9rem;
@@ -141,7 +142,7 @@ a:not([href]).btt-link:focus {
     border: 0.1rem solid #ff8881;
 }
 
-/* general font styles for size + weight */
+/* ---------------------------------------- Font styles - general */
 .font-90 {
     font-size: 90%;
 }
@@ -154,6 +155,7 @@ a:not([href]).btt-link:focus {
     font-weight: 500;
 }
 
+/* ---------------------------------------- Other - general  */
 /* change default Bootstrap border on select box */
 .custom-select {
     border: 0.1rem solid #1c1c1c;
@@ -163,6 +165,12 @@ a:not([href]).btt-link:focus {
 .row-divider {
     border-top: 0.1rem solid #ff8881;
     width: 80%;
+}
+
+/* for icons used throughout */
+.icon {
+    color: #F98D85;
+    padding-right: 0.3rem;
 }
 
 /* ---------------------------------------- Header */
@@ -330,7 +338,7 @@ a:not([href]).btt-link:focus {
 }
 
 /* ---------------------------------------- Shop/Product details page */
-/* sub navigtion on shop pages */
+/* ---------- sub navigation on shop pages */
 .nav-link-sub {
     color: #1c1c1c;
     font-weight: 700;
@@ -351,7 +359,7 @@ a:not([href]).btt-link:focus {
     border-bottom: 0.4rem solid #1c1c1c;
 }
 
-/* mobile menu icon size */
+/* mobile menu icon for category menu */
 .menu-icon {
     font-size: 2.5rem;
 }
@@ -359,12 +367,6 @@ a:not([href]).btt-link:focus {
 /* button containing mobile menu icon - negative margin to align */
 .navbar-toggler {
     margin-bottom: -0.5rem;
-}
-
-/* colour for the icons used in products, markets cards */
-.icon {
-    color: #F98D85;
-    padding-right: 0.3rem;
 }
 
 /* 'new' badge for items in shop */
@@ -379,7 +381,7 @@ a:not([href]).btt-link:focus {
     top: 0.5rem;
 }
 
-/* quantity buttons */
+/* quantity buttons for adding to cart/adjusting quantity */
 .btn-qty {
     background-color: #1c1c1c;
     border: 0.01rem solid #1c1c1c;
@@ -415,7 +417,7 @@ a:not([href]).btt-link:focus {
     font-size: 110%;
 }
 
-/* ---------------------------------------- Modal to Delete Product */
+/* ---------------------------------------- Modals to Delete Product/Market/Comment */
 .modal-content {
     border-radius: 0;
 }
@@ -461,6 +463,7 @@ select option {
     margin-left: 0.5rem;
 }
 
+/* wrapper around fieldsets */
 fieldset {
     padding: 0.5rem 1rem;
     border: 0.1rem solid #ff8881;
@@ -479,7 +482,7 @@ fieldset {
     font-weight: 600;
 }
 
-/* ------- custom clearable file input (image field on product form) Credit: Code Institute */
+/* ------- custom clearable file input (image field on product form + market form) Credit: Code Institute */
 /* span wrapped around file input */
 .btn-file {
     position: relative;
@@ -521,7 +524,6 @@ label[for="image-clear_id"]{
 }
 
 /* ---------------------------------------- Allauth form formatting */
-
 .allauth-form-inner-content input {
     border-color: #1c1c1c;
     border-radius: 0;
@@ -545,7 +547,6 @@ label[for="image-clear_id"]{
 }
 
 /* ---------------------------------------- Footer */
-
 /* embedded mailchimp form - custom CSS */
 .newsletter-form-input {
     border-radius: 0;
@@ -553,6 +554,7 @@ label[for="image-clear_id"]{
     padding: 0.5rem;
 }
 
+/* newsletter sign up button */
 .btn-newsletter {
     background-color: #010101;
     border: 0.1rem solid #ff8881;
