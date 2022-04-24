@@ -1,20 +1,4 @@
-.order-summary-hr {
-    border-top: 0.1rem solid rgba(255, 136, 129, 0.3);
-}
-
 /* ---------------------------------------- Order form */
-.fieldset-label {
-    font-size: 90%;
-    font-weight: 600;
-    margin-left: 0.5rem;
-}
-
-fieldset {
-    padding: 0.5rem 1rem;
-    border: 0.1rem solid #ff8881;
-    margin-bottom: 3rem;
-}
-
 /* select box - set blank label and invalid selection to same font style as placeholder */
 select:invalid,
 select option[value=""] {
@@ -74,22 +58,26 @@ select option[value=""] {
     border: 0.1rem solid #ff8881;
 }
 
+/* heading row at top of order summary box */
 .order-summary-header {
     background-color: #ff8881;
     padding: 0.625rem;
 }
 
+/* headings for each section of order summary + in header */
 .order-success-heading {
     font-weight: 100;
     text-transform: uppercase;
     margin-bottom: .5rem;
 }
 
+/* heading inside the header - heaveier font weight */
 .order-summary-header .order-success-heading {
     margin-bottom: 0;
     font-weight: 500;
 }
 
+/* dividers between each section of order summary heading */
 .order-hr {
     border-top: 0.1rem solid #ff8881;
 }

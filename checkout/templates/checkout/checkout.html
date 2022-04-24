@@ -53,7 +53,7 @@
                 </div>
             </div>
             {% endfor %}
-            <hr class="order-summary-hr">
+            <hr>
             <!-- 3rd row - totals -->
             <div class="row fw-600 text-right justify-content-end pr-4">
                 <div class="col-7">
@@ -71,7 +71,7 @@
                     <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
                 {% endif %}
             </div>
-            <hr class="order-summary-hr">
+            <hr>
             <!-- button to go back to the cart page -->
             <div class="text-right">
                 <a href="{% url 'view_cart' %}" class="btn btn-brand-outline btn-lg">Adjust Bag</a>
