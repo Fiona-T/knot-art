@@ -1,3 +1,7 @@
+/**
+ * This file handles creating the stripe elements and the submit of the payment form.
+ */
+
 /*
     Core logic/payment flow comes from:
     https://stripe.com/docs/payments/accept-a-payment
@@ -5,14 +9,10 @@
     Credit to Code Institute for form submit part.
 */
 
-// get the text from the script elements, and slice off the quotation marks
+// get the keys, create instance of stripe using public key, create instance of stripe elements
 const stripePublicKey = $("#id_stripe_public_key").text().slice(1, -1);
 const clientSecret = $("#id_client_secret").text().slice(1, -1);
-
-// create instance of stripe using public key
 const stripe = Stripe(stripePublicKey);
-
-// create instance of stripe elements
 const elements = stripe.elements();
 
 // set the style in style object
@@ -33,9 +33,9 @@ const style = {
         iconColor: '#dc3545'
     }
 };
-// create a card element (in stripe docs referred to as paymentElement)
+
+// create a card element + mount card element to the div in checkout.html
 const card = elements.create('card', {style: style});
-// mount the card element to the div in the checkout.html file
 card.mount('#card-element');
 
 // handle realtime validation errors on the card element & display errors in card-errors div
@@ -135,5 +135,5 @@ form.addEventListener('submit', function(ev) {
     }).fail(function() {
         // if cache_checkout_data view returns 400 response - reload page
         location.reload();
-    })
+    });
 });
