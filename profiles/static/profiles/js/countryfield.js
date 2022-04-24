@@ -1,17 +1,30 @@
-// get value of country field when page loads
-let countrySelected = $('#id_default_country').val();
-// it will be emtpy string (false) if first option is selected
-// if it's false, set it to grey placeholder color
-if(!countrySelected) {
-    $('#id_default_country').css('color', '#6c757d');
-};
-// capture the change event, when it changes, get the value
-$('#id_default_country').change(function() {
-    countrySelected = $(this).val();
-    // if it's false then set to grey placeholder, otherwise to black
-    if(!countrySelected) {
-        $(this).css({'color': '#6c757d', 'font-weight': '100', 'font-size': '90%'});
-    } else {
-        $(this).css({'color': '#000', 'font-weight': '400', 'font-size': '1rem'});
-    }
+/**
+ * To set font styles for the selected option in the Country dropdown field in profile form.
+ * On the profile form this field is not required, therefore can't set the styles by using
+ * the not valid selector. So instead set the styles based on the value.
+ */
+
+/**
+ * listen for change on select element, if value is empty then set font styles to
+ * match placeholder, otherwise set font styles to match other inputs
+ */
+function countrySelectColour() {
+    $('#id_default_country').change(function() {
+        if(!$(this).val()) {
+            $(this).css({'color': '#6c757d', 'font-weight': '100', 'font-size': '90%'});
+        } else {
+            $(this).css({'color': '#1c1c1c', 'font-weight': '400', 'font-size': '1rem'});
+        }
+    });
+}
+
+/** on page load, set country select box to placeholder style if no value (i.e blank label)
+ * and initialise countrySelectColour function to listen for change on the element
+*/
+document.addEventListener("DOMContentLoaded", function () {
+    if(!$('#id_default_country').val()) {
+        console.log('new')
+        $('#id_default_country').css({'color': '#6c757d', 'font-weight': '100', 'font-size': '90%'});
+    };
+    countrySelectColour();
 });
