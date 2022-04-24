@@ -86,6 +86,7 @@ Based on the above analysis, an initial overview of features that would be neede
 - there needs to be a checkout process, and for registered users an option to use their saved delivery details for a quicker checkout
 - for users who prefer to see/feel the product before buying, the website owner facilitates this through also selling the items at craft markets. The website should show details of these markets so that customers know when these are coming up
 - for these users, the website should also allow them to save a market to their user profile, so when they are logged in they can see the one they've saved as a reminder
+- in addition, to generate a sense of community and engagement, users can add comments to markets and thus interact with each other, hear others' opinions on a market or ask a question on a market
 - customer loyalty is an important factor in direct to consumer, so there should also be a newsletter sign up, so that the site owner can keep customers up to date as well as links to social media profiles including Facebook business page
 
 ### Database tables and data required
@@ -97,8 +98,8 @@ Based on the above analysis, an initial overview of the tables that would be nee
 - the product category names could be stored in their own table for ease of administration (rather than a choices list). This table could store both the category name and a user friendly name for the frontend (e.g. for categories that contain an '&' in the name, which could not be stored in the database category name)
 - a table will be required for Orders, to store the user, their delivery information, and order cost
 - a linked table to this would be OrderLineItems which would be the individual items in an order and store the product information and quantity of that product
-- for the markets a table will be needed to record the name, location, date, time, image, website
-- a further table for the user SavedMarkets will record the user and the market
+- for the markets a table will be needed to record the name, location, date, time, image, website, as well as a table to hold the comment details for each market
+- a further table for the user SavedMarkets will record the user and the list of markets they have saved
 
 ## Search Engine Optimisation (SEO)
 ---
@@ -229,8 +230,22 @@ For ease of reading, the user stories around similar actions have been grouped i
 - [#50](https://github.com/Fiona-T/knot-art/issues/50) As the website owner I have relevant keywords included in the webpage metadata so that it helps improve SEO so that users searching for these keywords can find my website
 
 ### Design
+To allow the product images to shine, the website design is clean, with plenty of white space and uses colours sparingly.
 - #### Colour scheme
+The accent colour for the website is a coral pink, and a dark black is used as a background to this to provide good contrast. 
+Colour palette:
+![website colour scheme](docs/colour-scheme.png)
+- Eerie Black `#1C1C1C` is used for the header and is the main text colour and is used as background colour for some buttons 
+- Congo Pink `#FF8881` is the brand colour and is used for the logo and menu items in the header. It is also used as an accent colour througout the site for button backgrounds or outlines, link underlines, form wrappers, etc.
+- Black `#010101`, a slightly darker black than the header colour, is used for the footer background
+- White `#FDFDFD` is used for text that appears on darker backgrounds e.g. on dark buttons or for active menu items in the header.
+
+The colour combinations have all been checked for accessibility using the [WCAG Contrast Checker tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en) to meet at least level AA. 
+
+The contrast checker extension was used during development to check the contrast as changes were made to the website. A further check was done at the end of the project on each page. All pages meet at least level AA using the [WCAG Contrast Checker browser extension tool](https://chrome.google.com/webstore/detail/wcag-color-contrast-check/plnahcmalebffmaghcpcmpaciebdhgdf?hl=en).
+
 - #### Typography
+[Lobster Two](https://fonts.google.com/specimen/Lobster+Two) is used for the logo font. The curves and hand-lettered style of this font mean it works well as the logo for this site selling handmade items. Its thickness also contrast well with the body text so it stands out as the logo. [Overpass](https://fonts.google.com/specimen/Overpass) is used throughout the rest of the website, with the different weights used to distinguish the headings and body text. This is a light, sans serif typeface that has been optimised for smaller sizes on-screen. The lightness of this font works well with the imagery of the handmade macrame wall hangings. 
 
 ### Wireframes
 #### Desktop/Tablet
