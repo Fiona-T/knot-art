@@ -175,7 +175,7 @@ a:not([href]).btt-link:focus {
 
 /* ---------------------------------------- Header */
 .username {
-    color: white;
+    color: #FDFDFD;
     font-size: 80%;
     font-weight: 300;
     margin-right: 1rem;
@@ -454,7 +454,7 @@ a:not([href]).btt-link:focus {
 /* set colour for select box and select option children */
 select,
 select option {
-    color: #000000;
+    color: #1c1c1c;
 }
 
 /* set blank label, invalid selection and date/time input placeholder to same font style as placeholder */

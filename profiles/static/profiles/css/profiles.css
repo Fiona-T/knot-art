@@ -15,7 +15,7 @@
 /* select options except first one black by default */
 .country-input,
 .country-input option:not(:first-child) {
-    color: #000;
+    color: #1c1c1c;
 }
 
 /* first option same color as placeholder */
@@ -38,7 +38,7 @@
 
 thead {
     background-color: #1c1c1c;
-    color: white;
+    color: #fdfdfd;
 }
 
 /* ---------------------------------------- Account details section */
