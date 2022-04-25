@@ -1,8 +1,10 @@
 """Tests for Views in the checkout app"""
 from django.test import TestCase
+from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.conf import settings
 from products.models import Product, Category
+from profiles.models import UserProfile
 from .models import Order
 
 
@@ -25,6 +27,19 @@ class TestCheckoutView(TestCase):
             price=123.45,
             is_active=True,
         )
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+        profile = UserProfile.objects.get(id=1)
+        profile.default_phone_number = '123456'
+        profile.default_street_address1 = 'My Street'
+        profile.default_town_or_city = 'Dublin'
+        profile.default_postcode = 'AB12345'
+        profile.default_county = 'Dublin 1'
+        profile.default_country = 'Ireland'
+        profile.save()
 
     def test_correct_url_and_template_used_if_items_in_cart(self):
         """
@@ -76,6 +91,78 @@ class TestCheckoutView(TestCase):
             'Stripe public key is missing. Did you forget to set it in your '
             'environment?'
             )
+
+    def test_order_form_fields_are_empty_if_user_not_logged_in(self):
+        """
+        Go to checkout page as an anonymous user, confirm that each field
+        on the order form does not have any initial value.
+        """
+        session = self.client.session
+        session['cart'] = {'1': 2}
+        session.save()
+        response = self.client.get('/checkout/')
+        form = response.context['order_form']
+        self.assertFalse(form['full_name'].initial)
+        self.assertFalse(form['email'].initial)
+        self.assertFalse(form['phone_number'].initial)
+        self.assertFalse(form['country'].initial)
+        self.assertFalse(form['postcode'].initial)
+        self.assertFalse(form['town_or_city'].initial)
+        self.assertFalse(form['street_address1'].initial)
+        self.assertFalse(form['street_address2'].initial)
+        self.assertFalse(form['county'].initial)
+
+    def test_order_form_fields_have_initial_values_if_user_logged_in(self):
+        """
+        Go to checkout page as an logged in user, confirm that each field
+        on the order form has initial values populated from the user profile
+        if the data exists on the profile.
+        """
+        session = self.client.session
+        session['cart'] = {'1': 2}
+        session.save()
+        self.client.login(username='User', password='secret12')
+        response = self.client.get('/checkout/')
+        form = response.context['order_form']
+        self.assertEqual(form['full_name'].initial, 'User')
+        self.assertEqual(form['email'].initial, '')
+        self.assertEqual(form['phone_number'].initial, '123456')
+        self.assertEqual(form['country'].initial, 'Ireland')
+        self.assertEqual(form['postcode'].initial, 'AB12345')
+        self.assertEqual(form['town_or_city'].initial, 'Dublin')
+        self.assertEqual(form['street_address1'].initial, 'My Street')
+        self.assertEqual(form['street_address2'].initial, None)
+        self.assertEqual(form['county'].initial, 'Dublin 1')
+
+    def test_order_form_fields_empty_if_user_logged_in_but_no_profile(self):
+        """
+        Create a user (creates a UserProfile instance for them) and log them
+        in. Then get their profile and delete it. This means profile will not
+        be found when on the checkout page, to populate the orderform.
+        Got to checkout page, confirm each field deosn't have initial value.
+        """
+        session = self.client.session
+        session['cart'] = {'1': 2}
+        session.save()
+        new_user = User.objects.create_user(
+            username='Name',
+            password='secret123',
+        )
+        new_user.save()
+        self.client.login(username='Name', password='secret123')
+        profile = UserProfile.objects.get(user=new_user)
+        profile.delete()
+        response = self.client.get('/checkout/')
+        form = response.context['order_form']
+        self.assertFalse(form['full_name'].initial)
+        self.assertFalse(form['email'].initial)
+        self.assertFalse(form['phone_number'].initial)
+        self.assertFalse(form['country'].initial)
+        self.assertFalse(form['postcode'].initial)
+        self.assertFalse(form['town_or_city'].initial)
+        self.assertFalse(form['street_address1'].initial)
+        self.assertFalse(form['street_address2'].initial)
+        self.assertFalse(form['county'].initial)
 
 
 class TestCacheCheckoutDataView(TestCase):
