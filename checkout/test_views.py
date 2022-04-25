@@ -1,6 +1,7 @@
 """Tests for Views in the checkout app"""
 from django.test import TestCase
 from django.contrib.messages import get_messages
+from django.conf import settings
 from products.models import Product, Category
 from .models import Order
 
@@ -53,6 +54,27 @@ class TestCheckoutView(TestCase):
             messages[0].message,
             "Can't checkout as you don't have anything in your bag at the "
             "moment! Add some items and try again."
+            )
+
+    def test_warning_message_shown_if_stripe_public_key_not_set(self):
+        """
+        Create cart session variable with items in it.
+        Set the STRIPE_PUBLIC_KEY from settins to empty string so it will
+        generate the warning message. Go to checkout page, check warning
+        msg exists and wording is as expected.
+        """
+        session = self.client.session
+        session['cart'] = {'1': 2}
+        session.save()
+        settings.STRIPE_PUBLIC_KEY = ''
+        response = self.client.get('/checkout/')
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'warning')
+        self.assertEqual(
+            messages[0].message,
+            'Stripe public key is missing. Did you forget to set it in your '
+            'environment?'
             )
 
 
