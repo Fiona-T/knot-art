@@ -1,4 +1,4 @@
-"""Order form for checkout app"""
+"""Forms for profiles app - UserProfileForm"""
 from django import forms
 from .models import UserProfile
 
