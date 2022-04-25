@@ -78,7 +78,9 @@ On the initial run, some of the apps were below 100% and some more tests were ad
 
 The initial coverage report was 99% as shown below:
 ![cart app coverage report](docs/automated-testing/cart-app-coverage-initital.png)
+
 The report showed a test missing for `__init__.py` file in the `templatetags` folder:
+
 ![cart app coverage missing test](docs/automated-testing/cart-app-missing-test.png)
 On investigation there should not have been any code in the `__init__.py` file, this code was already in the cart_tools.py file and had somehow been duplicated into the `__init__.py` file. Removed this code from `__init__.py` file and also wrote a test to cover off on testing the `calc_subtotal` custom templatetag. The final coverage for this app is now 100% as shown in the [Final coverage reports section below](#final-coverage-reports) 
 
@@ -86,40 +88,51 @@ On investigation there should not have been any code in the `__init__.py` file, 
 
 The initial coverage report was 99% as shown below:
 ![profiles app coverage report](docs/automated-testing/profiles-app-coverage-initial.png)
+
 The report showed tests missing for `views.py`:
+
 ![profiles app coverage missing tests](docs/automated-testing/profiles-app-missing-tests.png)
+
 Tests were added to cover off on these (invalid profile form, error message raised and test for if user has no saved markets) The final coverage for this app is now 100% as shown in the [Final coverage reports section below](#final-coverage-reports) 
 
 **- checkout app:**
 
 The initial coverage report was 72% as shown below:
 ![checkout app coverage report](docs/automated-testing/checkout-app-coverage-initial.png)
+
 The report showed tests missing for `signals.py` `views.py`:
 ![checkout app coverage missing tests](docs/automated-testing/checkout-app-missing-tests.png)
-Tests were added to cover off on the missing test for `signals.py`. Further tests were added for the `checkout_success` view, `cache_checkout_data` view and the get request part of the `checkout` view from `views.py`. The final coverage for this app is now 82% as shown in the [Final coverage reports section below](#final-coverage-reports). The [remaining tests in views.py](docs/automated-testing/checkout-app-remaining-missing-tests.png) need Stripe to be mocked for the post part of the `checkout` view, and for the `cache_checkout_data` view where it interacts with Stripe via the `stripe_elements.js` script. And also to test the webhooks.py and webhook_handler.py. This would be a future learning for me to complete, however manual testing has been completed on the Stripe webhooks and on the post part of the checkout view and cache_checkout_data view during development. 
+Tests were added to cover off on the missing test for `signals.py`. Further tests were added for the `checkout_success` view, `cache_checkout_data` view and the get request part of the `checkout` view from `views.py`. The final coverage for this app is now 82% as shown in the [Final coverage reports section below](#final-coverage-reports). The [remaining tests in views.py](docs/automated-testing/checkout-app-remaining-missing-tests.png) need Stripe to be mocked for the post part of the `checkout` view, and for the `cache_checkout_data` view where it interacts with Stripe via the `stripe_elements.js` script. And also to test the webhooks.py and webhook_handler.py. On discussion with my mentor, this would be a future learning for me to complete, however manual testing has been completed on the Stripe webhooks and on the post part of the checkout view and cache_checkout_data view during development. 
 
 ##### Final coverage reports
 As shown below, the final coverage report shows 100% coverage for the cart, home, markets, products and profiles apps. The checkout app has 82% coverage. Overall coverage is 96%.
 
 - cart app coverage report
+
 ![cart app coverage report](docs/automated-testing/cart-app-coverage-report.png)
 
 - checkout app coverage report
+
 ![checkout app coverage report](docs/automated-testing/checkout-app-coverage-report.png)
 
 - home app coverage report
+
 ![home app coverage report](docs/automated-testing/home-app-coverage-report.png)
 
 - markets app coverage report
+
 ![markets app coverage report](docs/automated-testing/markets-app-coverage-report.png)
 
 - products app coverage report
+
 ![products app coverage report](docs/automated-testing/products-app-coverage-report.png)
 
 - profiles app coverage report
+
 ![profiles app coverage report](docs/automated-testing/profiles-app-coverage-report.png)
 
 - overall coverage report
+
 ![overall coverage report](docs/automated-testing/overall-coverage-report.png)
 
 To run the coverage report to see any further details, do the following in the IDE command line:
