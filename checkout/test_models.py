@@ -12,7 +12,9 @@ class TestOrderModel(TestCase):
     def setUpTestData(cls):
         """
         Create instance of Cagtegory and Order for tests.
-        Create 4 instances of Product - prices set as 5, 10, 15 and 20
+        Create 4 instances of Product - prices set as 5, 10, 15 and 20.
+        Create another instance of Order and create instances of OrderLineItem
+        for this order - so can test post save and post delete signals.
         """
         Category.objects.create(
             name='category_and_category',
@@ -37,6 +39,39 @@ class TestOrderModel(TestCase):
             town_or_city='My town',
             country='IE',
         )
+        Order.objects.create(
+            full_name='myname',
+            email='email@email.com',
+            phone_number='12345678',
+            street_address1='My street',
+            town_or_city='My town',
+            country='IE',
+        )
+
+        order_item1 = OrderLineItem.objects.create(
+            order=Order.objects.get(id=2),
+            product=Product.objects.get(id=1),  # price is 5.00 each
+            quantity=3,
+        )
+        order_item2 = OrderLineItem.objects.create(
+            order=Order.objects.get(id=2),
+            product=Product.objects.get(id=2),  # price is 10.00 each
+            quantity=1,
+        )
+        order_item1.save()
+        order_item2.save()
+
+    def test_order_total_is_updated_when_lineitem_saved(self):
+        """
+        Get second Order created in setUp (has order line items)
+        Confirm order total is correct with these line items.
+        """
+        order = Order.objects.get(id=2)
+        item1 = OrderLineItem.objects.get(id=1)
+        item2 = OrderLineItem.objects.get(id=2)
+        self.assertEqual(order.order_total, Decimal('25.00'))
+        self.assertEqual(item1.lineitem_total, Decimal('15.00'))
+        self.assertEqual(item2.lineitem_total, Decimal('10.00'))
 
     def test_update_total_method_calculates_totals_with_delivery(self):
         """
@@ -102,6 +137,16 @@ class TestOrderModel(TestCase):
         order = Order.objects.get(id=1)
         self.assertTrue(order.order_number)
         self.assertEqual(len(order.order_number), 32)
+
+    def test_order_total_is_updated_when_lineitem_deleted(self):
+        """
+        Get second Order created in setUp (has order line items). Delete one
+        line item and confirm order total updates accordingly.
+        """
+        item2 = OrderLineItem.objects.get(id=2)
+        item2.delete()
+        order = Order.objects.get(id=2)
+        self.assertEqual(order.order_total, Decimal('15.00'))
 
 
 class TestOrderLineItemModel(TestCase):
