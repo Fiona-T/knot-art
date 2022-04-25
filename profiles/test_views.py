@@ -175,6 +175,24 @@ class TestProfileView(TestCase):
             'Your profile information was updated.'
             )
 
+    def test_error_msg_shown_when_profile_form_not_valid(self):
+        """
+        Test that the error message is generated after posting the form
+        if form is invalid, check msg is as expected.
+        """
+        self.client.login(username='TesterTwo', password='SecretCode14!')
+        response = self.client.post('/profile/', {
+            'default_phone_number': '1 ' * 21,  # too long - invalid
+            })
+        self.assertFalse(response.context['form'].is_valid())
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Please check the form and submit again.'
+            )
+
     def test_zero_orders_in_context_for_user_with_no_orders(self):
         """
         Login user who doesn't have any orders. Go to profile page, confirm
@@ -459,13 +477,18 @@ class TestShowSavedMarketsView(TestCase):
         Test user and 10 Market instances. Instance of SavedMarketList, add
         7 markets to it (mix of dates in future + past).
         Test instances of county for creating markets with different counties
-        for filtering by county test.
+        for filtering by county test. Second test user with no SavedMarketList
         """
         user1 = User.objects.create_user(
             username='Tester',
             password='SecretCode14',
         )
         user1.save()
+        user2 = User.objects.create_user(
+            username='nomarkets',
+            password='secret1234',
+        )
+        user2.save()
         county_1 = County.objects.create(
             name='dublin_3',
             friendly_name='Dublin 3'
@@ -511,6 +534,16 @@ class TestShowSavedMarketsView(TestCase):
         response = self.client.get('/profile/my_markets/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/my_markets.html')
+
+    def test_correct_context_for_logged_in_user_with_no_saved_markets(self):
+        """
+        Get url for my markets page for user with no saved markets. Check the
+        two context items saved_markets_list and all_markets are equal to None
+        """
+        self.client.login(username='nomarkets', password='secret1234')
+        response = self.client.get('/profile/my_markets/')
+        self.assertEqual(response.context['saved_markets_list'], None)
+        self.assertEqual(response.context['all_markets'], None)
 
     def test_all_markets_from_saved_list_displayed(self):
         """
