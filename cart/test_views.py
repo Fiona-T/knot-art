@@ -1,11 +1,30 @@
 """Tests for views in 'cart' app (display items in cart, adjust, remove)"""
+from decimal import Decimal
 from django.test import TestCase
 from django.contrib.messages import get_messages
 from products.models import Category, Product
+from .templatetags.cart_tools import calc_subtotal
 
 
 class TestViewCartView(TestCase):
     """To test the view_cart view - page displaying items in cart"""
+    @classmethod
+    def setUp(cls):
+        """
+        Create instance of Category and Product for test
+        """
+        Category.objects.create(
+            name='category_name',
+            friendly_name='Category'
+        )
+        Product.objects.create(
+            category=Category.objects.get(id=1),
+            name='Large Wall Hanging',
+            sku='12345',
+            description='product description',
+            price=123.45,
+            is_active=True,
+        )
 
     def test_correct_url_and_template_used(self):
         """
@@ -15,6 +34,20 @@ class TestViewCartView(TestCase):
         response = self.client.get('/cart/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'cart/cart.html')
+
+    def test_calc_subtotal_filter_returns_correct_subtotal(self):
+        """
+        Create a cart in the session, with quantity of 2 for product id 1.
+        Go to cart page, get the cart and confirm subtotal is correct for that
+        item in the cart.
+        """
+        session = self.client.session
+        session['cart'] = {'1': 2}
+        session.save()
+        response = self.client.get('/cart/')
+        cart = response.context['cart_items'][0]
+        subtotal = calc_subtotal(cart['product'].price, cart['quantity'])
+        self.assertEqual(subtotal, Decimal('246.90'))
 
 
 class TestAddToCartView(TestCase):
