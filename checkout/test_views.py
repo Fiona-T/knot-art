@@ -56,6 +56,35 @@ class TestCheckoutView(TestCase):
             )
 
 
+class TestCacheCheckoutDataView(TestCase):
+    """Tests for the cache_checkout_data view"""
+    def test_405_returned_for_get_request(self):
+        """
+        View restricted to post requests. Ensure 405 (method not allowed)
+        is raised on a get request.
+        """
+        response = self.client.get('/checkout/cache_checkout_data/')
+        self.assertEqual(response.status_code, 405)
+
+    def test_400_returned_and_error_message_shown_if_error(self):
+        """
+        Post to the view with an error, test response is 400 and
+        error message shown and correct.
+        """
+        response = self.client.post('/checkout/cache_checkout_data/', {
+            'save_info': False,
+        })
+        self.assertEqual(response.status_code, 400)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].tags, 'error')
+        self.assertEqual(
+            messages[0].message,
+            'Sorry, your payment cannot be processed right now. '
+            'Please try again later.'
+            )
+
+
 class TestCheckoutSuccessView(TestCase):
     """Tests for the checkout view"""
     @classmethod
