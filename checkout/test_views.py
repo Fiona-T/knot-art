@@ -1,5 +1,6 @@
 """Tests for Views in the checkout app"""
 from django.test import TestCase
+from django.shortcuts import reverse
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.conf import settings
@@ -199,7 +200,8 @@ class TestCheckoutSuccessView(TestCase):
     @classmethod
     def setUp(cls):
         """
-        Create instance of Category and Product for test
+        Create instance of Category and Product for test.
+        Create instance of User + set profile info.
         """
         Category.objects.create(
             name='category_name',
@@ -213,6 +215,19 @@ class TestCheckoutSuccessView(TestCase):
             price=123.45,
             is_active=True,
         )
+        test_user = User.objects.create_user(
+            username='User',
+            password='secret12',
+        )
+        test_user.save()
+        profile = UserProfile.objects.get(id=1)
+        profile.default_phone_number = '123456'
+        profile.default_street_address1 = 'My Street'
+        profile.default_town_or_city = 'Dublin'
+        profile.default_postcode = 'AB12345'
+        profile.default_county = 'Dublin 1'
+        profile.default_country = 'IE'
+        profile.save()
 
     def test_correct_url_and_template_used(self):
         """
@@ -283,3 +298,32 @@ class TestCheckoutSuccessView(TestCase):
         )
         self.client.get(f'/checkout/checkout_success/{order.order_number}')
         self.assertRaises(KeyError, lambda: self.client.session['cart'])
+
+    def test_profile_details_are_updated_if_save_info_is_true(self):
+        """
+        Create an order. Get user profile and confirm existing values.
+        Set save_info session variable to true, login user, go to checkout
+        success for that order. Confirm user profile details were updated.
+        """
+        order = Order.objects.create(
+            full_name='Name',
+            email='email@email.com',
+            phone_number='12345678',
+            street_address1='A different street',
+            town_or_city='Different town',
+            country='IE',
+        )
+        profile = UserProfile.objects.get(id=1)
+        self.assertEqual(profile.default_phone_number, '123456')
+        self.assertEqual(profile.default_street_address1, 'My Street')
+        self.assertEqual(profile.default_town_or_city, 'Dublin')
+        session = self.client.session
+        session['save_info'] = True
+        session.save()
+        self.client.login(username='User', password='secret12')
+        order = Order.objects.get(id=1)
+        self.client.get(reverse('checkout_success', args=[order.order_number]))
+        profile = UserProfile.objects.get(id=1)
+        self.assertEqual(profile.default_phone_number, '12345678')
+        self.assertEqual(profile.default_street_address1, 'A different street')
+        self.assertEqual(profile.default_town_or_city, 'Different town')
