@@ -46,6 +46,28 @@ There are no errors remaining and [the final results of the JSHint checks on eac
 ### Other Manual Testing
 
 ### Automated Testing
+#### Python tests
+Automated testing was carried out on the Python code in each of the six apps. Tests were written as each feature or user story was developed in each iteration, in line with the Agile approach used for the project development. The tests were ran and the feature was not closed until the tests passed. Tests were written for models, views and forms.
+
+On completion of the project, all tests were ran again to ensure they still passed and the results of these are shown below. The tests that were written are contained in the relevant `test_forms.py`, `test_views.py` and `test_models.py` files in each app.
+
+- cart app automated test results - test_views
+![cart app automated test results](docs/automated-testing/cart-app-automated-tests.png)
+
+- checkout app automated test results - test_forms, test_models, test_views
+![checkout app automated test results](docs/automated-testing/checkout-app-automated-tests.png)
+
+- home app automated test results - test_views
+![home app automated test results](docs/automated-testing/home-app-automated-tests.png)
+
+- markets app automated test results - test_forms, test_models, test_views
+![markets app automated test results](docs/automated-testing/markets-app-automated-tests.png)
+
+- products app automated test results - test_forms, test_models, test_views
+![products app automated test results](docs/automated-testing/products-app-automated-tests.png)
+
+- profiles app automated test results - test_forms, test_models, test_views
+![profiles app automated test results](docs/automated-testing/profiles-app-automated-tests.png)
 
 ### Fixed Bugs
 - **Issue: On cart page can add more than max allowed**
