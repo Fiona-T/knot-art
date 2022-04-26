@@ -734,11 +734,12 @@ Before deploying to Heroku, the initial set up and creation of the project and a
 4. Install any other required libraries/tools
 5. Create the requirements.txt file: `pip3 freeze --local > requirements`. This creates the requirements.txt file with the above dependencies. Later on in development, any further dependencies that are installed can be added to the file using `pip3 freeze > requirements.txt`. Heroku will use this file to install the requirements when creating the application on Heroku.
 6. Create the django project: `django-admin startproject projectname .`. The ` .` means create the project in the current directory
-7. Create app: `python3 manage.py startapp appname`. 
-8. Go to `settings.py` (this is located in the project folder) and add the appname to `INSTALLED_APPS` list
-9. The creation of the app creates initial migrations for the model and these need to be migrated. Back in the commandline: `python3 manage.py migrate`
+7. Create a `.gitignore` file at the top directory level and add `*.sqlite3` to it, so that any sensitive data in the development database doesn't get pushed to GitHub, and `*.pyc` and `__pycache__/` because the complied python code is not needed in version control
+8. Create app: `python3 manage.py startapp appname`. 
+9. Go to `settings.py` (this is located in the project folder) and add the appname to `INSTALLED_APPS` list
+10. The creation of the app creates initial migrations for the model and these need to be migrated. Back in the commandline: `python3 manage.py migrate`
 
-Repeat steps 7, 8 and 9 throughout development as you create further apps within the project. When models are created or updated during development, the changes also need to be made and migrated using `python3 manage.py makemigration` and `python3 manage.py migrate`. Remember you will need to do the migrations on the production database as well.
+Repeat steps 8, 9 and 10 throughout development as you create further apps within the project. When models are created or updated during development, the changes also need to be made and migrated using `python3 manage.py makemigration` and `python3 manage.py migrate`. Remember you will need to do the migrations on the production database as well.
 To view the local version of the project before deployment to heroku, use `python3 manage.py runserver`, and open the port 8000 when it pops up.
 
 #### Create the app on [Heroku](https://www.heroku.com/) and attach the database:
@@ -881,6 +882,55 @@ if 'USE_AWS' in os.environ:
 ```
 This tells Django which bucket to communicate with, where the static files will be coming from in production (the bucket name followed by .s3.amazonaws.com), to use S3 to store the static files when collectstatic is run, and to store uploaded images in S3 (references custom_storages.py which outlines these locations)
 3. In Heroku, add `Config vars` for `AWS_ACCESS_KEY_ID` (value from csv file downloaded earlier), `AWS_SECRET_ACCESS_KEY` (value from csv file downloaded earlier), and `USE_AWS` (set to True so that the above settings are used in production). 
+
+#### To add Stripe for payments:
+This project uses Stripe to handle payment processing (currently set up for test payments only). Stripe can be set up as follows:
+1. Go to [Stripe](https://stripe.com/ie) and Sign up for an account, or Sign in if you already have one
+2. Go to the developers dashboard and from the menu at the side, select API keys. Underneath Standard Keys you will see a `Publishable key` and a `Secret key` (note you can toggle between Test and Live keys. This project is currently set up with test keys and would need to be switched over to live keys if it was being launched as a live shop)
+3. Add the following to your `env.py`:
+    ```python
+    os.environ['STRIPE_PUBLIC_KEY'] = 'replace this with Publishable key from Stripe'  
+    os.environ['STRIPE_SECRET_KEY'] = 'replace this with Secret key from Stripe'
+    ```
+4. Add the same variables to the Heroku Config Vars
+5. In the project `settings.py` add the below:
+    ```python
+    STRIPE_CURRENCY = 'eur'  # or change to appropriate currency
+    STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+    ```
+6. This is enough to get payments set up (in test) at a basic level, see below for webhooks
+
+This project is set up to listen for and handle webhooks from Stripe so that if e.g. a payment is processed on Stripe but the checkout form process on the website didn't complete, the order will still be created in the database for the payment processed on Stripe
+
+7. To set up an endpoint for a webhook on Stripe, go to Webhooks from the Developers menu and click Add Endpoint
+8. Add the checkout page webhook url, in this case it would be `https://knot-art.herokuapp.com/checkout/wh/`
+9. For the events to send, select `payment_intent.succeeded` and `payment_intent.payment_failed`
+10. Copy the signing secret for the webhook and then go to `env.py` and add it as the value for a new environment variable: `os.environ['STRIPE_WH_SECRET'] = 'replace this with webhook key from Stripe'`
+11. Add the same to Heroku Config vars
+12. Update `settings.py` to retrieve the environment variable: `STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')`
+
+#### To add email service for sending emails:
+This project uses [Gmail](https://www.google.com/intl/en-GB/gmail/about/) to send emails for account sign ups etc., and order confirmation emails in production. (Emails are printed to the terminal in development.) Gmail for sending emails can be set up as follows:
+1. Either create an account or sign into Gmail and go to Settings, then 'Accounts and Import' and then 'Other Google Account Settings'
+2. Go to the Security tab and under Signing into Google, select to turn on 2-Step Verification, follow the steps to verify yourself to turn this on
+3. Now under this same heading there will be a new option called App passwords, click on this (may need to enter password again) and set up the new app password: under 'select app' choose Mail and under 'select device' choose other and enter a name, e.g. Django, or something simialar, to identify this password. Then click on GENERATE
+4. The next screen will show the app password for the device, copy this
+5. In Heroku config vars, add two new variables of `EMAIL_HOST_PASS`, value will be the app password copied above and `EMAIL_HOST_USER`, with a value equal to the email address that you set the app password on. (These variables are not needed in env.py because this is for production emails only)
+6. In settings.py, add the below to get the Gmail account and app password set up to send emails in production, and print emails to the terminal in development (this assumes there is a `DEVELOPMENT` variable in development environment and no such variable in Heroku):
+    ```python
+    if 'DEVELOPMENT' in os.environ:
+        EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+        DEFAULT_FROM_EMAIL = 'dummyemailaddress@example.com'
+    else:
+        EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+        EMAIL_USE_TLS = True
+        EMAIL_PORT = 587
+        EMAIL_HOST = 'smtp.gmail.com'
+        EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+        EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+        DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+    ```
 
 #### Further Deployments during Development and for Final Deployment:
 During development for future deployments:
