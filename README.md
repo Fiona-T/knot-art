@@ -118,10 +118,11 @@ A Facebook Business page will be created which will promote the business, promot
 - posts aksing for user engagement such as a poll to see which colour they prefer for a new piece for example
 - short videos showing snippets of the process of creating the wall hangings. These would not be tutorials (since the site users are not necessarily people who want to make the item themselves, the site wants to attract people to buy) but rather a glimpse into the 'behind the scenes' process which should help engage potential customers and emphasise the quality and uniqueness of the product.
 
+During project development, the Facebook business page was created and the link added to the website foooter. The business details were added, with a Shop button, a link to the website, page description and a welcome post. However, as expected because the business doesn't exist, the page was taken down by Facebook so the link no longer works. In addition, [as you can see here](docs/facebook-cannot-use-url-warning.png), Facebook didn't allow the website link to be included in the welcome post. [Here is a screenshot of the Facebook business page](docs/facebook-business-page.png) before it was taken down.
+
 As the business is small and new, content marketing will be employed mainly on the social media platforms and not yet on the website. However this will be an important element to include on the website as the business grows. Possible elements of content marketing that could be used include having a Blog section on the website with tips on how to choose the right wall hanging, the different type of knots and materials used (but staying away from tutorials), write ups on the different craft markets and what to expect at them. Videos of the making process could also be included on the website.
 
 Email marketing is free (for the numbers this small business will initially have) and relatively easy to set up, so the business will use this too. The website will include a section in the footer to sign up to the newsletter. Building up a list of email subscribers through the newsletter sign up means the business will then have a pool of people who it knows are interested in its products (as they voluntarily signed up!) so are more likely to make a purchase. 
-
 
 The business owner can use the newsletter to 
 - highlight when new products have been added to the website,
@@ -707,7 +708,10 @@ The project is developed using the Django framework and is structured under the 
 - [Privacy Policy Generator](https://www.privacypolicygenerator.info/) to make the Privacy Policy
 - [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) to make the Terms of Use document
 - [Mailchimp](https://mailchimp.com/) for the newsletter sign up form in the site footer
-
+- [Facebook](https://www.facebook.com/) to create the Facebook business page (however note this was taken down by Facebook shortly after creation because it was not for a real business)
+- [Lucidchart](https://www.lucidchart.com/pages/) to create the database schema diagram
+- [Am I Responsive](http://ami.responsivedesign.is/#) to generate the mockup image showing the project on different devices
+- [XML-Sitemaps.com](https://www.xml-sitemaps.com/) to generate the sitemap
 
 ## Testing
 ---
