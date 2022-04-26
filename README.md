@@ -49,7 +49,7 @@ The primary purpose of the website is for the website owner to sell their hand-c
 ### User’s goals:
 - Buy a macrame wall hanging online
 - See the upcoming markets where the wall hangings will be sold, so that they can plan to attend accordingly
-- Create a profile so that they can save upcoming markets that they are interested in going to, and also see their order history
+- Create a profile so that they can save upcoming markets that they are interested in going to, comment on these markets and also see their order history and saved delivery details
 
 ### Site owner’s goals:
 - Sell their macrame wall hangings via the website
@@ -278,32 +278,37 @@ The contrast checker extension was used during development to check the contrast
 #### Header - Navigation bar
 - Appears at the top of every page, fixed so that the navigation links are always available to the user
 - Contains website name on the left, and Shop, Markets, My Account and Cart on the right
+- On smaller mobile sizes, just the icons are shown and not the text underneath
 - Website name links back to the home page
 - Shop: links to the shop page, available to all users
 - Markets: links to the markets page, available to all users
-- My Account:
+- My Account (called Sign In when not logged in) dropdown:
+  - the icon for this menu item is outlined when not logged in and filled when logged in
   - when user is not logged in, contains Sign in/Sign up links
-  - when user is logged in, contains links to My Profile, My Markets and Logout
-  - when user is logged in as a superuser, contains links to My Profile, Product Admin, Market Admin and Logout
+  - when user is logged in, contains links to My Profile, My Markets and Sign Out
+  - when user is logged in as a superuser, contains links to My Profile, My Markets, Product Management, Markets Management and Sign Out
 - Cart: 
+  - the icon for this menu item is outlined when there are no items in the cart and filled when there are items in the cart
   - shows the total amount in the shopping bag at that time
   - links to the shopping bag page to view the bag/continue to checkout
+- When a user is signed in, there is confirmation of this at the top of the header, along with the user name they are signed in under
+- When not on the home page, the relevant menu icons/text is highlighted to show the user which section of the website they are on currently
 
 #### Footer
 - Appears on the bottom of every page, not fixed (so as not to take up too much screen space on smaller screens) but sticks to bottom of screen even if not enough content to push it down
 - Contains newsletter sign up, social links, terms of use and privacy policy
 - Newsletter sign up form: email address field + sign up button. Having an easy newsletter sign up means the site owner can build an email subscriber list which can be used for email marketing
-- Social links: Facebook business page, as well as Instagram and Twitter pages for Knot Art (these external links open in a new window). These pages are part of the brand's web marketing.
+- Social links: Facebook business page, as well as LinkedIn, Instagram and Twitter pages for Knot Art (these external links open in a new window). These pages are part of the brand's web marketing.
 - Terms of Use and Privacy Policy links: are included to build on the trustworthiness of the site, which helps for SEO (Search Engine Optimisation) purposes and  so that users know they can trust the site and this helps for SEO purposes.
 
 #### Home Page
-- Consists of two section: 'landing section' and 'About me'
+- Consists of two section: 'landing section' and 'About us'
 - Landing section:
   - hero image to invite the user into the site and give an idea of what the website sells
   - tagline along with two buttons for important actions:
-  - Learn More button which links to the About me section
+  - Learn More button which links to the About us section
   - Shop Now button which links to the Shop page
-- About Me section
+- About Us section
   - as a website selling hand crafted items, this section is important as it will build user trust and engagement with the person who makes the items. The hand crafted and personal nature is a key feature of the products being sold and this section helps to get that across to the user, and make them feel they are buying a very individual item
   - short intro to the website owner and how she makes the products, materials used, etc. 
   - brief overview of the features on the website, with links to the shop page, the markets page, as well as invitations to register for an account and sign up to the newsletter
@@ -317,37 +322,47 @@ The contrast checker extension was used during development to check the contrast
 #### Sign In Page
 - Sign in form for existing users with the following mandatory fields: username/email address, password
 - Sign up button to submit the form
-- User is redirected to the Shop page after signing in
+- User is redirected to the home page after signing in
 - Also contains a link to the Sign Up page for users who have not yet registered
 
 #### Shop Page
 - This page displays the products that a user can purchase. The products displayed at any time, or how they are displayed, depends on the options the user has chosen from the menu bar, as explained below (default is all items shown)
-- Menu bar at top of the page containing search box, sorting options and filtering options
-- Search: user can enter text and search, the products displayed are those matching the search terms
-- Sort by: price (high to low), price (low to high), product name (A - Z), product name (Z - A). Products are sorted by the option chosen.
-- Filter by: category. Products displayed are only those in that category  
+- Menu bar at top of the page containing a search box and the category menu for users to filter by category
+- Category menu: The options are All, Living Room, Bedroom, Minis. The default is All, and the currently selected option is underlined. This menu collapses to a hamburger icon at mobile size. Once an option other than All is chosen, then only the products in that category is displayed and the results of the filter are displayed below the page heading, e.g.: *5 products in 'Living Room'*
+- Search: user can enter text and search, the products displayed are those matching the search terms or none if there were no matches. The results of the search are shown below the page heading e.g.: *1 result found for 'yellow'* 
+- Underneath the page heading is a select box with sorting options
+- Sort by: price (high to low), price (low to high), product name (A - Z), product name (Z - A). Products are sorted by the option chosen, taking into account the previous filter or search terms applied (i.e. the sort works on the existing selection of products).
 - Each product shows the product name, image, category, price
-- For the admin user, there are additional links for Edit and Delete, as well as a field called Status (i.e. whether the product is active or not). 
+- For the admin user, there are additional links for Edit and Delete, as well as a button to either Make the product Active (if it is not active) or Make Inactive (if the product is active). 
 - Admin user can see all products even if not active, whereas regular users will only see active products, as these are the products available for purchase
 - Clicking on the product image will bring the user to the product detail page
+- Clicking on the category for a product will filter the page by that category
 
-#### Product Detail Page
-- Displays the product image, product name, category, price, detailed description
-- Quantity selector with +/- buttons
-- Add to Cart button - when clicked the product is added to the cart and a notification displays beside the cart icon in the header
-- Back to Shopping button - when clicked brings the user back to the Shop page
-- For the Admin user, this page also includes the Edit and Delete links, as well as the status to indicate whether the product is active or not
+#### Product Details Page
+- The category menu and search box are shown at the top of the page, these options work as explained above and the results bring the user back to the shop page
+- This page displays the product image, product name, category, price, detailed description
+- Quantity selector with +/- buttons. 
+  - The max quantity that can be selected is 10 and the min is 1. 
+  - The + button is disabled once the input boxes reaches 10 and the - button is disabled when the input box is on 1 (so disabled on page load since it loads with a quantity of 1). 
+  - The same goes for the up/down arrows inside the input box. 
+  - If the user manually types in a number outside of this range then a validation message appears and the add to bag form doesn't submit. 
+  - In addition, if the same item is already in the cart and the new quantity being added will bring the new total for that item above 10, then an error message is displayed and the item isn't added to the cart
+- Add to Cart button - when clicked the product is added to the cart with the selected quantity and a notification displays once successfully added (or an error if the item was already in the cart, and the new quantity being added will bring total to above 10 for that item)
+- Back to Shop button - when clicked brings the user back to the Shop page
+- For the Admin user, this page also includes the Edit and Delete links, as well as the button to make the product active or inactive
+- Clicking on the category will bring the user to the shop page, filtered by that category
 
 #### Bag Page
 - Displays the products currently in the user's cart, or a message if they have not added any items
 - If there are products in the cart:
-  - for each product the following are displayed: Product details (image + product name), Price, Quantity, Subtotal
+  - for each product the following are displayed: Product details (image + product name), Price, Quantity (inside a quantity input, with buttons to amend), Subtotal
   - Underneath quantity is a button to update the quantity (i.e. if the user has changed the quantity)
-  - Underneath subtotal is a button to remove the product from the bag
-  - Underneath the listed products there is a bag total, then delivery charge (if applicable), and then Grand total
+  - Underneath the item name is a button to remove the item from the bag
+  - Underneath the listed products there is a bag total, then delivery charge (if applicable), and then Grand total 
   - the bottom of the page has two buttons: Back to Shop (brings user back to Shop page) and Go to Secure Checkout (brings user to the checkout page)
+  - the totals summary + the Back/Checkout buttons are shown at the top of the page when on smaller screens, to avoid user having to scroll down if they want to go straight to checkout)
 - If there are no products in the cart:
-  - message stating you have not added any items to the cart
+  - message stating you have not added any items to their bag
   - button to go back to the Shop page 
 
 #### Checkout Page
@@ -355,52 +370,116 @@ The contrast checker extension was used during development to check the contrast
 - Checkout - consists of three sub-sections:
   - Your details: name, email, phone number (all mandatory)
   - Delivery details: 
-    - Street Address 1 (mandatory), Street Address 2, Town or City (mandatory), County, State or Locality, Post Code, Country (mandatory - drop down list)
+    - Street Address 1 (mandatory), Street Address 2, Town or City (mandatory), County, Post Code, Country (mandatory - drop down list)
     - if user is logged in, checkbox to save these details to their profile
     - if user not logged in, note stating: sign in to save these details
   - Payment details: card number, expiry and CVC
-  - Button at the bottom to complete the order
+  - Button at the bottom to complete the order along with confirmation of the amount they are paying
 - Order Summary:
   - Shows the following details for each item: small image, name, quantity, subtotal
   - Underneath the listed products there is an order total, then delivery charge (if applicable), and then Grand total
-  - button at the bottom to adjust the cart, brings user back to the Bag page
+  - button at the bottom to adjust the bag, brings user back to the Bag page
 
 #### Order Confirmation Page
 - This page is displayed after the Checkout form has completed successfully
 - Order summary is displayed, and a message stating that a confirmation has been sent to the email address
-- Cart is now cleared and shows €0.00 underneath it in the header
-- Contains links to go to the Shopping page and Markets page
+- Order summary contains four sections:
+  - order number and date
+  - items in order: name of the product, quantity and price
+  - delivery details: name, address details entered at checkout, phone number
+  - billing info: order total, delivery, grand total, payment method
+- Cart is now cleared and shows €0.00 underneath it in the header/icon is no longer filled
+- Contains links to go to the Shop page
 
 #### Markets Page
 - This page displays the markets that the website owner will be selling at (in person), the user can save a market to their profile so as not to forget about it
-- Each market shows an image, the market name, location, date, times and website (external link, opens in new tab). The market image also links to the external market website
+- under the page heading is intro text explaining the page for users, with links to create an account (so markets can be saved) and to sign up to the newsletter
+- for regular users or anonymous users, this page by default only shows the upcoming markets, those dated today or later, sorted by the earliest first
+- for admin users this page shows all markets including those in the past, sorted by the newest first
+- Under the intro text is a section with the viewing options:
+  - sort by (market name A-Z, market name Z-A, by date: earliest to latest, by date: latest to earliest). Choosing an option sorts the markets by that option.
+  - filter results showing results of filter by county, e.g.: *3 markets in Dublin 6*
+  - filter by county - dropdown menu of the available counties for the markets currently being displayed (i.e. there is no county displayed that will give a result of 0 markets), as well as an option for All. The currently selected option is highlighted. Choosing an option filters the markets by that option.
+- Each market shows an image, the market name, county, location, website (external link, opens in new tab), date and  times. The market image links to the market details page
+- Clicking on the county for a market will filter the page by that county
 - If the user is logged in, there is a button to save the market to their profile; or if they already saved it, then the button will be to remove the market from their profile
 - If the user is not logged in, then there is a note stating to sign in/create an account in order to save the details
-- For the admin user, there are additional links for Edit and Delete 
+- Underneath the save button is a link to view the comments on this market. The text on the link changes depending on whether there are comments or not: 'be the first to comment' if there are none, or the number of comments if there are comments. 
+- For the admin user, there are additional links for Edit and Delete
+- For the admin user, two additional pieces of information are shown:
+  - Status: either Upcoming or Date has Passed. Since the admin user can view all the markets, but this page is by default filtered to show upcoming markets only for regular users
+  - Number of saves: the number of users that have saved this market to their saved markets
+
+#### Markets Page - View Past Markets
+This is a feature for regular users (not admin, since they can see all markets by default). This allows the regular users to view the older markets:
+1. if they want to read comments on these markets, since the same market can run at a different date, so this market may run in the future and will be shown in the upcooming markets for the future date
+2. so they can get a sense of what markets the owner is normally selling at, even if there is not yet a future date listed for that market (for example a market that runs every Chrismtas might not yet be listed in the upcoming markets early in the year, but the user can see it in the past markets so knows this might be listed again this year as an upcoming market)
+- there is a button underneath the sort/filter options for View Past Markets
+- clicking the button shows the user the past markets only, and the button text changes to 'View Upcoming Markets' so the user can get back to the default view
+- when viewing past markets the functionality is the same as the Markets page default view (i.e. viewing upcoming markets), except:
+  - each one is flagged with a status of Date has Passed
+  - there is no save button
+  - the intro text at the top of the page changes accordingly
+  - the sort and filter options remain and will sort/filter the past markets only
+
+#### Market Details Page
+- This page has two sections: market details, and comments
+- At the bottom of the page there is a button back to Markets page, or if the Market is in the user's saved market list, then a second button back to My Markets page
+- Market details:
+  - displays the market image (links to external website), market name, county, location, website, date and times
+  - clicking on the county will bring the user to the markets page, filtered by that county
+  - If the user is logged in, there is a button to save the market to their profile; or if they already saved it, then the button will be to remove the market from their profile (only shown if market date not in the past)
+  - If the user is not logged in, then there is a note stating to sign in/create an account in order to save the details (only shown if market date not in the past)
+  - For the admin user, there are additional links for Edit and Delete, as well as the Status and Number of Saves
+  - If the user has saved this market and it is in the past, then the Status will be shown 
+- Comments: 
+  - Underneath the market details, with a heading of 'The Conversation' followed by the number of comments in brackets 
+  - The comment form is shown first, this consists of a comment box and a button to post the comment. If the user is not logged in then the form is not shown but there is a note to log in/create an account in order to join in
+  - The comments are shown next, or if no comments then a note that there are no comments yet
+  - for each comment the username, date and time of comment and the comment is shown
+  - if the user is logged in, and they posted the comment then there are links underneath the comment to Edit or Delete 
+  - Adding a comment: the user can type in their comment and after clicking Post Comment they will see a success notification and the comment will be visible in the comments list
+  - There is a cap on the maximum length of the comment, this is enforced at the client side (user cannot keep typing once they reach this max) but with an additional check at the server side, which will display an error notifcation and the comment will not be saved
+
+#### Edit comment page
+- This page is only available to a logged in user who posted the comment, and is accessed from the Edit link on the specific comment when viewing the comments on a market in the market details page
+- The page consists of the comment form which is a single field for the comment, pre-populated with the existing comment
+- The user can make the changes and then submit the updates, the same validation exists as on the Add Comment form
+
+#### Delete comment modal
+- This is only available to a logged in user who posted the comment, and is accessed from the Delete link on the specific comment when viewing the comments on a market in the market details page
+- The modal is a pop up showing the comment details to check the user definitely wants to delete the comment
+- There is a button to cancel, and a button to confirm the deletion
 
 #### Profile Page
 - This page is only available to a logged in user (accessed via My Account dropdown menu)
-- At the top of the page there is a breadcrumb menu for the My Account pages
-- consists of three sections: link to markets, order history, delivery details
-- Saved markets: this is a link for the user to access My Markets page
-- Order history: lists the previous online orders made through the website, or a note if there are none. Shows order number, date, items, total
+- At the top of the page there is a breadcrumb menu for the My Account pages, along with a button to go to My Markets
+- consists of three sections: account details, order history, delivery details
+- Order history: lists the previous online orders made through the website, or a note if there are none. Shows order number, date, items, total, listed with latest first.
+  - the Order number links to a detailed view of the order
+  - this page is the same as the Checkout Success page explained earlier, but the title of the page is Previous Order Details and the intro text confirms the date the order was placed
 - Saved delivery details: 
   - displays the same delivery details as those on the checkout page. 
   - This is a form which will be blank if there are no saved details, or pre-populated with the previously saved details. 
   - The user can type in the amended details here and there is a button to save the changes
+- Account details: 
+  - displays the username and email address for the logged in account
 
 #### My Markets Page
 - This page is only available to a logged in user (accessed via My Account dropdown menu)
-- Here the markets that the user saved to their profile from the Markets page are shown
-- The user can sort them by date, and can filter by status (upcoming, or date has passed)
-- Each market shows the same details as before on the general Markets page, and links to the external market website, but with an additional field called Status (upcoming or passed)
-- Each market also has a button that the user can click to remove the market from their profile so that it no longer appears in this page
+- At the top of the page there is a breadcrumb menu for the My Account pages, along with a button to go to My Profile
+- Here the markets that the user saved from the Markets page are shown
+- The same sorting (by name/date) and filtering (by county) options are available as explained on the Markets page
+- Each market shows the same details as before on the general Markets page, but with an additional field showing the Status (upcoming or passed)
+- On this page the save button text will be to remove the market from their list so that it no longer appears in this page
+- The market image, or the comments link links to the Market Details page as explained above
+- For the admin user they have the additonal information/links as explained on the Markets page
 
 #### Admin pages - Products
 - These pages are only available to a logged in admin user
-- Add a product - this is accessed via the My Account dropdown menu
+- Add a product - this is accessed via the My Account dropdown menu Product Management
   - form to add a new product to the shop
-  - fields (all mandatory): product name, price, category, description, image, tick box to set as an active product (i.e. appears in the shop, defaults to true)
+  - fields (all mandatory except image): product name, price, category, description, image, tick box to set as an active product (i.e. appears in the shop, defaults to true), tick box to set New flag on product (defaults to true)
   - button to Add the Product, or Cancel button to abandon the process (brings user back to Shop page)
 - Edit a product - accessed via the Edit link on the Shop page or the Product Detail page
   - form pre-populated with the existing details, same fields as for adding a product
@@ -411,27 +490,36 @@ The contrast checker extension was used during development to check the contrast
 
 #### Admin pages - Markets
 - These pages are only available to a logged in admin user
-- Add a market - this is accessed via the My Account dropdown menu
+- Add a market - this is accessed via the My Account dropdown menu Markets Management
   - form to add a new market to the Markets page
-  - fields (all mandatory): market name, location, date, start time, end time, website
+  - fields (all mandatory except image): market name, location, county (dropdown) date, start time, end time, image, website
   - button to Add the Market, or Cancel button to abandon the process (brings user back to Markets page)
+  - form validation is in place at client and server level for the following:
+    - date cannot be before today
+    - start time cannot be after end time/end time can't be before start time
 - Edit a market - accessed via the Edit link on the Markets page
   - form pre-populated with the existing details, same fields as for adding a market
+  - if the user is editing a past market then there is an info box to alert them to this and the helptext on the date field changes accordingly. The user can edit the past market but for the date field the date can only be changed to a future date and not to a date in the past (but can be left at the existing past date)
   - button to Update Market or Cancel button to abandon the process (brings user back to Markets page)
 - Delete a market - this is a modal, accessed via the Delete link on the Markets page
   - there is a note asking the user to confirm they definitely want to delete the market
+  - if the market is in the past then the note advises that this market is not shown in the default Upcoming Markets view to users
   - button to Delete Market or Cancel button to abandon the process (brings user back to Markets page)
 
 #### Confirmation messages for user actions
-- Actions that the user takes are confirmed/acknowledged via messages at the top of the screen
+- Actions that the user takes are confirmed/acknowledged via messages at the top of the screen. Any errors resulting from these actions are also shown here.
 - these are displayed for:
   - adding a product to a bag
   - editing the contents of the bag - updating quantity or removing an item
   - signing in/out
-  - saving or removing a market to/from profile
+  - saving or removing a market to/from My Markets list
+  - adding a comment to a market
+  - editing or deleting own comment on a market
   - updating saved delivery details on profile
   - admin user adding a new product or market
   - admin user editing or deleting a product or market
+- when there are items in the bag, and the user is on the product details or cart page, then the success message also shows a small summary of the bag contents, along with a note re amount left to spend to get free delivery, and a button to view the bag and go to checkout
+- the bag summary is not shown for other actions as it is not relevant (e.g. saving a market etc.) and is not shown for error/warning/info messages.
 
 ### Future Features 
 
