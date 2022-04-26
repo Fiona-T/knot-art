@@ -134,6 +134,20 @@ The business owner doesn't have to invest much time to manage the email marketin
 ## User Experience (UX)
 ---
 ### User stories
+- #### Note on User Stories and Project Development:
+  The project was developed using Agile methodology. A list of User Stories was defined at the project outset, they were refined and any that were too large would be broken into smaller stories. Further User Stories were added throughout the project. For each User Story, the process of refinement included defining the Acceptance Criteria to flesh out the expectations and then adding it to the Product Backlog. Then the Tasks from the development side were added. The Product Backlog was refined throughout the project and User Stories prioritised for the next iteration. Each User Story was given a story point value and a MoSCoW priority, before then being either added to the next Iteration, or left on the Product Backlog for future iterations. Each Iteration was completed and any user stories not completed in that iteration were moved back to the Product Backlog. The Product Backlog was updated continuously throughout the project, adding new user stories or issues to it as they were fleshed out with their acceptance criteria, and moving the prioritised user stories out of the Product Backlog and onto the next Iteration milestone.
+  
+  This was managed via GitHub as follows:
+  - User Stories were recorded via Issues (a template was created) and GitHub labels were used for story points and MoSCoW priority level
+  - Product Backlog created using Milestone
+  - Iterations created using Milestone
+  - The work for each Iteration was managed through a kanban board created using GitHub Projects
+  
+  All of the above can be seen in the GitHub repo, where you can see which User Stories or Issues were included in each Iteration. 
+
+- #### List of User Stories:
+The following are the user stories defined at the beginning of the project, and those added over the course of the project development. Each User Story below is linked to the relevant Issue on GitHub, where full details (acceptance criteria, tasks, story points, prioritisation, iteration and the history of same) can be seen. Note that Issues to do with bug fixes are not listed below (since they are not User Stories) but can be seen in the GitHub repo and the larger ones are detailed in the Bug fixes section of [TESTING.md](TESTING.md).
+
 For ease of reading, the user stories around similar actions have been grouped into loose categories:
 
 #### General, site purpose, navigation:
