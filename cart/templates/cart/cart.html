@@ -66,7 +66,7 @@
                                 {% csrf_token %}
                                 <!-- form group for quantity label, buttons and input -->
                                 <div class="form-group">
-                                    <label for="quantity" class="sr-only">Adjust quantity:</label>
+                                    <label for="id_qty_{{ item.item_id }}" class="sr-only">Adjust quantity:</label>
                                     <div class="input-group">
                                         <!-- button before the input - for decreasing quantity -->
                                         <div class="input-group-prepend">
