@@ -17,6 +17,23 @@
   ## Testing
 ---
 ### Code Validation
+#### HTML
+The [W3C Markup Validation Service](https://validator.w3.org/) was used to validate the HTML on every page of the project. Validation was done using url for pages that did not need a sign in, and by copying the results of 'View Page Source' into the Direct Input field of the validator for pages that require a log in.
+
+The errors that were raised and fixes done are as follows:
+- On pages that used the Custom Clearable File Input for the image upload, there was a `duplicate attribute` error, there were two id attributes on the `input` element. This arose because an id was added to the` input` element in `custom_clearable_file_input.html`, but Django auto adds an id to each input when generating the model form. I removed the id from the `custom_clearable_file_input.html`, and since this id was being used in the `fileInputShowFileName` function (to listen for a change and show the file name of the new image), updated the id in this function also.
+![Duplicate id attribute html validation error](docs/code-validation/duplicate-id-html-validation-error.png)
+
+- On pages using the breadcrumb menu, there was an error due to placement of a `span` between two `li` elements. The `span` was here to replace the Bootstrap default divider between breadcrumb items, removed this and over-rode the divider in the css instead.
+![span element child of ul, html validation error](docs/code-validation/span-child-of-ul-html-validation-error.png)
+
+- On the delete comment modal, there was an error in relation to missing a closing `p` tag. While the closing `p` tag was not missing in the typed code, the error was arising because of the `|linebreaks` Django filter, that automatically creates `p` tags. Remove the `p` tags surrounding this (as they generate by the filter) to clear this error.
+![missing p tag, html validation error](docs/code-validation/missing-p-tag-html-validation-error.png)
+
+There is one warning remaining due to using a h1 element in a section but not a direct child of a section. There are divs between the section and the h1, for layout and spacing and for consistency across pages. 
+
+The [results of validating each HTML page can be viewed here](docs/code-validation/html-validation.pdf).
+
 #### CSS
 The [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) was used to validate the project's custom CSS. [Each CSS file passes and the results can be viewed here](docs/code-validation/css-validation.pdf). Note: there are Warnings for the base.css file and these are explained below:
 - `Same color for background-color and border-color`. I have used border colour same as background colour on some of the btns because either 1) on hover the background colour and border colour are different, so to keep the button size consistent between default and hover state and 2) in cases where two buttons are shown beside each other, one outlined and one solid colour. If the solid coloured button doesn't have a border then the buttons appear as different sizes, so keeping the border on the solid coloured button makes them consistent.
