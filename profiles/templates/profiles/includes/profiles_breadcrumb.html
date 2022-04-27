@@ -1,14 +1,14 @@
 <!-- breadcrumb navigation within Account pages + button to get to the other page - either Profile or Markets -->
 <div class="container pt-5">
     <div class="row pt-5 m-0">
-        <div class="col-12 col-md-6 pt-md-5 px-0 d-flex order-md-last mb-4 mb-md-0">
+        <div class="col-12 col-md-6 pt-2 pt-md-5 px-0 d-flex order-md-last mb-4 mb-md-0">
             {% if request.path == '/profile/' %}
             <a href="{% url 'my_markets' %}" class="btn btn-brand-dark ml-md-auto">View My Markets</a>
             {% else %}
             <a href="{% url 'profile' %}" class="btn btn-brand-dark ml-md-auto">View My Profile</a>
             {% endif %}
         </div>
-        <div class="col-12 col-md-6 pt-md-5 px-0 d-flex align-items-end">
+        <div class="col-12 col-md-6 pt-2 pt-md-5 px-0 d-flex align-items-end">
             <nav aria-label="Breadcrumb navigation">
                 <ul class="breadcrumb p-0 m-0">
                     <li class="breadcrumb-item">Account</li><span class="mx-2">></span>

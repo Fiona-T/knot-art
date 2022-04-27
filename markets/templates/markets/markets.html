@@ -19,7 +19,7 @@
 <!-- page contents container -->
 <section class="py-5 container-fluid">
     <!-- 1st row - page heading + intro text -->
-    <div class="row pt-5 pb-3">
+    <div class="row pt-3 pt-md-5 pb-3">
         <!-- heading changes depending on whether viewing upcoming (default), past or all (default for admin) -->
         <div class="col-10 offset-1 pt-5 pb-4">
             <h1 class="page-title">{% if current_view == 'past' %}Past{% elif request.user.is_superuser %}All{% else %}Upcoming{% endif %}
