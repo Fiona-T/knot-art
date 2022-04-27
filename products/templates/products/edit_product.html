@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} | Edit Product {{ product.name }}{% endblock %}
+{% block extra_title %} | Edit Product {{ product.name|title }}{% endblock %}
 {% block content %}
 <!-- page contents container - two rows -->
 <section class="container py-5">

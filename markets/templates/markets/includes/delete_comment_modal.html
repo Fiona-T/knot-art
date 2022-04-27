@@ -19,7 +19,7 @@
                     <div class="mt-2 small">
                         <p class="mb-0">{{ comment.author }}</p>
                         <p class="text-muted">{{ comment.created_on }}</p>
-                        <p class="fw-600">{{ comment.comment| linebreaks }}</p>
+                        {{ comment.comment| linebreaks }}
                     </div>
                 </div>
                 <p>If you are sure you want to delete the comment, then press Delete Comment below. Otherwise, Cancel to
