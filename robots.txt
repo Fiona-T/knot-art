@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /profile/
+Disallow: /products/add/
+Disallow: /products/edit/
+Disallow: /markets/add/
+Disallow: /markets/edit/
+Sitemap: https://knot-art.herokuapp.com/sitemap.xml

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://knot-art.herokuapp.com/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/login/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/signup/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/cart/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/?category=living_room</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/?category=bedroom</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/?category=minis</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/2</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/3</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/4</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/5</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/6</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/7</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/8</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/9</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/10</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/11</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/12</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/13</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/14</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/15</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/16</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/17</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/18</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/19</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/20</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/21</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/22</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/23</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/24</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/25</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/26</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/27</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/28</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/29</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/30</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/products/1</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/login/?next=/profile/my_markets/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_1</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_12</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_2</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_6w</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_7</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=dublin_8</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=mayo</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=waterford</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=wexford</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?county=wicklow</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/11/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/1/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/5/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/12/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/8/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/10/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/13/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/9/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/4/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/7/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/2/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/6/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/password/reset/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/signup/?next=%2Fprofile%2Fmy_markets%2F</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past&amp;county=dublin_1</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past&amp;county=dublin_6w</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past&amp;county=dublin_8</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past&amp;county=mayo</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/?view=past&amp;county=wicklow</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/19/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/15/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/17/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/16/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/3/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/markets/18/</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://knot-art.herokuapp.com/accounts/login/?next=%2Fprofile%2Fmy_markets%2F</loc>
+  <lastmod>2022-04-27T08:25:18+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+
+
+</urlset>
