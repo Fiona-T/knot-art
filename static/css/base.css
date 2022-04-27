@@ -191,6 +191,11 @@ a:not([href]).btt-link:focus {
     color: #ff8881;
 }
 
+/* reduce padding inside the navbar, added back at larger size in media query */
+.navbar .container-fluid {
+    padding: 0;
+}
+
 /* remove default Bootstrap margin, added back at larger size in media query */
 .navbar-brand {
     margin-right: 0;
@@ -207,10 +212,11 @@ a:not([href]).btt-link:focus {
     border-radius: 0;
 }
 
-/* main header links - colour + reduce automatic Bootstrap padding */
+/* main header links - colour + adjust automatic Bootstrap padding */
 .nav-link-main {
-    padding: 0.5rem;
     color: #ff8881;
+    padding-left: 0.9rem;
+    padding-right: 0.5rem;
 }
 
 /* size for the icons in main header links */
@@ -638,13 +644,9 @@ footer i {
 
 /*================================== MEDIA QUERIES ===========================================*/
 
-/* larger than 375 px mobiles, increase nav padding + font-sizes */
+/* larger than 375 px mobiles, increase nav padding + font-sizes, show nav text */
 @media screen and (min-width: 375px) {
     /* ---------------------------------------- Header */
-    .navbar .container-fluid {
-        padding: 0;
-    }
-
     /* Logo 'K' increase font-size back to Bootstrap default (reduced at smaller size) */
     .display-4 {
         font-size: 3.5rem;
@@ -672,7 +674,7 @@ footer i {
 
     /* increase padding on dropdown menu that was reduced at smaller size */
     .dropdown-item {
-        padding-left: 1.5rem;
+        padding-left: 1rem;
     }
     
     /* ---------------------------------------- Home page */
@@ -690,6 +692,7 @@ footer i {
         font-size: 3rem;
     }
 
+    /* re-set back to Bootstrap default padding */
     .nav-link-main {
         padding: 0.5rem 1rem;
     }
@@ -702,7 +705,7 @@ footer i {
         font-size: 1rem;
     }
 
-    /* add back padding that was reduced in 375px view */
+    /* add back padding that was reduced in default view */
     .navbar .container-fluid {
         padding: 0 1rem;
     }

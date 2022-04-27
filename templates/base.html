@@ -65,21 +65,23 @@
     <!-- main header for all pages -->
     <header>
         <!-- main nav bar for all pages: name if logged in, Logo + list of links: shop, market, account, bag -->
-        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-md-5" aria-label="Primary">
-            {% if request.user.is_authenticated %}
+        <nav class="navbar nav-main fixed-top py-2 py-lg-3 px-md-2 mb-md-5" aria-label="Primary"> 
             <!-- Top row showing name if logged in -->
             <div class="container-fluid justify-content-end">
                 <div class="row mb-2 mx-sm-0">
-                    <p class="my-0 username">Signed in as: <span class="font-italic">{{ user.username }}</span></p>
+                    <p class="my-0 username">
+                        {% if request.user.is_authenticated %}
+                        Signed in as: <span class="font-italic">{{ user.username }}</span>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
-            {% endif %}
-            <div class="container-fluid">
+            <div class="container-fluid mb-2 mb-md-0">
                 <!-- logo -->
                 <a class="navbar-brand logo" href="{% url 'home' %}"><span class="display-4 d-md-none">K</span><span
                         class="d-none d-md-inline">KnotArt</span></a>
                 <!-- List of links - each with icon and text below it -->
-                <ul class="nav mb-2 mb-md-0">
+                <ul class="nav">
                     <li class="nav-item {% if 'products' in request.path %}nav-item-active{% endif %}">
                         <a class="nav-link nav-link-main" href="{% url 'products' %}">
                             <div class="text-center">
