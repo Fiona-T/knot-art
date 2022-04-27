@@ -519,19 +519,23 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1: the website contains content using keywords where relevant but is not "stuffed" with keywords
     *  Acceptance Criteria 2: links contain keywords where relevant and where it makes sense
     *  Acceptance Criteria 3: image alt tags contain keywords
+    >**Result:** Pass, the above acceptance criteria are met, and this is detailed in the [SEO section of README.md](README.md#search-engine-optimisation-seo)
 
 - [#49](https://github.com/Fiona-T/knot-art/issues/49) As the website owner I have a link to the Facebook business page on the website so that customers or visitors to the website can follow the facebook page and I can generate more business through the facebook page
     *  Acceptance Criteria 1: There is a link in the footer for the business facebook page, which opens in a new tab
+    >**Result:** Pass, the above acceptance criteria are met, the link is present in the footer as shown in user story [#3](https://github.com/Fiona-T/knot-art/issues/3) social media links in footer. The link opens in a new window. However, Facebook have taken the page down, so it is no longer visible. See screenprint below from before it was deactivated:
+    ![Facebook business page](docs/facebook-business-page.png)
 
 - [#50](https://github.com/Fiona-T/knot-art/issues/50) As the website owner I have relevant keywords included in the webpage metadata so that it helps improve SEO so that users searching for these keywords can find my website
     *  Acceptance Criteria 1: there is a meta keywords element in the head of the html, and this contains all relevant keywords
     *  Acceptance Criteria 2: there is a meta description element in the head of the html, and this contains a description of the website and uses some keywords
+    >**Result:** Pass, the above acceptance criteria are met, and this is detailed in the [SEO section of README.md](README.md#search-engine-optimisation-seo)
 
 - [#86](https://github.com/Fiona-T/knot-art/issues/86) As a website owner I can have a sitemap.xml and robots.txt file created for the website so that search engines can crawl the essential pages of the site and therefore users can find the site when searching key terms in search engine searches
     *  Acceptance Criteria 1:  There is a sitemap.xml and robots.txt file in the root directory of the project
     *  Acceptance Criteria 2: The robots.txt contains disallows for accounts, cart, profile (and add/edit markets and products), checkout since these are not relevant for indexing
     *  Acceptance Criteria 3: The robots.txt contains the sitemap also
-
+    >**Result:** Pass, the above acceptance criteria are met, both files are in the root directory and the robots.txt contains the relevant disallows.
 
 ### Features Testing
 
