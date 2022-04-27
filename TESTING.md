@@ -61,15 +61,73 @@ There are no errors remaining and [the final results of the JSHint checks on eac
 
 #### General, site purpose, navigation:
 - [#1](https://github.com/Fiona-T/knot-art/issues/1) As a visiting user, I can easily find out what the purpose of the website is and learn more about the site owner and the products being sold, so that I  can decide to stay and browse or not
+    *  Acceptance Criteria 1:  The first thing the user should see on entering the website is an image which sets the tone of the website and a tagline explaining the purpose of the website
+    *  Acceptance Criteria 2: There should be a learn more button, which will link to the information about the maker and the website
+    *  Acceptance Criteria 3: There should be a 'Shop now' button which will link to the shop, the primary purpose of the website
+    * Acceptance Criteria 4: Below the main image, there should be a section explaining to users what the website is for, and introducing the website owner who makes the products
+  >**Result:** Pass, the above acceptance criteria are met, as shown below:
+![User story - site purpose](docs/user-story-testing/site-purpose.png)
+
 - [#2](https://github.com/Fiona-T/knot-art/issues/2) As a site user, I can navigate the site so that I can find the page I want to go to
+    *  Acceptance Criteria 1:  There should be a site header which is at the top of every page on the website
+    *  Acceptance Criteria 2: The logo (website name) should be prominent in the header and it should link back to the home page
+    *  Acceptance Criteria 3: The header should contain navigation links to the Shop, Markets and Account, and Cart pages.
+    >**Result:** Pass, above acceptance criteria are met, as shown below in the screenprint for the previous user story. Logo downsizes to a 'K' on smaller screens to allow more space for menu items. Logo links to home page. Header is present on all pages and fixed to top.
+
 - [#3](https://github.com/Fiona-T/knot-art/issues/3) As a site user, I can find the Knot Art social media accounts, so that I can follow them on social media to keep up to date
+    *  Acceptance Criteria 1:  The links to the social media accounts should be in the footer on each page, represented by their icons
+    *  Acceptance Criteria 2: The links are external, so open in a new window
+    *  Acceptance Criteria 3: The links are for the Facebook business page, Twitter, Instagram and LinkedIn
+    >**Result:** Pass, acceptance criteria met. Footer present on all pages with social media links. Links open in new window.
+    ![User story - social media links](docs/user-story-testing/social-media-links.png)
+
 - [#4](https://github.com/Fiona-T/knot-art/issues/4) As a site user, I can sign up to the newsletter, so that I can stay informed  and stay engaged with the shop
+    *  Acceptance Criteria 1:  The footer on each page should contain a form to sign up for the newsletter
+    *  Acceptance Criteria 2: The form consists of one field for email address, and a button to sign up
+    *  Acceptance Criteria 3:  After submitting the form, the email address submitted is added to the subscribers list in mailchimp
+    >**Result:** Pass, the above acceptance criteria are met, as shown below:
+    ![User story - newsletter sign up](docs/user-story-testing/newsletter-sign-up.png)
+
 - [#5](https://github.com/Fiona-T/knot-art/issues/5) As a site user, I can see a 'Page not found' page with consistent branding to the rest of the site, when I try to access a page in error, so that I can find my way back to the website and know I have not left the website
+    *  Acceptance Criteria 1:  the 404 page not found that is displayed to the user is consistent with the branding on the rest of the website
+    *  Acceptance Criteria 2: the page contains the header and footer as per the rest of the website
+    *  Acceptance Criteria 3: the page contains a short note to the user explaining the page wasn't found, along with links for them to get back to the main website
+    >**Result:** Pass, the above acceptance criteria are met, as shown below:
+    ![User story - 404 page](docs/user-story-testing/404-page.png)
+
 - [#6](https://github.com/Fiona-T/knot-art/issues/6) As a site user, I can find the terms of use and privacy policy so that I can read these documents and have trust in the site
+    *  Acceptance Criteria 1:  The links to the Terms of Use and Privacy Policy are present in the footer on each page
+    *  Acceptance Criteria 2:  The links are internal so open in same window
+    *  Acceptance Criteria 3: Each link contains the correct policy
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. The links are present in the footer as shown in previous user stories. Both links open internally as modals. There are buttons at both top and bottom to close the modal. Both documents also provide a link to read the relevant policy in a new window. 
+    ![User story - Privacy Policy and Terms of Use](docs/user-story-testing/privacy-policy-terms-of-use.png)
+
 - [#52](https://github.com/Fiona-T/knot-art/issues/52) As a user I can click on a back to top button so that I can get back to the top of the page without having to scroll
+    *  Acceptance Criteria 1:  On the Shop page where products are listed, there is a back to top button fixed to bottom of the screen
+    *  Acceptance Criteria 2: Clicking the button brings the user back to the top of the page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. The button is present on the Shop page, and also on the Markets/My Markets page, and for mobile on the Cart page since this can be a long page on mobile. (the user story was added specifically for the Shop page as that had been developed at that stage - this feature was automatically included with the other pages when they were created, when relevant)
+    ![User story - Back to top button](docs/user-story-testing/back-to-top-button.png)
+
 - [#53](https://github.com/Fiona-T/knot-art/issues/53) As a user I can see a message confirming my actions (e.g. adding item to bag) so that I know my changes were received
+    *  Acceptance Criteria 1:  when a user performs actions that interact with the site, a message is displayed confirming the action was successful, or if there were errors
+    *  Acceptance Criteria 2: E.g. in the search box on Shop page, if no search items entered it generates an error message
+    *  Acceptance Criteria 3: Or for adding, removing, adjusting quantity of items in the shopping cart
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Messages are displayed for all user actions, either success/error/info. If there are items in the bag and the user is on the cart page or adding a product then the bag summary is shown in the message. If not, then just the message (as bag summary not relevant for other actions). Samples of messages are shown below.
+    ![User story - confirmation messages](docs/user-story-testing/confirmation-messages.png)
+
 - [#62](https://github.com/Fiona-T/knot-art/issues/62) As a user I can see a page styled the same way as the website when I get a server error or access denied so that I can find my way back to the correct page on the website
+    *  Acceptance Criteria 1:  the pages displayed to the user for a 403 (permission denied), and 500 (server error) are consistent with the branding on the rest of the website
+    *  Acceptance Criteria 2: the pages contain the header and footer as per the rest of the website
+    *  Acceptance Criteria 3: the pages contains links for them to get back to the main website
+    Note: 404 page already covered under previous user story: #5 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - error pages](docs/user-story-testing/error-pages.png)
+
 - [#91](https://github.com/Fiona-T/knot-art/issues/91) As a user I can quickly see which section of the website I am in from the main header so that I know which part of the website I am in and can navigate easily
+    *  Acceptance Criteria 1:  The icon and text for each section of the website in the header change to a different colour when a user is on a page within that section of the website
+    *  Acceptance Criteria 2: E.g. in markets, market details then Markets menu item will be a different colour
+    *  Acceptance Criteria 3: For the superuser, when editing/adding a product or a market, the menu item will be Shop or Markets respectively since they are in this section of the website. (There are menu options from the Account dropdown for these pages, but they are not part of the user profile so the active menu item will be either Shop or Markets as appropriate)
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the previous user stories. The menu icon is highlighted in white when the user is on a page in that sectio of the website.
 
 #### Shop - viewing products
 - [#7](https://github.com/Fiona-T/knot-art/issues/7) As a site user, I can easily view all the products in the shop so that I can see all the available products immediately without having to sort or filter or take any action
