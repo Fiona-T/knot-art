@@ -172,89 +172,366 @@ There are no errors remaining and [the final results of the JSHint checks on eac
 
 #### Shop - adding to/updating the cart
 - [#12](https://github.com/Fiona-T/knot-art/issues/12) As a site user, I can add an item to my cart so that I can buy it
+    *  Acceptance Criteria 1:  from the product details page, a user can click on the Add to Bag button, to add an item to their bag
+    *  Acceptance Criteria 2:  the subtotal underneath the Bag icon in the header should update to show the new total in the bag
+
 - [#13](https://github.com/Fiona-T/knot-art/issues/13) As a site user, I can select the quantity of an item before adding to my cart, so that I can add multiple of that item at once
+    *  Acceptance Criteria 1:  from the product details page, a user can select the quantity to buy, before pressing the Add to Bag button
+    *  Acceptance Criteria 2: the user can either use the + and - buttons beside the input box, or can type into the input box
+    *  Acceptance Criteria 3: the user should not be able to input less than 1 or more than 10 of an item (since these are handmade and there is not huge stock available)
+    * Acceptance Criteria 4: the updated subtotal appears in the cart when the quantity is changed
+
 - [#14](https://github.com/Fiona-T/knot-art/issues/14) As a site user I can see the total amount currently in my cart at all times, so that I can keep track of how much I'll be spending
+    *  Acceptance Criteria 1:  the total that a user has currently added to their bag should be shown underneath the Bag icon in the header
+    *  Acceptance Criteria 2: the total should remain constant across all pages
+    *  Acceptance Criteria 3: total will be 0.00 if nothing in the bag
+
 - [#15](https://github.com/Fiona-T/knot-art/issues/15) As a site user I can see the items in my cart at any time, so that I can check what I have already added to the cart
+    *  Acceptance Criteria 1: a user can click on the Bag icon from the header and this brings them to a page showing the items that they have added to the bag
+    *  Acceptance Criteria 2: there is a message if no items have been added, with button to return to shop
+    *  Acceptance Criteria 3: the details shown for each item in the cart are: product details (image + product name), price, quantity and subtotal
+    * Acceptance Criteria 4: underneath the listed items is a total, delivery charge amount and subtotal
+
 - [#16](https://github.com/Fiona-T/knot-art/issues/16) As a site user I can adjust the quantity of a particular item in the cart so that I can buy more or less of the item directly from the cart
+    *  Acceptance Criteria 1:  when a user is viewing the bag page, there are quantity buttons shown for each item
+    *  Acceptance Criteria 2: the user can use the quantity +/- to adjust the quantity and update the amount of the item in the cart, and the totals update accordingly
+    *  Acceptance Criteria 3: the same quantity rules apply as before, except quantity can be 0 to remove the item
+
 - [#17](https://github.com/Fiona-T/knot-art/issues/17) As a site user, I can remove an item from my cart so that I do not have to buy it if I've changed my mind
+    *  Acceptance Criteria 1:  when a user is on the bag page, there is a button/link beside each item in the cart to remove that item
+    *  Acceptance Criteria 2: once they click the button/link, the item is removed and the totals update accordingly
+    *  Acceptance Criteria 3: if this was the only item in the bag, then the page shows the message for when a bag is empty
 
 #### Shop - payment and check out
 - [#18](https://github.com/Fiona-T/knot-art/issues/18) As a site user, I can continue to the checkout process once I've decided on my purchase so that I can buy the items
+    *  Acceptance Criteria 1:  the user can click on the Checkout button on the cart page, to bring them to the checkout page
+    *  Acceptance Criteria 2:  on the checkout page there is a form for the user to fill in their personal info and delivery details
+    *  Acceptance Criteria 3: there is also a section for payment details
+
 - [#19](https://github.com/Fiona-T/knot-art/issues/19) As a site user, I can enter my delivery and payment details so that I can complete my purchase
+    *  Acceptance Criteria 1:  on the checkout page, the user can enter their details into the form including payment details and then submit the details
+    *  Acceptance Criteria 2: if the card details are invalid, an error message shows up underneath the payment section
+    *  Acceptance Criteria 3: while the form is processing, the page shows that it is processing and the user cannot click anything on the page
+
 - [#20](https://github.com/Fiona-T/knot-art/issues/20) As a site user, I can see the order summary while making payment so that I can still edit the details before payment if I made a mistake
+    *  Acceptance Criteria 1:  when the user is on the checkout page, there is a summary of the cart items shown (as well as the checkout form/payment details)
+    *  Acceptance Criteria 2: There is a button to go back and adjust the cart
+    *  Acceptance Criteria 3: The summary shows each item, the image, quantity, subtotal, and then the total, delivery and grand total
+
 - [#21](https://github.com/Fiona-T/knot-art/issues/21) As a registered user, I can save my delivery information when checking out so that it is saved to my profile for use with my next order
+    *  Acceptance Criteria 1:  on the checkout page, if the user is signed in there is a tick box that the user can tick to save their delivery info to their profile
+    *  Acceptance Criteria 2: if the user is not signed in, there is a note to tell them they can create an account to save this info/sign in to save info or use saved info
+    *  Acceptance Criteria 3: when the box is ticked, the user's profile is updated with this default delivery info
+    * Acceptance Criteria 4: if the user goes to make another purchase, when they go to the checkout page then the delivery info is prefilled
+
 - [#22](https://github.com/Fiona-T/knot-art/issues/22) As a site user, I can see an order confirmation page so that I know that the order went through okay
+    *  Acceptance Criteria 1:  after completing the checkout form and if there were no errors, the user is redirected to a success page confirming the order was successful
+    *  Acceptance Criteria 2: the page shows all the order details - order number, date, the items in the order (quantity and item price), the delivery address,  and the totals for the order (total, delivery, grand total) 
+
 - [#23](https://github.com/Fiona-T/knot-art/issues/23) As a site user, I can recieve an email confirmation of my order so that I have this confirmation for my records
+    *  Acceptance Criteria 1:  after a user (either anonymous or logged in) successfully places an order, they receive an email confirming the details
+    *  Acceptance Criteria 2: the email contains the Order number and shop name in the subject box
+    *  Acceptance Criteria 3: the email body thanks the user for their order, and confirms the order date, totals and delivery info.
+
 - [#54](https://github.com/Fiona-T/knot-art/issues/54) As a user I can see a preview of my shopping cart when I make changes so that I can easily see the new cart
+    *  Acceptance Criteria 1:  when a user takes any action relating to the shopping cart, a small preview of the shopping cart appears alongside the confirmation message
+    *  Acceptance Criteria 2: the preview shows the number of items in the cart, and for each item the image, product name and quantity. The totals are shown at the bottom, along with a link to go to the cart page to checkout
+    *  Acceptance Criteria 3: the preview is shown when the user adds to cart, adjusts quantity, or removes an item
+
 - [#57](https://github.com/Fiona-T/knot-art/issues/57) As a site owner I can ensure that an order is created once payment is made so that a customer does not make a payment, without an order being created in the database
+    *  Acceptance Criteria 1:  the website uses Stripe's webhooks to handle the payment
+    *  Acceptance Criteria 2:  if the browser window closes after payment was completed but before the order form was actually submitted, an order is still created in the database
+    *  Acceptance Criteria 3: if there was an error with the payment intent, the page reloads for the user with the error shown and they can correct the payment details (and no order created)
 
 #### Markets - viewing markets
 - [#24](https://github.com/Fiona-T/knot-art/issues/24) As a site user, I can easily view all the upcoming markets so that I can plan if I want to attend one of the markets
+    *  Acceptance Criteria 1:  A user can go to the Markets page of the website and it displays a list of the upcoming markets
+    *  Acceptance Criteria 2: Only markets that are not in the past are shown
+    *  Acceptance Criteria 3: The details shown for each market are: name, location, date, times, website and an image
+
 - [#25](https://github.com/Fiona-T/knot-art/issues/25) As a site user, I can sort the markets list so that I can find what I'm looking for more easily
+    *  Acceptance Criteria 1:  there is an option in the markets page menu bar to sort the markets
+    *  Acceptance Criteria 2: the user can choose one of these options, and the markets are sorted according to the choice
+    *  Acceptance Criteria 3: the choices should be: by name (A to Z), by name (Z to A), by date (ascending), by date (descending)
+
 - [#26](https://github.com/Fiona-T/knot-art/issues/26) As a registered user, I can save a market that I want to go to, so that I don't forget about it as it will be in my profile
+    *  Acceptance Criteria 1:  A user who is logged in can see a button on each market card in the markets page
+    *  Acceptance Criteria 2: The button allows them to save the market to their profile
+    *  Acceptance Criteria 3: After clicking the button to save the market, the user can see a success message
+
 - [#27](https://github.com/Fiona-T/knot-art/issues/27) As a registered user, I can see if I have saved a market already when viewing the markets list, so that I know if it's already saved in my profile or not
+    *  Acceptance Criteria 1:  when a user is logged in and is on the markets page, each market card has a button, the text on the button is different depending on whether the user has saved the market or not
+    *  Acceptance Criteria 2: if the market is not saved, the button says 'save market to profile' (or similar)
+    *  Acceptance Criteria 3: if the market is saved, then the button text is 'remove market from profile' (or similar)
+
 - [#28](https://github.com/Fiona-T/knot-art/issues/28) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
+    *  Acceptance Criteria 1:  when a user is logged in and on the Markets page, the markets they have saved have a button called 'remove market from profile' (or similar) see #27 
+    *  Acceptance Criteria 2: the user can click on this button to remove the market from their saved markets
+    *  Acceptance Criteria 3: a success message is displayed and the market in the Markets page now has a button for 'save market'
+
 - [#60](https://github.com/Fiona-T/knot-art/issues/60) As a user I can select a county to filter the markets by so that I can easily see just the markets in that particular county
+    *  Acceptance Criteria 1:  in the markets page, the sub header has a dropdown of counties that the user can select from
+    *  Acceptance Criteria 2: the default is all counties
+    *  Acceptance Criteria 3: when a particular county is selected, only the markets in that county are shown
+    * Acceptance Criteria 4: the options are the counties in Ireland plus the areas in Dublin (Dublin 1, 2 etc.)
+
 - [#80](https://github.com/Fiona-T/knot-art/issues/80) As a user I can see how many comments are on a market so that I can decide if I want to read them or not
+    *  Acceptance Criteria 1:  on the markets page, each market shows the number of comments
+    *  Acceptance Criteria 2: or if there are no comments, it shows 'Be the first to comment' or similar
+    *  Acceptance Criteria 3: clicking on the number of comments will bring the user to view a market details page (to be created in separate user story #81 )
+
 - [#88](https://github.com/Fiona-T/knot-art/issues/88) As a website owner I can see how many users have saved a market so that I can get an idea of how popular it might be
+    *  Acceptance Criteria 1:  When a superuser is logged in, on the markets page each market card shows the number of saves for that market
+    *  Acceptance Criteria 2:  When a superuser is logged in, on the market_details page the market details includes the number of saves for that market
+    *  Acceptance Criteria 2: This information is not visible to regular users
+
 - [#90](https://github.com/Fiona-T/knot-art/issues/90) As a user I can view markets that are in the past so that I can read the comments on them to get a feel for them if the market runs again
+    *  Acceptance Criteria 1:  On the markets page, there is an option for the user to click on to View Previous Markets
+    *  Acceptance Criteria 2:  After clicking this, the markets displayed on the page are those that are in the past
+    *  Acceptance Criteria 3: There is a button to then go back to viewing the Upcoming markets
 
 #### Markets - comments
 - [#78](https://github.com/Fiona-T/knot-art/issues/78) As a registered user I can add a comment to a market so that I can share my views on a market with other users
+    *  Acceptance Criteria 1:  When a sign in user is on the market details page, there is a text box for them to leave a comment, and a button to submit the comment
+    *  Acceptance Criteria 2: If the user is not logged in, then there is a note advising to sign in/register in order to comment
+    *  Acceptance Criteria 3: After submitting the comment the page updates and the comment is now visible on the market
 - [#81](https://github.com/Fiona-T/knot-art/issues/81) As a user I can read all the comments on a market so that I can see other users' opinions/questions on that market
+    *  Acceptance Criteria 1:  on the markets page, there is a section on each market showing the number of comments (to be created in #80 ) 
+    *  Acceptance Criteria 2: clicking on this brings the user to a market details page where they can then see all the comments displayed
+
 - [#84](https://github.com/Fiona-T/knot-art/issues/84) As a registered user I can edit a comment that I posted on a market so that I can correct the comment if needed
+    *  Acceptance Criteria 1:  When a user is logged in and viewing comments on a market, any comment that the user has posted has a link to edit it
+    *  Acceptance Criteria 2: After clicking the link to edit, they are presented with the comment form (comment field) with the original comment populated and a button to confirm updates
+    *  Acceptance Criteria 3: After submitting the changes, the edited comment appears on the page and there is a success message confirming the comment was updated
+    * Acceptance Criteria 4: The user cannot edit a comment that was posted by a different user
+
 - [#85](https://github.com/Fiona-T/knot-art/issues/85) As a registered user I can delete a comment that I posted on a market so that I can remove it if I don't want others to see the comment or I posted it in error
+    *  Acceptance Criteria 1:  When a user is logged in and viewing the comments on a market, any comment that the user posted has a link to delete it
+    *  Acceptance Criteria 2: After clicking on the link they see a modal asking them to confirm deletion
+    *  Acceptance Criteria 3: After confirming the deletion, the comment is no longer displayed on the page and there is a success message confirming the comment was deleted
+    * Acceptance Criteria 4: The user cannot delete a comment that was added by someone else
 
 #### User account set up, sign in and out
 - [#29](https://github.com/Fiona-T/knot-art/issues/29) As a site user, I can sign up for an account, so that I can enjoy the benefits of having an account e.g. saving delivery info
+    *  Acceptance Criteria 1:  the sign up page opens after the user clicks on link from header to sign up
+    *  Acceptance Criteria 2:  the sign up form contains the fields for the user to register - username, email address, email address confirmation, password, confirm password and Submit button
+    *  Acceptance Criteria 3: the form doesn't submit unless the required fields are completed or if there are errors in the inputs
+    * Acceptance Criteria 4: after the form is submitted successfully, the email verification page is displayed, see #30 
 - [#30](https://github.com/Fiona-T/knot-art/issues/30) As a site user, I want to receive an email confirmation when I register, so that I know my account registration was successful and secure
+    *  Acceptance Criteria 1:  After filling in the sign up form (see #29 ) the user is redirected to a page confirming an email was sent for them to verify their email address
+    *  Acceptance Criteria 2:  There should be an email received by that email address, providing a link to be used to verify the email address
+    *  Acceptance Criteria 3: The link brings the user to a new page where they can press a button to confirm the email address
+    * Acceptance Criteria 4: after pressing the button, the user is brought to the sign in page to sign in
+
 - [#31](https://github.com/Fiona-T/knot-art/issues/31) As a registered user, I can sign into my account so that I can access my profile
+    *  Acceptance Criteria 1:  the sign in page opens after the user clicks on link from header to sign in
+    *  Acceptance Criteria 2:  the sign up form contains the fields for the user to sign in - username or email address, and password - and Sign in button
+    *  Acceptance Criteria 3: After submitting the form, the user is redirected to the home page
+
 - [#32](https://github.com/Fiona-T/knot-art/issues/32) As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
+    *  Acceptance Criteria 1:  When a user is signed in, the Sign Out link is present in the header from underneath the Account section
+    *  Acceptance Criteria 2:   After clicking the Sign Out link, the Sign Out page opens
+    *  Acceptance Criteria 3: Sign Out page has text asking user to confirm they want to sign out, and a button
+    * Acceptance Criteria 4: After signing out, the user is redirected to the home page
+
 - [#33](https://github.com/Fiona-T/knot-art/issues/33) As a registered user, I can easily see if I am signed into my account or not, so that I know straight away if I need to sign in
+    *  Acceptance Criteria 1:  When a user is not signed in, there is a menu item in the main page navigation called Sign In. This menu item changes to 'Account' when the user is signed in (and the menu dropdown items change accordingly)
+    *  Acceptance Criteria 2: When the user is signed in, the header contains a note that they are "signed in as username"
+    *  Acceptance Criteria 3: When signed in, the My Profile page shows the user's name
+    * Acceptance Criteria 4: On the checkout page, if the user is not signed in there is a note telling them they can sign in to use their saved default delivery info. (If they are signed in, then their default delivery info if any is populated on the delivery details, as per #21 )
+    * Acceptance Criteria 5: When viewing the Markets page, if the user is not logged in then they see a note saying Sign in to save the market, if they are signed in then they see a button to save the market or remove it (already done as part of #27 )
 
 #### User profile 
 - [#34](https://github.com/Fiona-T/knot-art/issues/34) As a registered user, I can update my default delivery information in my profile, so that the updated details are recorded for future orders
+    *  Acceptance Criteria 1:  a user who is logged in can go to their profile page and there is a form to update their delivery info
+    *  Acceptance Criteria 2: the form is pre-filled with any already saved delivery info
+    *  Acceptance Criteria 3: the fields on the form are: phone number, address 1 + 2, town/city, postcode, county and country and a button to update the information
+
 - [#35](https://github.com/Fiona-T/knot-art/issues/35) As a registered user, I can see my previous orders in my profile, so that I can see all the orders I made and can find details of a previous order
+    *  Acceptance Criteria 1:  when a user is signed in and goes to their profile page, they can see their order history
+    *  Acceptance Criteria 2: if there are no previous orders, there is a note stating this and a link to the shop
+    *  Acceptance Criteria 3: if there are previous orders, these are listed with the newest first and show the order number, date, items and quantity, and final total
+
 - [#36](https://github.com/Fiona-T/knot-art/issues/36) As a registered user, I can see all the markets I saved and view their details so that I have access to this information
+    *  Acceptance Criteria 1:  when a user is logged in, there is a menu option under Account for My Markets
+    *  Acceptance Criteria 2: when they go to this page, if they have saved markets then they are displayed here, in the same format as the main Markets page, with the same details
+    *  Acceptance Criteria 3: if they do not have any saved markets then the page just displays a note confirming this
+
 - [#37](https://github.com/Fiona-T/knot-art/issues/37) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
+    *  Acceptance Criteria 1:  when a user is logged in and on the My Markets page in the Account section, each market shown there has a button for 'remove from profile' (or similar wording)
+    *  Acceptance Criteria 2: clicking the button removes the market from their profile and they see a success message
+    *  Acceptance Criteria 3: the market no longer appears in their My Markets page
+
+    Note - linked to #28 which is to remove the market via the main Markets page
+
 - [#58](https://github.com/Fiona-T/knot-art/issues/58) As a registered user I can view details of a previous order so that I can check what was ordered and where it was delivered to
+    *  Acceptance Criteria 1:  a logged in user who has previous orders can go to their order history and click on an order to view the full details
+    *  Acceptance Criteria 2: the order number links to the details page
+    *  Acceptance Criteria 3: the details displayed are the same as those displayed in the checkout success page.
+
 - [#61](https://github.com/Fiona-T/knot-art/issues/61) As a registered user I can sort the markets list in My Markets page so that I can find the market I'm looking for more easily
+    *  Acceptance Criteria 1:  there is an option in the My Markets page menu bar to sort the markets
+    *  Acceptance Criteria 2:  the user can choose one of these options, and the markets are sorted according to the choice
+    *  Acceptance Criteria 3:  the choices should be: by name (A to Z), by name (Z to A), by date (ascending), by date (descending)
+
 - [#74](https://github.com/Fiona-T/knot-art/issues/74) As a registered user I can filter my saved markets by county so that I can easily see just my saved markets in that particular county
+    *  Acceptance Criteria 1:  in the my_markets page, if the user has saved markets, the sub header has a dropdown of counties that the user can select from
+    *  Acceptance Criteria 2: the default is all counties and the counties available to select from are the counties that exist for the saved markets only (so no filter returns 0 results)
+    *  Acceptance Criteria 3: when a particular county is selected, only the markets in that county are shown
+
 - [#77](https://github.com/Fiona-T/knot-art/issues/77) As a registered user I can easily navigate within the My Account pages so that I understand what pages are available and can get to them easily and I know what page I am on
+    *  Acceptance Criteria 1:  when a logged in user is on the My Account pages (My Profile and My Markets) there is a breadcrumb menu at the top showing them where they are, e.g. My Account - > My Profile
+    *  Acceptance Criteria 2:  On the My Profile page there is a link to view their saved markets
+    *  Acceptance Criteria 3:  On the My Markets page there is a link to view their Profile
 
 #### Admin for Shop page
 - [#38](https://github.com/Fiona-T/knot-art/issues/38) As the website owner, I can view all the products in the shop, even if they are not active, so that I can see an overview of all products, and so that I can edit inactive products
+    *  Acceptance Criteria 1: When a superuser is logged in, they can see all items in the shop, even those that are not active
+    *  Acceptance Criteria 2: The card for each product also displays the active status (this is not shown on the normal view for regular or anonymous users) 
+
 - [#39](https://github.com/Fiona-T/knot-art/issues/39) As the website owner, I can add a new product to the shop, so that I can sell the product to customers
+    *  Acceptance Criteria 1:  when the admin user is logged in, they have an option under the Account menu for Product Management
+    *  Acceptance Criteria 2: when they go to this page, there is a form to Add a Product
+    *  Acceptance Criteria 3: the fields on the form are: category dropdown, sku, name, description, price, image and check boxes for active product and new product
+    * Acceptance Criteria 4: the product name must not be the same as an existing product name
+    * Acceptance Criteria 5: the active and new checkboxes default to checked and the image field is optional (as the no-image file will show up for the product if there is no image attached)
+    * Acceptance Criteria 6: after adding the product (and assuming the active flag is ticked), the product shows up in the shop page for users to buy
+
 - [#40](https://github.com/Fiona-T/knot-art/issues/40) As the website owner, I can add a edit the details of a product in the shop, so that I can change the price, description etc. and customers will see the updated information
+    *  Acceptance Criteria 1:  When admin user is signed in, they can see an Edit link/button on the products in the shop on both the main shop page and in the product details page
+    *  Acceptance Criteria 2: Clicking the link brings them to the edit product page which displays a form with the existing details pre-populated (same form as the add product form in #39 )
+    *  Acceptance Criteria 3: The user can change the details as needed and submit the form
+    * Acceptance Criteria 4: Once submitted successfully the page redirects to the product details page for that product with the updated details
+
 - [#41](https://github.com/Fiona-T/knot-art/issues/41) As the website owner, I can turn on or off the active flag on a product, so that I can add or remove it from appearing in the shop for customers when it is in/out of stock
+    *  Acceptance Criteria 1:  when the admin user is logged in, they can see a tick box beside Active product for all products in the shop and in the product details page
+    *  Acceptance Criteria 2: they can tick the box to make it Active (and product appears in shop for regular users)
+    *  Acceptance Criteria 3:  they can untick the box to make it Not Active (and product does not appear in the shop for regular, non-admin, users)
+
 - [#42](https://github.com/Fiona-T/knot-art/issues/42) As the website owner, I can delete a product, so that it will not appear in the shop if it was added in error
+    *  Acceptance Criteria 1:  When admin user is signed in, they can see a Delete link/button on the products in the shop on both the main shop page and in the product details page
+    *  Acceptance Criteria 2: Clicking the link brings up a confirmation box where they can either Cancel to go back, or press Confirm to confirm the deletion. The confirmation box shows the summary details of the product they are about to delete.
+    *  Acceptance Criteria 3: Once deleted, the product no longer appears in the shop
+
 - [#43](https://github.com/Fiona-T/knot-art/issues/43) As a website owner I can access the Django admin site for the categories so that I can add, edit or delete categories from here and new products for these categories can be added to the shop
+    *  Acceptance Criteria 1:  The admin user can log into the Django admin site and can add a category from there (standard Django functionality for admin site). 
+    *  Acceptance Criteria 2: The admin user can also edit/delete categories from there
+
+    Note: for a future feature, this functionality could be added to the frontend of the website under the Product Management dropdown
+
 - [#51](https://github.com/Fiona-T/knot-art/issues/51) As a site owner I can access the Django admin site for the products so that I can view, edit, delete products from here as well as from the website
+    *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the products and categories tables inside the products app.
+    *  Acceptance Criteria 2:  For the categories table, the category name and friendly name are displayed in the list view
+    *  Acceptance Criteria 3: For the products table, the list view shows product name, sku, category, price, if new, if active. 
+    * Acceptance Criteria 4: In the list view for products, the user can filter by category, by the active flag and by the new flag
+    * Acceptance Criteria 5: the user can add, edit and delete products and categories from this view (default Django functionality)
+    * Acceptance Criteria 6: the user can amend the is_active flag from list view, and can search by product name
+
 - [#56](https://github.com/Fiona-T/knot-art/issues/56) As a website owner I can see orders in the admin site so that I can access the order details and fulfil the orders
+    *  Acceptance Criteria 1:  when the admin user logs into the admin site, they can click on Orders to view this list of orders
+    *  Acceptance Criteria 2: the list view shows the order number, the person who ordered it, date, and totals (the three totals are not editable)
+    *  Acceptance Criteria 3: clicking on the order number brings the user to the page to view the full details of the order, including the line items in the order - product, quantity and line item total for each
+
 - [#66](https://github.com/Fiona-T/knot-art/issues/66) As a website owner I can add a product and the sku is created automatically so that the skus for the products are standardised and I do not have to manually add a sku
+    *  Acceptance Criteria 1: When a new product is created, a sku is automatically added to the product
+    *  Acceptance Criteria 2: The sku is 10 characters and consists of the first three letters from the category, followed by a dash and the id of the product, preceded by leading zeros to make up the 10 characters
+    *  Acceptance Criteria 3: The sku does not appear on the Add Product page form since it is automatically generated
+
 - [#70](https://github.com/Fiona-T/knot-art/issues/70) As a website owner I can have the sku of a product updated when the category is changed so that the sku of the product is reflects the new category
+    *  Acceptance Criteria 1:  when the admin user updates a product and changes the category, the sku gets updated to reflect the new category (since the first three letters of sku is from the category)
+    *  Acceptance Criteria 2: if the product is in the same category there is no change to the sku
+    *  Acceptance Criteria 3: there is still no field for sku on the product form and this is not visible on the website, but the admin user can see the updated sku in the admin site
+
 - [#82](https://github.com/Fiona-T/knot-art/issues/82) As a website owner I can see a label and helptext on the category dropdown in the product form so that I am clear on what to do for this field
+    *  Acceptance Criteria 1:  On the Add product form, the Category dropdown box defaults to show 'choose category from list'
+    *  Acceptance Criteria 2: Underneath the category label is helptext advising that if the category is not there, to add a new one
 
 #### Admin for Markets page
 - [#44](https://github.com/Fiona-T/knot-art/issues/44) As the website owner, I can see all markets on the markets page including past ones, so that I can see an overview of all markets and see older markets as well as upcoming ones
+    *  Acceptance Criteria 1: when the admin user is signed in, they can see all of the markets, including those that are in the past
+    *  Acceptance Criteria 2: a regular user or anonymous user can only see markets that are not in the past
+    *  Acceptance Criteria 3: for the admin user, there is an extra note on the card for the market to highlight that it is in the past
+
 - [#45](https://github.com/Fiona-T/knot-art/issues/45) As the website owner, I can add a new market to the markets page, so that customers are informed of the market
+    *  Acceptance Criteria 1:  when the admin user is signed in, they have an option under the Account dropdown for Markets Management
+    *  Acceptance Criteria 2: when they go to this page, there is a form to Add Market
+    *  Acceptance Criteria 3: the fields on the form are all fields that are on the market model, and a button to submit
+    * Acceptance Criteria 4: the market date must be in the future
+    * Acceptance Criteria 5: after adding the market, the page redirects to Markets page and the new market is visible for users
+    * Acceptance Criteria 6: the start date must be before the end date and an error displays if not
+
 - [#46](https://github.com/Fiona-T/knot-art/issues/46) As the website owner, I can edit the details of a market in the markets page, so that customers will see the updated information
+    *  Acceptance Criteria 1:  when the admin user is signed in, they can see an Edit link/button on the markets in the Markets page
+    *  Acceptance Criteria 2: this brings the user to a page with a form pre-populated with the existing details, where they can make changes and submit the form
+    *  Acceptance Criteria 3: once submitted, the page redirects back to the markets page
+
 - [#47](https://github.com/Fiona-T/knot-art/issues/47) As the website owner, I can delete a market, so that it will not appear in the markets page if it was added in error
+    *  Acceptance Criteria 1:  when the admin user is signed in, they can see a Delete link/button on the markets in the Markets page
+    *  Acceptance Criteria 2: this brings up a confirmation box showing summary details of the market and two buttons - Cancel or Delete 
+    *  Acceptance Criteria 3: once deleted, the market no longer appears in the Markets page
+
 - [#59](https://github.com/Fiona-T/knot-art/issues/59) As a site owner I can access the Django admin site for Markets so that I can view, edit, delete markets from here as well as from the website
+    *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the Market and County table inside the markets app.
+    *  Acceptance Criteria 2: The list view for Market model has the name, location, date and website
+    * Acceptance Criteria 3: For the counties table, the county name and friendly name are displayed in the list view
+    *  Acceptance Criteria 4: the user can add, edit and delete markets and counties from the admin site (default Django functionality)
+    * Acceptance Criteria 5: the user can search markets by name or website, and can filter by county
+
 - [#64](https://github.com/Fiona-T/knot-art/issues/64) As a website owner I can edit the details of a past market so that I can still edit the details even though it is in the past
+    *  Acceptance Criteria 1:  when the admin user is logged in, they can go to Edit a market for an existing market that has a date in the past
+    *  Acceptance Criteria 2: the admin user can save updates to the market even though the existing date is in the past
+    *  Acceptance Criteria 3: However they cannot edit the date to be in the past (as the purpose of this feature is to allow details of a past market to be edited, but if it is not in the past there should be no need to amend the date to be in the past)
+    * Acceptance Criteria 4: there is a notification box alerting them that they are editing a past market and can change the details but if changing date can only change it to a future date
+    * Acceptance Criteria 5: there is helptext under the date field advising of this also
+
 - [#67](https://github.com/Fiona-T/knot-art/issues/67) As a website owner I can add a new county or Dublin postcode so that I can then choose that option when adding a new market
+    *  Acceptance Criteria 1:  the admin user can go to the Django admin site and add a new county, the new county then appears in the frontend when adding a new market or editing an existing market
+
+    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #68 and #69 
+
 - [#68](https://github.com/Fiona-T/knot-art/issues/68) As a website owner I can edit a county or Dublin postcode for markets so that the correct text appears for users
+    *  Acceptance Criteria 1:  the admin user can go to the Django admin site and edit a county, the edited county then appears in the frontend when adding a new market or editing an existing market
+
+    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #69  
+
+
 - [#69](https://github.com/Fiona-T/knot-art/issues/69) As a website owner I can delete a county or Dublin postcode so that it no longer appears as an option, if it was added in error
+    *  Acceptance Criteria 1:  the admin user can go to the Django admin site and delete a county, the county then no longer appears in the frontend when adding a new market or editing an existing market
+    * Acceptance Criteria 2: any existing markets in that county are deleted since a market must have a county
+
+    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #68 
+
 - [#89](https://github.com/Fiona-T/knot-art/issues/89) As a website owner I can view the comments on a market in the admin site so that I can edit or delete users' comments from here if needed for moderation purposes
+    *  Acceptance Criteria 1:  The admin user can to to the django admin site and view the Comments table inside the markets app
+    *  Acceptance Criteria 2:  The fields listed are: id, author, market, created_on and the comment itself 
+    *  Acceptance Criteria 3: The user can filter by the comment author, or by the market
+    * Acceptance Criteria 4: the user can click into a comment and edit it or delete it (standard django admin site functionality)
+    * Acceptance Criteria 5: the user can search on the comment field. And the comment, created on and id fields all link to the edit/full view of the comment
 
 #### Admin for User Profiles
 - [#63](https://github.com/Fiona-T/knot-art/issues/63) As a site owner I can access the Django admin site for Profiles so that I can view user profiles and user's saved market lists
+    *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the UserProfile table inside the profiles app.
+    * Acceptance Criteria 2: On clicking into a userprofile, the admin user can see the Orders with name, email, date and grand total. They can click on the order number to view/edit the full Order details
+    * Acceptance Criteria 3: On clicking into a userprofile, the admin user can see the SavedMarketList for that user, and can edit from there also
 
 #### Marketing/SEO
 - [#48](https://github.com/Fiona-T/knot-art/issues/48) As the website owner, I want my website to contain relevant keywords so that users searching for these keywords will be more likely to find my website in web search results
+    *  Acceptance Criteria 1: the website contains content using keywords where relevant but is not "stuffed" with keywords
+    *  Acceptance Criteria 2: links contain keywords where relevant and where it makes sense
+    *  Acceptance Criteria 3: image alt tags contain keywords
+
 - [#49](https://github.com/Fiona-T/knot-art/issues/49) As the website owner I have a link to the Facebook business page on the website so that customers or visitors to the website can follow the facebook page and I can generate more business through the facebook page
+    *  Acceptance Criteria 1: There is a link in the footer for the business facebook page, which opens in a new tab
+
 - [#50](https://github.com/Fiona-T/knot-art/issues/50) As the website owner I have relevant keywords included in the webpage metadata so that it helps improve SEO so that users searching for these keywords can find my website
+    *  Acceptance Criteria 1: there is a meta keywords element in the head of the html, and this contains all relevant keywords
+    *  Acceptance Criteria 2: there is a meta description element in the head of the html, and this contains a description of the website and uses some keywords
+
 - [#86](https://github.com/Fiona-T/knot-art/issues/86) As a website owner I can have a sitemap.xml and robots.txt file created for the website so that search engines can crawl the essential pages of the site and therefore users can find the site when searching key terms in search engine searches
+    *  Acceptance Criteria 1:  There is a sitemap.xml and robots.txt file in the root directory of the project
+    *  Acceptance Criteria 2: The robots.txt contains disallows for accounts, cart, profile (and add/edit markets and products), checkout since these are not relevant for indexing
+    *  Acceptance Criteria 3: The robots.txt contains the sitemap also
+
 
 ### Features Testing
 
