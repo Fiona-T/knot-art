@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_meta %}
+<!-- specific meta description and keywords for markets -->
+<meta name="description"
+    content="Buy handmade macrame wall hangings from Knot Art at craft markets in Dublin and throughout Ireland. Support a small independent local Irish business!">
+<meta name="keywords"
+    content="markets, craft markets, flea markets, dublin craft market, craft markets ireland, support local, macrame, wall hangings, macrame wall hanging, handmade, made in ireland">
+{% endblock %}
+
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'markets/css/markets.css' %}">
 {% endblock %}
 
-{% block extra_title %} | Markets{% endblock %}
+{% block extra_title %} | Markets in {% if current_county %} {{ current_county.friendly_name }} {% else %}Ireland{% endif %}{% endblock %}
 
 {% block content %}
 <!-- page contents container -->

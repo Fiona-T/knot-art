@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block extra_title %} | {{ market.name }}{% endblock %}
+{% block extra_meta %}
+<!-- specific meta description and keywords for individual markets -->
+<meta name="description"
+    content="Buy handmade macrame wall hangings from Knot Art at {{ market.name|title }}. Support a small independent local Irish business!">
+<meta name="keywords"
+    content="markets, craft markets, flea markets, dublin craft market, craft markets ireland, support local, macrame, wall hangings, macrame wall hanging, handmade, made in ireland, {{ market.name }}, {{ market.county }}">
+{% endblock %}
+
+{% block extra_title %} | {{ market.name|title }}{% endblock %}
 
 {% block content %}
 <!-- page contents container -->
