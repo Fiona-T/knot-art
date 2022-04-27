@@ -6,7 +6,7 @@ Knot Art is an e-commerce website for a macrame artist to sell their small colle
 
 [View the live website here](https://knot-art.herokuapp.com/). *Link opens in same tab, right click to open in a new tab.* 
 
-![device mockup](docs/device-mockup.png) *To be added*
+![device mockup](docs/device-mockup.png)
 
 ## Table of Contents
 ---
@@ -553,6 +553,7 @@ This is a feature for regular users (not admin, since they can see all markets b
 
 ## Content Requirements
 ---
+The content requirements for this project mainly consists of the product descriptions for each product. These were written by the developer, after the product images were sourced, so that the description could be based on the free images that could be sourced. The other content was text for the About Us section and the introductory text in the Markets page, again this was written by the developer. Please refer to the [Credits section](#credits) for credits on the imagery used.
 
 ## Database Schema
 ---
@@ -973,6 +974,8 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 - The list of Dublin postcode areas for the same dropdown list was sourced from [Wikipedia](https://en.wikipedia.org/wiki/List_of_Dublin_postal_districts#County_Dublin_(A41_%E2%80%93_K78))
 - The description for each product in the shop was written by the developer
 - It should be noted that the 'markets' listed in the Markets page are all fictional and as such the website urls are fictional also.
+- Privacy Policy is from [Privacy Policy Generator](https://www.privacypolicygenerator.info/)
+- Terms of Use document is from [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/)
 
 ### Media
 - The hero image on the home page is by [Liligance](https://unsplash.com/@liligancephotography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/photos/5zpH2y7v4aA)
