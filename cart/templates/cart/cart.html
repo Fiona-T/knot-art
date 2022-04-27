@@ -21,27 +21,28 @@
             <p class="text-muted d-md-none">Here are your totals, and the individual item breakdown is below.</p>
             <h6><strong>Bag Total: €{{ total|floatformat:2 }}</strong></h6>
             <h6>Delivery: €{{ delivery|floatformat:2 }}</h6>
-            <h5 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h4>
-                {% if free_delivery_spend_needed > 0 %}
-                <p class="font-italic">You can get free delivery if you spend
-                    <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
-                {% endif %}
-                <a href="{% url 'products' %}" class="btn btn-brand-outline mt-2 mr-2">Back to Shop</a>
-                <a href="{% url 'checkout' %}" class="btn btn-brand mt-2">Secure Checkout</a>
-                <hr class="d-md-none">
+            <h5 class="mt-4"><strong>Grand Total: €{{ grand_total|floatformat:2 }}</strong></h5>
+            {% if free_delivery_spend_needed > 0 %}
+            <p class="font-italic">You can get free delivery if you spend
+                <strong>€{{ free_delivery_spend_needed }}</strong> more!</p>
+            {% endif %}
+            <a href="{% url 'products' %}" class="btn btn-brand-outline mt-2 mr-2">Back to Shop</a>
+            <a href="{% url 'checkout' %}" class="btn btn-brand mt-2">Secure Checkout</a>
+            <hr class="d-md-none">
         </div>
+        <!-- end of totals column -->
+        <!-- cart contents -->
         <div class="col-12">
-            <!-- cart contents -->
             {% for item in cart_items %}
             <!-- row for each item to show img, product name, link to remove, price, qty form, subtotal. These subdivided into two cols -->
             <div class="row">
                 <!-- 1st col - product image -->
                 <div class="col-12 col-sm-6 col-md-2 mb-2">
-                    <!-- if there is no image, then src is the default image, and alt text changes accordingly -->
                     <img class="img-fluid"
                         src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{{ MEDIA_URL }}no-image.png{% endif %}"
                         alt="{% if item.product.image %}Photo of {% else %}No image yet for {% endif %}{{ item.product.name }}{% if not item.product.image %}, image coming soon.{% endif %}">
                 </div>
+                <!-- end of first col -->
                 <!-- second col - name, link to remove, price, qty form, subtotal -->
                 <div class="col-12 col-sm-6 col-md-10 mb-2">
                     <!-- using a row so can split into 4 cols at larger screen sizes -->
@@ -101,21 +102,23 @@
                                 </span>€{{ item.product.price | calc_subtotal:item.quantity }}</p>
                         </div>
                     </div>
-                    <!-- end of row showing item, price, qty form and subtotal -->
+                    <!-- end of row inside second col -->
                 </div>
-                <!-- end of second col for item details -->
+                <!-- end of second col -->
             </div>
-            <!-- end of row for each item in the cart -->
+            <!-- end of row for each item -->
             <hr>
             {% endfor %}
-            <!-- end of iteration through cart items -->
-            {% else %}
-            <div class="col">
-                <p class="fw-600 mb-5">You don't have any items in your shopping bag.</p>
-                <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
-            </div>
-            {% endif %}
         </div>
+        <!-- end of cart contents col -->
+        {% else %}
+        <!-- if nothing in cart then show note with link back to shop -->
+        <div class="col">
+            <p class="fw-600 mb-5">You don't have any items in your shopping bag.</p>
+            <a href="{% url 'products' %}" class="btn btn-brand">Back to Shop</a>
+        </div>
+        {% endif %}
+        <!-- end of if cart_items statement -->
     </div>
     <!-- back to top link -->
     <div class="btt-button shadow-sm rounded-0 d-md-none">
