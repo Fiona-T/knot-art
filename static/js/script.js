@@ -138,9 +138,9 @@ function scrollBackToTop() {
  * set text in the paragraph below it to show the name of the file being uploaded.
  */
      function fileInputShowFileName() {
-        if($("#new-image")){
-            $("#new-image").change(function() {
-                let file = $("#new-image")[0].files[0];
+        if($("#id_image")){
+            $("#id_image").change(function() {
+                let file = $("#id_image")[0].files[0];
                 $("#filename").text(`Image will be set to: ${file.name}`);
             });    
         }
