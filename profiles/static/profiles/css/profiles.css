@@ -6,9 +6,14 @@
 }
 
 /* current page bolder + underlined */
-.breadcrumb-item.current {
+.breadcrumb-item .current {
     font-weight: 600;
     border-bottom: 0.35rem solid #1c1c1c;
+}
+
+/* change Bootstrap breadcrumb divider from / to > */
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
 }
 
 /* ---------------------------------------- UserProfile form */
