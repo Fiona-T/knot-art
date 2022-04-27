@@ -4,12 +4,13 @@
 {% block extra_meta %}
 <!-- specific meta description and keywords for shop -->
 <meta name="description"
-    content="Buy handmade macrame wall hangings from an independent macrame artist. Choose from my range of large macrame wall hangings, boho macrame wall hangings, and smaller pieces including dream catchers">
+    content="Buy handmade macrame wall hangings from Knot Art, an independent macrame artist. Choose from my range of large macrame wall hangings, boho macrame wall hangings, and smaller pieces including dream catchers">
 <meta name="keywords"
     content="macrame, macrame wall hanging, wall art, home decor natural materials, fabric wall hanging, handmade, bohemian wall art, boho macrame wall hanging, craft markets, craft markets ireland">
 {% endblock %}
 
-{% block extra_title %} | Shop Macrame Wall Hangings | Living Room, Bedroom & Mini Wall Hangings{% endblock %}
+{% block extra_title %} | Shop Macrame Wall Hangings | {% if current_category %} {{ current_category.friendly_name }}
+{% else %}Living Room, Bedroom & Mini Wall Hangings{% endif %}{% endblock %}
 {% block page_header %}
     {% include '../products/includes/products_header.html' %}
 {% endblock %}
