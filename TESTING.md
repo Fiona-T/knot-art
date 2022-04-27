@@ -127,15 +127,48 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  The icon and text for each section of the website in the header change to a different colour when a user is on a page within that section of the website
     *  Acceptance Criteria 2: E.g. in markets, market details then Markets menu item will be a different colour
     *  Acceptance Criteria 3: For the superuser, when editing/adding a product or a market, the menu item will be Shop or Markets respectively since they are in this section of the website. (There are menu options from the Account dropdown for these pages, but they are not part of the user profile so the active menu item will be either Shop or Markets as appropriate)
-    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the previous user stories. The menu icon is highlighted in white when the user is on a page in that sectio of the website.
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the previous user stories. The menu icon is highlighted in white when the user is on a page in that section of the website.
 
 #### Shop - viewing products
 - [#7](https://github.com/Fiona-T/knot-art/issues/7) As a site user, I can easily view all the products in the shop so that I can see all the available products immediately without having to sort or filter or take any action
+    *  Acceptance Criteria 1:  When a user goes to the Shop page, they are presented with all products on the page
+    *  Acceptance Criteria 2:  The user does not have to do anything, the default is that all products are listed
+    * Acceptance Criteria 3:  Only products that are 'active' should be displayed
+    * Acceptance Criteria 4:  The details shown for each product should be: name, image, price, category
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing was done to ensure only active products are shown for regular users.
+    ![User story - shop - all products, default view](docs/user-story-testing/shop-default-view.png)
+
 - [#8](https://github.com/Fiona-T/knot-art/issues/8) As a site user, I can view an individual item details so that I can see the full details including the description and decide whether to buy
+    *  Acceptance Criteria 1:  A user can click on the product from the shop page and this brings them to a new page showing details of the product
+    *  Acceptance Criteria 2: The details shown are: image, product name, product description, product category, price, a quantity selector and button to add to cart, and a button to go back to the shop page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below.
+    ![User story - product details](docs/user-story-testing/product-details.png)
+
 - [#9](https://github.com/Fiona-T/knot-art/issues/9) As a site user, I can select a specific category of product so that I can view just the items in that category to make it easier to make a decision
+    *  Acceptance Criteria 1: in the shop page menu bar, there are menu options to choose a particular category
+    *  Acceptance Criteria 2: when a particular category is chosen, only the products in that category are displayed
+    *  Acceptance Criteria 3: the options are the categories currently set up by the store owner: Living Room, Bedroom, Minis. There should also be an ALL category (which the shop page defaults to, but will be needed for the user if they want to go back to seeing all products after selecting a category)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Categories are present, in a hamburger menu on mobile. Selected option is highlighted. Testing completed to ensure only products in selected category are shown. 
+    ![User story - shop categories](docs/user-story-testing/shop-categories.png)
+
 - [#10](https://github.com/Fiona-T/knot-art/issues/10) As a site user, I can sort the products in the shop so that I can find what I'm looking for more easily
+    *  Acceptance Criteria 1: there is an option in the shop page menu bar to sort products
+    *  Acceptance Criteria 2: the user can choose one of these options, and the products are sorted according to the choice 
+    *  Acceptance Criteria 3: the choices should be: by product name (A to Z), by product name (Z to A), by price (low to high), by price (high to low) 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Sorting options are present and correct. Testing completed to ensure that each sorting option works. Sorting works on ALL products, or within individual categories. 
+    ![User story - shop sorting options](docs/user-story-testing/shop-sorting-options.png)
+
 - [#11](https://github.com/Fiona-T/knot-art/issues/11) As a site user, I can search for a product in the shop so that I can find a particular item quickly
+    *  Acceptance Criteria 1: There is a search box at the top of the shop page
+    *  Acceptance Criteria 2: The user can enter a search term and the page will display products that match that search term
+    *  Acceptance Criteria 3: The search should return if the word is in the product name, or product description
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Search box present, results are returned or error if no search term entered. Testing completed to ensure that it functions correctly. 
+    ![User story - shop search](docs/user-story-testing/shop-search.png)
+
 - [#71](https://github.com/Fiona-T/knot-art/issues/71) As a user I can see the results for my filter option or search term so that I can quickly see how many products match my filter option/match my search term
+    *  Acceptance Criteria 1:  when a user searches, the count of items found, and the search term are shown above the displayed products
+    *  Acceptance Criteria 2: when a user selects a category of product from the sub menu of product categories, the count of items found, and the category option are shown above the displayed products
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the previous two user stories. 
 
 #### Shop - adding to/updating the cart
 - [#12](https://github.com/Fiona-T/knot-art/issues/12) As a site user, I can add an item to my cart so that I can buy it
