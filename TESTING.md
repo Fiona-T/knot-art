@@ -2,6 +2,8 @@
 ---
 *This file contains the Testing section of the [full README.md file for Knot Art](README.md).*
 
+*Note: any email addresses shown in the testing images in this document are temporary and do not belong to real users, similarly with any delivery details.*
+
 ## Table of Contents
 ---
 - [Testing](#testing)
@@ -220,41 +222,55 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  the user can click on the Checkout button on the cart page, to bring them to the checkout page
     *  Acceptance Criteria 2:  on the checkout page there is a form for the user to fill in their personal info and delivery details
     *  Acceptance Criteria 3: there is also a section for payment details
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - checkout](docs/user-story-testing/checkout.png)
 
 - [#19](https://github.com/Fiona-T/knot-art/issues/19) As a site user, I can enter my delivery and payment details so that I can complete my purchase
     *  Acceptance Criteria 1:  on the checkout page, the user can enter their details into the form including payment details and then submit the details
     *  Acceptance Criteria 2: if the card details are invalid, an error message shows up underneath the payment section
     *  Acceptance Criteria 3: while the form is processing, the page shows that it is processing and the user cannot click anything on the page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - complete purchase](docs/user-story-testing/complete-purchase.png)
 
 - [#20](https://github.com/Fiona-T/knot-art/issues/20) As a site user, I can see the order summary while making payment so that I can still edit the details before payment if I made a mistake
     *  Acceptance Criteria 1:  when the user is on the checkout page, there is a summary of the cart items shown (as well as the checkout form/payment details)
     *  Acceptance Criteria 2: There is a button to go back and adjust the cart
     *  Acceptance Criteria 3: The summary shows each item, the image, quantity, subtotal, and then the total, delivery and grand total
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the user story for the checkout page above
 
 - [#21](https://github.com/Fiona-T/knot-art/issues/21) As a registered user, I can save my delivery information when checking out so that it is saved to my profile for use with my next order
     *  Acceptance Criteria 1:  on the checkout page, if the user is signed in there is a tick box that the user can tick to save their delivery info to their profile
     *  Acceptance Criteria 2: if the user is not signed in, there is a note to tell them they can create an account to save this info/sign in to save info or use saved info
     *  Acceptance Criteria 3: when the box is ticked, the user's profile is updated with this default delivery info
     * Acceptance Criteria 4: if the user goes to make another purchase, when they go to the checkout page then the delivery info is prefilled
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - save delivery info](docs/user-story-testing/save-delivery-info.png)
 
 - [#22](https://github.com/Fiona-T/knot-art/issues/22) As a site user, I can see an order confirmation page so that I know that the order went through okay
     *  Acceptance Criteria 1:  after completing the checkout form and if there were no errors, the user is redirected to a success page confirming the order was successful
-    *  Acceptance Criteria 2: the page shows all the order details - order number, date, the items in the order (quantity and item price), the delivery address,  and the totals for the order (total, delivery, grand total) 
+    *  Acceptance Criteria 2: the page shows all the order details - order number, date, the items in the order (quantity and item price), the delivery address, and the totals for the order (total, delivery, grand total)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - order confirmation page](docs/user-story-testing/order-confirmation.png)
 
 - [#23](https://github.com/Fiona-T/knot-art/issues/23) As a site user, I can recieve an email confirmation of my order so that I have this confirmation for my records
     *  Acceptance Criteria 1:  after a user (either anonymous or logged in) successfully places an order, they receive an email confirming the details
     *  Acceptance Criteria 2: the email contains the Order number and shop name in the subject box
     *  Acceptance Criteria 3: the email body thanks the user for their order, and confirms the order date, totals and delivery info.
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Note: there is a small bug where if the customer doesn't fill in the non-required address fields, there are blank lines for these in the email. This is noted in the [Known Bugs section](#known-bugs) for future fix.
+    ![User story - order confirmation email](docs/user-story-testing/order-confirmation-email.png)
 
 - [#54](https://github.com/Fiona-T/knot-art/issues/54) As a user I can see a preview of my shopping cart when I make changes so that I can easily see the new cart
     *  Acceptance Criteria 1:  when a user takes any action relating to the shopping cart, a small preview of the shopping cart appears alongside the confirmation message
     *  Acceptance Criteria 2: the preview shows the number of items in the cart, and for each item the image, product name and quantity. The totals are shown at the bottom, along with a link to go to the cart page to checkout
     *  Acceptance Criteria 3: the preview is shown when the user adds to cart, adjusts quantity, or removes an item
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the confirmation messages user stories, and the other user stories for the cart shown previously. 
 
 - [#57](https://github.com/Fiona-T/knot-art/issues/57) As a site owner I can ensure that an order is created once payment is made so that a customer does not make a payment, without an order being created in the database
     *  Acceptance Criteria 1:  the website uses Stripe's webhooks to handle the payment
     *  Acceptance Criteria 2:  if the browser window closes after payment was completed but before the order form was actually submitted, an order is still created in the database
     *  Acceptance Criteria 3: if there was an error with the payment intent, the page reloads for the user with the error shown and they can correct the payment details (and no order created)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. An order is still created in the database if the payment goes through on Stripe, even if the browser window is closed. A failed payment reloads the page with the error message and the order is not created.
+    ![User story - order processing, webhooks](docs/user-story-testing/order-processing-webhooks.png)
 
 #### Markets - viewing markets
 - [#24](https://github.com/Fiona-T/knot-art/issues/24) As a site user, I can easily view all the upcoming markets so that I can plan if I want to attend one of the markets
@@ -686,5 +702,12 @@ After this change the validation is triggered and an error is shown if the quant
 
 
 ### Known Bugs
+As noted in the [Test cases - user stories testing](#test-cases---user-stories), there is a small bug in the email sent confirming the order. If the user doesn't fill in the non-required address fields, there are blank lines for these in the email. This is a relatively minor bug and there was no scope to fix it in the current iteration of this project, but should there be future iterations it would be added as an Issue and prioritised as normal.
+
+With all fields filled in:
+![User story - order confirmation email](docs/user-story-testing/order-confirmation-email.png)
+
+When not all address fields are available:
+![Order confirmation email address bug](docs/bugs/order-conf-email-address-bug.png)
 
 ### Supported Screens and Browsers
