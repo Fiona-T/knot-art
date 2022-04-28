@@ -656,8 +656,12 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     >**Result:** Pass, the above acceptance criteria are met, both files are in the root directory and the robots.txt contains the relevant disallows.
 
 ### Features Testing
+Features were tested while testing the User Story test cases outlined in the preceding [Test Cases - user stories section](#test-cases---user-stories). All relevant screenprints can be found there, as the features tie in with the user stories.
 
 ### Other Manual Testing
+During development extensive manual testing was carried out as each User Story was developed (this was noted as a task on each User Story). As each feature was developed, the site was tested for responsiveness using Chrome Dev tools. Other manual testing involved using the features e.g. sorting, filtering, checking the items returned by the view, adding, editing, deleting products, markets, comments, saving markets and removing them, creating user profiles. Adding products to the cart, adding more products, adjusting quantity, removing items, proceeding to checkout, updateing profile information, etc. In addition, verifing that all links work and external links open in a new page so as not to direct user away from the site.
+
+Note in relation to website addresses for markets: The markets that have been added during development are dummy fictional market events, so their websites are not actual websites and clicking on these links would result in a page not found. This would not be the case in a real life scenario, as the actual market events that run regularly in Ireland would be added as market events by the website owner.
 
 ### Automated Testing
 #### Python tests
