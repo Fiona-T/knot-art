@@ -131,17 +131,17 @@ WSGI_APPLICATION = 'knot_art.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if 'DEVELOPMENT' in os.environ:
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+            'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+            }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
-    DATABASES = {
-            'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-            }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -193,6 +193,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # S3 bucket
 if 'USE_AWS' in os.environ:
+    # Cache control
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
+
     # Bucket Config
     AWS_STORAGE_BUCKET_NAME = 'knot-art'
     AWS_S3_REGION_NAME = 'eu-west-1'
