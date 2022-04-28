@@ -551,6 +551,8 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1: when the admin user is signed in, they can see all of the markets, including those that are in the past
     *  Acceptance Criteria 2: a regular user or anonymous user can only see markets that are not in the past
     *  Acceptance Criteria 3: for the admin user, there is an extra note on the card for the market to highlight that it is in the past
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, and testing was completed to ensure superuser view includes all markets, and regular user/anonymous default view is only upcoming markets. The heading on this page for a superuser is All Markets instead of Upcoming Markets (though intro text is the same).
+    ![User story - admin user - markets default view includes past markets](docs/user-story-testing/admin-markets-past-markets-in-default-view.png)
 
 - [#45](https://github.com/Fiona-T/knot-art/issues/45) As the website owner, I can add a new market to the markets page, so that customers are informed of the market
     *  Acceptance Criteria 1:  when the admin user is signed in, they have an option under the Account dropdown for Markets Management
@@ -559,16 +561,22 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     * Acceptance Criteria 4: the market date must be in the future
     * Acceptance Criteria 5: after adding the market, the page redirects to Markets page and the new market is visible for users
     * Acceptance Criteria 6: the start date must be before the end date and an error displays if not
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, error messages are shown on date and time fields if entries are outside the accpeted, if user still submits the form with the errors then an error message is shown and the errors are shown again. Errors disappear from fields once the inputs are corrected. HMTL form validation is present also for required fields.
+    ![User story - admin user - add a market](docs/user-story-testing/admin-markets-add-market.png)
 
 - [#46](https://github.com/Fiona-T/knot-art/issues/46) As the website owner, I can edit the details of a market in the markets page, so that customers will see the updated information
     *  Acceptance Criteria 1:  when the admin user is signed in, they can see an Edit link/button on the markets in the Markets page
     *  Acceptance Criteria 2: this brings the user to a page with a form pre-populated with the existing details, where they can make changes and submit the form
     *  Acceptance Criteria 3: once submitted, the page redirects back to the markets page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, with the same validations as on the add market form.
+    ![User story - admin user - edit a market](docs/user-story-testing/admin-markets-edit-market.png)
 
 - [#47](https://github.com/Fiona-T/knot-art/issues/47) As the website owner, I can delete a market, so that it will not appear in the markets page if it was added in error
     *  Acceptance Criteria 1:  when the admin user is signed in, they can see a Delete link/button on the markets in the Markets page
     *  Acceptance Criteria 2: this brings up a confirmation box showing summary details of the market and two buttons - Cancel or Delete 
     *  Acceptance Criteria 3: once deleted, the market no longer appears in the Markets page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - delete a market](docs/user-story-testing/admin-markets-delete-market.png)
 
 - [#59](https://github.com/Fiona-T/knot-art/issues/59) As a site owner I can access the Django admin site for Markets so that I can view, edit, delete markets from here as well as from the website
     *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the Market and County table inside the markets app.
@@ -576,6 +584,8 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     * Acceptance Criteria 3: For the counties table, the county name and friendly name are displayed in the list view
     *  Acceptance Criteria 4: the user can add, edit and delete markets and counties from the admin site (default Django functionality)
     * Acceptance Criteria 5: the user can search markets by name or website, and can filter by county
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - admin site - markets](docs/user-story-testing/admin-markets-admin-site.png)
 
 - [#64](https://github.com/Fiona-T/knot-art/issues/64) As a website owner I can edit the details of a past market so that I can still edit the details even though it is in the past
     *  Acceptance Criteria 1:  when the admin user is logged in, they can go to Edit a market for an existing market that has a date in the past
@@ -583,23 +593,27 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 3: However they cannot edit the date to be in the past (as the purpose of this feature is to allow details of a past market to be edited, but if it is not in the past there should be no need to amend the date to be in the past)
     * Acceptance Criteria 4: there is a notification box alerting them that they are editing a past market and can change the details but if changing date can only change it to a future date
     * Acceptance Criteria 5: there is helptext under the date field advising of this also
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - edit a past market](docs/user-story-testing/admin-markets-edit-past-market.png)
 
 - [#67](https://github.com/Fiona-T/knot-art/issues/67) As a website owner I can add a new county or Dublin postcode so that I can then choose that option when adding a new market
     *  Acceptance Criteria 1:  the admin user can go to the Django admin site and add a new county, the new county then appears in the frontend when adding a new market or editing an existing market
-
-    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #68 and #69 
+    *Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #68 and #69* 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - add county](docs/user-story-testing/admin-markets-add-county.png)
 
 - [#68](https://github.com/Fiona-T/knot-art/issues/68) As a website owner I can edit a county or Dublin postcode for markets so that the correct text appears for users
     *  Acceptance Criteria 1:  the admin user can go to the Django admin site and edit a county, the edited county then appears in the frontend when adding a new market or editing an existing market
-
-    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #69  
-
+    *Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #69* 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - edit county](docs/user-story-testing/admin-markets-edit-county.png) 
 
 - [#69](https://github.com/Fiona-T/knot-art/issues/69) As a website owner I can delete a county or Dublin postcode so that it no longer appears as an option, if it was added in error
     *  Acceptance Criteria 1:  the admin user can go to the Django admin site and delete a county, the county then no longer appears in the frontend when adding a new market or editing an existing market
     * Acceptance Criteria 2: any existing markets in that county are deleted since a market must have a county
-
-    Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #68 
+    *Note: for a future feature, this feature can be made available from the website, under the Markets Management section. See also the linked user stories #67 and #68* 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - delete county](docs/user-story-testing/admin-markets-delete-county.png)
 
 - [#89](https://github.com/Fiona-T/knot-art/issues/89) As a website owner I can view the comments on a market in the admin site so that I can edit or delete users' comments from here if needed for moderation purposes
     *  Acceptance Criteria 1:  The admin user can to to the django admin site and view the Comments table inside the markets app
@@ -607,6 +621,8 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 3: The user can filter by the comment author, or by the market
     * Acceptance Criteria 4: the user can click into a comment and edit it or delete it (standard django admin site functionality)
     * Acceptance Criteria 5: the user can search on the comment field. And the comment, created on and id fields all link to the edit/full view of the comment
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - admin site for comments](docs/user-story-testing/admin-markets-admin-site-comments.png)
 
 #### Admin for User Profiles
 - [#63](https://github.com/Fiona-T/knot-art/issues/63) As a site owner I can access the Django admin site for Profiles so that I can view user profiles and user's saved market lists
