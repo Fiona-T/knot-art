@@ -414,43 +414,57 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  a user who is logged in can go to their profile page and there is a form to update their delivery info
     *  Acceptance Criteria 2: the form is pre-filled with any already saved delivery info
     *  Acceptance Criteria 3: the fields on the form are: phone number, address 1 + 2, town/city, postcode, county and country and a button to update the information
+    >**Result:** Pass, the above acceptance criteria are met, as shown below and testing completed to ensure any updates are saved.
+    ![User story - user profile saved delivery info](docs/user-story-testing/user-profile-saved-delivery-info.png)
 
 - [#35](https://github.com/Fiona-T/knot-art/issues/35) As a registered user, I can see my previous orders in my profile, so that I can see all the orders I made and can find details of a previous order
     *  Acceptance Criteria 1:  when a user is signed in and goes to their profile page, they can see their order history
     *  Acceptance Criteria 2: if there are no previous orders, there is a note stating this and a link to the shop
     *  Acceptance Criteria 3: if there are previous orders, these are listed with the newest first and show the order number, date, items and quantity, and final total
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - user profile order history](docs/user-story-testing/user-profile-order-history.png)
 
 - [#36](https://github.com/Fiona-T/knot-art/issues/36) As a registered user, I can see all the markets I saved and view their details so that I have access to this information
     *  Acceptance Criteria 1:  when a user is logged in, there is a menu option under Account for My Markets
     *  Acceptance Criteria 2: when they go to this page, if they have saved markets then they are displayed here, in the same format as the main Markets page, with the same details
     *  Acceptance Criteria 3: if they do not have any saved markets then the page just displays a note confirming this
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - user profile - my markets](docs/user-story-testing/user-profile-my-markets.png)
 
 - [#37](https://github.com/Fiona-T/knot-art/issues/37) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
     *  Acceptance Criteria 1:  when a user is logged in and on the My Markets page in the Account section, each market shown there has a button for 'remove from profile' (or similar wording)
     *  Acceptance Criteria 2: clicking the button removes the market from their profile and they see a success message
     *  Acceptance Criteria 3: the market no longer appears in their My Markets page
-
     Note - linked to #28 which is to remove the market via the main Markets page
+    >**Result:** Pass, the above acceptance criteria are met, as shown in previous screenprints
 
 - [#58](https://github.com/Fiona-T/knot-art/issues/58) As a registered user I can view details of a previous order so that I can check what was ordered and where it was delivered to
     *  Acceptance Criteria 1:  a logged in user who has previous orders can go to their order history and click on an order to view the full details
     *  Acceptance Criteria 2: the order number links to the details page
     *  Acceptance Criteria 3: the details displayed are the same as those displayed in the checkout success page.
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - user profile - previous order details](docs/user-story-testing/user-profile-previous-order-details.png)
 
 - [#61](https://github.com/Fiona-T/knot-art/issues/61) As a registered user I can sort the markets list in My Markets page so that I can find the market I'm looking for more easily
     *  Acceptance Criteria 1:  there is an option in the My Markets page menu bar to sort the markets
     *  Acceptance Criteria 2:  the user can choose one of these options, and the markets are sorted according to the choice
     *  Acceptance Criteria 3:  the choices should be: by name (A to Z), by name (Z to A), by date (ascending), by date (descending)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Sorting options are present and correct. Testing was completed to ensure that each sorting option works. Sorting works on all markets, or when filtered by counties, within my markets page.
+    ![User story - user profile - my markets - sort options](docs/user-story-testing/my-markets-sort-options.png)
 
 - [#74](https://github.com/Fiona-T/knot-art/issues/74) As a registered user I can filter my saved markets by county so that I can easily see just my saved markets in that particular county
     *  Acceptance Criteria 1:  in the my_markets page, if the user has saved markets, the sub header has a dropdown of counties that the user can select from
     *  Acceptance Criteria 2: the default is all counties and the counties available to select from are the counties that exist for the saved markets only (so no filter returns 0 results)
     *  Acceptance Criteria 3: when a particular county is selected, only the markets in that county are shown
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing completed to ensure results returned are correct.
+    ![User story - user profile - my markets - filter by county](docs/user-story-testing/my-markets-filter-by-county.png)
 
 - [#77](https://github.com/Fiona-T/knot-art/issues/77) As a registered user I can easily navigate within the My Account pages so that I understand what pages are available and can get to them easily and I know what page I am on
     *  Acceptance Criteria 1:  when a logged in user is on the My Account pages (My Profile and My Markets) there is a breadcrumb menu at the top showing them where they are, e.g. My Account - > My Profile
     *  Acceptance Criteria 2:  On the My Profile page there is a link to view their saved markets
     *  Acceptance Criteria 3:  On the My Markets page there is a link to view their Profile
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing completed to ensure results returned are correct.
+    ![User story - user profile - navigation](docs/user-story-testing/user-profile-navigation.png)
 
 #### Admin for Shop page
 - [#38](https://github.com/Fiona-T/knot-art/issues/38) As the website owner, I can view all the products in the shop, even if they are not active, so that I can see an overview of all products, and so that I can edit inactive products
