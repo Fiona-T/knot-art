@@ -174,33 +174,46 @@ There are no errors remaining and [the final results of the JSHint checks on eac
 - [#12](https://github.com/Fiona-T/knot-art/issues/12) As a site user, I can add an item to my cart so that I can buy it
     *  Acceptance Criteria 1:  from the product details page, a user can click on the Add to Bag button, to add an item to their bag
     *  Acceptance Criteria 2:  the subtotal underneath the Bag icon in the header should update to show the new total in the bag
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Note: on smaller mobiles the text underneath the menu items in header is not shown, due to space, so the cart amount is not shown in the header, however the notification message still shows up, and the cart icon in the header changes from outlined to filled to show there is something in the cart. 
+    ![User story - add to cart](docs/user-story-testing/add-to-cart.png)
 
 - [#13](https://github.com/Fiona-T/knot-art/issues/13) As a site user, I can select the quantity of an item before adding to my cart, so that I can add multiple of that item at once
     *  Acceptance Criteria 1:  from the product details page, a user can select the quantity to buy, before pressing the Add to Bag button
     *  Acceptance Criteria 2: the user can either use the + and - buttons beside the input box, or can type into the input box
     *  Acceptance Criteria 3: the user should not be able to input less than 1 or more than 10 of an item (since these are handmade and there is not huge stock available)
     * Acceptance Criteria 4: the updated subtotal appears in the cart when the quantity is changed
+    >**Result:** Pass, the above acceptance criteria are met, as shown below: 
+    ![User story - add to cart - quantity](docs/user-story-testing/add-to-cart-quantity.png)
+    In addition, there is a cap of 10 on the total for that item in the cart. E.g. already 3 of an item in the cart, adding another 10 from the product details page will bring the total for that item to 13, so this will generate an error as shown below. This is to keep the quantity of any one item within the range of 1-10, whether adding to cart initially, or adding the item again with a new quantity which will adjust total quantity in the cart:
+    ![User story - add to cart - max quantity](docs/user-story-testing/max-quantity-for-item-in-cart.png)
 
 - [#14](https://github.com/Fiona-T/knot-art/issues/14) As a site user I can see the total amount currently in my cart at all times, so that I can keep track of how much I'll be spending
     *  Acceptance Criteria 1:  the total that a user has currently added to their bag should be shown underneath the Bag icon in the header
     *  Acceptance Criteria 2: the total should remain constant across all pages
     *  Acceptance Criteria 3: total will be 0.00 if nothing in the bag
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the previous user stories. *Note: on smaller mobiles the text underneath the menu items in header is not shown, due to space, so the total in the cart is not shown on these sizes. However the cart icon in the header changes from outlined to filled to show there is something in the cart, and the user can click at any time onto the cart page to see the total. This is only on smaller mobile sizes below 375px due to space, and to allow the menu items be visible in the header for the user rather than collapsed to a hamburger icon.*
 
 - [#15](https://github.com/Fiona-T/knot-art/issues/15) As a site user I can see the items in my cart at any time, so that I can check what I have already added to the cart
     *  Acceptance Criteria 1: a user can click on the Bag icon from the header and this brings them to a page showing the items that they have added to the bag
     *  Acceptance Criteria 2: there is a message if no items have been added, with button to return to shop
     *  Acceptance Criteria 3: the details shown for each item in the cart are: product details (image + product name), price, quantity and subtotal
     * Acceptance Criteria 4: underneath the listed items is a total, delivery charge amount and subtotal
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. On mobile the totals and checkout button are shown at the top, and with a back to top button as the layout of the cart is longer on mobile to allow a better layout for the user.
+    ![User story - view cart](docs/user-story-testing/view-cart.png)
 
 - [#16](https://github.com/Fiona-T/knot-art/issues/16) As a site user I can adjust the quantity of a particular item in the cart so that I can buy more or less of the item directly from the cart
     *  Acceptance Criteria 1:  when a user is viewing the bag page, there are quantity buttons shown for each item
     *  Acceptance Criteria 2: the user can use the quantity +/- to adjust the quantity and update the amount of the item in the cart, and the totals update accordingly
-    *  Acceptance Criteria 3: the same quantity rules apply as before, except quantity can be 0 to remove the item
+    *  Acceptance Criteria 3: the same quantity rules apply as before
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - adjust quantity in cart](docs/user-story-testing/adjust-quantity-in-bag.png)
 
 - [#17](https://github.com/Fiona-T/knot-art/issues/17) As a site user, I can remove an item from my cart so that I do not have to buy it if I've changed my mind
     *  Acceptance Criteria 1:  when a user is on the bag page, there is a button/link beside each item in the cart to remove that item
     *  Acceptance Criteria 2: once they click the button/link, the item is removed and the totals update accordingly
     *  Acceptance Criteria 3: if this was the only item in the bag, then the page shows the message for when a bag is empty
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - remove items from cart](docs/user-story-testing/remove-items-from-cart.png)
 
 #### Shop - payment and check out
 - [#18](https://github.com/Fiona-T/knot-art/issues/18) As a site user, I can continue to the checkout process once I've decided on my purchase so that I can buy the items
