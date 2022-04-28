@@ -463,13 +463,15 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  when a logged in user is on the My Account pages (My Profile and My Markets) there is a breadcrumb menu at the top showing them where they are, e.g. My Account - > My Profile
     *  Acceptance Criteria 2:  On the My Profile page there is a link to view their saved markets
     *  Acceptance Criteria 3:  On the My Markets page there is a link to view their Profile
-    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing completed to ensure results returned are correct.
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
     ![User story - user profile - navigation](docs/user-story-testing/user-profile-navigation.png)
 
 #### Admin for Shop page
 - [#38](https://github.com/Fiona-T/knot-art/issues/38) As the website owner, I can view all the products in the shop, even if they are not active, so that I can see an overview of all products, and so that I can edit inactive products
     *  Acceptance Criteria 1: When a superuser is logged in, they can see all items in the shop, even those that are not active
     *  Acceptance Criteria 2: The card for each product also displays the active status (this is not shown on the normal view for regular or anonymous users) 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user can see all products including inactive](docs/user-story-testing/admin-shop-shows-not-active-products.png)
 
 - [#39](https://github.com/Fiona-T/knot-art/issues/39) As the website owner, I can add a new product to the shop, so that I can sell the product to customers
     *  Acceptance Criteria 1:  when the admin user is logged in, they have an option under the Account menu for Product Management
@@ -478,28 +480,37 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     * Acceptance Criteria 4: the product name must not be the same as an existing product name
     * Acceptance Criteria 5: the active and new checkboxes default to checked and the image field is optional (as the no-image file will show up for the product if there is no image attached)
     * Acceptance Criteria 6: after adding the product (and assuming the active flag is ticked), the product shows up in the shop page for users to buy
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Note - sku was removed from the form after user story [#66](https://github.com/Fiona-T/knot-art/issues/66) - generate sku - was added. Form validation is in place, can't submit form without required fields being completed. Error shown in same product name as existing product.
+    ![User story - admin user add a product](docs/user-story-testing/admin-shop-add-product.png)
 
 - [#40](https://github.com/Fiona-T/knot-art/issues/40) As the website owner, I can add a edit the details of a product in the shop, so that I can change the price, description etc. and customers will see the updated information
     *  Acceptance Criteria 1:  When admin user is signed in, they can see an Edit link/button on the products in the shop on both the main shop page and in the product details page
     *  Acceptance Criteria 2: Clicking the link brings them to the edit product page which displays a form with the existing details pre-populated (same form as the add product form in #39 )
     *  Acceptance Criteria 3: The user can change the details as needed and submit the form
     * Acceptance Criteria 4: Once submitted successfully the page redirects to the product details page for that product with the updated details
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Edit links are in shop page and product details page as shown previously. Same validation in place on this form as add product.
+    ![User story - admin user edit a product](docs/user-story-testing/admin-shop-edit-product.png)
 
 - [#41](https://github.com/Fiona-T/knot-art/issues/41) As the website owner, I can turn on or off the active flag on a product, so that I can add or remove it from appearing in the shop for customers when it is in/out of stock
     *  Acceptance Criteria 1:  when the admin user is logged in, they can see a tick box beside Active product for all products in the shop and in the product details page
     *  Acceptance Criteria 2: they can tick the box to make it Active (and product appears in shop for regular users)
     *  Acceptance Criteria 3:  they can untick the box to make it Not Active (and product does not appear in the shop for regular, non-admin, users)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user toggle active status for products](docs/user-story-testing/admin-shop-toggle-active-status.png)
 
 - [#42](https://github.com/Fiona-T/knot-art/issues/42) As the website owner, I can delete a product, so that it will not appear in the shop if it was added in error
     *  Acceptance Criteria 1:  When admin user is signed in, they can see a Delete link/button on the products in the shop on both the main shop page and in the product details page
     *  Acceptance Criteria 2: Clicking the link brings up a confirmation box where they can either Cancel to go back, or press Confirm to confirm the deletion. The confirmation box shows the summary details of the product they are about to delete.
     *  Acceptance Criteria 3: Once deleted, the product no longer appears in the shop
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user delete product](docs/user-story-testing/admin-shop-delete-product.png)
 
 - [#43](https://github.com/Fiona-T/knot-art/issues/43) As a website owner I can access the Django admin site for the categories so that I can add, edit or delete categories from here and new products for these categories can be added to the shop
     *  Acceptance Criteria 1:  The admin user can log into the Django admin site and can add a category from there (standard Django functionality for admin site). 
     *  Acceptance Criteria 2: The admin user can also edit/delete categories from there
-
-    Note: for a future feature, this functionality could be added to the frontend of the website under the Product Management dropdown
+    *Note: for a future feature, this functionality could be added to the website under the Product Management dropdown*
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - admin site for categories](docs/user-story-testing/admin-shop-categories-admin-site.png)
 
 - [#51](https://github.com/Fiona-T/knot-art/issues/51) As a site owner I can access the Django admin site for the products so that I can view, edit, delete products from here as well as from the website
     *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the products and categories tables inside the products app.
