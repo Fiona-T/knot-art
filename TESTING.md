@@ -344,21 +344,29 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  When a sign in user is on the market details page, there is a text box for them to leave a comment, and a button to submit the comment
     *  Acceptance Criteria 2: If the user is not logged in, then there is a note advising to sign in/register in order to comment
     *  Acceptance Criteria 3: After submitting the comment the page updates and the comment is now visible on the market
+    >**Result:** Pass, the above acceptance criteria are met, as shown below.
+    ![User story - markets - add comment](docs/user-story-testing/markets-add-comment.png)
+
 - [#81](https://github.com/Fiona-T/knot-art/issues/81) As a user I can read all the comments on a market so that I can see other users' opinions/questions on that market
-    *  Acceptance Criteria 1:  on the markets page, there is a section on each market showing the number of comments (to be created in #80 ) 
+    *  Acceptance Criteria 1:  on the markets page, there is a section on each market showing the number of comments 
     *  Acceptance Criteria 2: clicking on this brings the user to a market details page where they can then see all the comments displayed
+    >**Result:** Pass, the above acceptance criteria are met, as shown in the screenprints for the previous user stories number 78 and 80.
 
 - [#84](https://github.com/Fiona-T/knot-art/issues/84) As a registered user I can edit a comment that I posted on a market so that I can correct the comment if needed
     *  Acceptance Criteria 1:  When a user is logged in and viewing comments on a market, any comment that the user has posted has a link to edit it
     *  Acceptance Criteria 2: After clicking the link to edit, they are presented with the comment form (comment field) with the original comment populated and a button to confirm updates
     *  Acceptance Criteria 3: After submitting the changes, the edited comment appears on the page and there is a success message confirming the comment was updated
     * Acceptance Criteria 4: The user cannot edit a comment that was posted by a different user
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Trying to access the edit comment url of another user brings up the 403 permission denied page.
+    ![User story - markets - edit comment](docs/user-story-testing/markets-edit-comment.png)
 
 - [#85](https://github.com/Fiona-T/knot-art/issues/85) As a registered user I can delete a comment that I posted on a market so that I can remove it if I don't want others to see the comment or I posted it in error
     *  Acceptance Criteria 1:  When a user is logged in and viewing the comments on a market, any comment that the user posted has a link to delete it
     *  Acceptance Criteria 2: After clicking on the link they see a modal asking them to confirm deletion
     *  Acceptance Criteria 3: After confirming the deletion, the comment is no longer displayed on the page and there is a success message confirming the comment was deleted
     * Acceptance Criteria 4: The user cannot delete a comment that was added by someone else
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. The view is post only, so cannot access by url as a get request, and will raise permission denied if current user is not comment author. 
+    ![User story - markets - delete comment](docs/user-story-testing/markets-delete-comment.png)
 
 #### User account set up, sign in and out
 - [#29](https://github.com/Fiona-T/knot-art/issues/29) As a site user, I can sign up for an account, so that I can enjoy the benefits of having an account e.g. saving delivery info
