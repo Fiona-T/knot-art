@@ -629,6 +629,8 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  The admin user can go to the django admin site and view the UserProfile table inside the profiles app.
     * Acceptance Criteria 2: On clicking into a userprofile, the admin user can see the Orders with name, email, date and grand total. They can click on the order number to view/edit the full Order details
     * Acceptance Criteria 3: On clicking into a userprofile, the admin user can see the SavedMarketList for that user, and can edit from there also
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - admin site for user profiles](docs/user-story-testing/admin-site-user-profiles.png)
 
 #### Marketing/SEO
 - [#48](https://github.com/Fiona-T/knot-art/issues/48) As the website owner, I want my website to contain relevant keywords so that users searching for these keywords will be more likely to find my website in web search results
