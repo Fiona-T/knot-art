@@ -277,47 +277,67 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 1:  A user can go to the Markets page of the website and it displays a list of the upcoming markets
     *  Acceptance Criteria 2: Only markets that are not in the past are shown
     *  Acceptance Criteria 3: The details shown for each market are: name, location, date, times, website and an image
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing was done to ensure only current (today or future) markets are shown for regular users in this view. *Note - a later user story was added to allow regular users see past markets, so they can read the comments, this is detailed below for user story [#90](https://github.com/Fiona-T/knot-art/issues/90) view past markets.*
+    ![User story - markets - default view](docs/user-story-testing/markets-default-view.png)
 
 - [#25](https://github.com/Fiona-T/knot-art/issues/25) As a site user, I can sort the markets list so that I can find what I'm looking for more easily
     *  Acceptance Criteria 1:  there is an option in the markets page menu bar to sort the markets
     *  Acceptance Criteria 2: the user can choose one of these options, and the markets are sorted according to the choice
     *  Acceptance Criteria 3: the choices should be: by name (A to Z), by name (Z to A), by date (ascending), by date (descending)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Sorting options are present and correct. Testing was completed to ensure that each sorting option works. Sorting works on all markets, or when filtered by counties.
+    ![User story - markets - sorting options](docs/user-story-testing/markets-sort-options.png)
 
 - [#26](https://github.com/Fiona-T/knot-art/issues/26) As a registered user, I can save a market that I want to go to, so that I don't forget about it as it will be in my profile
     *  Acceptance Criteria 1:  A user who is logged in can see a button on each market card in the markets page
     *  Acceptance Criteria 2: The button allows them to save the market to their profile
     *  Acceptance Criteria 3: After clicking the button to save the market, the user can see a success message
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. 
+    ![User story - markets - save a market](docs/user-story-testing/markets-save-market.png)
 
 - [#27](https://github.com/Fiona-T/knot-art/issues/27) As a registered user, I can see if I have saved a market already when viewing the markets list, so that I know if it's already saved in my profile or not
     *  Acceptance Criteria 1:  when a user is logged in and is on the markets page, each market card has a button, the text on the button is different depending on whether the user has saved the market or not
     *  Acceptance Criteria 2: if the market is not saved, the button says 'save market to profile' (or similar)
     *  Acceptance Criteria 3: if the market is saved, then the button text is 'remove market from profile' (or similar)
+    >**Result:** Pass, the above acceptance criteria are met, as shown below in the screenprint for the previous user story, after the market was saved.
 
 - [#28](https://github.com/Fiona-T/knot-art/issues/28) As a registered user, I can remove a previously saved market from my profile so that it is no longer in my profile if I don't want to go to it
-    *  Acceptance Criteria 1:  when a user is logged in and on the Markets page, the markets they have saved have a button called 'remove market from profile' (or similar) see #27 
+    *  Acceptance Criteria 1:  when a user is logged in and on the Markets page, the markets they have saved have a button called 'remove market from profile' (or similar)
     *  Acceptance Criteria 2: the user can click on this button to remove the market from their saved markets
     *  Acceptance Criteria 3: a success message is displayed and the market in the Markets page now has a button for 'save market'
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. 
+    ![User story - markets - remove market from saved list](docs/user-story-testing/markets-remove-from-saved-list.png)
 
 - [#60](https://github.com/Fiona-T/knot-art/issues/60) As a user I can select a county to filter the markets by so that I can easily see just the markets in that particular county
     *  Acceptance Criteria 1:  in the markets page, the sub header has a dropdown of counties that the user can select from
     *  Acceptance Criteria 2: the default is all counties
     *  Acceptance Criteria 3: when a particular county is selected, only the markets in that county are shown
     * Acceptance Criteria 4: the options are the counties in Ireland plus the areas in Dublin (Dublin 1, 2 etc.)
+    * Acceptance criteria tweaked during development for better UX: restricted dropdown list to the counties that currently exist in the markets queryset returned from db, so that the user does not select a county that returns no results. Also currently selected county is shown in the dropdown list, or All if none. 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Testing completed to ensure results returned are correct. 
+    ![User story - markets - filter by county](docs/user-story-testing/markets-filter-by-county.png)
 
 - [#80](https://github.com/Fiona-T/knot-art/issues/80) As a user I can see how many comments are on a market so that I can decide if I want to read them or not
     *  Acceptance Criteria 1:  on the markets page, each market shows the number of comments
     *  Acceptance Criteria 2: or if there are no comments, it shows 'Be the first to comment' or similar
-    *  Acceptance Criteria 3: clicking on the number of comments will bring the user to view a market details page (to be created in separate user story #81 )
+    *  Acceptance Criteria 3: clicking on the number of comments will bring the user to view a market details page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, and clicking on the comments opens the market details page.
+    ![User story - markets - number of comments](docs/user-story-testing/markets-number-of-comments.png)
 
 - [#88](https://github.com/Fiona-T/knot-art/issues/88) As a website owner I can see how many users have saved a market so that I can get an idea of how popular it might be
     *  Acceptance Criteria 1:  When a superuser is logged in, on the markets page each market card shows the number of saves for that market
     *  Acceptance Criteria 2:  When a superuser is logged in, on the market_details page the market details includes the number of saves for that market
     *  Acceptance Criteria 2: This information is not visible to regular users
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, this view is when a superuser is logged in.
+    ![User story - markets - number of saves](docs/user-story-testing/markets-number-of-saves.png)
 
 - [#90](https://github.com/Fiona-T/knot-art/issues/90) As a user I can view markets that are in the past so that I can read the comments on them to get a feel for them if the market runs again
     *  Acceptance Criteria 1:  On the markets page, there is an option for the user to click on to View Previous Markets
     *  Acceptance Criteria 2:  After clicking this, the markets displayed on the page are those that are in the past
     *  Acceptance Criteria 3: There is a button to then go back to viewing the Upcoming markets
+    *  Acceptance Criteria 4: The intro text on the page changes accordingly, so that user is aware they are viewing past markets
+    *  Acceptance Criteria 5: This view is just for regular users, admin users can view all markets (past and present) in their default view
+    >**Result:** Pass, the above acceptance criteria are met, as shown below, and testing was completed to ensure the markets shown in each view are correct. User can click into any market to see the details and read the comments.
+    ![User story - markets - number of saves](docs/user-story-testing/markets-view-past-markets.png)
 
 #### Markets - comments
 - [#78](https://github.com/Fiona-T/knot-art/issues/78) As a registered user I can add a comment to a market so that I can share my views on a market with other users
