@@ -317,29 +317,40 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     *  Acceptance Criteria 2:  the sign up form contains the fields for the user to register - username, email address, email address confirmation, password, confirm password and Submit button
     *  Acceptance Criteria 3: the form doesn't submit unless the required fields are completed or if there are errors in the inputs
     * Acceptance Criteria 4: after the form is submitted successfully, the email verification page is displayed, see #30 
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Form validation (built in html validation/allauth/django) works. Confirmation page to verify email address is displayed as shown.
+    ![User story - sign up](docs/user-story-testing/sign-up.png)
+
 - [#30](https://github.com/Fiona-T/knot-art/issues/30) As a site user, I want to receive an email confirmation when I register, so that I know my account registration was successful and secure
     *  Acceptance Criteria 1:  After filling in the sign up form (see #29 ) the user is redirected to a page confirming an email was sent for them to verify their email address
     *  Acceptance Criteria 2:  There should be an email received by that email address, providing a link to be used to verify the email address
     *  Acceptance Criteria 3: The link brings the user to a new page where they can press a button to confirm the email address
     * Acceptance Criteria 4: after pressing the button, the user is brought to the sign in page to sign in
+    >**Result:** Pass, the above acceptance criteria are met, as shown below. Confirmation page to verify email address is displayed as shown in previous user story. Email is sent to user with link to verify their address, redirects to sign in page afterwards and new user can sign in.
+    ![User story - sign up, email verification](docs/user-story-testing/sign-up-email-verification.png)
 
 - [#31](https://github.com/Fiona-T/knot-art/issues/31) As a registered user, I can sign into my account so that I can access my profile
     *  Acceptance Criteria 1:  the sign in page opens after the user clicks on link from header to sign in
     *  Acceptance Criteria 2:  the sign up form contains the fields for the user to sign in - username or email address, and password - and Sign in button
     *  Acceptance Criteria 3: After submitting the form, the user is redirected to the home page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below:
+    ![User story - sign in](docs/user-story-testing/sign-in.png)
 
 - [#32](https://github.com/Fiona-T/knot-art/issues/32) As a registered user, I can sign out of my account when finished, so that I know I am signed out securely
     *  Acceptance Criteria 1:  When a user is signed in, the Sign Out link is present in the header from underneath the Account section
     *  Acceptance Criteria 2:   After clicking the Sign Out link, the Sign Out page opens
     *  Acceptance Criteria 3: Sign Out page has text asking user to confirm they want to sign out, and a button
     * Acceptance Criteria 4: After signing out, the user is redirected to the home page
+    >**Result:** Pass, the above acceptance criteria are met, as shown below:
+    ![User story - sign out](docs/user-story-testing/sign-out.png)
 
 - [#33](https://github.com/Fiona-T/knot-art/issues/33) As a registered user, I can easily see if I am signed into my account or not, so that I know straight away if I need to sign in
     *  Acceptance Criteria 1:  When a user is not signed in, there is a menu item in the main page navigation called Sign In. This menu item changes to 'Account' when the user is signed in (and the menu dropdown items change accordingly)
     *  Acceptance Criteria 2: When the user is signed in, the header contains a note that they are "signed in as username"
     *  Acceptance Criteria 3: When signed in, the My Profile page shows the user's name
-    * Acceptance Criteria 4: On the checkout page, if the user is not signed in there is a note telling them they can sign in to use their saved default delivery info. (If they are signed in, then their default delivery info if any is populated on the delivery details, as per #21 )
-    * Acceptance Criteria 5: When viewing the Markets page, if the user is not logged in then they see a note saying Sign in to save the market, if they are signed in then they see a button to save the market or remove it (already done as part of #27 )
+    * Acceptance Criteria 4: On the checkout page, if the user is not signed in there is a note telling them they can sign in to use their saved default delivery info. (If they are signed in, then their default delivery info if any is populated on the delivery details, as per user story [#21](https://github.com/Fiona-T/knot-art/issues/21) saving delivery information)
+    * Acceptance Criteria 5: When viewing the Markets page, if the user is not logged in then they see a note saying Sign in to save the market, if they are signed in then they see a button to save the market or remove it
+    >**Result:** Pass, the above acceptance criteria are met, as shown below:
+    ![User story - know if signed in or not](docs/user-story-testing/see-if-signed-in-or-not.png)
 
 #### User profile 
 - [#34](https://github.com/Fiona-T/knot-art/issues/34) As a registered user, I can update my default delivery information in my profile, so that the updated details are recorded for future orders
