@@ -519,25 +519,32 @@ There are no errors remaining and [the final results of the JSHint checks on eac
     * Acceptance Criteria 4: In the list view for products, the user can filter by category, by the active flag and by the new flag
     * Acceptance Criteria 5: the user can add, edit and delete products and categories from this view (default Django functionality)
     * Acceptance Criteria 6: the user can amend the is_active flag from list view, and can search by product name
+    >**Result:** Pass, the above acceptance criteria are met, as shown below (see previous for categories list view). Products can also be added, edited and deleted from the django admin site.
+    ![User story - admin user - admin site for products](docs/user-story-testing/admin-shop-admin-site-products.png)
 
 - [#56](https://github.com/Fiona-T/knot-art/issues/56) As a website owner I can see orders in the admin site so that I can access the order details and fulfil the orders
     *  Acceptance Criteria 1:  when the admin user logs into the admin site, they can click on Orders to view this list of orders
     *  Acceptance Criteria 2: the list view shows the order number, the person who ordered it, date, and totals (the three totals are not editable)
     *  Acceptance Criteria 3: clicking on the order number brings the user to the page to view the full details of the order, including the line items in the order - product, quantity and line item total for each
+    >**Result:** Pass, the above acceptance criteria are met, as shown below
+    ![User story - admin user - admin site for orders](docs/user-story-testing/admin-shop-admin-site-orders.png)
 
 - [#66](https://github.com/Fiona-T/knot-art/issues/66) As a website owner I can add a product and the sku is created automatically so that the skus for the products are standardised and I do not have to manually add a sku
     *  Acceptance Criteria 1: When a new product is created, a sku is automatically added to the product
     *  Acceptance Criteria 2: The sku is 10 characters and consists of the first three letters from the category, followed by a dash and the id of the product, preceded by leading zeros to make up the 10 characters
     *  Acceptance Criteria 3: The sku does not appear on the Add Product page form since it is automatically generated
+    >**Result:** Pass, the above acceptance criteria are met. The sku doesn't appear on the product form, as shown in screenprints for previous user stories for adding a product and editing a product. The sku is automatically generated as per the acceptance criteria and this can be seen in the format of the skus when looking at the skus of the products in the admin site. Testing was completed to ensure the sku generation functions correctly.
 
 - [#70](https://github.com/Fiona-T/knot-art/issues/70) As a website owner I can have the sku of a product updated when the category is changed so that the sku of the product is reflects the new category
     *  Acceptance Criteria 1:  when the admin user updates a product and changes the category, the sku gets updated to reflect the new category (since the first three letters of sku is from the category)
     *  Acceptance Criteria 2: if the product is in the same category there is no change to the sku
     *  Acceptance Criteria 3: there is still no field for sku on the product form and this is not visible on the website, but the admin user can see the updated sku in the admin site
+    >**Result:** Pass, the above acceptance criteria are met. The sku doesn't appear on the edit product form, as shown in screenprint for previous user stories for editing a product. The sku is automatically updated when the category changes and this can be seen in the admin site after the product category is changed by the edit form. Testing was completed to ensure the sku generation functions correctly.
 
 - [#82](https://github.com/Fiona-T/knot-art/issues/82) As a website owner I can see a label and helptext on the category dropdown in the product form so that I am clear on what to do for this field
     *  Acceptance Criteria 1:  On the Add product form, the Category dropdown box defaults to show 'choose category from list'
     *  Acceptance Criteria 2: Underneath the category label is helptext advising that if the category is not there, to add a new one
+    >**Result:** Pass, the above acceptance criteria are met. The helptext and the blank label appears on the category field, as shown in screenprints for previous user stories for adding a product and editing a product
 
 #### Admin for Markets page
 - [#44](https://github.com/Fiona-T/knot-art/issues/44) As the website owner, I can see all markets on the markets page including past ones, so that I can see an overview of all markets and see older markets as well as upcoming ones
