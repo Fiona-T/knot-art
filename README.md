@@ -587,6 +587,26 @@ This is a feature for regular users (not admin, since they can see all markets b
 - the bag summary is not shown for other actions as it is not relevant (e.g. saving a market etc.) and is not shown for error/warning/info messages.
 
 ### Future Features 
+- Add an FAQ section to handle queries on delivery charges, delivery times, and other useful information. Could be linked to in the footer
+- Put a quick add button on products in the shop page if a user just wants to add 1 of an item and already knows the product description
+- update the categories model to include a field for 'description'  then use this description field to populate onto the top of the shop page when a user filters by category. (Like a tagline for that category, to show at the top of the shop page along with the category name)
+- add a field for products for size - small, medium, large - this would be for categorisation rather than being able to buy different sizes of the same item. So that user could sort or filter by size
+- also add a field for dimensions to the product model so the length and width of each product can be recorded
+- add a filter on products page for 'New' so users can just see the items with the New badge
+- add stock/inventory control functionality for the products
+- add a contact us link in the footer to a contact form
+- on the shop and market page, add a button for the admin user so they can add a new product or market from that view
+- for admin user, add a filter for shop to filter by active/not active; and for markets by past/upcoming (and the same on the my markets page)
+- allow user to update their email address in profile page
+- add a section to the profile where the user can view all the comments they made on markets and edit/delete from there (currently they can view them on the relevant markets, but this would be a centralised view)
+- allow editing of comments inside the market details page instead of having to go to a new page
+- when signing up, add validation when the user types in the username so they can see if the user name is already taken (currently only shows up after submittng the form)
+- extend validation on forms so submit button is only enabled if e.g. errors in relation to market date/time are corrected 
+- update the status for markets so it shows as 'Today' if today (instead of upcoming), or set the Upcoming status based on time
+- add a Blog section to the website for the website owner to post articles about their process of making the wall hangings, the macrame knots, what type of hangings suit different rooms, etc. and allow comments on the blog
+- add moderation for comments so that they can be filtered for certain words before they are posted/removed if they contain certain words
+- add a new field to comment model - Boolean for 'edited' and show this on each comment so users can see if the comment was edited after being posted
+- in the countries dropdown for the order form, add Ireland first since the website is based in Ireland and most customers will be from there
 
 ## Content Requirements
 ---
