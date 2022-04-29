@@ -764,6 +764,26 @@ To run the coverage report to see any further details, do the following in the I
 Since there is only a small amount of JavaScript code used in the project, the testing carried out for these functions was manual testing only, as part of the User Stories and Features testing described above.
 
 ### Fixed Bugs
+- **Issue: Cannot access last item in queryset using negative indexing**
+When testing the sorting functionality in the products view, I was attempting to access the last item in the products queryset using `[:-1]`. This was throwing an error of `AssertionError: Negative indexing is not supported.`. 
+> Solution: See [explanation in Django docs](https://code.djangoproject.com/ticket/13089) of why this is not allowed. The workaround was to use `len(queryset)-1` instead, as shown below. This is slighlty more code but can still access the last item, in order to test the sorting functionality.
+```python
+# have to use len minus 1 here, as negative indexing not supported
+last_item = len(response.context['products'])-1
+self.assertEqual(
+    response.context['products'][last_item].name, 'zz later name'
+    )
+```
+
+- **Issue: Adding to cart not updating quantity when adding the same item again**
+If an item was in the cart, adding that item again from product details didn't update the existing quantity in the cart, instead just replaced the quantity in the cart with the quantity from the product details page.
+> Solution: Through using print statements I could see that the view was not finding the item id in the exiting cart_items dictionary. Removing the `<int: >` around the item_id in the url path solved the issue.
+
+- **Issue: Setting the product sku - adding 'None' instead of the id**
+![Product sku bug](docs/bugs/product-sku-id-bug.png)
+For a new product, the sku was meant to generate using the product id, but the skus were generating with 'None' in place of where the id should have been. 
+> Solution: The issue was because I was attempting to access the id before the product had been saved (I was overriding the save method for the model, with the generate_sku method inside this). So the solution was to add a `post_save` method to the model instead, and call the `generate_sku` method from there, when the id is available because the instance has been saved.
+
 - **Issue: On cart page can add more than max allowed**
 ![Cart page allows more than 10 to be added bug](docs/bugs/cart-page-max-qty-bug.png)
 On the Cart the Qty buttons don't allow a user to increase quantity higher than 10 (max quantity allowed), but a user can manually type in a higher number, and after pressing Update quantity, the bag updates as normal as shown above.
@@ -782,6 +802,27 @@ After this change the validation is triggered and an error is shown if the quant
 
 ![Cart page allows more than 10 to be added - resolved](docs/bugs/cart-page-max-qty-fixed.png)
 
+
+- **Issue: Cart allows more than max quantity when adding item again**
+![Cart total can exceed max](docs/bugs/cart-total-quantity-bug.png)
+If an item is already in the cart, and then the same item is added again from the product details page, the user can add another 10 to the cart, bringing the total now in the cart above the maximum of 10. 
+> Solution: This is because the max quantity to add each individual item is 10, but a user can add the item again and there was no check on the max quantity in the cart itself. To fix this, added a check in the `add_to_cart` view when we know the item already exists in the cart, to return an error if the new total will be more than 10:
+``` python
+if item_id in list(cart.keys()):
+    if cart[item_id] + quantity > 10:
+        messages.error(
+            request,
+            'As these are handmade items, I only sell a max of 10 of each '
+            f'at a time. You have {cart[item_id]} of "{product.name}" '
+            f'in your bag and adding another {quantity} will bring total '
+            f'quantity for that item above 10. Thank you for your interest'
+            ' but please reduce the quantity and try again. Thank you!'
+            )
+``` 
+
+- **Issue: Cart page has horiztonal scroll on mobile**
+The cart page lists the items in the order and originally used a Bootstrap table to lay this out. This was fine for medium/large screens, but had horiztonal scroll on mobiles because of the table. 
+> Solution: Refactored the code to use rows and cols instead of the table to produce the layout. I partly followed the Code Institute solution for this, which used rows and cols for the layout at mobile size and the table for medium/large screens. But instead of showing/hiding the different layouts at mobile/larger size, I decided to adapt the rows and cols to work at the medium/larger screen size using the Bootstrap responsive classes. There are still two different layouts at mobile/larger size, but both layouts use the same rows and cols and the table is gone. The code for this can be seen in [this commit for cart.html](https://github.com/Fiona-T/knot-art/commit/971eafe069f01df67aa71b892abf2c9fd4a1e568). *(Note, there was a later [fix to correct a missing closing div](https://github.com/Fiona-T/knot-art/commit/655c6d662cb4278fedc5486739ef72f37aa8fbbf) which came to light during HTML validation)*
 
 ### Known Bugs
 As noted in the [Test cases - user stories testing](#test-cases---user-stories), there is a small bug in the email sent confirming the order. If the user doesn't fill in the non-required address fields, there are blank lines for these in the email. This is a relatively minor bug and there was no scope to fix it in the current iteration of this project, but should there be future iterations it would be added as an Issue and prioritised as normal.
