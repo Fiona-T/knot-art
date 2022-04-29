@@ -994,6 +994,14 @@ You can refer to the [GitHub documentation](https://docs.github.com/en/github/cr
 ## Credits
 ---
 ### Code
+- The shop, checkout, payment part of the website uses the Code Institute's Boutique Ado project as a base, with customisation and modifications to suit this project
+- For how to test that a KeyError is raised, used advice on this [thread from Stack Overflow](https://stackoverflow.com/questions/24330642/testing-for-keyerror)
+- For how to use the time input, for the markets form, followed advice on this [thread from Stack Overflow](https://stackoverflow.com/questions/55404397/how-to-use-timeinput-widget-in-django-forms)
+- [How to get today in JavaScript](https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript) used in creating the validation for the market form inputs
+- To find out how to access the instance in the forms.py, followed advice in [this post on Stack Overflow](https://stackoverflow.com/questions/5129402/access-instance-passed-to-modelform-from-cleanself-method), so that I could check the date of the market when instantiating the form
+- Found out from [Django docs how to add extra tags to messages](https://docs.djangoproject.com/en/4.0/ref/contrib/messages/). So that I could only show the bag contents in the message only when the message came from particular views, using the extra message tag.
+- Found out from [Django docs how to assign different urls to variables in the template](https://docs.djangoproject.com/en/dev/ref/templates/builtins/#url), this was used in the markets sort and filter, to use either the my-markets or the markets url in the county filter dropdown
+
 ### Content
 - The full list of counties in the Republic of Ireland for the 'counties' dropdown list for adding/editing a market was sourced from [Wikipedia](https://en.wikipedia.org/wiki/List_of_Irish_counties_by_area)
 - The list of Dublin postcode areas for the same dropdown list was sourced from [Wikipedia](https://en.wikipedia.org/wiki/List_of_Dublin_postal_districts#County_Dublin_(A41_%E2%80%93_K78))
