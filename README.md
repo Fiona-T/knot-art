@@ -325,6 +325,18 @@ The contrast checker extension was used during development to check the contrast
 
 [View all wireframes in pdf here.](docs/wireframes/wireframes-all.pdf)
 
+#### Main changes from original wireframe designs during project development
+- om the Profile page, changed the link to the saved markets from being a section of the page, to being a button at the top of the page to make it easier to switch between the two pages and make both pages more consistent
+- on the markets page, a new piece of information for the website owner showing the number of saves for each market
+- the layout of the search and category filtering on the shop page was tweaked during development for a better design than what was shown in the wireframes
+- sorting and filtering functionality was added to the markets page (not shown on wireframe)
+- county field was added for the markets, to allow filtering by county
+- the my markets page filter is by county rather than by status
+- adding the comments feature to the markets necessitated a number of changes:
+  - a market details page, to show the comments - this followed a similar layout to the product details page for consistency, wtih the addition of a second section to show the comments
+  - an edit comment page and delete comment modal, again these followed the layout of similar pages for editing and deleting product/market, for consistency
+  - a view to see past markets on the markets page, so that users can see comments on these - this is the markets page but filtered to show past markets, a button was added to toggle between the two views
+
 ## Features
 ---
 ### Existing Features
