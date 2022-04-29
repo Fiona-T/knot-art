@@ -103,6 +103,31 @@ Based on the above analysis, an initial overview of the tables that would be nee
 
 ## Search Engine Optimisation (SEO)
 ---
+SEO is important for this (or any) business, so that the website can be found by search engines and rank in their results, so that users will actually find the website when searching for the relevant terms. There are two parts to this: determining the keywords that might be searched for, and using them in the website; and generating the files the search engines will use to crawl the website.
+
+### Keywords
+Keyword research was completed in order to determine which keywords to include in the website's content, image file names and alt text, headings, page titles and in the meta description and meta keywords. A mix of short and long tail keywords were identified (from brainstorming and using Google to find related searches), within the key topics for the website of macrame, wall/home decor and craft markets, and any that were not relevant or that the website doesn't have authority on were eliminated. Without having access to paid keyword planner websites, it is somewhat difficult to find alternative words for some of the most popular keywords, however this would be a future feature to be implemented if the business was a real business.
+
+### Implementation of keywords
+- The `meta` `description` and `keywords` tags were included in base.html, so that they are present for all pages. These were then tweaked on some pages to be more specific to those pages: 
+  - the products page has specific meta description and meta keywords related to the products
+  - in the product details page the product name is added to the meta description
+  - the markets page has specific meta description and meta keywords (more keywords in relation to craft markets, than would be needed on other pages)
+  - the market details page meta description includes the market name.
+- The content throughout the website uses the keywords:
+  - in the `h1` for the callout on the landing page
+  - in the introductory text in the About Us section on the home page
+  - in the product descriptions for each product in the shop
+  - in the product names for each product in the shop
+  - the `h1` on the products page
+  - in the `title` for the shop and markets pages
+
+- The content aims to be trustworthy, relevant, expert and authoratative. The website includes a Privacy Policy and Terms of Use documents for trustworthiness. The product and market images are high quality (bearing in mind these are sourced using free resources but would be professional images if this were a real business)
+- The image file names for the products all reference key words, including the product characteristics e.g. 'cream-boho-bedroom-macrame-hanging.jpg'. Similarly for the markets the image file names include the market name. The alt text for the product and market images is set to use the name of the product or the market, which themselves are descriptive, so serves to describe the image and include keywords it the alt text.
+- Links relating to external content that have nothing to do with the website content have the `rel="noopener"` attribute on them so that search engines do not include these links when ranking. In relation to linking to trusted external websites to improve the quality/ranking of the website, the markets page does include external links to each market, however these are dummy websites for the project but would be live ones if this were a real business. These would be high quality and relevant links. In the future the website could include a Blog page for the website owner to post about the different macrame knots, her making process, how to choose they right type of wall hanging, and these posts could include high quality external links as they would be relevant here. The Blog section may also help increase the dwell time on the site.
+ 
+### sitemap.xml and robots.txt
+The sitemap.xml was created to list all the page urls that can be accessed without logging in, this helps the search engines crawl the site. A robots.txt was created, listing the urls for search engines not to access (the listed urls are to do with account sign in, the bag and checkout process and the adding of products/marekts since these are not relevant for search results). The existence of the robots.txt file will help improve SEO ranking as it shows the website acknowledges that the search engines are allowed onto the site, so is an indicator of quality. Both files exist on the deployed site. *Note: since this is a project and not a live site for a real business (and hasn't been deployed to a custom domain), the last steps of registering the sitemap with Google and testing the robots.txt have not been done.* 
 
 ## Marketing
 ---
