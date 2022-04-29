@@ -793,3 +793,25 @@ When not all address fields are available:
 ![Order confirmation email address bug](docs/bugs/order-conf-email-address-bug.png)
 
 ### Supported Screens and Browsers
+The project was developed using Chrome as the baseline browser.  
+
+The website has been tested on my personal mobile device Galaxy A40 and a 15 inch MacBook Pro.
+
+Using the [Chrome Dev Tools](https://developer.chrome.com/docs/devtools/) simulator, the website has been tested for responsiveness on the following screen sizes (px) equating to the phone models listed. *Note these have been tested on the simulator only and not the actual devices*:
+
+- iPhone SE: 375 x 667
+- iPhone XR: 414 x 896
+- iPhone 12 Pro: 390 x 844
+- Pixel 5: 393 x 851
+- Samsumg Galaxy S8+: 360 x 740
+- Samsumg Galaxy S20 Ultra: 412 x 915
+- iPad Air: 820 x 1180
+- iPad Mini: 768 x 1024
+- Surface Pro 7: 912 x 1368
+- Surface Duo: 540 x 720
+- Samsumg Galaxy A51/71: 412 x 914
+- Nest Hub: 1024 x 600
+- Nest Hub Max: 1280 x 800
+- also tested on 320px (Mobile - S) size on Chrome Dev Tools
+
+Note: for the Galaxy Fold (280px x 653px), overall the website is responsive to this size however there are minor issues for example on the Profile page in the Order History table, there is a tiny amount of horizontal scroll. Therefore this device is not listed above in the supported screens. 
